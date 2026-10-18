@@ -211,7 +211,7 @@ def electricity_lab():
                 else:
                     wires = (
                         '<path d="M60 ' + str(y+18) + ' H175"/>'
-                        '<path d="M205 ' + str(y+25) + ' H285 L300 ' + str(y+42) + '"/>'
+                        '<path d="M205 ' + str(y+18) + ' H285 L300 ' + str(y+42) + '"/>'
                         '<path d="M320 ' + str(y+100) + ' V' + str(y+112) + ' H60 V' + str(y+52) + '"/>'
                     )
                     extra = '<path d="M178 ' + str(y+18) + ' l8 14 M194 ' + str(y+18) + ' l-8 14" stroke="' + amber + '" stroke-width="3"/><text x="190" y="' + str(y+45) + '" font-size="10" fill="currentColor" text-anchor="middle">Gap</text>'
