@@ -82,32 +82,7 @@ def ohms_lab():
     <svg viewBox="0 0 700 285" role="img" aria-label="Schematic of an ideal battery, ammeter in series, resistor and voltmeter in parallel" style="width:100%;height:auto;display:block;">
       <g fill="none" stroke="#168b91" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
         <path d="M95 75 H210 M270 75 H340 M450 75 H590 V220 H95 V75"/>
-        <path d="M340 75 l10 -12 l12 24 l12 -24 l12 24 l12 -24 l12 24 l10 -12"/>
-        <path d="M340 75 H340"/>
-        <path d="M335 75 H340"/>
-        <path d="M335 75 H340"/>
-        <path d="M330 75 H340"/>
-        <path d="M340 75 H340"/>
-        <path d="M340 75 H340"/>
-        <path d="M340 75 H340"/>
-        <path d="M340 75 H340"/>
-        <path d="M340 75 H340"/>
-        <path d="M340 75 H340"/>
-        <path d="M340 75 H340"/>
-        <path d="M340 75 H340"/>
-        <path d="M340 75 H340"/>
-        <path d="M340 75 H340"/>
-        <path d="M340 75 H340"/>
-        <path d="M340 75 H340"/>
-        <path d="M340 75 H340"/>
-        <path d="M340 75 H340"/>
-        <path d="M340 75 H340"/>
-        <path d="M340 75 H340"/>
-        <path d="M340 75 H340"/>
-        <path d="M340 75 H340"/>
-        <path d="M340 75 H340"/>
-        <path d="M340 75 H340"/>
-        <path d="M340 75 H340"/>
+        <path d="M340 75 l15 -12 l15 24 l15 -24 l15 24 l15 -24 l15 24 l15 -12"/>
         <path d="M95 125 V220"/>
         <path d="M340 75 V140 M450 75 V140"/>
         <path d="M340 140 H365 M425 140 H450"/>
