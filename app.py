@@ -157,11 +157,15 @@ def electricity_lab():
     left, right = st.columns([1, 1.2], gap="large")
     with left:
         st.markdown("### " + tr("controls"))
-        voltage = st.slider(tr("voltage"), 0, 24, 12, 1, key=f"v_{selected_class}_{exp_index}")
-        resistance = st.slider(tr("resistance"), 1, 100, 6, 1, key=f"r_{selected_class}_{exp_index}")
-        closed = st.checkbox(tr("switch"), value=True, key=f"sw_{selected_class}_{exp_index}")
-        turns = st.slider(tr("turns"), 1, 20, 10, 1, key=f"turns_{selected_class}_{exp_index}")
-        current_control = st.slider(tr("current_control"), 0.1, 3.0, 1.0, 0.1, key=f"amp_{selected_class}_{exp_index}")
+        # Keep controls aligned with the class level: Classes 6–9 use qualitative models.
+        # Numerical voltage, resistance, coil-turn and current controls are shown only
+        # for relevant Class 10 quantitative experiments.
+        quantitative_class10 = selected_class == 10 and kind in ("ohms", "series_parallel", "power", "heating")
+        voltage = st.slider(tr("voltage"), 0, 24, 12, 1, key=f"v_{selected_class}_{exp_index}") if quantitative_class10 else 12
+        resistance = st.slider(tr("resistance"), 1, 100, 6, 1, key=f"r_{selected_class}_{exp_index}") if quantitative_class10 else 6
+        closed = st.checkbox(tr("switch"), value=True, key=f"sw_{selected_class}_{exp_index}") if kind in ("circuit", "fuse", "motor", "electromagnet", "magnetic_field", "ohms", "series_parallel", "power", "heating") else True
+        turns = 10
+        current_control = 1.0
         material_options = {
             "en": ["Copper", "Aluminium", "Iron", "Rubber", "Plastic", "Wood"],
             "pa": ["ਤਾਂਬਾ", "ਐਲੂਮੀਨੀਅਮ", "ਲੋਹਾ", "ਰਬੜ", "ਪਲਾਸਟਿਕ", "ਲੱਕੜ"]
@@ -178,29 +182,30 @@ def electricity_lab():
     with right:
         st.markdown("### " + tr("result"))
         if kind == "circuit":
-            bulb_on = closed and voltage > 0
+            # Fixed, illustrative low-voltage cell: no numerical electrical controls
+            # are exposed for Classes 6–9.
+            bulb_on = closed
             wire_color = "#16a34a" if closed else "#d97706"
-            bulb_fill = "#facc15" if bulb_on else "#64748b"
-            bulb_glow = "filter: drop-shadow(0 0 12px #facc15);" if bulb_on else ""
-            switch_arm = '<line x1="185" y1="58" x2="220" y2="58" stroke="' + wire_color + '" stroke-width="5" stroke-linecap="round"/>' if closed else '<line x1="185" y1="58" x2="216" y2="40" stroke="' + wire_color + '" stroke-width="5" stroke-linecap="round"/>'
+            bulb_fill = "#fde047" if bulb_on else "#e2e8f0"
+            bulb_glow = "filter: drop-shadow(0 0 10px #facc15);" if bulb_on else ""
+            switch_arm = '<line x1="174" y1="54" x2="216" y2="54" stroke="#16a34a" stroke-width="5" stroke-linecap="round"/>' if closed else '<line x1="174" y1="54" x2="210" y2="32" stroke="#d97706" stroke-width="5" stroke-linecap="round"/>'
             circuit_svg = (
                 '<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:10px;background:rgba(128,128,128,.035);">'
-                '<svg viewBox="0 0 440 220" width="100%" role="img" aria-label="Interactive simple circuit with cell, switch and bulb">'
+                '<svg viewBox="0 0 420 220" width="100%" role="img" aria-label="Simple circuit with a clearly shown switch, cell, connecting wires and filament bulb">'
                 '<g fill="none" stroke="' + wire_color + '" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">'
-                '<path d="M70 58 H150"/>' + switch_arm +
-                '<path d="M220 58 H330 V160 H70 V112"/><path d="M70 58 V76"/>'
+                '<path d="M70 54 H158"/>' + switch_arm +
+                '<path d="M216 54 H320 V78"/><path d="M320 122 V166 H70 V116"/><path d="M70 54 V78"/>'
                 '</g>'
-                '<g stroke="#64748b" stroke-width="3" fill="none"><line x1="52" y1="78" x2="88" y2="78"/><line x1="59" y1="91" x2="81" y2="91"/><circle cx="330" cy="160" r="25" fill="' + bulb_fill + '" style="' + bulb_glow + '"/></g>'
-                '<g fill="currentColor" font-size="14" text-anchor="middle"><text x="70" y="115">' + tr("battery") + '</text><text x="185" y="28">' + tr("switch_label") + '</text><text x="330" y="202">' + tr("bulb") + '</text><text x="220" y="128">' + (tr("complete_path") if closed else tr("broken_path")) + '</text></g>'
-                '<g stroke="#64748b" stroke-width="2" fill="none"><path d="M317 146 L343 174 M343 146 L317 174"/></g>'
+                '<g stroke="#334155" stroke-width="3" fill="none"><line x1="51" y1="80" x2="89" y2="80"/><line x1="58" y1="98" x2="82" y2="98"/></g>'
+                '<g stroke="#334155" stroke-width="3" fill="none"><circle cx="320" cy="100" r="23" fill="' + bulb_fill + '" style="' + bulb_glow + '"/><path d="M307 87 L315 95 L309 102 L319 108 L326 99 L333 108" stroke="#334155" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M309 124 V132 H331 V124 M312 132 V138 H328 V132" stroke="#64748b" stroke-width="2.5"/></g>'
+                '<g fill="currentColor" font-size="12" text-anchor="middle"><text x="70" y="137">' + tr("battery") + '</text><text x="187" y="20">' + tr("switch_label") + '</text><text x="320" y="194">' + tr("bulb") + '</text></g>'
+                '<g fill="currentColor" font-size="12" text-anchor="middle"><text x="205" y="205">' + (tr("complete_path") if closed else tr("broken_path")) + '</text></g>'
+                '<g fill="#334155"><circle cx="158" cy="54" r="4"/><circle cx="216" cy="54" r="4"/></g>'
                 '</svg></div>'
             )
             st.markdown("#### " + tr("visual_circuit"), unsafe_allow_html=True)
             st.markdown(circuit_svg, unsafe_allow_html=True)
             st.metric(tr("circuit"), tr("bulb_on") if bulb_on else tr("bulb_off"))
-            m1, m2 = st.columns(2)
-            m1.metric(tr("current"), f"{current:.3f} A")
-            m2.metric(tr("power"), f"{power:.3f} W")
             st.write("💡 " + note)
         elif kind in ("ohms", "series_parallel", "power", "heating"):
             m1, m2 = st.columns(2)
