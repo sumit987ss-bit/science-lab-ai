@@ -198,21 +198,21 @@ def electricity_lab():
                 glow = "filter: drop-shadow(0 0 9px #facc15);" if state else ""
                 if mode == "correct":
                     wires = (
-                        '<path d="M60 ' + str(y+25) + ' H285 L300 ' + str(y+42) + '"/>'
-                        '<path d="M320 ' + str(y+79) + ' V' + str(y+100) + ' H60 V' + str(y+55) + '"/>'
+                        '<path d="M60 ' + str(y+18) + ' H285 L300 ' + str(y+42) + '"/>'
+                        '<path d="M320 ' + str(y+100) + ' V' + str(y+112) + ' H60 V' + str(y+52) + '"/>'
                     )
                     extra = '<text x="210" y="' + str(y+18) + '" font-size="11" fill="currentColor" text-anchor="middle">Wire 1</text><text x="210" y="' + str(y+117) + '" font-size="11" fill="currentColor" text-anchor="middle">Wire 2</text>'
                 elif mode == "same_terminal":
                     wires = (
-                        '<path d="M60 ' + str(y+25) + ' H285 L300 ' + str(y+42) + '"/>'
-                        '<path d="M320 ' + str(y+79) + ' V' + str(y+100) + ' H285 L300 ' + str(y+62) + '"/>'
+                        '<path d="M60 ' + str(y+18) + ' H285 L300 ' + str(y+42) + '"/>'
+                        '<path d="M320 ' + str(y+100) + ' V' + str(y+112) + ' H285 L300 ' + str(y+62) + '"/>'
                     )
                     extra = '<text x="210" y="' + str(y+18) + '" font-size="11" fill="currentColor" text-anchor="middle">Both wires meet the same metal shell</text>'
                 else:
                     wires = (
-                        '<path d="M60 ' + str(y+25) + ' H175"/>'
+                        '<path d="M60 ' + str(y+18) + ' H175"/>'
                         '<path d="M205 ' + str(y+25) + ' H285 L300 ' + str(y+42) + '"/>'
-                        '<path d="M320 ' + str(y+79) + ' V' + str(y+100) + ' H60 V' + str(y+55) + '"/>'
+                        '<path d="M320 ' + str(y+100) + ' V' + str(y+112) + ' H60 V' + str(y+52) + '"/>'
                     )
                     extra = '<path d="M178 ' + str(y+18) + ' l8 14 M194 ' + str(y+18) + ' l-8 14" stroke="' + amber + '" stroke-width="3"/><text x="190" y="' + str(y+45) + '" font-size="10" fill="currentColor" text-anchor="middle">Gap</text>'
                 battery = (
