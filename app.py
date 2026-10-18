@@ -54,8 +54,8 @@ def ohms_lab():
         st.rerun()
 
     st.title("⚡ Electricity Lab")
-    st.subheader("Experiment 01
-    st.button("🔌 Open Virtual Circuit Lab", key="open_circuit_from_ohms", use_container_width=True, on_click=go, args=("circuit",)) · Virtual Circuit: Ohm's Law")
+    st.subheader("Experiment 01 · Ohm's Law")
+    st.button("🔌 Open Virtual Circuit Lab", key="open_circuit_from_ohms", use_container_width=True, on_click=go, args=("circuit",))
     st.write("Adjust the battery voltage and resistor value. Watch the ideal circuit readings update.")
     st.info("**Ohm's Law:** I = V / R  ·  This is a mathematical simulation, not a physical electrical circuit.")
 
