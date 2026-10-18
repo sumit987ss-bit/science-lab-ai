@@ -41,7 +41,7 @@ T = {
 "liquid":"Choose a liquid","water":"Distilled water","salt":"Salt solution","sugar":"Sugar solution","lemon":"Lemon juice",
 "temp":"Temperature (°C)","time":"Time (hours)","turns_label":"Number of turns","bulbs":"Number of bulbs",
 "amount":"Amount (illustrative)","ph":"pH value","light":"Light intensity","distance":"Distance","speed":"Speed",
-"formula":"Model formula","feedback":"Try changing one control at a time and explain the result in your own words."
+"formula":"Model formula","feedback":"Try changing one control at a time and explain the result in your own words.","bulb_on":"Bulb is glowing","bulb_off":"Bulb is off","complete_path":"Complete circuit path","broken_path":"Circuit path is broken","visual_circuit":"Interactive circuit diagram","battery":"Cell / battery","bulb":"Bulb","wire":"Connecting wires","switch_label":"Switch",
 },
 "pa": {
 "tagline":"ਖੋਜੋ • ਪ੍ਰਯੋਗ ਕਰੋ • ਸਮਝੋ",
@@ -69,7 +69,7 @@ T = {
 "liquid":"ਤਰਲ ਚੁਣੋ","water":"ਡਿਸਟਿਲਡ ਪਾਣੀ","salt":"ਨਮਕ ਦਾ ਘੋਲ","sugar":"ਚੀਨੀ ਦਾ ਘੋਲ","lemon":"ਨਿੰਬੂ ਦਾ ਰਸ",
 "temp":"ਤਾਪਮਾਨ (°C)","time":"ਸਮਾਂ (ਘੰਟੇ)","turns_label":"ਚੱਕਰਾਂ ਦੀ ਗਿਣਤੀ","bulbs":"ਬਲਬਾਂ ਦੀ ਗਿਣਤੀ",
 "amount":"ਮਾਤਰਾ (ਸਮਝਾਉਣ ਲਈ)","ph":"pH ਮੁੱਲ","light":"ਰੋਸ਼ਨੀ ਦੀ ਤੀਬਰਤਾ","distance":"ਦੂਰੀ","speed":"ਗਤੀ",
-"formula":"ਮਾਡਲ ਦਾ ਸੂਤਰ","feedback":"ਇੱਕ ਵਾਰ ਵਿੱਚ ਇੱਕ ਕੰਟਰੋਲ ਬਦਲੋ ਅਤੇ ਨਤੀਜੇ ਨੂੰ ਆਪਣੇ ਸ਼ਬਦਾਂ ਵਿੱਚ ਸਮਝਾਓ।"
+"formula":"ਮਾਡਲ ਦਾ ਸੂਤਰ","feedback":"ਇੱਕ ਵਾਰ ਵਿੱਚ ਇੱਕ ਕੰਟਰੋਲ ਬਦਲੋ ਅਤੇ ਨਤੀਜੇ ਨੂੰ ਆਪਣੇ ਸ਼ਬਦਾਂ ਵਿੱਚ ਸਮਝਾਓ।","bulb_on":"ਬਲਬ ਜਗ ਰਿਹਾ ਹੈ","bulb_off":"ਬਲਬ ਬੰਦ ਹੈ","complete_path":"ਸਰਕਟ ਦਾ ਰਸਤਾ ਪੂਰਾ ਹੈ","broken_path":"ਸਰਕਟ ਦਾ ਰਸਤਾ ਟੁੱਟਿਆ ਹੋਇਆ ਹੈ","visual_circuit":"ਇੰਟਰਐਕਟਿਵ ਸਰਕਟ ਚਿੱਤਰ","battery":"ਸੈੱਲ / ਬੈਟਰੀ","bulb":"ਬਲਬ","wire":"ਜੋੜਨ ਵਾਲੀਆਂ ਤਾਰਾਂ","switch_label":"ਸਵਿੱਚ",
 }
 }
 
@@ -177,7 +177,32 @@ def electricity_lab():
     power = voltage * current if closed else 0.0
     with right:
         st.markdown("### " + tr("result"))
-        if kind in ("circuit", "ohms", "series_parallel", "power", "heating"):
+        if kind == "circuit":
+            bulb_on = closed and voltage > 0
+            wire_color = "#16a34a" if closed else "#d97706"
+            bulb_fill = "#facc15" if bulb_on else "#64748b"
+            bulb_glow = "filter: drop-shadow(0 0 12px #facc15);" if bulb_on else ""
+            switch_arm = '<line x1="185" y1="58" x2="220" y2="58" stroke="' + wire_color + '" stroke-width="5" stroke-linecap="round"/>' if closed else '<line x1="185" y1="58" x2="216" y2="40" stroke="' + wire_color + '" stroke-width="5" stroke-linecap="round"/>'
+            circuit_svg = (
+                '<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:10px;background:rgba(128,128,128,.035);">'
+                '<svg viewBox="0 0 440 220" width="100%" role="img" aria-label="Interactive simple circuit with cell, switch and bulb">'
+                '<g fill="none" stroke="' + wire_color + '" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">'
+                '<path d="M70 58 H150"/>' + switch_arm +
+                '<path d="M220 58 H330 V160 H70 V112"/><path d="M70 58 V76"/>'
+                '</g>'
+                '<g stroke="#64748b" stroke-width="3" fill="none"><line x1="52" y1="78" x2="88" y2="78"/><line x1="59" y1="91" x2="81" y2="91"/><circle cx="330" cy="160" r="25" fill="' + bulb_fill + '" style="' + bulb_glow + '"/></g>'
+                '<g fill="currentColor" font-size="14" text-anchor="middle"><text x="70" y="115">' + tr("battery") + '</text><text x="185" y="28">' + tr("switch_label") + '</text><text x="330" y="202">' + tr("bulb") + '</text><text x="220" y="128">' + (tr("complete_path") if closed else tr("broken_path")) + '</text></g>'
+                '<g stroke="#64748b" stroke-width="2" fill="none"><path d="M317 146 L343 174 M343 146 L317 174"/></g>'
+                '</svg></div>'
+            )
+            st.markdown("#### " + tr("visual_circuit"), unsafe_allow_html=True)
+            st.markdown(circuit_svg, unsafe_allow_html=True)
+            st.metric(tr("circuit"), tr("bulb_on") if bulb_on else tr("bulb_off"))
+            m1, m2 = st.columns(2)
+            m1.metric(tr("current"), f"{current:.3f} A")
+            m2.metric(tr("power"), f"{power:.3f} W")
+            st.write("💡 " + note)
+        elif kind in ("ohms", "series_parallel", "power", "heating"):
             m1, m2 = st.columns(2)
             m1.metric(tr("current"), f"{current:.3f} A")
             m2.metric(tr("power"), f"{power:.3f} W")
