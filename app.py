@@ -54,7 +54,8 @@ def ohms_lab():
         st.rerun()
 
     st.title("⚡ Electricity Lab")
-    st.subheader("Experiment 01 · Virtual Circuit: Ohm's Law")
+    st.subheader("Experiment 01
+    st.button("🔌 Open Virtual Circuit Lab", key="open_circuit_from_ohms", use_container_width=True, on_click=go, args=("circuit",)) · Virtual Circuit: Ohm's Law")
     st.write("Adjust the battery voltage and resistor value. Watch the ideal circuit readings update.")
     st.info("**Ohm's Law:** I = V / R  ·  This is a mathematical simulation, not a physical electrical circuit.")
 
@@ -137,6 +138,74 @@ def ohms_lab():
         )
     st.caption("Safety and accuracy: This is a virtual schematic only, not a wiring guide for mains electricity. The model assumes an ohmic resistor at constant physical conditions.")
 
+def virtual_circuit_lab():
+    if st.button("← Back to Electricity Lab"):
+        go("electricity")
+        st.rerun()
+
+    st.title("🔌 Virtual Circuit Lab")
+    st.write("Change battery voltage and resistance, open or close the switch, and observe the virtual meters.")
+    st.info("Ideal model: ammeter in series, voltmeter in parallel across the resistor.")
+
+    left, right = st.columns([1, 1.2], gap="large")
+    with left:
+        st.markdown("### Circuit controls")
+        voltage = st.slider("Battery voltage (V)", 0.0, 24.0, 12.0, 1.0, key="circuit_voltage")
+        resistance = st.slider("Resistor (Ω)", 1.0, 100.0, 6.0, 1.0, key="circuit_resistance")
+        closed = st.checkbox("Close the switch", value=True, key="circuit_closed")
+        st.caption("An open switch breaks the circuit, so no current flows.")
+
+    current = voltage / resistance if closed else 0.0
+    resistor_voltage = voltage if closed else 0.0
+    power = resistor_voltage * current
+
+    with right:
+        st.markdown("### Live circuit diagram")
+        wire = "#22a06b" if closed else "#d97706"
+        switch_label = "SWITCH CLOSED" if closed else "SWITCH OPEN"
+        switch_symbol = '<line x1="215" y1="55" x2="255" y2="55" stroke="' + wire + '" stroke-width="5"/>' if closed else '<line x1="215" y1="55" x2="252" y2="36" stroke="' + wire + '" stroke-width="5"/>'
+        svg = (
+            '<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:8px;background:rgba(128,128,128,.035);">'
+            '<svg viewBox="0 0 520 300" width="100%" role="img" aria-label="Virtual battery resistor circuit with ammeter and voltmeter">'
+            '<g fill="none" stroke="' + wire + '" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">'
+            '<path d="M70 55 H190"/>' + switch_symbol +
+            '<path d="M255 55 H340 V105"/><path d="M340 175 V245 H70 V165"/>'
+            '<path d="M70 55 V112"/><path d="M70 165 V245"/>'
+            '<path d="M340 105 H390"/><path d="M340 175 H390"/>'
+            '</g>'
+            '<g fill="none" stroke="#64748b" stroke-width="4">'
+            '<circle cx="285" cy="55" r="25" fill="rgba(128,128,128,.08)"/>'
+            '<rect x="315" y="105" width="50" height="70" rx="5" fill="rgba(128,128,128,.08)"/>'
+            '<circle cx="390" cy="140" r="25" fill="rgba(128,128,128,.08)"/>'
+            '<line x1="50" y1="118" x2="90" y2="118"/><line x1="58" y1="132" x2="82" y2="132"/><line x1="50" y1="146" x2="90" y2="146"/>'
+            '</g>'
+            '<g fill="currentColor" font-size="14" text-anchor="middle">'
+            '<text x="285" y="61" font-weight="700">A</text><text x="340" y="144" font-weight="700">R</text>'
+            '<text x="390" y="146" font-weight="700">V</text><text x="70" y="184">Battery</text>'
+            '<text x="285" y="22">Switch</text><text x="340" y="194">' + f'{resistance:.0f} Ω' + '</text>'
+            '<text x="390" y="184">Across R</text><text x="260" y="278">' + switch_label + '</text>'
+            '</g></svg></div>'
+        )
+        st.markdown(svg, unsafe_allow_html=True)
+
+    st.markdown("### Meter readings")
+    m1, m2, m3 = st.columns(3)
+    m1.metric("Ammeter", f"{current:.3f} A")
+    m2.metric("Voltmeter across resistor", f"{resistor_voltage:.1f} V")
+    m3.metric("Resistor power", f"{power:.3f} W")
+    if closed:
+        st.success(f"Switch closed: I = V/R = {voltage:.1f}/{resistance:.1f} = **{current:.3f} A**.")
+    else:
+        st.warning("Switch open: the circuit is broken, so the ideal current is **0 A**. This simplified model shows zero voltage across the resistor.")
+    with st.expander("🧠 Understand the circuit"):
+        st.markdown(
+            "- The **ammeter** is connected in series and measures current.\n"
+            "- The **voltmeter** is connected in parallel across the resistor.\n"
+            "- With the switch closed, the ideal resistor follows Ohm's law: I = V/R.\n"
+            "- This is a simulation, not a physical circuit. Real components have limits."
+        )
+    st.caption("Ideal DC learning model only. Use real low-voltage classroom equipment with teacher supervision.")
+
 def coming_soon(title, description, examples):
     if st.button("← Back to Science Lab Home"):
         go("home")
@@ -149,7 +218,10 @@ def coming_soon(title, description, examples):
         st.markdown(f"- {item}")
     st.button("Open Electricity Lab instead", on_click=go, args=("electricity",))
 
-if st.session_state.page == "electricity":
+if st.session_state.page == "circuit":
+    show_header()
+    virtual_circuit_lab()
+elif st.session_state.page == "electricity":
     show_header()
     ohms_lab()
 elif st.session_state.page == "chemistry":
