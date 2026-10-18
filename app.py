@@ -163,7 +163,7 @@ def electricity_lab():
         quantitative_class10 = selected_class == 10 and kind in ("ohms", "series_parallel", "power", "heating")
         voltage = st.slider(tr("voltage"), 0, 24, 12, 1, key=f"v_{selected_class}_{exp_index}") if quantitative_class10 else 12
         resistance = st.slider(tr("resistance"), 1, 100, 6, 1, key=f"r_{selected_class}_{exp_index}") if quantitative_class10 else 6
-        closed = st.checkbox(tr("switch"), value=True, key=f"sw_{selected_class}_{exp_index}") if kind in ("circuit", "fuse", "motor", "electromagnet", "magnetic_field", "ohms", "series_parallel", "power", "heating") else True
+        closed = st.checkbox(tr("switch"), value=True, key=f"sw_{selected_class}_{exp_index}") if (kind in ("circuit", "fuse", "motor", "electromagnet", "magnetic_field", "ohms", "series_parallel", "power", "heating") and not (selected_class == 6 and exp_index == 1)) else True
         turns = 10
         current_control = 1.0
         material = None
@@ -186,32 +186,76 @@ def electricity_lab():
     with right:
         st.markdown("### " + tr("result"))
         if kind == "circuit" and selected_class == 6 and exp_index == 1:
-            # Class 6 Experiment 2: explicitly show that a bulb has two terminals.
-            bulb_on = closed
-            wire_color = "#16a34a" if closed else "#d97706"
-            bulb_fill = "#fde047" if bulb_on else "#e2e8f0"
-            bulb_glow = "filter: drop-shadow(0 0 10px #facc15);" if bulb_on else ""
-            switch_arm = '<line x1="150" y1="48" x2="207" y2="48" stroke="' + wire_color + '" stroke-width="5" stroke-linecap="round"/>' if closed else '<line x1="150" y1="48" x2="199" y2="27" stroke="' + wire_color + '" stroke-width="5" stroke-linecap="round"/>'
+            # Three fixed comparison circuits: correct connection, same-terminal
+            # connection, and a wire broken in the middle.
+            green = "#16a34a"
+            amber = "#d97706"
+            muted = "#94a3b8"
+
+            def draw_bulb_circuit(number, y, heading, state, mode):
+                wire = green if state else amber
+                fill = "#fde047" if state else "#e2e8f0"
+                glow = "filter: drop-shadow(0 0 9px #facc15);" if state else ""
+                if mode == "correct":
+                    wires = (
+                        '<path d="M60 ' + str(y+25) + ' H285 L300 ' + str(y+42) + '"/>'
+                        '<path d="M320 ' + str(y+79) + ' V' + str(y+100) + ' H60 V' + str(y+55) + '"/>'
+                    )
+                    extra = '<text x="210" y="' + str(y+18) + '" font-size="11" fill="currentColor" text-anchor="middle">Wire 1</text><text x="210" y="' + str(y+117) + '" font-size="11" fill="currentColor" text-anchor="middle">Wire 2</text>'
+                elif mode == "same_terminal":
+                    wires = (
+                        '<path d="M60 ' + str(y+25) + ' H285 L300 ' + str(y+42) + '"/>'
+                        '<path d="M320 ' + str(y+79) + ' V' + str(y+100) + ' H285 L300 ' + str(y+62) + '"/>'
+                    )
+                    extra = '<text x="210" y="' + str(y+18) + '" font-size="11" fill="currentColor" text-anchor="middle">Both wires meet the same metal shell</text>'
+                else:
+                    wires = (
+                        '<path d="M60 ' + str(y+25) + ' H175"/>'
+                        '<path d="M205 ' + str(y+25) + ' H285 L300 ' + str(y+42) + '"/>'
+                        '<path d="M320 ' + str(y+79) + ' V' + str(y+100) + ' H60 V' + str(y+55) + '"/>'
+                    )
+                    extra = '<path d="M178 ' + str(y+18) + ' l8 14 M194 ' + str(y+18) + ' l-8 14" stroke="' + amber + '" stroke-width="3"/><text x="190" y="' + str(y+45) + '" font-size="10" fill="currentColor" text-anchor="middle">Gap</text>'
+                battery = (
+                    '<g stroke="#334155" stroke-width="3"><line x1="42" y1="' + str(y+18) + '" x2="58" y2="' + str(y+18) + '"/><line x1="36" y1="' + str(y+35) + '" x2="64" y2="' + str(y+35) + '"/><line x1="42" y1="' + str(y+52) + '" x2="58" y2="' + str(y+52) + '"/></g>'
+                    '<text x="50" y="' + str(y+70) + '" font-size="10" fill="currentColor" text-anchor="middle">Cell</text>'
+                )
+                bulb = (
+                    '<g stroke="#334155" stroke-width="2.5"><circle cx="320" cy="' + str(y+60) + '" r="21" fill="' + fill + '" style="' + glow + '"/><path d="M308 ' + str(y+48) + ' l8 8 -5 6 9 6 8 -10" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M306 ' + str(y+81) + ' v7 h28 v-7 M310 ' + str(y+88) + ' v6 h20 v-6" fill="' + muted + '"/><circle cx="320" cy="' + str(y+100) + '" r="4" fill="#475569"/></g>'
+                )
+                label = "BULB ON" if state else "BULB OFF"
+                label_pa = "ਬਲਬ ਜਗਦਾ ਹੈ" if state else "ਬਲਬ ਨਹੀਂ ਜਗਦਾ"
+                return (
+                    '<g><text x="10" y="' + str(y-3) + '" font-size="13" font-weight="bold" fill="currentColor">' + number + '. ' + heading + '</text>'
+                    '<g fill="none" stroke="' + wire + '" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">' + wires + '</g>'
+                    + battery + bulb + extra
+                    + '<text x="375" y="' + str(y+58) + '" font-size="11" font-weight="bold" fill="' + (green if state else amber) + '" text-anchor="middle">' + label + '</text>'
+                    + '<text x="375" y="' + str(y+73) + '" font-size="10" fill="currentColor" text-anchor="middle">' + label_pa + '</text></g>'
+                )
+
+            is_pa = st.session_state.language != "en"
+            headings = (
+                ["Correct connections", "Both wires on one terminal", "Wire broken in the middle"]
+                if not is_pa else
+                ["ਸਹੀ ਜੋੜ", "ਦੋਵੇਂ ਤਾਰਾਂ ਇੱਕੋ ਟਰਮੀਨਲ ਨਾਲ", "ਵਿਚਕਾਰੋਂ ਟੁੱਟੀ ਤਾਰ"]
+            )
+            circuit_rows = (
+                draw_bulb_circuit("1", 42, headings[0], True, "correct") +
+                draw_bulb_circuit("2", 190, headings[1], False, "same_terminal") +
+                draw_bulb_circuit("3", 338, headings[2], False, "broken")
+            )
             bulb_svg = (
                 '<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:10px;background:rgba(128,128,128,.035);">'
-                '<svg viewBox="0 0 440 260" width="100%" role="img" aria-label="Bulb with two terminals connected in a complete circuit">'
-                '<g fill="none" stroke="' + wire_color + '" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">'
-                '<path d="M62 48 H150"/>' + switch_arm +
-                '<path d="M207 48 H385 V158 H344"/><path d="M330 181 V194 H62 V108"/>'
-                '<path d="M330 176 V181"/>'
-                '</g>'
-                '<g stroke="#334155" stroke-width="3" fill="none"><line x1="43" y1="73" x2="81" y2="73"/><line x1="50" y1="91" x2="74" y2="91"/></g>'
-                '<g stroke="#334155" stroke-width="3"><circle cx="330" cy="124" r="30" fill="' + bulb_fill + '" style="' + bulb_glow + '"/><path d="M315 111 L323 119 L317 126 L327 133 L335 123 L345 133" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M316 154 V163 H344 V154" fill="#94a3b8"/><path d="M318 163 V173 H342 V163" fill="#cbd5e1"/><circle cx="330" cy="176" r="5" fill="#64748b"/><path d="M318 158 H342" fill="none" stroke="#475569" stroke-width="2"/></g>'
-                '<g fill="currentColor" font-size="12" text-anchor="middle"><text x="62" y="130">' + tr("battery") + '</text><text x="179" y="17">' + tr("switch_label") + '</text><text x="330" y="218">' + tr("bulb") + '</text></g>'
-                '<g fill="currentColor" font-size="12"><text x="350" y="170">' + ("Terminal 1: metal tip" if st.session_state.language == "en" else "ਟਰਮੀਨਲ 1: ਧਾਤੂ ਬਿੰਦੂ") + '</text><text x="350" y="187">' + ("Terminal 2: metal shell" if st.session_state.language == "en" else "ਟਰਮੀਨਲ 2: ਧਾਤੂ ਖੋਲ") + '</text></g>'
-                '<g fill="currentColor" font-size="12" text-anchor="middle"><text x="220" y="242">' + (("Both terminals connected — complete path" if closed else "Switch open — path broken") if st.session_state.language == "en" else ("ਦੋਵੇਂ ਟਰਮੀਨਲ ਜੁੜੇ — ਪੂਰਾ ਰਸਤਾ" if closed else "ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ — ਰਸਤਾ ਟੁੱਟਿਆ")) + '</text></g>'
-                '<g fill="#334155"><circle cx="150" cy="48" r="4"/><circle cx="207" cy="48" r="4"/></g>'
+                '<svg viewBox="0 0 440 475" width="100%" role="img" aria-label="Three bulb circuits: correct connection glows; two wires on one terminal and a broken wire do not glow">'
+                + circuit_rows +
                 '</svg></div>'
             )
             st.markdown("#### " + tr("visual_circuit"), unsafe_allow_html=True)
             st.markdown(bulb_svg, unsafe_allow_html=True)
-            st.metric(tr("circuit"), tr("bulb_on") if bulb_on else tr("bulb_off"))
-            st.info("A bulb has two metal terminals. Current can pass through its filament only when both terminals are connected in a complete circuit." if st.session_state.language == "en" else "ਬਲਬ ਦੇ ਦੋ ਧਾਤੂ ਟਰਮੀਨਲ ਹੁੰਦੇ ਹਨ। ਫਿਲਾਮੈਂਟ ਵਿੱਚੋਂ ਕਰੰਟ ਤਦ ਹੀ ਲੰਘਦਾ ਹੈ ਜਦੋਂ ਦੋਵੇਂ ਟਰਮੀਨਲ ਪੂਰੇ ਸਰਕਟ ਨਾਲ ਜੁੜੇ ਹੋਣ।")
+            st.info(
+                "Circuit 1: each wire connects to a different bulb terminal, making a complete path, so the bulb glows. Circuit 2: both wires touch the same metal terminal; the other terminal is not connected, so the bulb stays off. Circuit 3: the wire has a gap, so the path is broken and the bulb stays off."
+                if not is_pa else
+                "ਸਰਕਟ 1: ਦੋਵੇਂ ਤਾਰਾਂ ਬਲਬ ਦੇ ਵੱਖ-ਵੱਖ ਟਰਮੀਨਲਾਂ ਨਾਲ ਜੁੜਦੀਆਂ ਹਨ, ਇਸ ਲਈ ਪੂਰਾ ਰਸਤਾ ਬਣਦਾ ਹੈ ਅਤੇ ਬਲਬ ਜਗਦਾ ਹੈ। ਸਰਕਟ 2: ਦੋਵੇਂ ਤਾਰਾਂ ਇੱਕੋ ਧਾਤੂ ਟਰਮੀਨਲ ਨਾਲ ਜੁੜੀਆਂ ਹਨ; ਦੂਜਾ ਟਰਮੀਨਲ ਨਹੀਂ ਜੁੜਿਆ, ਇਸ ਲਈ ਬਲਬ ਨਹੀਂ ਜਗਦਾ। ਸਰਕਟ 3: ਤਾਰ ਵਿਚਕਾਰੋਂ ਟੁੱਟੀ ਹੈ, ਇਸ ਲਈ ਰਸਤਾ ਅਧੂਰਾ ਹੈ ਅਤੇ ਬਲਬ ਨਹੀਂ ਜਗਦਾ।"
+            )
             st.write("💡 " + note)
         elif kind == "circuit":
             # Fixed, illustrative low-voltage cell: no numerical electrical controls
