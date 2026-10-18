@@ -166,13 +166,17 @@ def electricity_lab():
         closed = st.checkbox(tr("switch"), value=True, key=f"sw_{selected_class}_{exp_index}") if kind in ("circuit", "fuse", "motor", "electromagnet", "magnetic_field", "ohms", "series_parallel", "power", "heating") else True
         turns = 10
         current_control = 1.0
-        material_options = {
-            "en": ["Copper", "Aluminium", "Iron", "Rubber", "Plastic", "Wood"],
-            "pa": ["ਤਾਂਬਾ", "ਐਲੂਮੀਨੀਅਮ", "ਲੋਹਾ", "ਰਬੜ", "ਪਲਾਸਟਿਕ", "ਲੱਕੜ"]
-        }
-        material = st.selectbox(tr("material"), material_options[st.session_state.language], key=f"mat_{selected_class}_{exp_index}")
-        liquids = ["water", "salt", "sugar", "lemon"]
-        liquid = st.selectbox(tr("liquid"), liquids, format_func=lambda x: tr(x), key=f"liq_{selected_class}_{exp_index}")
+        material = None
+        liquid = None
+        if kind == "conductors":
+            material_options = {
+                "en": ["Copper", "Aluminium", "Iron", "Rubber", "Plastic", "Wood"],
+                "pa": ["ਤਾਂਬਾ", "ਐਲੂਮੀਨੀਅਮ", "ਲੋਹਾ", "ਰਬੜ", "ਪਲਾਸਟਿਕ", "ਲੱਕੜ"]
+            }
+            material = st.selectbox(tr("material"), material_options[st.session_state.language], key=f"mat_{selected_class}_{exp_index}")
+        if kind == "liquids":
+            liquids = ["water", "salt", "sugar", "lemon"]
+            liquid = st.selectbox(tr("liquid"), liquids, format_func=lambda x: tr(x), key=f"liq_{selected_class}_{exp_index}")
         if kind == "ohms":
             prediction = st.selectbox(tr("predict_q"), [tr("select_prediction"), tr("double"), tr("same"), tr("half")], key=f"pred_{selected_class}_{exp_index}")
             if prediction != tr("select_prediction"):
