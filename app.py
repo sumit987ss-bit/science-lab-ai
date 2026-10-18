@@ -188,7 +188,7 @@ def electricity_lab():
             wire_color = "#16a34a" if closed else "#d97706"
             bulb_fill = "#fde047" if bulb_on else "#e2e8f0"
             bulb_glow = "filter: drop-shadow(0 0 10px #facc15);" if bulb_on else ""
-            switch_arm = '<line x1="174" y1="54" x2="216" y2="54" stroke="#16a34a" stroke-width="5" stroke-linecap="round"/>' if closed else '<line x1="174" y1="54" x2="210" y2="32" stroke="#d97706" stroke-width="5" stroke-linecap="round"/>'
+            switch_arm = '<line x1="158" y1="54" x2="216" y2="54" stroke="#16a34a" stroke-width="5" stroke-linecap="round"/>' if closed else '<line x1="158" y1="54" x2="210" y2="32" stroke="#d97706" stroke-width="5" stroke-linecap="round"/>'
             circuit_svg = (
                 '<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:10px;background:rgba(128,128,128,.035);">'
                 '<svg viewBox="0 0 420 220" width="100%" role="img" aria-label="Simple circuit with a clearly shown switch, cell, connecting wires and filament bulb">'
