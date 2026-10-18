@@ -307,7 +307,7 @@ def electricity_lab():
                 '<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:10px;background:rgba(128,128,128,.035);">'
                 '<svg viewBox="0 0 420 230" width="100%" role="img" aria-label="Virtual material testing circuit">'
                 '<g fill="none" stroke="' + wire_color + '" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">'
-                '<path d="M65 48 H145"/><path d="M275 48 H320 V78"/><path d="M320 122 V170 H65 V108"/>'
+                '<path d="M65 48 H145"/><path d="M65 48 V76"/><path d="M65 94 V108"/><path d="M275 48 H320 V78"/><path d="M320 122 V170 H65 V108"/>'
                 '</g>'
                 '<g stroke="#334155" stroke-width="3" fill="none"><line x1="46" y1="76" x2="84" y2="76"/><line x1="53" y1="94" x2="77" y2="94"/></g>'
                 '<g stroke="#334155" stroke-width="3"><circle cx="320" cy="100" r="23" fill="' + bulb_fill + '" style="' + bulb_glow + '"/><path d="M307 87 L315 95 L309 102 L319 108 L326 99 L333 108" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M309 124 V132 H331 V124 M312 132 V138 H328 V132" fill="none" stroke="#64748b" stroke-width="2.5"/></g>'
