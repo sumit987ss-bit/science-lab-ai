@@ -197,8 +197,8 @@ def electricity_lab():
                 '<svg viewBox="0 0 440 260" width="100%" role="img" aria-label="Bulb with two terminals connected in a complete circuit">'
                 '<g fill="none" stroke="' + wire_color + '" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">'
                 '<path d="M62 48 H150"/>' + switch_arm +
-                '<path d="M207 48 H330 V86"/><path d="M330 151 V194 H62 V108"/>'
-                '<path d="M330 86 V98"/><path d="M330 151 V165"/>'
+                '<path d="M207 48 H385 V158 H344"/><path d="M330 181 V194 H62 V108"/>'
+                '<path d="M330 176 V181"/>
                 '</g>'
                 '<g stroke="#334155" stroke-width="3" fill="none"><line x1="43" y1="73" x2="81" y2="73"/><line x1="50" y1="91" x2="74" y2="91"/></g>'
                 '<g stroke="#334155" stroke-width="3"><circle cx="330" cy="124" r="30" fill="' + bulb_fill + '" style="' + bulb_glow + '"/><path d="M315 111 L323 119 L317 126 L327 133 L335 123 L345 133" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M316 154 V163 H344 V154" fill="#94a3b8"/><path d="M318 163 V173 H342 V163" fill="#cbd5e1"/><circle cx="330" cy="176" r="5" fill="#64748b"/><path d="M318 158 H342" fill="none" stroke="#475569" stroke-width="2"/></g>'
