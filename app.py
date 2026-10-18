@@ -185,7 +185,35 @@ def electricity_lab():
     power = voltage * current if closed else 0.0
     with right:
         st.markdown("### " + tr("result"))
-        if kind == "circuit":
+        if kind == "circuit" and selected_class == 6 and exp_index == 1:
+            # Class 6 Experiment 2: explicitly show that a bulb has two terminals.
+            bulb_on = closed
+            wire_color = "#16a34a" if closed else "#d97706"
+            bulb_fill = "#fde047" if bulb_on else "#e2e8f0"
+            bulb_glow = "filter: drop-shadow(0 0 10px #facc15);" if bulb_on else ""
+            switch_arm = '<line x1="150" y1="48" x2="207" y2="48" stroke="' + wire_color + '" stroke-width="5" stroke-linecap="round"/>' if closed else '<line x1="150" y1="48" x2="199" y2="27" stroke="' + wire_color + '" stroke-width="5" stroke-linecap="round"/>'
+            bulb_svg = (
+                '<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:10px;background:rgba(128,128,128,.035);">'
+                '<svg viewBox="0 0 440 260" width="100%" role="img" aria-label="Bulb with two terminals connected in a complete circuit">'
+                '<g fill="none" stroke="' + wire_color + '" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">'
+                '<path d="M62 48 H150"/>' + switch_arm +
+                '<path d="M207 48 H330 V86"/><path d="M330 151 V194 H62 V108"/>'
+                '<path d="M330 86 V98"/><path d="M330 151 V165"/>'
+                '</g>'
+                '<g stroke="#334155" stroke-width="3" fill="none"><line x1="43" y1="73" x2="81" y2="73"/><line x1="50" y1="91" x2="74" y2="91"/></g>'
+                '<g stroke="#334155" stroke-width="3"><circle cx="330" cy="124" r="30" fill="' + bulb_fill + '" style="' + bulb_glow + '"/><path d="M315 111 L323 119 L317 126 L327 133 L335 123 L345 133" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M316 154 V163 H344 V154" fill="#94a3b8"/><path d="M318 163 V173 H342 V163" fill="#cbd5e1"/><circle cx="330" cy="176" r="5" fill="#64748b"/><path d="M318 158 H342" fill="none" stroke="#475569" stroke-width="2"/></g>'
+                '<g fill="currentColor" font-size="12" text-anchor="middle"><text x="62" y="130">' + tr("battery") + '</text><text x="179" y="17">' + tr("switch_label") + '</text><text x="330" y="218">' + tr("bulb") + '</text></g>'
+                '<g fill="currentColor" font-size="12"><text x="350" y="170">' + ("Terminal 1: metal tip" if st.session_state.language == "en" else "ਟਰਮੀਨਲ 1: ਧਾਤੂ ਬਿੰਦੂ") + '</text><text x="350" y="187">' + ("Terminal 2: metal shell" if st.session_state.language == "en" else "ਟਰਮੀਨਲ 2: ਧਾਤੂ ਖੋਲ") + '</text></g>'
+                '<g fill="currentColor" font-size="12" text-anchor="middle"><text x="220" y="242">' + (("Both terminals connected — complete path" if closed else "Switch open — path broken") if st.session_state.language == "en" else ("ਦੋਵੇਂ ਟਰਮੀਨਲ ਜੁੜੇ — ਪੂਰਾ ਰਸਤਾ" if closed else "ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ — ਰਸਤਾ ਟੁੱਟਿਆ")) + '</text></g>'
+                '<g fill="#334155"><circle cx="150" cy="48" r="4"/><circle cx="207" cy="48" r="4"/></g>'
+                '</svg></div>'
+            )
+            st.markdown("#### " + tr("visual_circuit"), unsafe_allow_html=True)
+            st.markdown(bulb_svg, unsafe_allow_html=True)
+            st.metric(tr("circuit"), tr("bulb_on") if bulb_on else tr("bulb_off"))
+            st.info("A bulb has two metal terminals. Current can pass through its filament only when both terminals are connected in a complete circuit." if st.session_state.language == "en" else "ਬਲਬ ਦੇ ਦੋ ਧਾਤੂ ਟਰਮੀਨਲ ਹੁੰਦੇ ਹਨ। ਫਿਲਾਮੈਂਟ ਵਿੱਚੋਂ ਕਰੰਟ ਤਦ ਹੀ ਲੰਘਦਾ ਹੈ ਜਦੋਂ ਦੋਵੇਂ ਟਰਮੀਨਲ ਪੂਰੇ ਸਰਕਟ ਨਾਲ ਜੁੜੇ ਹੋਣ।")
+            st.write("💡 " + note)
+        elif kind == "circuit":
             # Fixed, illustrative low-voltage cell: no numerical electrical controls
             # are exposed for Classes 6–9.
             bulb_on = closed
