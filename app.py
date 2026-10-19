@@ -174,6 +174,12 @@ def electricity_lab():
                 "pa": ["ਤਾਂਬਾ", "ਐਲੂਮੀਨੀਅਮ", "ਲੋਹਾ", "ਰਬੜ", "ਪਲਾਸਟਿਕ", "ਲੱਕੜ"]
             }
             material = st.selectbox(tr("material"), material_options[st.session_state.language], key=f"mat_{selected_class}_{exp_index}")
+        if kind == "magnet" and selected_class == 6 and exp_index == 4:
+            magnetic_options = {
+                "en": ["Iron nail", "Steel paper clip", "Aluminium foil", "Copper wire", "Wood", "Plastic"],
+                "pa": ["ਲੋਹੇ ਦੀ ਕਿੱਲ", "ਸਟੀਲ ਦੀ ਪੇਪਰ ਕਲਿੱਪ", "ਐਲੂਮੀਨੀਅਮ ਫੋਇਲ", "ਤਾਂਬੇ ਦੀ ਤਾਰ", "ਲੱਕੜ", "ਪਲਾਸਟਿਕ"]
+            }
+            material = st.selectbox(tr("material"), magnetic_options[st.session_state.language], key=f"magmat_{selected_class}_{exp_index}")
         if kind == "liquids":
             liquids = ["water", "salt", "sugar", "lemon"]
             liquid = st.selectbox(tr("liquid"), liquids, format_func=lambda x: tr(x), key=f"liq_{selected_class}_{exp_index}")
@@ -185,7 +191,38 @@ def electricity_lab():
     power = voltage * current if closed else 0.0
     with right:
         st.markdown("### " + tr("result"))
-        if kind == "circuit" and selected_class == 6 and exp_index == 1:
+        if kind == "magnet" and selected_class == 6 and exp_index == 4:
+            # Interactive material test: ordinary classroom magnets attract iron and steel,
+            # but not aluminium, copper, wood or plastic in this simple model.
+            attracted = material in ("Iron nail", "Steel paper clip", "ਲੋਹੇ ਦੀ ਕਿੱਲ", "ਸਟੀਲ ਦੀ ਪੇਪਰ ਕਲਿੱਪ")
+            is_pa = st.session_state.language != "en"
+            magnet_label = "ਚੁੰਬਕ" if is_pa else "MAGNET"
+            object_label = material or ("ਚੀਜ਼" if is_pa else "OBJECT")
+            result_label = ("ਖਿੱਚਿਆ ਜਾਂਦਾ ਹੈ" if attracted else "ਆਮ ਚੁੰਬਕ ਨਾਲ ਨਹੀਂ ਖਿੱਚਿਆ ਜਾਂਦਾ") if is_pa else ("ATTRACTED" if attracted else "NOT ATTRACTED")
+            result_color = "#16a34a" if attracted else "#64748b"
+            object_x = 255 if attracted else 300
+            pull_lines = (
+                '<g stroke="#f59e0b" stroke-width="3" stroke-linecap="round"><path d="M218 77 l-10 -7 M218 91 l-12 0 M218 105 l-10 7"/></g>'
+                if attracted else ""
+            )
+            magnet_svg = (
+                '<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:10px;background:rgba(128,128,128,.035);">'
+                '<svg viewBox="0 0 420 205" width="100%" role="img" aria-label="Magnet testing selected material">'
+                '<g><rect x="45" y="66" width="42" height="78" rx="5" fill="#dc2626"/><rect x="87" y="66" width="42" height="78" rx="5" fill="#2563eb"/><text x="66" y="108" font-size="17" font-weight="bold" fill="white" text-anchor="middle">N</text><text x="108" y="108" font-size="17" font-weight="bold" fill="white" text-anchor="middle">S</text><text x="87" y="164" font-size="12" fill="currentColor" text-anchor="middle">' + magnet_label + '</text></g>'
+                + pull_lines +
+                '<g transform="translate(' + object_x + ',82)" stroke="#475569" stroke-width="3" fill="#cbd5e1"><rect x="0" y="0" width="72" height="24" rx="4"/><path d="M8 6 H64" stroke="#94a3b8" stroke-width="2"/></g>'
+                '<text x="' + (object_x + 36) + '" y="127" font-size="11" fill="currentColor" text-anchor="middle">' + object_label + '</text>'
+                '<text x="210" y="190" font-size="15" font-weight="bold" fill="' + result_color + '" text-anchor="middle">' + result_label + '</text>'
+                '</svg></div>'
+            )
+            st.markdown("#### " + ("ਚੁੰਬਕ ਨਾਲ ਪਦਾਰਥ ਦੀ ਜਾਂਚ" if is_pa else "Test the selected material"), unsafe_allow_html=True)
+            st.markdown(magnet_svg, unsafe_allow_html=True)
+            st.metric("ਨਤੀਜਾ" if is_pa else "Result", result_label)
+            st.info(
+                ("ਲੋਹਾ ਅਤੇ ਸਟੀਲ ਆਮ ਚੁੰਬਕ ਵੱਲ ਖਿੱਚੇ ਜਾਂਦੇ ਹਨ। ਐਲੂਮੀਨੀਅਮ, ਤਾਂਬਾ, ਲੱਕੜ ਅਤੇ ਪਲਾਸਟਿਕ ਆਮ ਕਲਾਸਰੂਮ ਚੁੰਬਕ ਨਾਲ ਨਹੀਂ ਖਿੱਚੇ ਜਾਂਦੇ।" if is_pa else "Iron and steel are attracted by an ordinary classroom magnet. Aluminium, copper, wood and plastic are not attracted in this simple test.")
+            )
+            st.write("💡 " + note)
+        elif kind == "circuit" and selected_class == 6 and exp_index == 1:
             # Three fixed comparison circuits: correct connection, same-terminal
             # connection, and a wire broken in the middle.
             green = "#16a34a"
