@@ -397,14 +397,14 @@ def electricity_lab():
             ]
             def component_symbol(shape):
                 if shape == "cell":
-                    return '<path d="M12 40 H55 M55 20 V60 M72 30 V50 M72 40 H112" stroke="#334155" stroke-width="4" fill="none"/><text x="63" y="79" text-anchor="middle" font-size="12" fill="currentColor">Cell</text>'
+                    return '<path d="M12 40 H55 M55 20 V60 M72 30 V50 M72 40 H112" stroke="#334155" stroke-width="4" fill="none"/>'
                 if shape == "bulb":
-                    return '<path d="M8 40 H35 M85 40 H112" stroke="#334155" stroke-width="4"/><circle cx="60" cy="40" r="24" fill="#fef3c7" stroke="#334155" stroke-width="3"/><path d="M46 26 L74 54 M74 26 L46 54 M50 65 H70 M52 71 H68" stroke="#334155" stroke-width="3" fill="none"/><text x="60" y="91" text-anchor="middle" font-size="12" fill="currentColor">Bulb</text>'
+                    return '<path d="M8 40 H35 M85 40 H112" stroke="#334155" stroke-width="4"/><circle cx="60" cy="40" r="24" fill="#fef3c7" stroke="#334155" stroke-width="3"/><path d="M46 26 L74 54 M74 26 L46 54 M50 65 H70 M52 71 H68" stroke="#334155" stroke-width="3" fill="none"/>'
                 if shape == "open":
-                    return '<path d="M8 45 H42 M78 45 H112 M42 45 L72 20" stroke="#334155" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="42" cy="45" r="4" fill="#334155"/><circle cx="78" cy="45" r="4" fill="#334155"/><text x="60" y="79" text-anchor="middle" font-size="12" fill="currentColor">Open switch</text>'
+                    return '<path d="M8 45 H42 M78 45 H112 M42 45 L72 20" stroke="#334155" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="42" cy="45" r="4" fill="#334155"/><circle cx="78" cy="45" r="4" fill="#334155"/>'
                 if shape == "closed":
-                    return '<path d="M8 45 H42 M42 45 H78 M78 45 H112" stroke="#334155" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="42" cy="45" r="4" fill="#334155"/><circle cx="78" cy="45" r="4" fill="#334155"/><text x="60" y="79" text-anchor="middle" font-size="12" fill="currentColor">Closed switch</text>'
-                return '<path d="M8 45 H112" stroke="#16a34a" stroke-width="5" fill="none" stroke-linecap="round"/><text x="60" y="79" text-anchor="middle" font-size="12" fill="currentColor">Wire</text>'
+                    return '<path d="M8 45 H42 M42 45 H78 M78 45 H112" stroke="#334155" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="42" cy="45" r="4" fill="#334155"/><circle cx="78" cy="45" r="4" fill="#334155"/>'
+                return '<path d="M8 45 H112" stroke="#16a34a" stroke-width="5" fill="none" stroke-linecap="round"/>'
             gallery_title = "1. Component gallery — ਸਰਕਟ ਦੇ ਭਾਗ" if is_pa else "1. Component gallery — circuit components"
             st.markdown("#### " + gallery_title)
             gallery_cards = []
