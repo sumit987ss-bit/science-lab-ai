@@ -156,7 +156,8 @@ def electricity_lab():
     st.markdown(f"**{tr('how')}:** {tr('feedback')}")
     magnetic_experiment = kind == "magnet" and selected_class == 6 and exp_index == 4
     symbol_experiment = selected_class == 7 and exp_index == 0
-    wide_experiment = magnetic_experiment or symbol_experiment
+    heating_experiment = selected_class == 7 and exp_index == 1 and kind == "heating"
+    wide_experiment = magnetic_experiment or symbol_experiment or heating_experiment
     if wide_experiment:
         left, right = st.container(), st.container()
     else:
@@ -175,6 +176,22 @@ def electricity_lab():
         current_control = 1.0
         material = None
         liquid = None
+        heat_current_level = "Medium" if st.session_state.language == "en" else "ਦਰਮਿਆਨਾ"
+        heat_resistance_level = "Medium" if st.session_state.language == "en" else "ਦਰਮਿਆਨਾ"
+        if heating_experiment:
+            level_options = ["Low", "Medium", "High"] if st.session_state.language == "en" else ["ਘੱਟ", "ਦਰਮਿਆਨਾ", "ਵੱਧ"]
+            heat_current_level = st.selectbox(
+                "Current level / ਕਰੰਟ ਦਾ ਪੱਧਰ",
+                level_options,
+                index=1,
+                key="class7_heat_current_level",
+            )
+            heat_resistance_level = st.selectbox(
+                "Resistance level / ਰੋਧ ਦਾ ਪੱਧਰ",
+                level_options,
+                index=1,
+                key="class7_heat_resistance_level",
+            )
         if kind == "conductors":
             material_options = {
                 "en": ["Copper", "Aluminium", "Iron", "Rubber", "Plastic", "Wood"],
@@ -491,6 +508,36 @@ def electricity_lab():
             st.markdown("#### " + tr("visual_circuit"), unsafe_allow_html=True)
             st.markdown(circuit_svg, unsafe_allow_html=True)
             st.metric(tr("circuit"), tr("bulb_on") if bulb_on else tr("bulb_off"))
+            st.write("💡 " + note)
+        elif heating_experiment:
+            is_pa = st.session_state.language != "en"
+            levels = (["ਘੱਟ", "ਦਰਮਿਆਨਾ", "ਵੱਧ"] if is_pa else ["Low", "Medium", "High"])
+            current_level_index = levels.index(heat_current_level)
+            resistance_level_index = levels.index(heat_resistance_level)
+            relative_heat_score = (current_level_index + 1) ** 2 * (resistance_level_index + 1)
+            heat_band = "Low" if relative_heat_score <= 4 else ("Moderate" if relative_heat_score <= 12 else "High")
+            heat_band_pa = {"Low": "ਘੱਟ", "Moderate": "ਦਰਮਿਆਨਾ", "High": "ਵੱਧ"}[heat_band]
+            heat_label = heat_band_pa if is_pa else heat_band
+            heat_color = "#38bdf8" if heat_band == "Low" else ("#f59e0b" if heat_band == "Moderate" else "#ef4444")
+            glow = "0 0 18px " + heat_color if closed else "none"
+            heat_title = "ਤਾਪੀ ਪ੍ਰਭਾਵ ਦਾ ਵਰਚੁਅਲ ਮਾਡਲ" if is_pa else "Virtual heating-effect model"
+            st.markdown("#### " + heat_title)
+            st.markdown(
+                '<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;text-align:center">'
+                '<svg viewBox="0 0 440 220" width="100%" role="img" aria-label="Virtual resistor heating as current and resistance change">'
+                '<path d="M30 90 H105 M335 90 H410" stroke="#64748b" stroke-width="6" stroke-linecap="round"/>'
+                '<rect x="105" y="62" width="230" height="56" rx="12" fill="' + (heat_color if closed else "#cbd5e1") + '" stroke="#334155" stroke-width="3" style="filter:drop-shadow(' + (glow if closed else "none") + ')"/>'
+                '<path d="M125 90 l18 -15 l18 30 l18 -30 l18 30 l18 -30 l18 30 l18 -30 l18 15" fill="none" stroke="#ffffff" stroke-width="4" stroke-linejoin="round"/>'
+                '<g fill="' + heat_color + '" stroke="' + heat_color + '" stroke-width="3" stroke-linecap="round" opacity="' + ("1" if closed else "0.18") + '"><path d="M155 48 Q145 35 155 22" fill="none"/><path d="M220 45 Q210 32 220 18" fill="none"/><path d="M285 48 Q275 35 285 22" fill="none"/></g>'
+                '<g fill="currentColor" font-size="14" text-anchor="middle"><text x="220" y="151">' + ("ਰੋਧਕ" if is_pa else "Resistor") + '</text><text x="220" y="184">' + (("ਸਵਿੱਚ ਬੰਦ: ਤਾਪ ਪੈਦਾ ਹੁੰਦਾ ਹੈ" if is_pa else "Switch ON: heat is produced") if closed else ("ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ: ਕਰੰਟ ਨਹੀਂ ਵਹਿੰਦਾ" if is_pa else "Switch OFF: no current flows")) + '</text></g>'
+                '</svg></div>',
+                unsafe_allow_html=True,
+            )
+            st.metric("ਤਾਪ ਦਾ ਪੱਧਰ" if is_pa else "Relative heating level", heat_label if closed else ("ਨਹੀਂ" if is_pa else "None — switch open"))
+            st.info(
+                ("ਇਸ ਗੁਣਾਤਮਕ ਮਾਡਲ ਵਿੱਚ ਕਰੰਟ ਜਾਂ ਰੋਧ ਦਾ ਪੱਧਰ ਵਧਾਉਣ ਨਾਲ ਰੋਧਕ ਵਿੱਚ ਤਾਪ ਵਧਦਾ ਦਿਖਾਇਆ ਜਾਂਦਾ ਹੈ। ਇਹ ਅਸਲੀ ਮਾਪ ਨਹੀਂ ਹੈ।" if is_pa else
+                 "In this qualitative model, increasing the current or resistance level shows greater heating in the resistor. This is illustrative, not a real measurement.")
+            )
             st.write("💡 " + note)
         elif kind in ("ohms", "series_parallel", "power", "heating"):
             m1, m2 = st.columns(2)
