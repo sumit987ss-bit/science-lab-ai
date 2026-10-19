@@ -184,13 +184,13 @@ def electricity_lab():
                 "Current level / ਕਰੰਟ ਦਾ ਪੱਧਰ",
                 level_options,
                 index=1,
-                key="class7_heat_current_level",
+                key=f"class7_heat_current_level_{st.session_state.language}",
             )
             heat_resistance_level = st.selectbox(
                 "Resistance level / ਰੋਧ ਦਾ ਪੱਧਰ",
                 level_options,
                 index=1,
-                key="class7_heat_resistance_level",
+                key=f"class7_heat_resistance_level_{st.session_state.language}",
             )
         if kind == "conductors":
             material_options = {
@@ -522,17 +522,15 @@ def electricity_lab():
             glow = "0 0 18px " + heat_color if closed else "none"
             heat_title = "ਤਾਪੀ ਪ੍ਰਭਾਵ ਦਾ ਵਰਚੁਅਲ ਮਾਡਲ" if is_pa else "Virtual heating-effect model"
             st.markdown("#### " + heat_title)
-            st.markdown(
-                '<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;text-align:center">'
-                '<svg viewBox="0 0 440 220" width="100%" role="img" aria-label="Virtual resistor heating as current and resistance change">'
-                '<path d="M30 90 H105 M335 90 H410" stroke="#64748b" stroke-width="6" stroke-linecap="round"/>'
-                '<rect x="105" y="62" width="230" height="56" rx="12" fill="' + (heat_color if closed else "#cbd5e1") + '" stroke="#334155" stroke-width="3" style="filter:drop-shadow(' + (glow if closed else "none") + ')"/>'
-                '<path d="M125 90 l18 -15 l18 30 l18 -30 l18 30 l18 -30 l18 30 l18 -30 l18 15" fill="none" stroke="#ffffff" stroke-width="4" stroke-linejoin="round"/>'
-                '<g fill="' + heat_color + '" stroke="' + heat_color + '" stroke-width="3" stroke-linecap="round" opacity="' + ("1" if closed else "0.18") + '"><path d="M155 48 Q145 35 155 22" fill="none"/><path d="M220 45 Q210 32 220 18" fill="none"/><path d="M285 48 Q275 35 285 22" fill="none"/></g>'
-                '<g fill="currentColor" font-size="14" text-anchor="middle"><text x="220" y="151">' + ("ਰੋਧਕ" if is_pa else "Resistor") + '</text><text x="220" y="184">' + (("ਸਵਿੱਚ ਬੰਦ: ਤਾਪ ਪੈਦਾ ਹੁੰਦਾ ਹੈ" if is_pa else "Switch ON: heat is produced") if closed else ("ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ: ਕਰੰਟ ਨਹੀਂ ਵਹਿੰਦਾ" if is_pa else "Switch OFF: no current flows")) + '</text></g>'
-                '</svg></div>',
-                unsafe_allow_html=True,
-            )
+            heat_svg = f"""<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;text-align:center">
+<svg viewBox="0 0 440 220" width="100%" role="img" aria-label="Virtual resistor heating as current and resistance change">
+<path d="M30 90 H105 M335 90 H410" stroke="#64748b" stroke-width="6" stroke-linecap="round"/>
+<rect x="105" y="62" width="230" height="56" rx="12" fill="{heat_color if closed else '#cbd5e1'}" stroke="#334155" stroke-width="3" style="filter:drop-shadow({glow if closed else 'none'})"/>
+<path d="M125 90 l18 -15 l18 30 l18 -30 l18 30 l18 -30 l18 30 l18 -30 l18 15" fill="none" stroke="#ffffff" stroke-width="4" stroke-linejoin="round"/>
+<g fill="{heat_color}" stroke="{heat_color}" stroke-width="3" stroke-linecap="round" opacity="{"1" if closed else "0.18"}"><path d="M155 48 Q145 35 155 22" fill="none"/><path d="M220 45 Q210 32 220 18" fill="none"/><path d="M285 48 Q275 35 285 22" fill="none"/></g>
+<g fill="currentColor" font-size="14" text-anchor="middle"><text x="220" y="151">{"ਰੋਧਕ" if is_pa else "Resistor"}</text><text x="220" y="184">{("ਸਵਿੱਚ ਬੰਦ: ਤਾਪ ਪੈਦਾ ਹੁੰਦਾ ਹੈ" if is_pa else "Switch ON: heat is produced") if closed else ("ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ: ਕਰੰਟ ਨਹੀਂ ਵਹਿੰਦਾ" if is_pa else "Switch OFF: no current flows")}</text></g>
+</svg></div>"""
+            st.markdown(heat_svg, unsafe_allow_html=True)
             st.metric("ਤਾਪ ਦਾ ਪੱਧਰ" if is_pa else "Relative heating level", heat_label if closed else ("ਨਹੀਂ" if is_pa else "None — switch open"))
             st.info(
                 ("ਇਸ ਗੁਣਾਤਮਕ ਮਾਡਲ ਵਿੱਚ ਕਰੰਟ ਜਾਂ ਰੋਧ ਦਾ ਪੱਧਰ ਵਧਾਉਣ ਨਾਲ ਰੋਧਕ ਵਿੱਚ ਤਾਪ ਵਧਦਾ ਦਿਖਾਇਆ ਜਾਂਦਾ ਹੈ। ਇਹ ਅਸਲੀ ਮਾਪ ਨਹੀਂ ਹੈ।" if is_pa else
