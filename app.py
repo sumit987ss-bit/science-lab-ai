@@ -465,7 +465,8 @@ def electricity_lab():
                         st.rerun()
                 else:
                     st.warning("ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।" if is_pa else "Not quite. Try again.")
-            st.write("💡 " + note)        elif kind == "circuit":
+            st.write("💡 " + note)
+        elif kind == "circuit":
             # Fixed, illustrative low-voltage cell: no numerical electrical controls
             # are exposed for Classes 6–9.
             bulb_on = closed
