@@ -438,29 +438,34 @@ def electricity_lab():
                 ("Closed switch", "ਬੰਦ ਸਵਿੱਚ", "closed"),
                 ("Connecting wire", "ਜੋੜਨ ਵਾਲੀ ਤਾਰ", "wire"),
             ]
-            quiz_prompt = st.selectbox(
-                "ਚਿੰਨ੍ਹ ਚੁਣੋ / Choose a symbol to identify",
-                [x[1] for x in quiz_items] if is_pa else [x[0] for x in quiz_items],
-                key="class7_exp1_quiz_prompt",
-            )
-            quiz_target = next(x for x in quiz_items if quiz_prompt in x[:2])
+            if "class7_exp1_quiz_index" not in st.session_state:
+                st.session_state["class7_exp1_quiz_index"] = 0
+            quiz_index = st.session_state["class7_exp1_quiz_index"] % len(quiz_items)
+            quiz_target = quiz_items[quiz_index]
+            st.caption("Look at the symbol first, then choose your answer below." if not is_pa else "ਪਹਿਲਾਂ ਚਿੰਨ੍ਹ ਵੇਖੋ, ਫਿਰ ਹੇਠਾਂ ਜਵਾਬ ਚੁਣੋ।")
             st.markdown(
-                '<div style="border:1px solid #60a5fa;border-radius:12px;padding:10px;text-align:center;background:rgba(59,130,246,.04)"><svg viewBox="0 0 120 100" width="190" style="max-width:100%" role="img" aria-label="Quiz circuit symbol">'
+                '<div style="border:1px solid #60a5fa;border-radius:12px;padding:16px;text-align:center;background:rgba(59,130,246,.04)"><svg viewBox="0 0 120 100" width="190" style="max-width:100%" role="img" aria-label="Circuit symbol to identify">'
                 + component_symbol(quiz_target[2]) + '</svg></div>',
                 unsafe_allow_html=True,
             )
+            answer_options = (["ਜਵਾਬ ਚੁਣੋ…"] + [x[1] for x in quiz_items]) if is_pa else (["Choose an answer…"] + [x[0] for x in quiz_items])
             quiz_answer = st.selectbox(
                 "ਤੁਹਾਡਾ ਜਵਾਬ / Your answer",
-                [x[1] for x in quiz_items] if is_pa else [x[0] for x in quiz_items],
-                key="class7_exp1_quiz_answer",
+                answer_options,
+                index=0,
+                key=f"class7_exp1_quiz_answer_{quiz_index}",
             )
             correct_answer = quiz_target[1] if is_pa else quiz_target[0]
-            if quiz_answer == correct_answer:
-                st.success("ਬਿਲਕੁਲ ਸਹੀ! ਤੁਸੀਂ ਚਿੰਨ੍ਹ ਪਛਾਣ ਲਿਆ।" if is_pa else "Correct! You identified the circuit symbol.")
-            else:
-                st.warning(("ਹਾਲੇ ਸਹੀ ਨਹੀਂ। ਸਹੀ ਜਵਾਬ ਹੈ: " if is_pa else "Not quite. The correct answer is: ") + correct_answer)
-            st.write("💡 " + note)
-        elif kind == "circuit":
+            placeholder = "ਜਵਾਬ ਚੁਣੋ…" if is_pa else "Choose an answer…"
+            if quiz_answer != placeholder:
+                if quiz_answer == correct_answer:
+                    st.success("ਬਿਲਕੁਲ ਸਹੀ! ਤੁਸੀਂ ਚਿੰਨ੍ਹ ਪਛਾਣ ਲਿਆ।" if is_pa else "Correct! You identified the circuit symbol.")
+                    if st.button("ਅਗਲਾ ਚਿੰਨ੍ਹ / Next symbol", key=f"class7_exp1_next_{quiz_index}"):
+                        st.session_state["class7_exp1_quiz_index"] = (quiz_index + 1) % len(quiz_items)
+                        st.rerun()
+                else:
+                    st.warning("ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।" if is_pa else "Not quite. Try again.")
+            st.write("💡 " + note)        elif kind == "circuit":
             # Fixed, illustrative low-voltage cell: no numerical electrical controls
             # are exposed for Classes 6–9.
             bulb_on = closed
