@@ -192,35 +192,84 @@ def electricity_lab():
     with right:
         st.markdown("### " + tr("result"))
         if kind == "magnet" and selected_class == 6 and exp_index == 4:
-            # Interactive material test: ordinary classroom magnets attract iron and steel,
-            # but not aluminium, copper, wood or plastic in this simple model.
-            attracted = material in ("Iron nail", "Steel paper clip", "ਲੋਹੇ ਦੀ ਕਿੱਲ", "ਸਟੀਲ ਦੀ ਪੇਪਰ ਕਲਿੱਪ")
+            # Two-panel interactive visual: material gallery and magnet test outcome.
             is_pa = st.session_state.language != "en"
-            magnet_label = "ਚੁੰਬਕ" if is_pa else "MAGNET"
-            object_label = material or ("ਚੀਜ਼" if is_pa else "OBJECT")
-            result_label = ("ਖਿੱਚਿਆ ਜਾਂਦਾ ਹੈ" if attracted else "ਆਮ ਚੁੰਬਕ ਨਾਲ ਨਹੀਂ ਖਿੱਚਿਆ ਜਾਂਦਾ") if is_pa else ("ATTRACTED" if attracted else "NOT ATTRACTED")
-            result_color = "#16a34a" if attracted else "#64748b"
-            object_x = 255 if attracted else 300
-            pull_lines = (
-                '<g stroke="#f59e0b" stroke-width="3" stroke-linecap="round"><path d="M218 77 l-10 -7 M218 91 l-12 0 M218 105 l-10 7"/></g>'
-                if attracted else ""
+            magnetic_items = [
+                ("Iron nail", "ਲੋਹੇ ਦੀ ਕਿੱਲ", "iron", True),
+                ("Steel paper clip", "ਸਟੀਲ ਦੀ ਪੇਪਰ ਕਲਿੱਪ", "clip", True),
+                ("Aluminium foil", "ਐਲੂਮੀਨੀਅਮ ਫੋਇਲ", "foil", False),
+                ("Copper wire", "ਤਾਂਬੇ ਦੀ ਤਾਰ", "copper", False),
+                ("Wood", "ਲੱਕੜ", "wood", False),
+                ("Plastic", "ਪਲਾਸਟਿਕ", "plastic", False),
+            ]
+            selected = next((item for item in magnetic_items if material in item[:2]), magnetic_items[0])
+            en_name, pa_name, shape, attracted = selected
+            display_name = pa_name if is_pa else en_name
+            magnet_name = "ਚੁੰਬਕ" if is_pa else "BAR MAGNET"
+            title_one = "1. ਪਦਾਰਥ ਚੁਣੋ" if is_pa else "1. Select a material"
+            title_two = "2. ਨਤੀਜਾ ਵੇਖੋ" if is_pa else "2. See the result"
+            gallery = []
+            for en_name_i, pa_name_i, shape_i, is_magnetic in magnetic_items:
+                name_i = pa_name_i if is_pa else en_name_i
+                if shape_i == "iron":
+                    drawing = '<path d="M0 0 L15 -8 L105 -8 L118 0 L105 8 L15 8 Z" fill="#94a3b8" stroke="#475569" stroke-width="2"/>'
+                elif shape_i == "clip":
+                    drawing = '<path d="M10 0 C10 -24 48 -24 48 0 L48 12 C48 27 25 27 25 12 L25 -2 C25 -10 38 -10 38 -2" fill="none" stroke="#64748b" stroke-width="5"/>'
+                elif shape_i == "foil":
+                    drawing = '<path d="M0 0 L20 -15 L48 -5 L73 -19 L105 -4 L92 17 L55 8 L28 18 Z" fill="#cbd5e1" stroke="#64748b" stroke-width="2"/>'
+                elif shape_i == "copper":
+                    drawing = '<g fill="none" stroke="#b87333" stroke-width="6"><ellipse cx="35" cy="0" rx="30" ry="17"/><ellipse cx="48" cy="0" rx="30" ry="17"/><ellipse cx="61" cy="0" rx="30" ry="17"/></g>'
+                elif shape_i == "wood":
+                    drawing = '<path d="M0 -12 L90 -12 L105 0 L15 0 Z" fill="#d6a56b" stroke="#9a6b37" stroke-width="2"/><path d="M15 0 L105 0 L105 15 L15 15 Z" fill="#c58b4f" stroke="#9a6b37" stroke-width="2"/>'
+                else:
+                    drawing = '<path d="M15 -15 H75 Q90 -15 90 0 V10 Q90 20 75 20 H15 Q0 20 0 10 V0 Q0 -15 15 -15Z" fill="#60a5fa" stroke="#2563eb" stroke-width="2"/>'
+                gallery.append('<g transform="translate(0,0)">' + drawing + '</g><text x="60" y="45" text-anchor="middle" font-size="11" fill="currentColor">' + name_i + '</text>')
+            gallery_svg = (
+                '<div style="border:1px solid #93c5fd;border-radius:14px;padding:10px;background:rgba(59,130,246,.04)">'
+                '<div style="font-weight:700;margin-bottom:8px">' + title_one + '</div>'
+                '<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;text-align:center">'
+                + ''.join('<div style="border:1px solid rgba(120,140,160,.3);border-radius:10px;padding:8px;min-height:92px"><svg viewBox="0 -28 120 82" width="100%" height="65">' + item + '</svg></div>' for item in gallery)
+                + '</div><div style="text-align:center;margin-top:8px"><svg viewBox="0 0 220 58" width="75%"><rect x="20" y="8" width="90" height="34" rx="5" fill="#dc2626"/><rect x="110" y="8" width="90" height="34" rx="5" fill="#2563eb"/><text x="65" y="31" fill="white" font-size="17" font-weight="bold" text-anchor="middle">N</text><text x="155" y="31" fill="white" font-size="17" font-weight="bold" text-anchor="middle">S</text></svg><div style="font-weight:600">' + magnet_name + '</div></div></div>'
             )
-            magnet_svg = (
-                '<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:10px;background:rgba(128,128,128,.035);">'
-                '<svg viewBox="0 0 420 205" width="100%" role="img" aria-label="Magnet testing selected material">'
-                '<g><rect x="45" y="66" width="42" height="78" rx="5" fill="#dc2626"/><rect x="87" y="66" width="42" height="78" rx="5" fill="#2563eb"/><text x="66" y="108" font-size="17" font-weight="bold" fill="white" text-anchor="middle">N</text><text x="108" y="108" font-size="17" font-weight="bold" fill="white" text-anchor="middle">S</text><text x="87" y="164" font-size="12" fill="currentColor" text-anchor="middle">' + magnet_label + '</text></g>'
-                + pull_lines +
-                '<g transform="translate(' + str(object_x) + ',82)" stroke="#475569" stroke-width="3" fill="#cbd5e1"><rect x="0" y="0" width="72" height="24" rx="4"/><path d="M8 6 H64" stroke="#94a3b8" stroke-width="2"/></g>'
-                '<text x="' + str(object_x + 36) + '" y="127" font-size="11" fill="currentColor" text-anchor="middle">' + object_label + '</text>'
-                '<text x="210" y="190" font-size="15" font-weight="bold" fill="' + result_color + '" text-anchor="middle">' + result_label + '</text>'
-                '</svg></div>'
+            st.markdown(gallery_svg, unsafe_allow_html=True)
+            st.caption("Choose a material from the dropdown on the left." if not is_pa else "ਖੱਬੇ ਪਾਸੇ ਡ੍ਰੌਪਡਾਊਨ ਵਿੱਚੋਂ ਪਦਾਰਥ ਚੁਣੋ।")
+            st.markdown("#### " + title_two)
+            if attracted:
+                result_label = "ਖਿੱਚਿਆ ਜਾਂਦਾ ਹੈ — ਚੁੰਬਕ ਨਾਲ ਸੰਪਰਕ" if is_pa else "ATTRACTED — touches the magnet"
+                result_color = "#16a34a"
+                object_x = 166
+                connection = '<path d="M145 88 H166" stroke="#16a34a" stroke-width="5"/>'
+                result_text = ("ਇਹ ਪਦਾਰਥ ਚੁੰਬਕ ਵੱਲ ਖਿੱਚਿਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਉਸ ਨਾਲ ਲੱਗ ਜਾਂਦਾ ਹੈ।" if is_pa else "This material is attracted and moves into contact with the magnet.")
+            else:
+                result_label = "ਨਹੀਂ ਖਿੱਚਿਆ ਜਾਂਦਾ — ਦੂਰੀ ਰਹਿੰਦੀ ਹੈ" if is_pa else "NOT ATTRACTED — stays apart"
+                result_color = "#dc2626"
+                object_x = 245
+                connection = '<path d="M145 88 H235" stroke="#64748b" stroke-width="3" stroke-dasharray="7 6"/>'
+                result_text = ("ਆਮ ਕਲਾਸਰੂਮ ਚੁੰਬਕ ਇਸ ਪਦਾਰਥ ਨੂੰ ਨਹੀਂ ਖਿੱਚਦਾ; ਇਸ ਲਈ ਵਿਚਕਾਰ ਖਾਲੀ ਥਾਂ ਰਹਿੰਦੀ ਹੈ।" if is_pa else "An ordinary classroom magnet does not attract this material, so a gap remains.")
+            if shape == "iron":
+                object_drawing = '<path d="M0 0 L12 -7 L82 -7 L94 0 L82 7 L12 7 Z" fill="#94a3b8" stroke="#475569" stroke-width="2"/>'
+            elif shape == "clip":
+                object_drawing = '<path d="M5 0 C5 -20 35 -20 35 0 L35 8 C35 20 17 20 17 8 L17 -2 C17 -8 27 -8 27 -2" fill="none" stroke="#64748b" stroke-width="5"/>'
+            elif shape == "foil":
+                object_drawing = '<path d="M0 0 L20 -13 L43 -4 L65 -16 L88 -2 L77 15 L44 7 L23 16 Z" fill="#cbd5e1" stroke="#64748b" stroke-width="2"/>'
+            elif shape == "copper":
+                object_drawing = '<g fill="none" stroke="#b87333" stroke-width="5"><ellipse cx="25" cy="0" rx="22" ry="13"/><ellipse cx="39" cy="0" rx="22" ry="13"/></g>'
+            elif shape == "wood":
+                object_drawing = '<rect x="0" y="-10" width="80" height="20" rx="3" fill="#d6a56b" stroke="#9a6b37" stroke-width="2"/>'
+            else:
+                object_drawing = '<rect x="0" y="-14" width="62" height="28" rx="8" fill="#60a5fa" stroke="#2563eb" stroke-width="2"/>'
+            result_svg = (
+                '<div style="border:1px solid ' + result_color + ';border-radius:14px;padding:10px;background:rgba(128,128,128,.035)">'
+                '<svg viewBox="0 0 380 155" width="100%" role="img" aria-label="Selected material and magnet attraction result">'
+                '<rect x="15" y="62" width="65" height="48" rx="4" fill="#dc2626"/><rect x="80" y="62" width="65" height="48" rx="4" fill="#2563eb"/>'
+                '<text x="47" y="91" font-size="18" fill="white" font-weight="bold" text-anchor="middle">N</text><text x="112" y="91" font-size="18" fill="white" font-weight="bold" text-anchor="middle">S</text>'
+                + connection + '<g transform="translate(' + str(object_x) + ',88)">' + object_drawing + '</g>'
+                '<text x="190" y="132" font-size="12" fill="currentColor" text-anchor="middle">' + display_name + '</text>'
+                '</svg><div style="color:' + result_color + ';font-weight:700;text-align:center">' + result_label + '</div>'
+                '<div style="text-align:center;margin-top:6px">' + result_text + '</div></div>'
             )
-            st.markdown("#### " + ("ਚੁੰਬਕ ਨਾਲ ਪਦਾਰਥ ਦੀ ਜਾਂਚ" if is_pa else "Test the selected material"), unsafe_allow_html=True)
-            st.markdown(magnet_svg, unsafe_allow_html=True)
-            st.metric("ਨਤੀਜਾ" if is_pa else "Result", result_label)
-            st.info(
-                ("ਲੋਹਾ ਅਤੇ ਸਟੀਲ ਆਮ ਚੁੰਬਕ ਵੱਲ ਖਿੱਚੇ ਜਾਂਦੇ ਹਨ। ਐਲੂਮੀਨੀਅਮ, ਤਾਂਬਾ, ਲੱਕੜ ਅਤੇ ਪਲਾਸਟਿਕ ਆਮ ਕਲਾਸਰੂਮ ਚੁੰਬਕ ਨਾਲ ਨਹੀਂ ਖਿੱਚੇ ਜਾਂਦੇ।" if is_pa else "Iron and steel are attracted by an ordinary classroom magnet. Aluminium, copper, wood and plastic are not attracted in this simple test.")
-            )
+            st.markdown(result_svg, unsafe_allow_html=True)
+            st.info("Iron and steel are attracted by an ordinary classroom magnet; aluminium, copper, wood and plastic are not." if not is_pa else "ਲੋਹਾ ਅਤੇ ਸਟੀਲ ਆਮ ਚੁੰਬਕ ਵੱਲ ਖਿੱਚੇ ਜਾਂਦੇ ਹਨ; ਐਲੂਮੀਨੀਅਮ, ਤਾਂਬਾ, ਲੱਕੜ ਅਤੇ ਪਲਾਸਟਿਕ ਨਹੀਂ ਖਿੱਚੇ ਜਾਂਦੇ।")
             st.write("💡 " + note)
         elif kind == "circuit" and selected_class == 6 and exp_index == 1:
             # Three fixed comparison circuits: correct connection, same-terminal
