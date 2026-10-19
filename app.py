@@ -257,6 +257,41 @@ def electricity_lab():
                 "ਸਰਕਟ 1: ਦੋਵੇਂ ਤਾਰਾਂ ਬਲਬ ਦੇ ਵੱਖ-ਵੱਖ ਟਰਮੀਨਲਾਂ ਨਾਲ ਜੁੜਦੀਆਂ ਹਨ, ਇਸ ਲਈ ਪੂਰਾ ਰਸਤਾ ਬਣਦਾ ਹੈ ਅਤੇ ਬਲਬ ਜਗਦਾ ਹੈ। ਸਰਕਟ 2: ਦੋਵੇਂ ਤਾਰਾਂ ਇੱਕੋ ਧਾਤੂ ਟਰਮੀਨਲ ਨਾਲ ਜੁੜੀਆਂ ਹਨ; ਦੂਜਾ ਟਰਮੀਨਲ ਨਹੀਂ ਜੁੜਿਆ, ਇਸ ਲਈ ਬਲਬ ਨਹੀਂ ਜਗਦਾ। ਸਰਕਟ 3: ਤਾਰ ਵਿਚਕਾਰੋਂ ਟੁੱਟੀ ਹੈ, ਇਸ ਲਈ ਰਸਤਾ ਅਧੂਰਾ ਹੈ ਅਤੇ ਬਲਬ ਨਹੀਂ ਜਗਦਾ।"
             )
             st.write("💡 " + note)
+        elif kind == "circuit" and selected_class == 6 and exp_index == 3:
+            # Class 6 Experiment 4: interactive open/closed switch comparison.
+            bulb_on = closed
+            wire_color = "#16a34a" if closed else "#d97706"
+            bulb_fill = "#fde047" if bulb_on else "#e2e8f0"
+            bulb_glow = "filter: drop-shadow(0 0 10px #facc15);" if bulb_on else ""
+            switch_arm = (
+                '<line x1="158" y1="50" x2="216" y2="50" stroke="' + wire_color + '" stroke-width="5" stroke-linecap="round"/>'
+                if closed else
+                '<line x1="158" y1="50" x2="205" y2="29" stroke="' + wire_color + '" stroke-width="5" stroke-linecap="round"/>'
+            )
+            circuit_svg = (
+                '<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:10px;background:rgba(128,128,128,.035);">'
+                '<svg viewBox="0 0 420 230" width="100%" role="img" aria-label="Interactive open and closed circuit with a cell, switch and bulb">'
+                '<g fill="none" stroke="' + wire_color + '" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">'
+                '<path d="M70 50 H158"/>' + switch_arm +
+                '<path d="M216 50 H320 V77"/><path d="M320 123 V165 H70 V110"/>'
+                '<path d="M70 50 V77 M70 103 V110"/>'
+                '</g>'
+                '<g stroke="#334155" stroke-width="3"><line x1="50" y1="80" x2="90" y2="80"/><line x1="58" y1="100" x2="82" y2="100"/></g>'
+                '<g stroke="#334155" stroke-width="3" fill="none"><circle cx="320" cy="100" r="23" fill="' + bulb_fill + '" style="' + bulb_glow + '"/><path d="M307 87 L315 95 L309 102 L319 108 L326 99 L333 108" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M309 124 V132 H331 V124 M312 132 V138 H328 V132" stroke="#64748b" stroke-width="2.5"/></g>'
+                '<g fill="currentColor" font-size="12" text-anchor="middle"><text x="70" y="129">' + tr("battery") + '</text><text x="187" y="17">' + tr("switch_label") + '</text><text x="320" y="194">' + tr("bulb") + '</text></g>'
+                '<g fill="#334155"><circle cx="158" cy="50" r="4"/><circle cx="216" cy="50" r="4"/></g>'
+                '<g fill="currentColor" font-size="13" font-weight="bold" text-anchor="middle"><text x="210" y="218">' + (("CLOSED: complete path" if closed else "OPEN: broken path") if st.session_state.language == "en" else ("ਬੰਦ: ਪੂਰਾ ਰਸਤਾ" if closed else "ਖੁੱਲ੍ਹਾ: ਟੁੱਟਿਆ ਰਸਤਾ")) + '</text></g>'
+                '</svg></div>'
+            )
+            st.markdown("#### " + tr("visual_circuit"), unsafe_allow_html=True)
+            st.markdown(circuit_svg, unsafe_allow_html=True)
+            st.metric(tr("circuit"), tr("bulb_on") if bulb_on else tr("bulb_off"))
+            st.info(
+                "Close the switch to complete the conducting path: current can flow and the bulb glows. Open the switch to create a gap: the path is broken and the bulb goes off."
+                if st.session_state.language == "en" else
+                "ਸਰਕਟ ਦਾ ਰਸਤਾ ਪੂਰਾ ਕਰਨ ਲਈ ਸਵਿੱਚ ਬੰਦ ਕਰੋ: ਕਰੰਟ ਲੰਘ ਸਕਦਾ ਹੈ ਅਤੇ ਬਲਬ ਜਗਦਾ ਹੈ। ਸਵਿੱਚ ਖੋਲ੍ਹਣ ਨਾਲ ਰਸਤੇ ਵਿੱਚ ਖਾਲੀ ਥਾਂ ਬਣਦੀ ਹੈ: ਸਰਕਟ ਟੁੱਟ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਲਬ ਬੁੱਝ ਜਾਂਦਾ ਹੈ।"
+            )
+            st.write("💡 " + note)
         elif kind == "circuit":
             # Fixed, illustrative low-voltage cell: no numerical electrical controls
             # are exposed for Classes 6–9.
