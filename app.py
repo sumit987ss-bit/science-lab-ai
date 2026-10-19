@@ -589,21 +589,49 @@ def electricity_lab():
             st.write("💡 " + note)
         elif electromagnet_experiment:
             is_pa = st.session_state.language != "en"
-            crane_title = "ਕਰੇਨ ਵਿੱਚ ਬਿਜਲੀ-ਚੁੰਬਕ" if is_pa else "Real-world example: scrapyard electromagnet crane"
-            # Public-domain photograph of an industrial lifting magnet and scrap iron.
-            photo_url = "https://commons.wikimedia.org/wiki/Special:FilePath/Industrial_lifting_magnet.jpg"
+            lifted = closed
+            crane_title = "ਕਰੇਨ ਵਿੱਚ ਬਿਜਲੀ-ਚੁੰਬਕ" if is_pa else "Electromagnet used in a scrapyard crane"
+            scrap_caption = "ਲੋਹੇ ਦਾ ਕਬਾੜ" if is_pa else "Iron scrap"
+            magnet_caption = "ਬਿਜਲੀ-ਚੁੰਬਕ" if is_pa else "Electromagnet"
+            on_caption = "ਸਵਿੱਚ ਬੰਦ: ਲੋਹਾ ਚੁੱਕਿਆ ਗਿਆ" if is_pa else "Switch ON: iron scrap is lifted"
+            off_caption = "ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ: ਲੋਹਾ ਛੱਡ ਦਿੱਤਾ ਗਿਆ" if is_pa else "Switch OFF: iron scrap is released"
+            state_caption = on_caption if closed else off_caption
+            magnet_fill = "#dc2626" if closed else "#94a3b8"
+            scrap_items = (
+                '<g stroke="#475569" stroke-width="5" stroke-linecap="round" fill="none">'
+                '<path d="M155 190 l18 -12 l12 17 l-14 13 Z"/>'
+                '<path d="M205 192 l22 -14 l13 18 l-19 13 Z"/>'
+                '<path d="M256 190 l19 -12 l13 18 l-16 14 Z"/>'
+                '<path d="M300 194 l17 -11 l12 16 l-15 12 Z"/>'
+                '</g>'
+            ) if not closed else (
+                '<g stroke="#475569" stroke-width="5" stroke-linecap="round" fill="none">'
+                '<path d="M158 136 l18 -12 l12 17 l-14 13 Z"/>'
+                '<path d="M202 141 l22 -14 l13 18 l-19 13 Z"/>'
+                '<path d="M246 136 l19 -12 l13 18 l-16 14 Z"/>'
+                '<path d="M288 141 l17 -11 l12 16 l-15 12 Z"/>'
+                '</g>'
+            )
             st.markdown("#### " + crane_title)
-            st.image(photo_url, use_container_width=True, caption=("ਅਸਲੀ ਉਦਯੋਗਿਕ ਬਿਜਲੀ-ਚੁੰਬਕ ਲੋਹੇ ਦਾ ਕਬਾੜ ਚੁੱਕਦਾ ਹੋਇਆ (ਇਤਿਹਾਸਕ ਫੋਟੋ)" if is_pa else "Real photograph: an industrial electromagnet lifting scrap iron (historical photo, public domain)"))
-            st.markdown("##### " + ("ਹੁਣ ਸਵਿੱਚ ਦੀ ਸਥਿਤੀ ਬਦਲੋ" if is_pa else "Change the switch to explore the principle"))
-            if closed:
-                st.success("🟢 " + ("ਸਵਿੱਚ ON — ਚੁੰਬਕ ਲੋਹੇ ਦੇ ਕਬਾੜ ਨੂੰ ਖਿੱਚਦਾ ਹੈ।" if is_pa else "Switch ON — the electromagnet attracts and lifts iron scrap."))
-                st.markdown("**" + ("ਚੁੰਬਕ ਦੀ ਸਥਿਤੀ: ਚਾਲੂ" if is_pa else "Magnet status: ACTIVE") + "**")
-            else:
-                st.warning("⚪ " + ("ਸਵਿੱਚ OFF — ਕਰੰਟ ਰੁਕਣ ਨਾਲ ਚੁੰਬਕੀ ਪ੍ਰਭਾਵ ਖਤਮ ਹੋ ਜਾਂਦਾ ਹੈ ਅਤੇ ਕਬਾੜ ਛੱਡਿਆ ਜਾ ਸਕਦਾ ਹੈ।" if is_pa else "Switch OFF — current stops, so the electromagnet loses its magnetism and can release the scrap."))
-                st.markdown("**" + ("ਚੁੰਬਕ ਦੀ ਸਥਿਤੀ: ਬੰਦ" if is_pa else "Magnet status: OFF") + "**")
+            crane_svg = f"""<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:10px;background:rgba(128,128,128,.035)">
+<svg viewBox="0 0 440 300" width="100%" role="img" aria-label="Scrapyard crane with a switch-controlled electromagnet lifting or releasing iron scrap">
+<rect x="18" y="255" width="404" height="18" rx="5" fill="#94a3b8"/>
+<rect x="45" y="56" width="24" height="199" rx="4" fill="#64748b"/>
+<rect x="45" y="48" width="285" height="18" rx="4" fill="#f59e0b" stroke="#92400e" stroke-width="2"/>
+<rect x="305" y="66" width="18" height="34" fill="#64748b"/>
+<path d="M314 100 V142" stroke="#334155" stroke-width="4"/>
+<rect x="278" y="139" width="72" height="31" rx="6" fill="{magnet_fill}" stroke="#7f1d1d" stroke-width="2"/>
+<text x="314" y="159" fill="white" font-size="12" font-weight="bold" text-anchor="middle">E-MAGNET</text>
+<text x="314" y="185" fill="currentColor" font-size="11" text-anchor="middle">{magnet_caption}</text>
+{scrap_items}
+<g fill="currentColor" font-size="12" text-anchor="middle"><text x="220" y="28">{"ਕਬਾੜਖਾਨੇ ਦੀ ਕਰੇਨ" if is_pa else "SCRAPYARD CRANE"}</text><text x="220" y="292">{scrap_caption}</text></g>
+</svg></div>"""
+            st.markdown(crane_svg, unsafe_allow_html=True)
+            st.metric("ਕਰੇਨ ਦੀ ਸਥਿਤੀ" if is_pa else "Crane status", ("ਲੋਹਾ ਚੁੱਕਿਆ ਹੋਇਆ" if is_pa else "Iron scrap lifted") if lifted else ("ਲੋਹਾ ਛੱਡਿਆ ਹੋਇਆ" if is_pa else "Iron scrap released"))
+            st.info(state_caption)
             st.markdown("**" + ("ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ?" if is_pa else "How it works") + "**")
-            st.write(("ਜਦੋਂ ਸਵਿੱਚ ON ਹੁੰਦਾ ਹੈ, ਕੋਇਲ ਵਿੱਚੋਂ ਕਰੰਟ ਲੰਘਦਾ ਹੈ ਅਤੇ ਬਿਜਲੀ-ਚੁੰਬਕ ਲੋਹੇ/ਸਟੀਲ ਦੇ ਕਬਾੜ ਨੂੰ ਖਿੱਚਦਾ ਹੈ। ਸਵਿੱਚ OFF ਕਰਨ ਨਾਲ ਕਰੰਟ ਰੁਕ ਜਾਂਦਾ ਹੈ ਅਤੇ ਚੁੰਬਕੀ ਪ੍ਰਭਾਵ ਘਟ ਜਾਂਦਾ ਹੈ, ਜਿਸ ਨਾਲ ਕਬਾੜ ਛੱਡਿਆ ਜਾ ਸਕਦਾ ਹੈ।" if is_pa else "When the switch is ON, current flows through a coil and creates an electromagnet that attracts iron and steel scrap. Switching OFF stops the current, greatly reducing the magnetic effect so the scrap can be released."))
-            st.caption("Photo shows a real industrial example; the switch response in this app is a learning simulation, not a live crane or a measured lifting load." if not is_pa else "ਫੋਟੋ ਅਸਲੀ ਉਦਯੋਗਿਕ ਉਦਾਹਰਨ ਹੈ; ਐਪ ਵਿੱਚ ਸਵਿੱਚ ਦਾ ਪ੍ਰਭਾਵ ਸਿੱਖਣ ਲਈ ਸਿਮੂਲੇਸ਼ਨ ਹੈ, ਅਸਲੀ ਕਰੇਨ ਜਾਂ ਮਾਪ ਨਹੀਂ।")
+            st.write(("ਸਵਿੱਚ ਬੰਦ ਕਰਨ ਨਾਲ ਕੋਇਲ ਵਿੱਚੋਂ ਕਰੰਟ ਲੰਘਦਾ ਹੈ ਅਤੇ ਲੋਹੇ ਦਾ ਕੋਰ ਚੁੰਬਕ ਬਣ ਜਾਂਦਾ ਹੈ। ਇਹ ਲੋਹੇ ਦੇ ਕਬਾੜ ਨੂੰ ਚੁੱਕ ਲੈਂਦਾ ਹੈ। ਸਵਿੱਚ ਖੋਲ੍ਹਣ ਨਾਲ ਕਰੰਟ ਰੁਕ ਜਾਂਦਾ ਹੈ ਅਤੇ ਕਬਾੜ ਹੇਠਾਂ ਡਿੱਗ ਜਾਂਦਾ ਹੈ।" if is_pa else "When the switch is closed, current flows through the coil and makes the iron core magnetic, so it lifts iron scrap. Opening the switch stops the current and releases the scrap."))
+            st.caption("Illustrative classroom simulation — not a real crane or a measurement." if not is_pa else "ਇਹ ਸਿਰਫ਼ ਸਿੱਖਣ ਲਈ ਵਰਚੁਅਲ ਮਾਡਲ ਹੈ, ਅਸਲੀ ਕਰੇਨ ਜਾਂ ਮਾਪ ਨਹੀਂ।")
             st.write("💡 " + note)
         elif kind == "electromagnet":
             strength = turns * current_control
