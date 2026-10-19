@@ -155,12 +155,14 @@ def electricity_lab():
     st.markdown(f"**{tr('aim')}:** {aim}")
     st.markdown(f"**{tr('how')}:** {tr('feedback')}")
     magnetic_experiment = kind == "magnet" and selected_class == 6 and exp_index == 4
-    if magnetic_experiment:
+    symbol_experiment = selected_class == 7 and exp_index == 0
+    wide_experiment = magnetic_experiment or symbol_experiment
+    if wide_experiment:
         left, right = st.container(), st.container()
     else:
         left, right = st.columns([1, 1.2], gap="large")
     with left:
-        if not magnetic_experiment:
+        if not wide_experiment:
             st.markdown("### " + tr("controls"))
         # Keep controls aligned with the class level: Classes 6–9 use qualitative models.
         # Numerical voltage, resistance, coil-turn and current controls are shown only
@@ -381,6 +383,50 @@ def electricity_lab():
                 if st.session_state.language == "en" else
                 "ਸਰਕਟ ਦਾ ਰਸਤਾ ਪੂਰਾ ਕਰਨ ਲਈ ਸਵਿੱਚ ਬੰਦ ਕਰੋ: ਕਰੰਟ ਲੰਘ ਸਕਦਾ ਹੈ ਅਤੇ ਬਲਬ ਜਗਦਾ ਹੈ। ਸਵਿੱਚ ਖੋਲ੍ਹਣ ਨਾਲ ਰਸਤੇ ਵਿੱਚ ਖਾਲੀ ਥਾਂ ਬਣਦੀ ਹੈ: ਸਰਕਟ ਟੁੱਟ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਲਬ ਬੁੱਝ ਜਾਂਦਾ ਹੈ।"
             )
+            st.write("💡 " + note)
+        elif kind == "circuit" and selected_class == 7 and exp_index == 0:
+            # Class 7 Experiment 1: component gallery, selection dropdown, then
+            # a large symbol/function result and a complete sample circuit.
+            is_pa = st.session_state.language != "en"
+            component_data = [
+                ("Cell", "ਸੈੱਲ", "cell", "A cell supplies electrical energy to the circuit.", "ਸੈੱਲ ਸਰਕਟ ਨੂੰ ਬਿਜਲੀ ਊਰਜਾ ਦਿੰਦਾ ਹੈ।"),
+                ("Bulb", "ਬਲਬ", "bulb", "A bulb converts electrical energy into light (and heat).", "ਬਲਬ ਬਿਜਲੀ ਊਰਜਾ ਨੂੰ ਰੌਸ਼ਨੀ (ਅਤੇ ਤਾਪ) ਵਿੱਚ ਬਦਲਦਾ ਹੈ।"),
+                ("Open switch", "ਖੁੱਲ੍ਹਾ ਸਵਿੱਚ", "open", "An open switch breaks the circuit, so current cannot flow.", "ਖੁੱਲ੍ਹਾ ਸਵਿੱਚ ਸਰਕਟ ਤੋੜਦਾ ਹੈ, ਇਸ ਲਈ ਕਰੰਟ ਨਹੀਂ ਵਹਿੰਦਾ।"),
+                ("Closed switch", "ਬੰਦ ਸਵਿੱਚ", "closed", "A closed switch completes the circuit path.", "ਬੰਦ ਸਵਿੱਚ ਸਰਕਟ ਦਾ ਰਸਤਾ ਪੂਰਾ ਕਰਦਾ ਹੈ।"),
+                ("Connecting wire", "ਜੋੜਨ ਵਾਲੀ ਤਾਰ", "wire", "A connecting wire joins components and provides a conducting path.", "ਜੋੜਨ ਵਾਲੀ ਤਾਰ ਭਾਗਾਂ ਨੂੰ ਜੋੜਦੀ ਅਤੇ ਚਾਲਕ ਰਸਤਾ ਦਿੰਦੀ ਹੈ।"),
+            ]
+            def component_symbol(shape):
+                if shape == "cell":
+                    return '<path d="M12 40 H55 M55 20 V60 M72 30 V50 M72 40 H112" stroke="#334155" stroke-width="4" fill="none"/><text x="63" y="79" text-anchor="middle" font-size="12" fill="currentColor">Cell</text>'
+                if shape == "bulb":
+                    return '<path d="M8 40 H35 M85 40 H112" stroke="#334155" stroke-width="4"/><circle cx="60" cy="40" r="24" fill="#fef3c7" stroke="#334155" stroke-width="3"/><path d="M46 26 L74 54 M74 26 L46 54 M50 65 H70 M52 71 H68" stroke="#334155" stroke-width="3" fill="none"/><text x="60" y="91" text-anchor="middle" font-size="12" fill="currentColor">Bulb</text>'
+                if shape == "open":
+                    return '<path d="M8 45 H42 M78 45 H112 M42 45 L72 20" stroke="#334155" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="42" cy="45" r="4" fill="#334155"/><circle cx="78" cy="45" r="4" fill="#334155"/><text x="60" y="79" text-anchor="middle" font-size="12" fill="currentColor">Open switch</text>'
+                if shape == "closed":
+                    return '<path d="M8 45 H42 M42 45 H78 M78 45 H112" stroke="#334155" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="42" cy="45" r="4" fill="#334155"/><circle cx="78" cy="45" r="4" fill="#334155"/><text x="60" y="79" text-anchor="middle" font-size="12" fill="currentColor">Closed switch</text>'
+                return '<path d="M8 45 H112" stroke="#16a34a" stroke-width="5" fill="none" stroke-linecap="round"/><text x="60" y="79" text-anchor="middle" font-size="12" fill="currentColor">Wire</text>'
+            gallery_title = "1. Component gallery — ਸਰਕਟ ਦੇ ਭਾਗ" if is_pa else "1. Component gallery — circuit components"
+            st.markdown("#### " + gallery_title)
+            gallery_cards = []
+            for en, pa, shape, en_desc, pa_desc in component_data:
+                label = pa if is_pa else en
+                gallery_cards.append('<div style="border:1px solid rgba(120,140,160,.35);border-radius:12px;padding:8px;text-align:center;min-width:0"><svg viewBox="0 0 120 96" width="100%" role="img" aria-label="' + label + '">' + component_symbol(shape) + '</svg><div style="font-weight:600;font-size:13px">' + label + '</div></div>')
+            st.markdown('<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:8px">' + ''.join(gallery_cards) + '</div>', unsafe_allow_html=True)
+            st.caption("Study the symbols, then choose one below." if not is_pa else "ਚਿੰਨ੍ਹਾਂ ਨੂੰ ਵੇਖੋ ਅਤੇ ਫਿਰ ਹੇਠਾਂ ਇੱਕ ਚੁਣੋ।")
+            choices = [x[1] for x in component_data] if is_pa else [x[0] for x in component_data]
+            selected_component = st.selectbox("2. ਭਾਗ ਚੁਣੋ / Select a component", choices, key="class7_exp1_component")
+            chosen = next(x for x in component_data if selected_component in x[:2])
+            en, pa, shape, en_desc, pa_desc = chosen
+            selected_label = pa if is_pa else en
+            desc = pa_desc if is_pa else en_desc
+            symbol_title = "3. ਚਿੰਨ੍ਹ ਅਤੇ ਕੰਮ" if is_pa else "3. Symbol and function"
+            st.markdown("#### " + symbol_title)
+            symbol_svg = '<div style="border:1px solid #60a5fa;border-radius:14px;padding:12px;background:rgba(59,130,246,.05);text-align:center"><div style="font-weight:700;font-size:18px;margin-bottom:8px">' + selected_label + '</div><svg viewBox="0 0 120 100" width="220" style="max-width:100%" role="img" aria-label="Selected circuit symbol">' + component_symbol(shape) + '</svg><div style="font-size:15px;margin-top:8px">' + desc + '</div></div>'
+            st.markdown(symbol_svg, unsafe_allow_html=True)
+            st.markdown("#### " + ("ਸਧਾਰਨ ਸਰਕਟ ਚਿੱਤਰ" if is_pa else "Example circuit diagram"))
+            switch_caption = "ਸਵਿੱਚ ਬੰਦ ਹੈ — ਸਰਕਟ ਪੂਰਾ" if is_pa else "Switch closed — complete circuit"
+            st.markdown('<div style="border:1px solid rgba(120,140,160,.35);border-radius:14px;padding:8px"><svg viewBox="0 0 360 180" width="100%" role="img" aria-label="Circuit diagram with cell, closed switch and bulb"><g fill="none" stroke="#16a34a" stroke-width="4" stroke-linecap="round"><path d="M55 45 H120 M160 45 H275 V70 M275 112 V145 H55 V105 M55 45 V70"/><path d="M120 45 H160"/></g><g stroke="#334155" stroke-width="3"><path d="M42 72 V103 M55 80 V95"/><circle cx="275" cy="91" r="21" fill="#fef08a"/><path d="M264 80 L286 102 M286 80 L264 102" fill="none"/><path d="M265 114 V122 H285 V114" fill="none"/></g><g fill="currentColor" font-size="12" text-anchor="middle"><text x="49" y="128">' + (is_pa ? "ਸੈੱਲ" : "Cell") + '</text><text x="140" y="28">' + (is_pa ? "ਬੰਦ ਸਵਿੱਚ" : "Closed switch") + '</text><text x="275" y="165">' + (is_pa ? "ਬਲਬ" : "Bulb") + '</text></g></svg><div style="text-align:center;color:#16a34a;font-weight:700">' + switch_caption + '</div></div>', unsafe_allow_html=True)
+            st.info("Real circuit diagrams use standard symbols instead of pictures of components. This virtual diagram is for learning; never connect components to household mains electricity." if not is_pa else "ਅਸਲ ਸਰਕਟ ਚਿੱਤਰਾਂ ਵਿੱਚ ਭਾਗਾਂ ਦੀਆਂ ਤਸਵੀਰਾਂ ਦੀ ਥਾਂ ਮਿਆਰੀ ਚਿੰਨ੍ਹ ਵਰਤੇ ਜਾਂਦੇ ਹਨ। ਇਹ ਵਰਚੁਅਲ ਚਿੱਤਰ ਸਿੱਖਣ ਲਈ ਹੈ; ਘਰੇਲੂ ਮੇਨ ਬਿਜਲੀ ਨਾਲ ਭਾਗ ਨਾ ਜੋੜੋ।")
             st.write("💡 " + note)
         elif kind == "circuit":
             # Fixed, illustrative low-voltage cell: no numerical electrical controls
