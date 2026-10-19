@@ -210,8 +210,8 @@ def electricity_lab():
                 '<svg viewBox="0 0 420 205" width="100%" role="img" aria-label="Magnet testing selected material">'
                 '<g><rect x="45" y="66" width="42" height="78" rx="5" fill="#dc2626"/><rect x="87" y="66" width="42" height="78" rx="5" fill="#2563eb"/><text x="66" y="108" font-size="17" font-weight="bold" fill="white" text-anchor="middle">N</text><text x="108" y="108" font-size="17" font-weight="bold" fill="white" text-anchor="middle">S</text><text x="87" y="164" font-size="12" fill="currentColor" text-anchor="middle">' + magnet_label + '</text></g>'
                 + pull_lines +
-                '<g transform="translate(' + object_x + ',82)" stroke="#475569" stroke-width="3" fill="#cbd5e1"><rect x="0" y="0" width="72" height="24" rx="4"/><path d="M8 6 H64" stroke="#94a3b8" stroke-width="2"/></g>'
-                '<text x="' + (object_x + 36) + '" y="127" font-size="11" fill="currentColor" text-anchor="middle">' + object_label + '</text>'
+                '<g transform="translate(' + str(object_x) + ',82)" stroke="#475569" stroke-width="3" fill="#cbd5e1"><rect x="0" y="0" width="72" height="24" rx="4"/><path d="M8 6 H64" stroke="#94a3b8" stroke-width="2"/></g>'
+                '<text x="' + str(object_x + 36) + '" y="127" font-size="11" fill="currentColor" text-anchor="middle">' + object_label + '</text>'
                 '<text x="210" y="190" font-size="15" font-weight="bold" fill="' + result_color + '" text-anchor="middle">' + result_label + '</text>'
                 '</svg></div>'
             )
