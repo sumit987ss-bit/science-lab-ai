@@ -172,7 +172,21 @@ def electricity_lab():
         quantitative_class10 = selected_class == 10 and kind in ("ohms", "series_parallel", "power", "heating")
         voltage = st.slider(tr("voltage"), 0, 24, 12, 1, key=f"v_{selected_class}_{exp_index}") if quantitative_class10 else 12
         resistance = st.slider(tr("resistance"), 1, 100, 6, 1, key=f"r_{selected_class}_{exp_index}") if quantitative_class10 else 6
-        closed = st.checkbox(tr("switch"), value=True, key=f"sw_{selected_class}_{exp_index}") if (kind in ("circuit", "fuse", "motor", "electromagnet", "magnetic_field", "ohms", "series_parallel", "power", "heating") and not (selected_class == 6 and exp_index == 1)) else True
+        # Class 7 Experiment 4 uses a current-condition selector, not a switch checkbox.
+        fuse_current_condition = "normal"
+        if selected_class == 7 and exp_index == 3 and kind == "fuse":
+            is_pa_fuse = st.session_state.language != "en"
+            fuse_current_condition = st.selectbox(
+                "ਕਰੰਟ ਦੀ ਸਥਿਤੀ" if is_pa_fuse else "Current condition",
+                ["normal", "high"],
+                format_func=lambda x: (
+                    ("ਆਮ ਕਰੰਟ" if x == "normal" else "ਬਹੁਤ ਜ਼ਿਆਦਾ ਕਰੰਟ")
+                    if is_pa_fuse else
+                    ("Normal current" if x == "normal" else "Excessive current")
+                ),
+                key=f"class7_fuse_condition_{st.session_state.language}",
+            )
+        closed = st.checkbox(tr("switch"), value=True, key=f"sw_{selected_class}_{exp_index}") if (kind in ("circuit", "motor", "electromagnet", "magnetic_field", "ohms", "series_parallel", "power", "heating") and not (selected_class == 6 and exp_index == 1)) else True
         turns = 10
         current_control = 1.0
         material = None
@@ -208,6 +222,11 @@ def electricity_lab():
                 st.success(tr("correct") if prediction == tr("half") else tr("incorrect"))
     current = voltage / resistance if closed else 0.0
     power = voltage * current if closed else 0.0
+    # Safe conceptual simulation: excessive current melts the virtual fuse link.
+    fuse_blown = kind == "fuse" and fuse_current_condition == "high"
+    if kind == "fuse":
+        current = 3.0 if fuse_blown else 1.0
+        power = 0.0 if fuse_blown else 12.0
     with right:
         st.markdown("### " + tr("result"))
         if kind == "magnet" and selected_class == 6 and exp_index == 4:
@@ -657,8 +676,44 @@ def electricity_lab():
             st.metric(tr("magnetic"), f"{voltage*current_control:.1f} illustrative interaction units")
             st.write(note)
         elif kind == "fuse":
-            st.metric(tr("current"), f"{current:.2f} A")
-            st.info("Illustrative fuse model: a protection device opens a circuit when current exceeds its specified rating. No real fuse is tested.")
+            is_pa_fuse = st.session_state.language != "en"
+            fuse_rating = 2.0
+            circuit_current = 0.0 if fuse_blown else current
+            st.markdown("#### " + ("ਫਿਊਜ਼ ਵਾਲਾ ਸਰਕਟ" if is_pa_fuse else "Circuit with a fuse"))
+            fuse_wire = "#dc2626" if fuse_blown else "#16a34a"
+            bulb_fill = "#e2e8f0" if fuse_blown else "#fde047"
+            bulb_glow = "" if fuse_blown else "filter: drop-shadow(0 0 10px #facc15);"
+            fuse_link = (
+                '<path d="M174 50 L187 40 L198 60 L210 40 L222 60 L235 50" stroke="#dc2626" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'
+                if fuse_blown else
+                '<rect x="174" y="39" width="61" height="22" rx="5" fill="#bbf7d0" stroke="#15803d" stroke-width="2"/><line x1="182" y1="50" x2="227" y2="50" stroke="#15803d" stroke-width="3"/>'
+            )
+            fuse_status = ("ਫਿਊਜ਼ ਪਿਘਲ ਗਿਆ — ਸਰਕਟ ਟੁੱਟ ਗਿਆ" if fuse_blown else "ਫਿਊਜ਼ ਸਹੀ ਹੈ — ਕਰੰਟ ਵਹਿ ਰਿਹਾ ਹੈ") if is_pa_fuse else ("FUSE BLOWN — CIRCUIT BROKEN" if fuse_blown else "FUSE INTACT — CURRENT FLOWS")
+            circuit_svg = (
+                '<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:10px;background:rgba(128,128,128,.035);">'
+                '<svg viewBox="0 0 420 220" width="100%" role="img" aria-label="Virtual low-voltage circuit with a fuse that opens under excessive current">'
+                '<g fill="none" stroke="' + fuse_wire + '" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">'
+                '<path d="M70 50 H174"/>' +
+                ('<path d="M235 50 H320 V78"/>' if not fuse_blown else '<path d="M235 50 H270"/><path d="M292 50 H320 V78"/>') +
+                '<path d="M320 122 V166 H70 V116"/><path d="M70 50 V78"/>'
+                '</g>'
+                '<g stroke="#334155" stroke-width="3" fill="none"><line x1="51" y1="80" x2="89" y2="80"/><line x1="58" y1="98" x2="82" y2="98"/></g>'
+                + fuse_link +
+                '<g stroke="#334155" stroke-width="3" fill="none"><circle cx="320" cy="100" r="23" fill="' + bulb_fill + '" style="' + bulb_glow + '"/><path d="M307 87 L315 95 L309 102 L319 108 L326 99 L333 108" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M309 124 V132 H331 V124 M312 132 V138 H328 V132" stroke="#64748b" stroke-width="2.5"/></g>'
+                '<g fill="currentColor" font-size="12" text-anchor="middle"><text x="70" y="137">' + tr("battery") + '</text><text x="205" y="25">' + ("ਫਿਊਜ਼" if is_pa_fuse else "FUSE") + '</text><text x="320" y="194">' + tr("bulb") + '</text></g>'
+                '<g fill="currentColor" font-size="12" font-weight="bold" text-anchor="middle"><text x="210" y="211">' + fuse_status + '</text></g>'
+                '</svg></div>'
+            )
+            st.markdown(circuit_svg, unsafe_allow_html=True)
+            c1, c2, c3 = st.columns(3)
+            c1.metric("ਆਉਣ ਵਾਲਾ ਕਰੰਟ" if is_pa_fuse else "Incoming current", f"{current:.1f} A")
+            c2.metric("ਫਿਊਜ਼ ਦੀ ਹੱਦ" if is_pa_fuse else "Fuse rating", f"{fuse_rating:.1f} A")
+            c3.metric("ਫਿਊਜ਼ ਤੋਂ ਬਾਅਦ" if is_pa_fuse else "Current after fuse", f"{circuit_current:.1f} A")
+            if fuse_blown:
+                st.error("ਵੱਧ ਕਰੰਟ ਫਿਊਜ਼ ਦੀ ਹੱਦ ਤੋਂ ਵੱਧ ਹੈ। ਫਿਊਜ਼ ਦਾ ਲਿੰਕ ਟੁੱਟਦਾ ਹੈ, ਸਰਕਟ ਖੁੱਲ੍ਹ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਲਬ ਬੁੱਝ ਜਾਂਦਾ ਹੈ।" if is_pa_fuse else "The current exceeds the fuse rating. The fuse link breaks, opening the circuit and turning the bulb off.")
+            else:
+                st.success("ਕਰੰਟ ਫਿਊਜ਼ ਦੀ ਹੱਦ ਤੋਂ ਘੱਟ ਹੈ, ਇਸ ਲਈ ਫਿਊਜ਼ ਸਹੀ ਰਹਿੰਦਾ ਹੈ ਅਤੇ ਬਲਬ ਜਗਦਾ ਹੈ।" if is_pa_fuse else "Current is below the fuse rating, so the fuse stays intact and the bulb glows.")
+            st.caption("ਸਿਰਫ਼ ਵਰਚੁਅਲ ਸਿਮੂਲੇਸ਼ਨ — ਅਸਲੀ ਫਿਊਜ਼ ਜਾਂ ਸ਼ਾਰਟ ਸਰਕਟ ਦੀ ਜਾਂਚ ਨਾ ਕਰੋ।" if is_pa_fuse else "Virtual simulation only — do not test a real fuse or create a real short circuit.")
         elif kind == "motor":
             st.metric("Motor model", "Rotating" if closed and voltage > 0 else "Stopped")
             st.write(note)
