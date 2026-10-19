@@ -154,9 +154,14 @@ def electricity_lab():
     st.subheader(title)
     st.markdown(f"**{tr('aim')}:** {aim}")
     st.markdown(f"**{tr('how')}:** {tr('feedback')}")
-    left, right = st.columns([1, 1.2], gap="large")
+    magnetic_experiment = kind == "magnet" and selected_class == 6 and exp_index == 4
+    if magnetic_experiment:
+        left, right = st.container(), st.container()
+    else:
+        left, right = st.columns([1, 1.2], gap="large")
     with left:
-        st.markdown("### " + tr("controls"))
+        if not magnetic_experiment:
+            st.markdown("### " + tr("controls"))
         # Keep controls aligned with the class level: Classes 6–9 use qualitative models.
         # Numerical voltage, resistance, coil-turn and current controls are shown only
         # for relevant Class 10 quantitative experiments.
@@ -174,12 +179,6 @@ def electricity_lab():
                 "pa": ["ਤਾਂਬਾ", "ਐਲੂਮੀਨੀਅਮ", "ਲੋਹਾ", "ਰਬੜ", "ਪਲਾਸਟਿਕ", "ਲੱਕੜ"]
             }
             material = st.selectbox(tr("material"), material_options[st.session_state.language], key=f"mat_{selected_class}_{exp_index}")
-        if kind == "magnet" and selected_class == 6 and exp_index == 4:
-            magnetic_options = {
-                "en": ["Iron nail", "Steel paper clip", "Aluminium foil", "Copper wire", "Wood", "Plastic"],
-                "pa": ["ਲੋਹੇ ਦੀ ਕਿੱਲ", "ਸਟੀਲ ਦੀ ਪੇਪਰ ਕਲਿੱਪ", "ਐਲੂਮੀਨੀਅਮ ਫੋਇਲ", "ਤਾਂਬੇ ਦੀ ਤਾਰ", "ਲੱਕੜ", "ਪਲਾਸਟਿਕ"]
-            }
-            material = st.selectbox(tr("material"), magnetic_options[st.session_state.language], key=f"magmat_{selected_class}_{exp_index}")
         if kind == "liquids":
             liquids = ["water", "salt", "sugar", "lemon"]
             liquid = st.selectbox(tr("liquid"), liquids, format_func=lambda x: tr(x), key=f"liq_{selected_class}_{exp_index}")
@@ -202,9 +201,6 @@ def electricity_lab():
                 ("Wood", "ਲੱਕੜ", "wood", False),
                 ("Plastic", "ਪਲਾਸਟਿਕ", "plastic", False),
             ]
-            selected = next((item for item in magnetic_items if material in item[:2]), magnetic_items[0])
-            en_name, pa_name, shape, attracted = selected
-            display_name = pa_name if is_pa else en_name
             magnet_name = "ਚੁੰਬਕ" if is_pa else "BAR MAGNET"
             title_one = "1. ਪਦਾਰਥ ਚੁਣੋ" if is_pa else "1. Select a material"
             title_two = "2. ਨਤੀਜਾ ਵੇਖੋ" if is_pa else "2. See the result"
@@ -232,7 +228,15 @@ def electricity_lab():
                 + '</div><div style="text-align:center;margin-top:8px"><svg viewBox="0 0 220 58" width="75%"><rect x="20" y="8" width="90" height="34" rx="5" fill="#dc2626"/><rect x="110" y="8" width="90" height="34" rx="5" fill="#2563eb"/><text x="65" y="31" fill="white" font-size="17" font-weight="bold" text-anchor="middle">N</text><text x="155" y="31" fill="white" font-size="17" font-weight="bold" text-anchor="middle">S</text></svg><div style="font-weight:600">' + magnet_name + '</div></div></div>'
             )
             st.markdown(gallery_svg, unsafe_allow_html=True)
-            st.caption("Choose a material from the dropdown on the left." if not is_pa else "ਖੱਬੇ ਪਾਸੇ ਡ੍ਰੌਪਡਾਊਨ ਵਿੱਚੋਂ ਪਦਾਰਥ ਚੁਣੋ।")
+            st.caption("All six materials are shown above. Select one below to test it." if not is_pa else "ਉੱਪਰ ਸਾਰੇ ਛੇ ਪਦਾਰਥ ਦਿਖਾਏ ਹਨ। ਜਾਂਚ ਲਈ ਹੇਠਾਂ ਇੱਕ ਚੁਣੋ।")
+            magnetic_options = {
+                "en": ["Iron nail", "Steel paper clip", "Aluminium foil", "Copper wire", "Wood", "Plastic"],
+                "pa": ["ਲੋਹੇ ਦੀ ਕਿੱਲ", "ਸਟੀਲ ਦੀ ਪੇਪਰ ਕਲਿੱਪ", "ਐਲੂਮੀਨੀਅਮ ਫੋਇਲ", "ਤਾਂਬੇ ਦੀ ਤਾਰ", "ਲੱਕੜ", "ਪਲਾਸਟਿਕ"]
+            }
+            material = st.selectbox(tr("material"), magnetic_options[st.session_state.language], key=f"magmat_{selected_class}_{exp_index}")
+            selected = next((item for item in magnetic_items if material in item[:2]), magnetic_items[0])
+            en_name, pa_name, shape, attracted = selected
+            display_name = pa_name if is_pa else en_name
             st.markdown("#### " + title_two)
             if attracted:
                 result_label = "ਖਿੱਚਿਆ ਜਾਂਦਾ ਹੈ — ਚੁੰਬਕ ਨਾਲ ਸੰਪਰਕ" if is_pa else "ATTRACTED — touches the magnet"
