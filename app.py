@@ -684,7 +684,8 @@ def electricity_lab():
             bulb_fill = "#e2e8f0" if fuse_blown else "#fde047"
             bulb_glow = "" if fuse_blown else "filter: drop-shadow(0 0 10px #facc15);"
             fuse_link = (
-                '<path d="M174 50 L187 40 L198 60 L210 40 L222 60 L235 50" stroke="#dc2626" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'
+                '<path d="M174 50 H195 M215 50 H235" stroke="#dc2626" stroke-width="4" fill="none" stroke-linecap="round"/>'
+                '<path d="M196 43 L202 50 L198 57 M208 43 L214 50 L210 57" stroke="#dc2626" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'
                 if fuse_blown else
                 '<rect x="174" y="39" width="61" height="22" rx="5" fill="#bbf7d0" stroke="#15803d" stroke-width="2"/><line x1="182" y1="50" x2="227" y2="50" stroke="#15803d" stroke-width="3"/>'
             )
@@ -693,8 +694,7 @@ def electricity_lab():
                 '<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:10px;background:rgba(128,128,128,.035);">'
                 '<svg viewBox="0 0 420 220" width="100%" role="img" aria-label="Virtual low-voltage circuit with a fuse that opens under excessive current">'
                 '<g fill="none" stroke="' + fuse_wire + '" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">'
-                '<path d="M70 50 H174"/>' +
-                ('<path d="M235 50 H320 V78"/>' if not fuse_blown else '<path d="M235 50 H270"/><path d="M292 50 H320 V78"/>') +
+                '<path d="M70 50 H174"/><path d="M235 50 H320 V78"/>' +
                 '<path d="M320 122 V166 H70 V116"/><path d="M70 50 V78"/>'
                 '</g>'
                 '<g stroke="#334155" stroke-width="3" fill="none"><line x1="51" y1="80" x2="89" y2="80"/><line x1="58" y1="98" x2="82" y2="98"/></g>'
