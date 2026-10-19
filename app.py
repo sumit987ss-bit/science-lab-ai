@@ -193,23 +193,6 @@ def electricity_lab():
                 index=1,
                 key=f"class7_heat_resistance_level_{st.session_state.language}",
             )
-        if electromagnet_experiment:
-            is_pa_controls = st.session_state.language != "en"
-            turns_options = [10, 20, 30, 40, 50]
-            turns = st.select_slider(
-                "ਕੋਇਲ ਦੇ ਚੱਕਰ" if is_pa_controls else "Coil turns",
-                options=turns_options,
-                value=30,
-                key=f"class7_em_turns_{st.session_state.language}",
-            )
-            em_levels = ["ਘੱਟ", "ਦਰਮਿਆਨਾ", "ਵੱਧ"] if is_pa_controls else ["Low", "Medium", "High"]
-            em_current_choice = st.select_slider(
-                "ਕਰੰਟ ਦਾ ਪੱਧਰ" if is_pa_controls else "Current level",
-                options=em_levels,
-                value=em_levels[1],
-                key=f"class7_em_current_{st.session_state.language}",
-            )
-            current_control = float({em_levels[0]: 0.5, em_levels[1]: 1.0, em_levels[2]: 1.5}[em_current_choice])
         if kind == "conductors":
             material_options = {
                 "en": ["Copper", "Aluminium", "Iron", "Rubber", "Plastic", "Wood"],
@@ -606,38 +589,49 @@ def electricity_lab():
             st.write("💡 " + note)
         elif electromagnet_experiment:
             is_pa = st.session_state.language != "en"
-            strength = turns * current_control if closed else 0
-            strength_label = ("ਬੰਦ" if closed else "ਖੁੱਲ੍ਹਾ") if is_pa else ("ON" if closed else "OFF")
-            strength_word = "ਚੁੰਬਕੀ ਤਾਕਤ ਦਾ ਪੱਧਰ" if is_pa else "Relative magnetic strength"
-            strength_band = ("ਘੱਟ" if strength < 20 else ("ਦਰਮਿਆਨਾ" if strength < 50 else "ਵੱਧ")) if is_pa else ("Low" if strength < 20 else ("Medium" if strength < 50 else "High"))
-            clip_count = 0 if not closed else min(8, max(1, int(round(strength / 10))))
-            coil_loops = "".join(f'<ellipse cx="{132+i*17}" cy="110" rx="9" ry="38" fill="none" stroke="#d97706" stroke-width="5"/>' for i in range(7))
-            field_opacity = "0.85" if closed else "0.12"
-            core_fill = "#94a3b8" if closed else "#cbd5e1"
-            field_caption = "ਚੁੰਬਕੀ ਖੇਤਰ" if is_pa else "Magnetic field"
-            core_caption = "ਲੋਹੇ ਦਾ ਕੋਰ" if is_pa else "Iron core"
-            state_caption = ("ਸਵਿੱਚ ਬੰਦ — ਚੁੰਬਕ ਸਰਗਰਮ" if is_pa else "Switch ON — electromagnet active") if closed else ("ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ — ਚੁੰਬਕੀ ਪ੍ਰਭਾਵ ਨਹੀਂ" if is_pa else "Switch OFF — magnetic effect off")
-            st.markdown("#### " + ("ਕੋਇਲ, ਲੋਹੇ ਦਾ ਕੋਰ ਅਤੇ ਚੁੰਬਕੀ ਖੇਤਰ" if is_pa else "Coil, iron core and magnetic field"))
-            em_svg = f"""<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:10px;background:rgba(128,128,128,.035)">
-<svg viewBox="0 0 440 255" width="100%" role="img" aria-label="Virtual electromagnet with coil, iron core, magnetic field lines and paper clips">
-<g fill="none" stroke="#2563eb" stroke-width="2.5" opacity="{field_opacity}"><ellipse cx="220" cy="110" rx="175" ry="72"/><ellipse cx="220" cy="110" rx="155" ry="58"/><path d="M42 110 Q220 -8 398 110" /><path d="M42 110 Q220 228 398 110"/></g>
-<rect x="88" y="91" width="264" height="38" rx="8" fill="{core_fill}" stroke="#475569" stroke-width="2"/>
-{coil_loops}
-<g fill="currentColor" font-size="12" text-anchor="middle"><text x="220" y="158">{core_caption}</text><text x="220" y="23">{field_caption}</text></g>
-<g stroke="#64748b" stroke-width="4" fill="none" stroke-linecap="round"><path d="M145 148 q-14 15 0 26 q14 11 0 21"/><path d="M180 148 q-14 15 0 26 q14 11 0 21"/><path d="M215 148 q-14 15 0 26 q14 11 0 21"/><path d="M250 148 q-14 15 0 26 q14 11 0 21"/><path d="M285 148 q-14 15 0 26 q14 11 0 21"/></g>
-<g fill="currentColor" font-size="12" text-anchor="middle"><text x="220" y="221">{state_caption}</text><text x="220" y="242">{"ਪੇਪਰ ਕਲਿੱਪਾਂ (ਮਾਡਲ)" if is_pa else "Paper clips (illustrative)"}</text></g>
+            lifted = closed
+            crane_title = "ਕਰੇਨ ਵਿੱਚ ਬਿਜਲੀ-ਚੁੰਬਕ" if is_pa else "Electromagnet used in a scrapyard crane"
+            scrap_caption = "ਲੋਹੇ ਦਾ ਕਬਾੜ" if is_pa else "Iron scrap"
+            magnet_caption = "ਬਿਜਲੀ-ਚੁੰਬਕ" if is_pa else "Electromagnet"
+            on_caption = "ਸਵਿੱਚ ਬੰਦ: ਲੋਹਾ ਚੁੱਕਿਆ ਗਿਆ" if is_pa else "Switch ON: iron scrap is lifted"
+            off_caption = "ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ: ਲੋਹਾ ਛੱਡ ਦਿੱਤਾ ਗਿਆ" if is_pa else "Switch OFF: iron scrap is released"
+            state_caption = on_caption if closed else off_caption
+            magnet_fill = "#dc2626" if closed else "#94a3b8"
+            scrap_items = (
+                '<g stroke="#475569" stroke-width="5" stroke-linecap="round" fill="none">'
+                '<path d="M155 190 l18 -12 l12 17 l-14 13 Z"/>'
+                '<path d="M205 192 l22 -14 l13 18 l-19 13 Z"/>'
+                '<path d="M256 190 l19 -12 l13 18 l-16 14 Z"/>'
+                '<path d="M300 194 l17 -11 l12 16 l-15 12 Z"/>'
+                '</g>'
+            ) if not closed else (
+                '<g stroke="#475569" stroke-width="5" stroke-linecap="round" fill="none">'
+                '<path d="M158 136 l18 -12 l12 17 l-14 13 Z"/>'
+                '<path d="M202 141 l22 -14 l13 18 l-19 13 Z"/>'
+                '<path d="M246 136 l19 -12 l13 18 l-16 14 Z"/>'
+                '<path d="M288 141 l17 -11 l12 16 l-15 12 Z"/>'
+                '</g>'
+            )
+            st.markdown("#### " + crane_title)
+            crane_svg = f"""<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:10px;background:rgba(128,128,128,.035)">
+<svg viewBox="0 0 440 300" width="100%" role="img" aria-label="Scrapyard crane with a switch-controlled electromagnet lifting or releasing iron scrap">
+<rect x="18" y="255" width="404" height="18" rx="5" fill="#94a3b8"/>
+<rect x="45" y="56" width="24" height="199" rx="4" fill="#64748b"/>
+<rect x="45" y="48" width="285" height="18" rx="4" fill="#f59e0b" stroke="#92400e" stroke-width="2"/>
+<rect x="305" y="66" width="18" height="34" fill="#64748b"/>
+<path d="M314 100 V142" stroke="#334155" stroke-width="4"/>
+<rect x="278" y="139" width="72" height="31" rx="6" fill="{magnet_fill}" stroke="#7f1d1d" stroke-width="2"/>
+<text x="314" y="159" fill="white" font-size="12" font-weight="bold" text-anchor="middle">E-MAGNET</text>
+<text x="314" y="185" fill="currentColor" font-size="11" text-anchor="middle">{magnet_caption}</text>
+{scrap_items}
+<g fill="currentColor" font-size="12" text-anchor="middle"><text x="220" y="28">{"ਕਬਾੜਖਾਨੇ ਦੀ ਕਰੇਨ" if is_pa else "SCRAPYARD CRANE"}</text><text x="220" y="292">{scrap_caption}</text></g>
 </svg></div>"""
-            st.markdown(em_svg, unsafe_allow_html=True)
-            m1, m2 = st.columns(2)
-            m1.metric(strength_word, strength_band)
-            m2.metric("ਪੇਪਰ ਕਲਿੱਪਾਂ" if is_pa else "Paper clips lifted (model)", clip_count)
-            st.caption((f"ਚੱਕਰ: {turns} · ਕਰੰਟ ਦਾ ਪੱਧਰ: {em_current_choice} · ਸਵਿੱਚ: {strength_label}" if is_pa else f"Coil turns: {turns} · Current level: {em_current_choice} · Switch: {strength_label}"))
-            st.info(("ਇਹ ਗੁਣਾਤਮਕ ਸਿਮੂਲੇਸ਼ਨ ਹੈ। ਚੱਕਰ ਜਾਂ ਕਰੰਟ ਵਧਾਉਣ ਨਾਲ ਸਾਪੇਖ ਚੁੰਬਕੀ ਪ੍ਰਭਾਵ ਵਧਦਾ ਦਿਖਾਇਆ ਗਿਆ ਹੈ। ਪੇਪਰ ਕਲਿੱਪਾਂ ਦੀ ਗਿਣਤੀ ਅਸਲੀ ਮਾਪ ਨਹੀਂ ਹੈ।" if is_pa else "Qualitative simulation: increasing coil turns or current raises the relative magnetic effect. The paper-clip count is illustrative, not a real measurement."))
-            prediction_label = "ਅਨੁਮਾਨ ਲਗਾਓ" if is_pa else "Predict before changing a control"
-            prediction_options = (["ਚੁਣੋ…", "ਚੱਕਰ ਵਧਾਉਣ ਨਾਲ ਤਾਕਤ ਵਧੇਗੀ", "ਸਵਿੱਚ ਖੋਲ੍ਹਣ ਨਾਲ ਤਾਕਤ ਖਤਮ ਹੋਵੇਗੀ"] if is_pa else ["Choose…", "More turns increase strength", "Opening the switch stops the magnetic effect"])
-            prediction = st.selectbox(prediction_label, prediction_options, key=f"class7_em_prediction_{st.session_state.language}")
-            if prediction != prediction_options[0]:
-                st.success("ਵਧੀਆ! ਦੋਵੇਂ ਨਤੀਜੇ ਸਹੀ ਹਨ।" if is_pa else "Good prediction! Both statements describe the model correctly.")
+            st.markdown(crane_svg, unsafe_allow_html=True)
+            st.metric("ਕਰੇਨ ਦੀ ਸਥਿਤੀ" if is_pa else "Crane status", ("ਲੋਹਾ ਚੁੱਕਿਆ ਹੋਇਆ" if is_pa else "Iron scrap lifted") if lifted else ("ਲੋਹਾ ਛੱਡਿਆ ਹੋਇਆ" if is_pa else "Iron scrap released"))
+            st.info(state_caption)
+            st.markdown("**" + ("ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ?" if is_pa else "How it works") + "**")
+            st.write(("ਸਵਿੱਚ ਬੰਦ ਕਰਨ ਨਾਲ ਕੋਇਲ ਵਿੱਚੋਂ ਕਰੰਟ ਲੰਘਦਾ ਹੈ ਅਤੇ ਲੋਹੇ ਦਾ ਕੋਰ ਚੁੰਬਕ ਬਣ ਜਾਂਦਾ ਹੈ। ਇਹ ਲੋਹੇ ਦੇ ਕਬਾੜ ਨੂੰ ਚੁੱਕ ਲੈਂਦਾ ਹੈ। ਸਵਿੱਚ ਖੋਲ੍ਹਣ ਨਾਲ ਕਰੰਟ ਰੁਕ ਜਾਂਦਾ ਹੈ ਅਤੇ ਕਬਾੜ ਹੇਠਾਂ ਡਿੱਗ ਜਾਂਦਾ ਹੈ।" if is_pa else "When the switch is closed, current flows through the coil and makes the iron core magnetic, so it lifts iron scrap. Opening the switch stops the current and releases the scrap."))
+            st.caption("Illustrative classroom simulation — not a real crane or a measurement." if not is_pa else "ਇਹ ਸਿਰਫ਼ ਸਿੱਖਣ ਲਈ ਵਰਚੁਅਲ ਮਾਡਲ ਹੈ, ਅਸਲੀ ਕਰੇਨ ਜਾਂ ਮਾਪ ਨਹੀਂ।")
             st.write("💡 " + note)
         elif kind == "electromagnet":
             strength = turns * current_control
