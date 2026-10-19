@@ -667,6 +667,37 @@ def electricity_lab():
             st.write(note)
         else:
             st.write(note)
+    # Bilingual interactive knowledge check for Classes 7-10 and Class 7 Experiments 4-5.
+    if (selected_class == 7 and exp_index in (3, 4)) or selected_class in (8, 9, 10):
+        is_pa_check = st.session_state.language != "en"
+        st.markdown("---")
+        st.subheader("🧠 " + ("ਸਮਝ ਦੀ ਜਾਂਚ ਕਰੋ" if is_pa_check else "Explore & Check Your Understanding"))
+        checks = {
+            "fuse": ("What is the main job of a fuse?", "Break the circuit when excessive current flows", ["Make the bulb brighter", "Always increase current", "Break the circuit when excessive current flows"], "ਫਿਊਜ਼ ਦਾ ਮੁੱਖ ਕੰਮ ਕੀ ਹੈ?", "ਵੱਧ ਕਰੰਟ ਹੋਣ ਤੇ ਸਰਕਟ ਤੋੜਨਾ", ["ਬਲਬ ਦੀ ਰੌਸ਼ਨੀ ਵਧਾਉਣਾ", "ਕਰੰਟ ਨੂੰ ਹਮੇਸ਼ਾ ਵਧਾਉਣਾ", "ਵੱਧ ਕਰੰਟ ਹੋਣ ਤੇ ਸਰਕਟ ਤੋੜਨਾ"]),
+            "magnetic_field": ("What is produced around a wire carrying current?", "A magnetic field", ["A magnetic field", "No effect", "Sound only"], "ਤਾਰ ਵਿੱਚ ਕਰੰਟ ਹੋਣ ਤੇ ਕੀ ਬਣਦਾ ਹੈ?", "ਚੁੰਬਕੀ ਖੇਤਰ", ["ਚੁੰਬਕੀ ਖੇਤਰ", "ਕੋਈ ਪ੍ਰਭਾਵ ਨਹੀਂ", "ਸਿਰਫ਼ ਧੁਨੀ"]),
+            "liquids": ("Which liquid usually conducts better?", "Salt water", ["Pure sugar solution", "Salt water", "Oil"], "ਕਿਹੜਾ ਤਰਲ ਆਮ ਤੌਰ ਤੇ ਵਧੀਆ ਚਾਲਕ ਹੈ?", "ਲੂਣ ਵਾਲਾ ਪਾਣੀ", ["ਚੀਨੀ ਦਾ ਘੋਲ", "ਲੂਣ ਵਾਲਾ ਪਾਣੀ", "ਤੇਲ"]),
+            "electrolysis": ("What can current cause in a suitable solution?", "A chemical change", ["A chemical change", "Gravity disappears", "Mass always doubles"], "ਢੁਕਵੇਂ ਘੋਲ ਵਿੱਚ ਕਰੰਟ ਨਾਲ ਕੀ ਹੋ ਸਕਦਾ ਹੈ?", "ਰਸਾਇਣਕ ਤਬਦੀਲੀ", ["ਰਸਾਇਣਕ ਤਬਦੀਲੀ", "ਗੁਰੁਤਵਾਕਰਸ਼ਣ ਖਤਮ", "ਭਾਰ ਹਮੇਸ਼ਾ ਦੁੱਗਣਾ"]),
+            "electroplating": ("What does electroplating do?", "Deposits a thin metal coating", ["Deposits a thin metal coating", "Turns metal into wood", "Stops electricity"], "ਇਲੈਕਟ੍ਰੋਪਲੇਟਿੰਗ ਕੀ ਕਰਦੀ ਹੈ?", "ਧਾਤ ਦੀ ਪਤਲੀ ਪਰਤ ਚੜ੍ਹਾਉਂਦੀ ਹੈ", ["ਧਾਤ ਦੀ ਪਤਲੀ ਪਰਤ ਚੜ੍ਹਾਉਂਦੀ ਹੈ", "ਧਾਤ ਨੂੰ ਲੱਕੜ ਬਣਾਉਂਦੀ ਹੈ", "ਬਿਜਲੀ ਰੋਕਦੀ ਹੈ"]),
+            "cell": ("Which energy does a cell convert to electrical energy?", "Chemical energy", ["Sound energy", "Chemical energy", "Wind energy"], "ਸੈੱਲ ਕਿਹੜੀ ਊਰਜਾ ਨੂੰ ਬਿਜਲੀ ਊਰਜਾ ਵਿੱਚ ਬਦਲਦਾ ਹੈ?", "ਰਸਾਇਣਕ ਊਰਜਾ", ["ਧੁਨੀ ਊਰਜਾ", "ਰਸਾਇਣਕ ਊਰਜਾ", "ਪਵਨ ਊਰਜਾ"]),
+            "charge": ("How do like charges behave?", "Repel each other", ["Repel each other", "Always attract", "Disappear"], "ਇੱਕੋ ਕਿਸਮ ਦੇ ਚਾਰਜ ਕਿਵੇਂ ਵਰਤਦੇ ਹਨ?", "ਇੱਕ-ਦੂਜੇ ਨੂੰ ਦੂਰ ਧੱਕਦੇ ਹਨ", ["ਇੱਕ-ਦੂਜੇ ਨੂੰ ਦੂਰ ਧੱਕਦੇ ਹਨ", "ਹਮੇਸ਼ਾ ਖਿੱਚਦੇ ਹਨ", "ਗਾਇਬ ਹੋ ਜਾਂਦੇ ਹਨ"]),
+            "ohms": ("For a fixed resistor, which is Ohm's law?", "V = I × R", ["V = I × R", "V = I + R", "V = I ÷ R"], "ਸਥਿਰ ਰੋਧ ਲਈ ਓਮ ਦਾ ਨਿਯਮ ਕਿਹੜਾ ਹੈ?", "V = I × R", ["V = I × R", "V = I + R", "V = I ÷ R"]),
+            "series_parallel": ("How many main paths are in a series circuit?", "One", ["One", "Two or more", "None"], "ਲੜੀਵਾਰ ਸਰਕਟ ਵਿੱਚ ਕਿੰਨੇ ਮੁੱਖ ਰਸਤੇ ਹੁੰਦੇ ਹਨ?", "ਇੱਕ", ["ਇੱਕ", "ਦੋ ਜਾਂ ਵੱਧ", "ਕੋਈ ਨਹੀਂ"]),
+            "power": ("Which formula gives electrical power?", "P = V × I", ["P = V × I", "P = V + I", "P = V ÷ I"], "ਬਿਜਲੀ ਸ਼ਕਤੀ ਦਾ ਸੂਤਰ ਕਿਹੜਾ ਹੈ?", "P = V × I", ["P = V × I", "P = V + I", "P = V ÷ I"]),
+            "motor": ("What does an electric motor do?", "Converts electrical energy into motion", ["Converts electrical energy into motion", "Always stops motion", "Produces only light"], "ਇਲੈਕਟ੍ਰਿਕ ਮੋਟਰ ਕੀ ਕਰਦੀ ਹੈ?", "ਬਿਜਲੀ ਊਰਜਾ ਨੂੰ ਗਤੀ ਵਿੱਚ ਬਦਲਦੀ ਹੈ", ["ਬਿਜਲੀ ਊਰਜਾ ਨੂੰ ਗਤੀ ਵਿੱਚ ਬਦਲਦੀ ਹੈ", "ਗਤੀ ਹਮੇਸ਼ਾ ਰੋਕਦੀ ਹੈ", "ਸਿਰਫ਼ ਰੋਸ਼ਨੀ ਬਣਾਉਂਦੀ ਹੈ"]),
+            "heating": ("Electrical energy in a resistor can change into what?", "Heat", ["Heat", "Gravity", "Weight"], "ਰੋਧਕ ਵਿੱਚ ਬਿਜਲੀ ਊਰਜਾ ਕਿਸ ਵਿੱਚ ਬਦਲ ਸਕਦੀ ਹੈ?", "ਤਾਪ", ["ਤਾਪ", "ਗੁਰੁਤਵਾਕਰਸ਼ਣ", "ਭਾਰ"]),
+            "electromagnet": ("How can a crane electromagnet release scrap?", "By switching off the current", ["By switching off the current", "Adding more wires", "Changing its colour"], "ਕਰੇਨ ਦਾ ਬਿਜਲੀ-ਚੁੰਬਕ ਕਬਾੜ ਕਿਵੇਂ ਛੱਡਦਾ ਹੈ?", "ਕਰੰਟ ਬੰਦ ਕਰਨ ਨਾਲ", ["ਕਰੰਟ ਬੰਦ ਕਰਨ ਨਾਲ", "ਹੋਰ ਤਾਰ ਜੋੜ ਕੇ", "ਰੰਗ ਬਦਲਣ ਨਾਲ"]),
+            "circuit": ("When does a bulb light?", "When the circuit is complete", ["When the circuit is complete", "When a wire is broken", "When the switch is open"], "ਬਲਬ ਕਦੋਂ ਜਗਦਾ ਹੈ?", "ਜਦੋਂ ਸਰਕਟ ਪੂਰਾ ਹੋਵੇ", ["ਜਦੋਂ ਸਰਕਟ ਪੂਰਾ ਹੋਵੇ", "ਜਦੋਂ ਤਾਰ ਟੁੱਟੀ ਹੋਵੇ", "ਜਦੋਂ ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ ਹੋਵੇ"])
+        }
+        item = checks.get(kind, checks["circuit"])
+        prompt = item[3] if is_pa_check else item[0]
+        correct = item[4] if is_pa_check else item[1]
+        choices = item[5] if is_pa_check else item[2]
+        answer = st.radio(prompt, choices, key=f"lab_check_{selected_class}_{exp_index}_{st.session_state.language}")
+        if st.button("ਜਵਾਬ ਜਾਂਚੋ" if is_pa_check else "Check answer", key=f"lab_check_button_{selected_class}_{exp_index}_{st.session_state.language}"):
+            if answer == correct:
+                st.success("ਬਿਲਕੁਲ ਠੀਕ! 👏" if is_pa_check else "Correct! Great scientific thinking. 👏")
+            else:
+                st.info(("ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ। ਸੰਕੇਤ: " if is_pa_check else "Try again. Hint: ") + correct)
     st.markdown("---")
     st.markdown(f"**{tr('conclusion')}:** {note}")
     with st.expander(tr("note")):
