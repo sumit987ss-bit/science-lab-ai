@@ -427,6 +427,37 @@ def electricity_lab():
             switch_caption = "ਸਵਿੱਚ ਬੰਦ ਹੈ — ਸਰਕਟ ਪੂਰਾ" if is_pa else "Switch closed — complete circuit"
             st.markdown('<div style="border:1px solid rgba(120,140,160,.35);border-radius:14px;padding:8px"><svg viewBox="0 0 360 180" width="100%" role="img" aria-label="Circuit diagram with cell, closed switch and bulb"><g fill="none" stroke="#16a34a" stroke-width="4" stroke-linecap="round"><path d="M55 45 H120 M160 45 H275 V70 M275 112 V145 H55 V105 M55 45 V70"/><path d="M120 45 H160"/></g><g stroke="#334155" stroke-width="3"><path d="M42 72 V103 M55 80 V95"/><circle cx="275" cy="91" r="21" fill="#fef08a"/><path d="M264 80 L286 102 M286 80 L264 102" fill="none"/><path d="M265 114 V122 H285 V114" fill="none"/></g><g fill="currentColor" font-size="12" text-anchor="middle"><text x="49" y="128">' + (is_pa ? "ਸੈੱਲ" : "Cell") + '</text><text x="140" y="28">' + (is_pa ? "ਬੰਦ ਸਵਿੱਚ" : "Closed switch") + '</text><text x="275" y="165">' + (is_pa ? "ਬਲਬ" : "Bulb") + '</text></g></svg><div style="text-align:center;color:#16a34a;font-weight:700">' + switch_caption + '</div></div>', unsafe_allow_html=True)
             st.info("Real circuit diagrams use standard symbols instead of pictures of components. This virtual diagram is for learning; never connect components to household mains electricity." if not is_pa else "ਅਸਲ ਸਰਕਟ ਚਿੱਤਰਾਂ ਵਿੱਚ ਭਾਗਾਂ ਦੀਆਂ ਤਸਵੀਰਾਂ ਦੀ ਥਾਂ ਮਿਆਰੀ ਚਿੰਨ੍ਹ ਵਰਤੇ ਜਾਂਦੇ ਹਨ। ਇਹ ਵਰਚੁਅਲ ਚਿੱਤਰ ਸਿੱਖਣ ਲਈ ਹੈ; ਘਰੇਲੂ ਮੇਨ ਬਿਜਲੀ ਨਾਲ ਭਾਗ ਨਾ ਜੋੜੋ।")
+
+            # Interactive symbol-recognition challenge for Class 7.
+            st.markdown("#### " + ("4. ਚਿੰਨ੍ਹ ਪਛਾਣੋ — ਗਿਆਨ ਦੀ ਜਾਂਚ" if is_pa else "4. Symbol challenge — test your understanding"))
+            quiz_items = [
+                ("Cell", "ਸੈੱਲ", "cell"),
+                ("Bulb", "ਬਲਬ", "bulb"),
+                ("Open switch", "ਖੁੱਲ੍ਹਾ ਸਵਿੱਚ", "open"),
+                ("Closed switch", "ਬੰਦ ਸਵਿੱਚ", "closed"),
+                ("Connecting wire", "ਜੋੜਨ ਵਾਲੀ ਤਾਰ", "wire"),
+            ]
+            quiz_prompt = st.selectbox(
+                "ਚਿੰਨ੍ਹ ਚੁਣੋ / Choose a symbol to identify",
+                [x[1] for x in quiz_items] if is_pa else [x[0] for x in quiz_items],
+                key="class7_exp1_quiz_prompt",
+            )
+            quiz_target = next(x for x in quiz_items if quiz_prompt in x[:2])
+            st.markdown(
+                '<div style="border:1px solid #60a5fa;border-radius:12px;padding:10px;text-align:center;background:rgba(59,130,246,.04)"><svg viewBox="0 0 120 100" width="190" style="max-width:100%" role="img" aria-label="Quiz circuit symbol">'
+                + component_symbol(quiz_target[2]) + '</svg></div>',
+                unsafe_allow_html=True,
+            )
+            quiz_answer = st.selectbox(
+                "ਤੁਹਾਡਾ ਜਵਾਬ / Your answer",
+                [x[1] for x in quiz_items] if is_pa else [x[0] for x in quiz_items],
+                key="class7_exp1_quiz_answer",
+            )
+            correct_answer = quiz_target[1] if is_pa else quiz_target[0]
+            if quiz_answer == correct_answer:
+                st.success("ਬਿਲਕੁਲ ਸਹੀ! ਤੁਸੀਂ ਚਿੰਨ੍ਹ ਪਛਾਣ ਲਿਆ।" if is_pa else "Correct! You identified the circuit symbol.")
+            else:
+                st.warning(("ਹਾਲੇ ਸਹੀ ਨਹੀਂ। ਸਹੀ ਜਵਾਬ ਹੈ: " if is_pa else "Not quite. The correct answer is: ") + correct_answer)
             st.write("💡 " + note)
         elif kind == "circuit":
             # Fixed, illustrative low-voltage cell: no numerical electrical controls
