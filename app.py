@@ -657,8 +657,46 @@ def electricity_lab():
             st.metric(tr("magnetic"), f"{strength:.1f} relative units")
             st.write(f"{tr('turns')}: {turns} · {tr('current_control')}: {current_control:.1f} A")
         elif kind == "magnetic_field":
-            st.metric(tr("magnetic"), f"{current_control*10:.1f} illustrative units")
-            st.write(note)
+            if selected_class == 7 and exp_index == 4:
+                is_pa_field = st.session_state.language != "en"
+                field_color = "#2563eb" if closed else "#94a3b8"
+                needle_angle = "25" if closed else "0"
+                current_label = (
+                    ("ਕਰੰਟ ਚਾਲੂ ਹੈ — ਚੁੰਬਕੀ ਖੇਤਰ ਮੌਜੂਦ ਹੈ" if closed else "ਕਰੰਟ ਬੰਦ ਹੈ — ਤਾਰ ਦਾ ਚੁੰਬਕੀ ਪ੍ਰਭਾਵ ਨਹੀਂ")
+                    if is_pa_field else
+                    ("CURRENT ON — MAGNETIC FIELD PRESENT" if closed else "CURRENT OFF — NO CURRENT-INDUCED FIELD")
+                )
+                field_paths = (
+                    '<g fill="none" stroke="' + field_color + '" stroke-width="2.5" stroke-dasharray="5 5">'
+                    '<ellipse cx="205" cy="120" rx="48" ry="80"/><ellipse cx="205" cy="120" rx="76" ry="105"/>'
+                    '</g>'
+                    if closed else
+                    '<g fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4 6"><ellipse cx="205" cy="120" rx="48" ry="80" opacity=".35"/></g>'
+                )
+                compass_needle = (
+                    '<g transform="rotate(' + needle_angle + ' 112 120)"><path d="M112 94 L105 122 L112 116 L119 122 Z" fill="#dc2626"/><path d="M112 146 L105 118 L112 124 L119 118 Z" fill="#334155"/></g>'
+                    if closed else
+                    '<g><path d="M112 94 L105 122 L112 116 L119 122 Z" fill="#dc2626"/><path d="M112 146 L105 118 L112 124 L119 118 Z" fill="#334155"/></g>'
+                )
+                field_svg = (
+                    '<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:10px;background:rgba(128,128,128,.035);">'
+                    '<svg viewBox="0 0 420 250" width="100%" role="img" aria-label="Magnetic effect of current shown with a current-carrying wire, circular magnetic field lines and a compass needle">'
+                    + field_paths +
+                    '<path d="M205 28 V211" stroke="' + ("#16a34a" if closed else "#94a3b8") + '" stroke-width="7" stroke-linecap="round"/>'
+                    + ('<path d="M196 48 L205 30 L214 48" fill="none" stroke="#16a34a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>' if closed else '')
+                    '<circle cx="112" cy="120" r="39" fill="#f8fafc" stroke="#64748b" stroke-width="3"/>'
+                    + compass_needle +
+                    '<circle cx="112" cy="120" r="4" fill="#0f172a"/>'
+                    '<g fill="currentColor" font-size="12" text-anchor="middle"><text x="205" y="18">' + ("ਕਰੰਟ ਵਾਲੀ ਤਾਰ" if is_pa_field else "CURRENT-CARRYING WIRE") + '</text><text x="112" y="177">' + ("ਕੰਪਾਸ" if is_pa_field else "COMPASS") + '</text><text x="205" y="238">' + ("ਚੁੰਬਕੀ ਖੇਤਰ ਦੀਆਂ ਰੇਖਾਵਾਂ" if is_pa_field else "MAGNETIC FIELD LINES") + '</text></g>'
+                    '</svg></div>'
+                )
+                st.markdown("#### " + ("ਕਰੰਟ ਦਾ ਚੁੰਬਕੀ ਪ੍ਰਭਾਵ" if is_pa_field else "Magnetic effect of electric current"))
+                st.markdown(field_svg, unsafe_allow_html=True)
+                st.success(current_label) if closed else st.info(current_label)
+                st.write("💡 " + note)
+                st.caption("ਸਿਰਫ਼ ਗੁਣਾਤਮਕ ਵਰਚੁਅਲ ਮਾਡਲ — ਕੋਈ ਸੰਖਿਆਤਮਕ ਮਾਪ ਨਹੀਂ।" if is_pa_field else "Qualitative virtual model only — no numerical measurements.")
+            else:
+                st.write(note)
         elif kind == "liquids":
             score = {"water": 0.05, "salt": 1.0, "sugar": 0.08, "lemon": 0.75}[liquid]
             st.metric(tr("conductivity"), f"{score:.2f} relative units")
