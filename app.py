@@ -683,7 +683,7 @@ def electricity_lab():
                     '<svg viewBox="0 0 420 250" width="100%" role="img" aria-label="Magnetic effect of current shown with a current-carrying wire, circular magnetic field lines and a compass needle">'
                     + field_paths +
                     '<path d="M205 28 V211" stroke="' + ("#16a34a" if closed else "#94a3b8") + '" stroke-width="7" stroke-linecap="round"/>'
-                    + ('<path d="M196 48 L205 30 L214 48" fill="none" stroke="#16a34a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>' if closed else '')
+                    + ('<path d="M196 48 L205 30 L214 48" fill="none" stroke="#16a34a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>' if closed else '') +
                     '<circle cx="112" cy="120" r="39" fill="#f8fafc" stroke="#64748b" stroke-width="3"/>'
                     + compass_needle +
                     '<circle cx="112" cy="120" r="4" fill="#0f172a"/>'
