@@ -216,6 +216,21 @@ def electricity_lab():
         if kind == "liquids":
             liquids = ["water", "salt", "sugar", "lemon"]
             liquid = st.selectbox(tr("liquid"), liquids, format_func=lambda x: tr(x), key=f"liq_{selected_class}_{exp_index}")
+        electrolysis_solution = "copper"
+        if kind == "electrolysis":
+            is_pa_electrolysis = st.session_state.language != "en"
+            solution_options = ["copper", "lemon", "distilled"]
+            solution_labels = {
+                "copper": "ਕਾਪਰ ਸਲਫੇਟ ਘੋਲ" if is_pa_electrolysis else "Copper sulphate solution",
+                "lemon": "ਨਿੰਬੂ ਵਾਲਾ ਪਾਣੀ" if is_pa_electrolysis else "Lemon water",
+                "distilled": "ਡਿਸਟਿਲਡ ਪਾਣੀ" if is_pa_electrolysis else "Distilled water",
+            }
+            electrolysis_solution = st.selectbox(
+                "ਘੋਲ ਚੁਣੋ" if is_pa_electrolysis else "Choose a solution",
+                solution_options,
+                format_func=lambda x: solution_labels[x],
+                key=f"electrolysis_solution_{st.session_state.language}",
+            )
         if kind == "ohms":
             prediction = st.selectbox(tr("predict_q"), [tr("select_prediction"), tr("double"), tr("same"), tr("half")], key=f"pred_{selected_class}_{exp_index}")
             if prediction != tr("select_prediction"):
@@ -759,8 +774,63 @@ def electricity_lab():
             st.write("💡 " + note)
             st.caption("Qualitative virtual model only — no numerical measurements." if not is_pa_liquid else "ਸਿਰਫ਼ ਗੁਣਾਤਮਕ ਵਰਚੁਅਲ ਮਾਡਲ — ਕੋਈ ਸੰਖਿਆਤਮਕ ਮਾਪ ਨਹੀਂ।")
         elif kind == "electrolysis":
-            st.metric(tr("amount"), f"{voltage*current_control:.1f} illustrative units")
-            st.write(note)
+            is_pa_electrolysis = st.session_state.language != "en"
+            active_solution = electrolysis_solution
+            has_effect = active_solution != "distilled"
+            strong_effect = active_solution == "copper"
+            liquid_fill = "#60a5fa" if strong_effect else ("#fef3c7" if active_solution == "lemon" else "#dbeafe")
+            liquid_stroke = "#2563eb" if strong_effect else "#d97706"
+            bubble_svg = (
+                '<g fill="none" stroke="#e0f2fe" stroke-width="3">'
+                '<circle cx="175" cy="155" r="5"/><circle cx="190" cy="132" r="4"/><circle cx="180" cy="115" r="3"/>'
+                '<circle cx="258" cy="150" r="5"/><circle cx="245" cy="128" r="4"/><circle cx="255" cy="108" r="3"/>'
+                '</g>'
+                if has_effect else ""
+            )
+            deposit_svg = (
+                '<path d="M244 91 L244 177 Q244 183 250 183 L264 183 Q270 183 270 177 L270 91 Z" fill="#b87333" opacity=".95"/>'
+                if strong_effect else ""
+            )
+            effect_label = (
+                ("ਕੈਥੋਡ ਉੱਤੇ ਤਾਂਬੇ ਦੀ ਪਰਤ ਅਤੇ ਬੁਲਬੁਲੇ" if is_pa_electrolysis else "Copper coating at cathode and bubbles")
+                if strong_effect else
+                (("ਹਲਕਾ ਰਸਾਇਣਕ ਪ੍ਰਭਾਵ" if is_pa_electrolysis else "Weak visible effect") if active_solution == "lemon" else
+                 ("ਸਪਸ਼ਟ ਪ੍ਰਭਾਵ ਨਹੀਂ" if is_pa_electrolysis else "No clear visible effect"))
+            )
+            electrolysis_svg = f"""
+<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;background:rgba(128,128,128,.035);">
+<svg viewBox="0 0 440 300" width="100%" role="img" aria-label="Qualitative electrolysis beaker with two electrodes connected to a cell">
+  <g stroke-linecap="round" stroke-linejoin="round">
+    <path d="M105 85 V224 Q105 245 128 245 H312 Q335 245 335 224 V85" fill="none" stroke="#64748b" stroke-width="5"/>
+    <path d="M110 145 H330 V224 Q330 240 310 240 H130 Q110 240 110 224 Z" fill="{liquid_fill}" opacity=".8"/>
+    <path d="M110 145 H330" stroke="{liquid_stroke}" stroke-width="3" stroke-dasharray="7 5"/>
+    <path d="M170 55 V190" stroke="#475569" stroke-width="12"/>
+    <path d="M255 55 V190" stroke="#475569" stroke-width="12"/>
+    <path d="M170 55 V30 H255 V55" fill="none" stroke="#dc2626" stroke-width="4"/>
+    <path d="M212 30 V18" stroke="#dc2626" stroke-width="4"/>
+    <rect x="190" y="8" width="44" height="28" rx="5" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
+    <text x="212" y="27" fill="#0f172a" font-size="13" font-weight="700" text-anchor="middle">CELL</text>
+    {bubble_svg}
+    {deposit_svg}
+  </g>
+  <g fill="currentColor" font-size="13" font-weight="600" text-anchor="middle">
+    <text x="170" y="205">{'ਐਨੋਡ (+)' if is_pa_electrolysis else 'ANODE (+)'}</text>
+    <text x="255" y="205">{'ਕੈਥੋਡ (−)' if is_pa_electrolysis else 'CATHODE (−)'}</text>
+    <text x="220" y="275">{'ਘੋਲ' if is_pa_electrolysis else 'SOLUTION'}</text>
+  </g>
+</svg>
+</div>
+"""
+            st.markdown("#### " + ("ਇਲੈਕਟ੍ਰੋਲਾਈਸਿਸ ਦਾ ਵਰਚੁਅਲ ਮਾਡਲ" if is_pa_electrolysis else "Virtual electrolysis model"))
+            st.markdown(electrolysis_svg, unsafe_allow_html=True)
+            if strong_effect:
+                st.success(effect_label)
+            elif has_effect:
+                st.info(effect_label)
+            else:
+                st.warning(effect_label)
+            st.write("💡 " + note)
+            st.caption("Qualitative illustration only — effects depend on solution and electrode material; no numerical readings." if not is_pa_electrolysis else "ਸਿਰਫ਼ ਗੁਣਾਤਮਕ ਚਿੱਤਰ — ਪ੍ਰਭਾਵ ਘੋਲ ਅਤੇ ਇਲੈਕਟ੍ਰੋਡ ਦੇ ਪਦਾਰਥ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੇ ਹਨ; ਕੋਈ ਸੰਖਿਆਤਮਕ ਮਾਪ ਨਹੀਂ।")
         elif kind == "electroplating":
             st.metric(tr("amount"), f"{voltage*current_control*0.5:.1f} illustrative coating units")
             st.write(note)
