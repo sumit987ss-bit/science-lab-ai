@@ -732,12 +732,12 @@ def electricity_lab():
   <line x1="148.5" y1="49" x2="148.5" y2="61" stroke="#1e3a8a" stroke-width="3"/>
   <line x1="160" y1="55" x2="171" y2="55" stroke="#1e3a8a" stroke-width="3"/>
   <text x="155" y="25" fill="currentColor" font-size="12" text-anchor="middle">{'ਸੈੱਲ' if is_pa_liquid else 'CELL'}</text>
-  <path d="M175 55 H190" stroke="{wire_color}" stroke-width="5"/>
-  <path d="M190 55 Q230 8 270 55" fill="none" stroke="{wire_color}" stroke-width="5"/>
-  <circle cx="230" cy="50" r="24" fill="{bulb_fill}" stroke="#475569" stroke-width="3" style="{bulb_glow}"/>
-  <path d="M218 48 l7 -7 l10 16 l7 -7" fill="none" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
-  <rect x="219" y="73" width="22" height="10" rx="2" fill="#64748b"/>
-  <text x="230" y="101" fill="currentColor" font-size="12" text-anchor="middle">{'ਬਲਬ' if is_pa_liquid else 'BULB'}</text>
+  <path d="M175 55 H207" fill="none" stroke="{wire_color}" stroke-width="5" stroke-linecap="round"/>
+  <path d="M253 55 H285" fill="none" stroke="{wire_color}" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="230" cy="55" r="24" fill="{bulb_fill}" stroke="#475569" stroke-width="3" style="{bulb_glow}"/>
+  <path d="M218 53 l7 -7 l10 16 l7 -7" fill="none" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
+  <path d="M220 77 V84 H240 V77" fill="none" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
+  <text x="230" y="111" fill="currentColor" font-size="12" text-anchor="middle">{'ਬਲਬ' if is_pa_liquid else 'BULB'}</text>
   <path d="M65 205 V224 H145" fill="none" stroke="{wire_color}" stroke-width="5" stroke-linecap="round"/>
   <path d="M315 224 H395 V205" fill="none" stroke="{wire_color}" stroke-width="5" stroke-linecap="round"/>
   <path d="M145 224 H315" fill="none" stroke="{wire_color}" stroke-width="4" stroke-dasharray="6 6" opacity=".55"/>
