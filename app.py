@@ -693,7 +693,10 @@ def electricity_lab():
                 )
                 st.markdown("#### " + ("ਕਰੰਟ ਦਾ ਚੁੰਬਕੀ ਪ੍ਰਭਾਵ" if is_pa_field else "Magnetic effect of electric current"))
                 st.markdown(field_svg, unsafe_allow_html=True)
-                st.success(current_label) if closed else st.info(current_label)
+                if closed:
+                    st.success(current_label)
+                else:
+                    st.info(current_label)
                 st.write("💡 " + note)
                 st.caption("ਸਿਰਫ਼ ਗੁਣਾਤਮਕ ਵਰਚੁਅਲ ਮਾਡਲ — ਕੋਈ ਸੰਖਿਆਤਮਕ ਮਾਪ ਨਹੀਂ।" if is_pa_field else "Qualitative virtual model only — no numerical measurements.")
             else:
