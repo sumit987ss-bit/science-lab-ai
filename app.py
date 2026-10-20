@@ -667,11 +667,12 @@ def electricity_lab():
                     ("CURRENT ON — MAGNETIC FIELD PRESENT" if closed else "CURRENT OFF — NO CURRENT-INDUCED FIELD")
                 )
                 field_paths = (
-                    '<g fill="none" stroke="' + field_color + '" stroke-width="2.5" stroke-dasharray="5 5">'
-                    '<ellipse cx="205" cy="120" rx="48" ry="80"/><ellipse cx="205" cy="120" rx="76" ry="105"/>'
+                    '<g fill="none" stroke="' + field_color + '" stroke-width="2.5">'
+                    '<ellipse cx="205" cy="120" rx="42" ry="62"/><ellipse cx="205" cy="120" rx="61" ry="84"/><ellipse cx="205" cy="120" rx="81" ry="108"/>'
                     '</g>'
+                    '<g fill="' + field_color + '"><path d="M244 85 l-9 -2 l5 8 Z"/><path d="M164 155 l9 2 l-5 -8 Z"/><path d="M258 120 l-8 -5 l0 10 Z"/></g>'
                     if closed else
-                    '<g fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4 6"><ellipse cx="205" cy="120" rx="48" ry="80" opacity=".35"/></g>'
+                    '<g fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4 6" opacity=".4"><ellipse cx="205" cy="120" rx="42" ry="62"/><ellipse cx="205" cy="120" rx="61" ry="84"/></g>'
                 )
                 compass_needle = (
                     '<g transform="rotate(' + needle_angle + ' 112 120)"><path d="M112 94 L105 122 L112 116 L119 122 Z" fill="#dc2626"/><path d="M112 146 L105 118 L112 124 L119 118 Z" fill="#334155"/></g>'
