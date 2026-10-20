@@ -832,8 +832,79 @@ def electricity_lab():
             st.write("💡 " + note)
             st.caption("Qualitative illustration only — effects depend on solution and electrode material; no numerical readings." if not is_pa_electrolysis else "ਸਿਰਫ਼ ਗੁਣਾਤਮਕ ਚਿੱਤਰ — ਪ੍ਰਭਾਵ ਘੋਲ ਅਤੇ ਇਲੈਕਟ੍ਰੋਡ ਦੇ ਪਦਾਰਥ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੇ ਹਨ; ਕੋਈ ਸੰਖਿਆਤਮਕ ਮਾਪ ਨਹੀਂ।")
         elif kind == "electroplating":
-            st.metric(tr("amount"), f"{voltage*current_control*0.5:.1f} illustrative coating units")
-            st.write(note)
+            is_pa_plate = st.session_state.language != "en"
+            plate_options = ["copper", "silver", "nickel"]
+            plate_labels = {
+                "copper": "ਤਾਂਬੇ ਦੀ ਪਰਤ" if is_pa_plate else "Copper coating",
+                "silver": "ਚਾਂਦੀ ਦੀ ਪਰਤ" if is_pa_plate else "Silver coating",
+                "nickel": "ਨਿੱਕਲ ਦੀ ਪਰਤ" if is_pa_plate else "Nickel coating",
+            }
+            coating_metal = st.selectbox(
+                "ਕਿਹੜੀ ਧਾਤ ਦੀ ਪਰਤ?" if is_pa_plate else "Choose coating metal",
+                plate_options,
+                format_func=lambda x: plate_labels[x],
+                key=f"electroplate_metal_{st.session_state.language}",
+            )
+            coating_colors = {"copper": "#c87941", "silver": "#dbe4ee", "nickel": "#94a3b8"}
+            coating_color = coating_colors[coating_metal]
+            metal_name = plate_labels[coating_metal]
+            # Illustrative cross-section: a base object receives a thin deposited metal layer.
+            plating_svg = f"""
+<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;background:rgba(128,128,128,.035);">
+<svg viewBox="0 0 440 310" width="100%" role="img" aria-label="Electroplating illustration showing a metal coating depositing onto an object in an electrolyte bath">
+  <defs>
+    <linearGradient id="bath" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#bfdbfe" stop-opacity=".8"/>
+      <stop offset="100%" stop-color="#60a5fa" stop-opacity=".45"/>
+    </linearGradient>
+    <linearGradient id="baseMetal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#64748b"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+  </defs>
+  <g stroke-linecap="round" stroke-linejoin="round">
+    <path d="M62 95 V238 Q62 258 84 258 H356 Q378 258 378 238 V95" fill="none" stroke="#64748b" stroke-width="5"/>
+    <path d="M67 130 H373 V237 Q373 253 354 253 H86 Q67 253 67 237 Z" fill="url(#bath)"/>
+    <path d="M67 130 H373" stroke="#2563eb" stroke-width="3" stroke-dasharray="7 5"/>
+    <path d="M132 54 V191" stroke="#c87941" stroke-width="13"/>
+    <path d="M132 54 V28 H309 V54" fill="none" stroke="#dc2626" stroke-width="4"/>
+    <path d="M309 54 V191" stroke="#64748b" stroke-width="13"/>
+    <rect x="185" y="15" width="70" height="27" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
+    <text x="220" y="33" fill="#0f172a" font-size="12" font-weight="700" text-anchor="middle">CELL</text>
+    <path d="M132 28 H185 M255 28 H309" stroke="#dc2626" stroke-width="4"/>
+    <text x="132" y="48" fill="currentColor" font-size="12" text-anchor="middle">{'ਐਨੋਡ (+)' if is_pa_plate else 'ANODE (+)'}</text>
+    <text x="309" y="48" fill="currentColor" font-size="12" text-anchor="middle">{'ਕੈਥੋਡ (−)' if is_pa_plate else 'CATHODE (−)'}</text>
+    <g fill="{coating_color}" stroke="#475569" stroke-width="2">
+      <path d="M196 179 L196 211 Q196 225 210 225 H270 Q284 225 284 211 V179 Q284 169 274 169 H206 Q196 169 196 179 Z"/>
+    </g>
+    <g fill="url(#baseMetal)" stroke="#1e293b" stroke-width="2">
+      <path d="M204 184 L204 207 Q204 216 214 216 H266 Q276 216 276 207 V184 Q276 177 268 177 H212 Q204 177 204 184 Z"/>
+    </g>
+    <g fill="{coating_color}" stroke="{coating_color}" stroke-width="2">
+      <circle cx="184" cy="160" r="4"/><circle cx="195" cy="150" r="3"/><circle cx="285" cy="155" r="4"/>
+      <circle cx="294" cy="167" r="3"/><circle cx="175" cy="176" r="3"/><circle cx="304" cy="182" r="3"/>
+    </g>
+    <path d="M174 174 Q190 188 196 191 M306 174 Q291 188 284 191" fill="none" stroke="{coating_color}" stroke-width="3" stroke-dasharray="4 4"/>
+    <path d="M284 196 L333 183" stroke="currentColor" stroke-width="1.5" fill="none"/>
+    <text x="335" y="180" fill="currentColor" font-size="11">{'ਪਰਤ' if is_pa_plate else 'Coating'}</text>
+    <path d="M220 235 V270" stroke="currentColor" stroke-width="1.5"/>
+    <text x="220" y="286" fill="currentColor" font-size="12" text-anchor="middle">{'ਮੂਲ ਧਾਤ ਦੀ ਵਸਤੂ' if is_pa_plate else 'Base metal object'}</text>
+    <text x="220" y="302" fill="currentColor" font-size="11" text-anchor="middle">{'ਉੱਤੇ ਜਮਦੀ ਹੈ: ' if is_pa_plate else 'Deposited layer: '}{metal_name}</text>
+  </g>
+</svg>
+</div>
+"""
+            st.markdown("#### " + ("ਇਲੈਕਟ੍ਰੋਪਲੇਟਿੰਗ ਦਾ ਵਰਚੁਅਲ ਮਾਡਲ" if is_pa_plate else "Virtual electroplating model"))
+            st.markdown(plating_svg, unsafe_allow_html=True)
+            st.success(
+                ("ਚੁਣੀ ਧਾਤ ਦੀ ਪਤਲੀ ਪਰਤ ਵਸਤੂ ਉੱਤੇ ਜਮਦੀ ਦਿਖਾਈ ਗਈ ਹੈ।" if is_pa_plate else "A thin layer of the selected metal is shown depositing onto the object.")
+            )
+            st.write("💡 " + note)
+            st.caption(
+                "Qualitative illustration only — actual plating depends on the electrolyte, electrode materials and current; no numerical readings."
+                if not is_pa_plate else
+                "ਸਿਰਫ਼ ਗੁਣਾਤਮਕ ਚਿੱਤਰ — ਅਸਲ ਇਲੈਕਟ੍ਰੋਪਲੇਟਿੰਗ ਘੋਲ, ਇਲੈਕਟ੍ਰੋਡ ਦੇ ਪਦਾਰਥ ਅਤੇ ਕਰੰਟ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ; ਕੋਈ ਸੰਖਿਆਤਮਕ ਮਾਪ ਨਹੀਂ।"
+            )
         elif kind == "cell":
             st.metric(tr("voltage"), f"{voltage} V")
             st.write(note)
