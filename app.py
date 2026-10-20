@@ -702,9 +702,62 @@ def electricity_lab():
             else:
                 st.write(note)
         elif kind == "liquids":
-            score = {"water": 0.05, "salt": 1.0, "sugar": 0.08, "lemon": 0.75}[liquid]
-            st.metric(tr("conductivity"), f"{score:.2f} relative units")
-            st.caption("Qualitative teaching model; real conductivity varies with concentration and composition.")
+            # Class 8 Experiment 1: qualitative circuit with beaker, two electrodes,
+            # connecting wires, a cell and a bulb. No numeric values are displayed.
+            is_pa_liquid = st.session_state.language != "en"
+            conducts = liquid in ("salt", "lemon")
+            bulb_glow = "filter: drop-shadow(0 0 13px #facc15);" if conducts else ""
+            bulb_fill = "#fde047" if conducts else "#e2e8f0"
+            wire_color = "#16a34a" if conducts else "#64748b"
+            liquid_color = {"water": "#bae6fd", "salt": "#7dd3fc", "sugar": "#bfdbfe", "lemon": "#fde68a"}[liquid]
+            liquid_label = {
+                "water": ("Distilled water" if not is_pa_liquid else "ਡਿਸਟਿਲਡ ਪਾਣੀ"),
+                "salt": ("Salt solution" if not is_pa_liquid else "ਨਮਕ ਦਾ ਘੋਲ"),
+                "sugar": ("Sugar solution" if not is_pa_liquid else "ਚੀਨੀ ਦਾ ਘੋਲ"),
+                "lemon": ("Lemon juice" if not is_pa_liquid else "ਨਿੰਬੂ ਦਾ ਰਸ"),
+            }[liquid]
+            state_text = (
+                ("ਬਲਬ ਜਗ ਰਿਹਾ ਹੈ — ਘੋਲ ਵਿੱਚ ਮੌਜੂਦ ਆਇਨ ਕਰੰਟ ਲੰਘਾਉਂਦੇ ਹਨ।" if is_pa_liquid else "Bulb glows — mobile ions in the solution allow current to pass.")
+                if conducts else
+                ("ਬਲਬ ਨਹੀਂ ਜਗਦਾ — ਇਸ ਮਾਡਲ ਵਿੱਚ ਕਰੰਟ ਬਹੁਤ ਘੱਟ ਹੈ।" if is_pa_liquid else "Bulb stays off — in this model, current is too small to light it.")
+            )
+            liquid_svg = f"""
+<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:10px;background:rgba(128,128,128,.035)">
+<svg viewBox="0 0 460 300" width="100%" role="img" aria-label="Virtual circuit with cell, wires, glowing or unlit bulb, and electrodes dipped into a beaker of selected liquid">
+  <defs><linearGradient id="beakerGlass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#bae6fd" stop-opacity=".35"/><stop offset=".5" stop-color="#e0f2fe" stop-opacity=".12"/><stop offset="1" stop-color="#7dd3fc" stop-opacity=".35"/></linearGradient></defs>
+  <path d="M65 205 V55 H175" fill="none" stroke="{wire_color}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M285 55 H395 V205" fill="none" stroke="{wire_color}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="128" y="35" width="54" height="40" rx="7" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <line x1="143" y1="55" x2="154" y2="55" stroke="#1e3a8a" stroke-width="3"/>
+  <line x1="148.5" y1="49" x2="148.5" y2="61" stroke="#1e3a8a" stroke-width="3"/>
+  <line x1="160" y1="55" x2="171" y2="55" stroke="#1e3a8a" stroke-width="3"/>
+  <text x="155" y="25" fill="currentColor" font-size="12" text-anchor="middle">{'ਸੈੱਲ' if is_pa_liquid else 'CELL'}</text>
+  <path d="M175 55 H190" stroke="{wire_color}" stroke-width="5"/>
+  <path d="M190 55 Q230 8 270 55" fill="none" stroke="{wire_color}" stroke-width="5"/>
+  <circle cx="230" cy="50" r="24" fill="{bulb_fill}" stroke="#475569" stroke-width="3" style="{bulb_glow}"/>
+  <path d="M218 48 l7 -7 l10 16 l7 -7" fill="none" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
+  <rect x="219" y="73" width="22" height="10" rx="2" fill="#64748b"/>
+  <text x="230" y="101" fill="currentColor" font-size="12" text-anchor="middle">{'ਬਲਬ' if is_pa_liquid else 'BULB'}</text>
+  <path d="M65 205 V224 H145" fill="none" stroke="{wire_color}" stroke-width="5" stroke-linecap="round"/>
+  <path d="M315 224 H395 V205" fill="none" stroke="{wire_color}" stroke-width="5" stroke-linecap="round"/>
+  <path d="M145 224 H315" fill="none" stroke="{wire_color}" stroke-width="4" stroke-dasharray="6 6" opacity=".55"/>
+  <path d="M145 145 L145 238 Q145 255 162 255 H298 Q315 255 315 238 V145" fill="url(#beakerGlass)" stroke="#0284c7" stroke-width="3"/>
+  <path d="M149 185 Q175 179 200 185 T250 185 T311 185 V238 Q311 251 297 251 H163 Q149 251 149 238 Z" fill="{liquid_color}" opacity=".9"/>
+  <path d="M145 185 Q175 179 200 185 T250 185 T315 185" fill="none" stroke="#0284c7" stroke-width="2"/>
+  <path d="M185 123 V216" stroke="#475569" stroke-width="7" stroke-linecap="round"/>
+  <path d="M275 123 V216" stroke="#475569" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="185" cy="216" r="5" fill="#94a3b8"/><circle cx="275" cy="216" r="5" fill="#94a3b8"/>
+  <text x="230" y="279" fill="currentColor" font-size="13" text-anchor="middle" font-weight="600">{liquid_label}</text>
+  <text x="65" y="245" fill="currentColor" font-size="11" text-anchor="middle">{'ਤਾਰ' if is_pa_liquid else 'WIRE'}</text>
+</svg></div>"""
+            st.markdown("#### " + ("ਤਰਲ ਦੀ ਚਾਲਕਤਾ ਵਾਲਾ ਸਰਕਟ" if is_pa_liquid else "Liquid conductivity circuit"))
+            st.markdown(liquid_svg, unsafe_allow_html=True)
+            if conducts:
+                st.success(state_text)
+            else:
+                st.info(state_text)
+            st.write("💡 " + note)
+            st.caption("Qualitative virtual model only — no numerical measurements." if not is_pa_liquid else "ਸਿਰਫ਼ ਗੁਣਾਤਮਕ ਵਰਚੁਅਲ ਮਾਡਲ — ਕੋਈ ਸੰਖਿਆਤਮਕ ਮਾਪ ਨਹੀਂ।")
         elif kind == "electrolysis":
             st.metric(tr("amount"), f"{voltage*current_control:.1f} illustrative units")
             st.write(note)
