@@ -728,8 +728,10 @@ def electricity_lab():
     <path d="M324 65 V231" stroke="{active_color}" stroke-width="7"/>
     <path d="M324 70 l-7 12 h14 Z" fill="{active_color}"/>
     <circle cx="275" cy="143" r="25" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
-    <path d="M275 121 L268 145 L275 139 L282 145 Z" fill="#dc2626"/>
-    <path d="M275 165 L268 141 L275 147 L282 141 Z" fill="#334155"/>
+    <g transform="rotate({25 if closed else 0} 275 143)">
+      <path d="M275 121 L268 145 L275 139 L282 145 Z" fill="#dc2626"/>
+      <path d="M275 165 L268 141 L275 147 L282 141 Z" fill="#334155"/>
+    </g>
     <text x="324" y="254" fill="currentColor" font-size="11" text-anchor="middle">{'ਚੁੰਬਕੀ ਖੇਤਰ' if is_pa_em8 else 'MAGNETIC FIELD'}</text>
   </g>
 </svg>
