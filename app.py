@@ -1294,8 +1294,12 @@ def electricity_lab():
                     '<path d="M265 147 l18 -7 8 16 -17 6 Z"/><path d="M298 160 l17 -4 5 15 -19 4 Z"/>'
                     '<path d="M278 179 l15 -8 9 13 -16 8 Z"/><path d="M314 190 l13 -5 6 12 -15 5 Z"/></g>'
                     if static_charge_active else
-                    '<g fill="#fef3c7" stroke="#b45309" stroke-width="1.5">'
-                    '<path d="M275 179 l18 -7 8 16 -17 6 Z"/><path d="M308 184 l17 -4 5 15 -19 4 Z"/></g>'
+                    '<g fill="#fde047" stroke="#92400e" stroke-width="2.5">'
+                    '<path d="M260 151 l22 -9 10 19 -20 8 Z"/>'
+                    '<path d="M294 166 l21 -6 7 18 -22 6 Z"/>'
+                    '<path d="M270 190 l20 -10 11 17 -21 10 Z"/>'
+                    '<path d="M311 198 l17 -7 8 15 -18 7 Z"/>'
+                    '<path d="M287 213 l16 -6 7 12 -17 7 Z"/></g>'
                 )
                 target_label = "ਕਾਗਜ਼ ਦੇ ਟੁਕੜੇ" if is_pa_static else "Paper pieces"
             else:
