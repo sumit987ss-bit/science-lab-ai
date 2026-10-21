@@ -357,7 +357,7 @@ def electricity_lab():
             m2.metric("ਕਰੰਟ (I)" if is_pa_ohms10 else "Current (I)", f"{measured_current:.2f} A")
             m3.metric("ਰੋਧ (R)" if is_pa_ohms10 else "Resistance (R)", f"{resistance} Ω")
             st.markdown("**" + ("ਗਣਨਾ" if is_pa_ohms10 else "Calculation") + "**")
-            st.latex(r"I = \\frac{V}{R} = \\frac{" + str(voltage) + "}{" + str(resistance) + "} = " + f"{measured_current:.2f}" + r"\\text{ A}")
+            st.latex(r"I = \frac{V}{R} = \frac{" + str(voltage) + "}{" + str(resistance) + "} = " + f"{measured_current:.2f}" + r"\text{ A}")
             st.markdown("**" + ("ਸਥਿਰ ਰੋਧ ਲਈ ਅਵਲੋਕਨ ਸਾਰਣੀ" if is_pa_ohms10 else "Observation table at fixed resistance") + "**")
             table_rows = []
             for test_v in [0, 6, 12, 18, 24]:
