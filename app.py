@@ -252,6 +252,26 @@ def electricity_lab():
                 "pa": ["ਤਾਂਬਾ", "ਐਲੂਮੀਨੀਅਮ", "ਲੋਹਾ", "ਰਬੜ", "ਪਲਾਸਟਿਕ", "ਲੱਕੜ"]
             }
             material = st.selectbox(tr("material"), material_options[st.session_state.language], key=f"mat_{selected_class}_{exp_index}")
+        static_charge_active = True
+        static_target = "paper"
+        if selected_class == 9 and exp_index == 4 and kind == "charge":
+            is_pa_static_control = st.session_state.language != "en"
+            static_charge_active = st.checkbox(
+                "ਵਾਲਾਂ/ਉੱਨ ਨਾਲ ਗੁਬਾਰਾ ਰਗੜੋ" if is_pa_static_control else "Rub balloon on hair or wool",
+                value=True,
+                key=f"class9_static_rub_{st.session_state.language}",
+            )
+            static_target_options = ["paper", "water"]
+            static_target_labels = {
+                "paper": "ਕਾਗਜ਼ ਦੇ ਛੋਟੇ ਟੁਕੜੇ" if is_pa_static_control else "Tiny paper pieces",
+                "water": "ਪਾਣੀ ਦੀ ਪਤਲੀ ਧਾਰ" if is_pa_static_control else "Thin stream of water",
+            }
+            static_target = st.selectbox(
+                "ਜਾਂਚਣ ਲਈ ਚੀਜ਼" if is_pa_static_control else "Choose what to attract",
+                static_target_options,
+                format_func=lambda x: static_target_labels[x],
+                key=f"class9_static_target_{st.session_state.language}",
+            )
         charge_pair_mode = "unlike"
         if selected_class == 9 and exp_index == 0 and kind == "charge":
             is_pa_charge_control = st.session_state.language != "en"
@@ -1263,6 +1283,59 @@ def electricity_lab():
         elif kind == "cell":
             st.metric(tr("voltage"), f"{voltage} V")
             st.write(note)
+        elif kind == "charge" and selected_class == 9 and exp_index == 4:
+            # Class 9 Experiment 5: static electricity with interactive rubbing and target selection.
+            is_pa_static = st.session_state.language != "en"
+            balloon_color = "#e879f9" if static_charge_active else "#cbd5e1"
+            attraction_color = "#0ea5e9" if static_charge_active else "#94a3b8"
+            if static_target == "paper":
+                target_visual = (
+                    '<g fill="#fef3c7" stroke="#b45309" stroke-width="1.5">'
+                    '<path d="M265 147 l18 -7 8 16 -17 6 Z"/><path d="M298 160 l17 -4 5 15 -19 4 Z"/>'
+                    '<path d="M278 179 l15 -8 9 13 -16 8 Z"/><path d="M314 190 l13 -5 6 12 -15 5 Z"/></g>'
+                    if static_charge_active else
+                    '<g fill="#fef3c7" stroke="#b45309" stroke-width="1.5">'
+                    '<path d="M275 179 l18 -7 8 16 -17 6 Z"/><path d="M308 184 l17 -4 5 15 -19 4 Z"/></g>'
+                )
+                target_label = "ਕਾਗਜ਼ ਦੇ ਟੁਕੜੇ" if is_pa_static else "Paper pieces"
+            else:
+                target_visual = (
+                    '<path d="M302 112 C310 132 314 145 324 164 C333 183 335 198 341 210" fill="none" stroke="#38bdf8" stroke-width="8" stroke-linecap="round"/>'
+                    '<path d="M302 112 C310 132 314 145 324 164 C333 183 335 198 341 210" fill="none" stroke="#e0f2fe" stroke-width="2" stroke-linecap="round"/>'
+                    if static_charge_active else
+                    '<path d="M330 112 V210" fill="none" stroke="#38bdf8" stroke-width="8" stroke-linecap="round"/>'
+                )
+                target_label = "ਪਾਣੀ ਦੀ ਧਾਰ" if is_pa_static else "Water stream"
+            attraction_arrows = (
+                '<path d="M245 142 Q260 151 269 163 M260 151 l9 12 -14 -1" fill="none" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>'
+                if static_charge_active and static_target == "paper" else
+                '<path d="M244 155 Q270 157 298 158 M286 151 l12 7 -12 5" fill="none" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>'
+                if static_charge_active else ""
+            )
+            static_svg = f"""<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;background:rgba(128,128,128,.035)">
+<svg viewBox="0 0 440 280" width="100%" role="img" aria-label="Interactive static electricity demonstration with a rubbed balloon attracting paper pieces or bending a thin stream of water">
+  <defs><radialGradient id="staticBalloonGlow"><stop offset="0%" stop-color="#fff" stop-opacity=".45"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>
+  <path d="M28 236 H412" stroke="#94a3b8" stroke-width="2" opacity=".6"/>
+  <g stroke="#a16207" stroke-width="3" stroke-linecap="round"><path d="M77 55 q-14 22 0 39"/><path d="M96 47 q-14 22 0 39"/><path d="M115 55 q-14 22 0 39"/></g>
+  <text x="94" y="32" fill="currentColor" font-size="12" text-anchor="middle">{("ਵਾਲ / ਉੱਨ" if is_pa_static else "Hair / wool")}</text>
+  <ellipse cx="205" cy="116" rx="47" ry="59" fill="{balloon_color}" stroke="#fff" stroke-width="3"/>
+  <ellipse cx="205" cy="116" rx="44" ry="56" fill="url(#staticBalloonGlow)"/>
+  <path d="M198 174 l7 10 7 -10 Z" fill="{balloon_color}" stroke="#fff" stroke-width="1.5"/>
+  <path d="M205 184 Q217 203 207 224" fill="none" stroke="#64748b" stroke-width="2"/>
+  <text x="205" y="119" font-size="14" font-weight="700" fill="#4a044e" text-anchor="middle">{("ਚਾਰਜਡ ਗੁਬਾਰਾ" if static_charge_active else "ਬਿਨਾਂ ਰਗੜਿਆ ਗੁਬਾਰਾ") if is_pa_static else ("Charged balloon" if static_charge_active else "Unrubbed balloon")}</text>
+  {attraction_arrows}
+  {target_visual}
+  <text x="328" y="86" fill="currentColor" font-size="12" text-anchor="middle">{target_label}</text>
+  <text x="220" y="263" fill="{attraction_color}" font-size="13" font-weight="700" text-anchor="middle">{("ਖਿੱਚ ਦਿਖਾਈ ਦੇ ਰਹੀ ਹੈ" if static_charge_active else "ਰਗੜੋ ਤਾਂ ਪ੍ਰਭਾਵ ਵੇਖੋ") if is_pa_static else ("Electrostatic attraction shown" if static_charge_active else "Rub the balloon to observe the effect")}</text>
+</svg></div>"""
+            st.markdown("#### " + ("ਸਥਿਰ ਬਿਜਲੀ ਦਾ ਇੰਟਰਐਕਟਿਵ ਮਾਡਲ" if is_pa_static else "Interactive static electricity model"))
+            st.markdown(static_svg, unsafe_allow_html=True)
+            if static_charge_active:
+                st.success("ਚਾਰਜ ਕੀਤਾ ਗੁਬਾਰਾ ਹਲਕੇ ਕਾਗਜ਼ ਨੂੰ ਖਿੱਚ ਸਕਦਾ ਹੈ। ਪਾਣੀ ਦੀ ਪਤਲੀ ਧਾਰ ਵੀ ਮੁੜ ਸਕਦੀ ਹੈ।" if is_pa_static else "A charged balloon can attract light paper. A thin stream of water can also bend.")
+            else:
+                st.info("ਗੁਬਾਰੇ ਨੂੰ ਵਾਲਾਂ ਜਾਂ ਉੱਨ ਨਾਲ ਰਗੜ ਕੇ ਮੁੜ ਵੇਖੋ।" if is_pa_static else "Rub the balloon on hair or wool and observe again.")
+            st.caption("ਗੁਣਾਤਮਕ ਮਾਡਲ — ਕੋਈ ਸੰਖਿਆਤਮਕ ਮੁੱਲ ਜਾਂ ਮਾਪ ਨਹੀਂ।" if is_pa_static else "Qualitative model only — no numerical values or measurements.")
+            st.write("💡 " + note)
         elif kind == "charge" and selected_class == 9 and exp_index == 0:
             # Class 9 Experiment 1: qualitative electric-charge interaction visual; no numerical values.
             is_pa_charge = st.session_state.language != "en"
@@ -1375,7 +1448,9 @@ def electricity_lab():
             "electromagnet": ("How can a crane electromagnet release scrap?", "By switching off the current", ["By switching off the current", "Adding more wires", "Changing its colour"], "ਕਰੇਨ ਦਾ ਬਿਜਲੀ-ਚੁੰਬਕ ਕਬਾੜ ਕਿਵੇਂ ਛੱਡਦਾ ਹੈ?", "ਕਰੰਟ ਬੰਦ ਕਰਨ ਨਾਲ", ["ਕਰੰਟ ਬੰਦ ਕਰਨ ਨਾਲ", "ਹੋਰ ਤਾਰ ਜੋੜ ਕੇ", "ਰੰਗ ਬਦਲਣ ਨਾਲ"]),
             "circuit": ("When does a bulb light?", "When the circuit is complete", ["When the circuit is complete", "When a wire is broken", "When the switch is open"], "ਬਲਬ ਕਦੋਂ ਜਗਦਾ ਹੈ?", "ਜਦੋਂ ਸਰਕਟ ਪੂਰਾ ਹੋਵੇ", ["ਜਦੋਂ ਸਰਕਟ ਪੂਰਾ ਹੋਵੇ", "ਜਦੋਂ ਤਾਰ ਟੁੱਟੀ ਹੋਵੇ", "ਜਦੋਂ ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ ਹੋਵੇ"])
         }
-        if kind == "power" and selected_class == 9 and exp_index == 3:
+        if kind == "charge" and selected_class == 9 and exp_index == 4:
+            item = ("What can a charged balloon do?", "Attract light objects", ["Attract light objects", "Create a continuous electric current", "Make gravity disappear"], "ਚਾਰਜ ਕੀਤਾ ਗੁਬਾਰਾ ਕੀ ਕਰ ਸਕਦਾ ਹੈ?", "ਹਲਕੀਆਂ ਚੀਜ਼ਾਂ ਨੂੰ ਖਿੱਚ ਸਕਦਾ ਹੈ", ["ਹਲਕੀਆਂ ਚੀਜ਼ਾਂ ਨੂੰ ਖਿੱਚ ਸਕਦਾ ਹੈ", "ਲਗਾਤਾਰ ਬਿਜਲੀ ਕਰੰਟ ਬਣਾਉਂਦਾ ਹੈ", "ਗੁਰੁਤਵਾਕਰਸ਼ਣ ਖਤਮ ਕਰਦਾ ਹੈ"])
+        elif kind == "power" and selected_class == 9 and exp_index == 3:
             item = ("What does electrical power describe?", "How quickly electrical energy is transferred", ["How quickly electrical energy is transferred", "The colour of a wire", "The length of a switch"], "ਬਿਜਲੀ ਸ਼ਕਤੀ ਕੀ ਦਰਸਾਉਂਦੀ ਹੈ?", "ਬਿਜਲੀ ਊਰਜਾ ਦੇ ਤਬਾਦਲੇ ਦੀ ਦਰ", ["ਬਿਜਲੀ ਊਰਜਾ ਦੇ ਤਬਾਦਲੇ ਦੀ ਦਰ", "ਤਾਰ ਦਾ ਰੰਗ", "ਸਵਿੱਚ ਦੀ ਲੰਬਾਈ"])
         else:
             item = checks.get(kind, checks["circuit"])
