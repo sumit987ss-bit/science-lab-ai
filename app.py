@@ -213,6 +213,21 @@ def electricity_lab():
                 "pa": ["ਤਾਂਬਾ", "ਐਲੂਮੀਨੀਅਮ", "ਲੋਹਾ", "ਰਬੜ", "ਪਲਾਸਟਿਕ", "ਲੱਕੜ"]
             }
             material = st.selectbox(tr("material"), material_options[st.session_state.language], key=f"mat_{selected_class}_{exp_index}")
+        charge_pair_mode = "unlike"
+        if selected_class == 9 and exp_index == 0 and kind == "charge":
+            is_pa_charge_control = st.session_state.language != "en"
+            charge_options = ["like_positive", "like_negative", "unlike"]
+            charge_labels = {
+                "like_positive": "ਧਨਾਤਮਕ + ਧਨਾਤਮਕ" if is_pa_charge_control else "Positive + Positive",
+                "like_negative": "ਰਿਣਾਤਮਕ + ਰਿਣਾਤਮਕ" if is_pa_charge_control else "Negative + Negative",
+                "unlike": "ਧਨਾਤਮਕ + ਰਿਣਾਤਮਕ" if is_pa_charge_control else "Positive + Negative",
+            }
+            charge_pair_mode = st.selectbox(
+                "ਚਾਰਜਾਂ ਦੀ ਜੋੜੀ ਚੁਣੋ" if is_pa_charge_control else "Choose charge pair",
+                charge_options,
+                format_func=lambda x: charge_labels[x],
+                key=f"class9_charge_pair_{st.session_state.language}",
+            )
         if kind == "liquids":
             liquids = ["water", "salt", "sugar", "lemon"]
             liquid = st.selectbox(tr("liquid"), liquids, format_func=lambda x: tr(x), key=f"liq_{selected_class}_{exp_index}")
@@ -1045,8 +1060,49 @@ def electricity_lab():
         elif kind == "cell":
             st.metric(tr("voltage"), f"{voltage} V")
             st.write(note)
+        elif kind == "charge" and selected_class == 9 and exp_index == 0:
+            # Class 9 Experiment 1: qualitative electric-charge interaction visual; no numerical values.
+            is_pa_charge = st.session_state.language != "en"
+            like_charges = charge_pair_mode != "unlike"
+            left_charge = "-" if charge_pair_mode == "like_negative" else "+"
+            right_charge = "-" if charge_pair_mode == "like_negative" else ("-" if charge_pair_mode == "unlike" else "+")
+            particle_color_left = "#2563eb" if left_charge == "-" else "#dc2626"
+            particle_color_right = "#2563eb" if right_charge == "-" else "#dc2626"
+            interaction_color = "#d97706" if like_charges else "#16a34a"
+            left_motion = '<path d="M145 130 L105 130 M116 119 L105 130 L116 141" fill="none" stroke="#d97706" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>' if like_charges else '<path d="M145 130 L180 130 M169 119 L180 130 L169 141" fill="none" stroke="#16a34a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>'
+            right_motion = '<path d="M295 130 L335 130 M324 119 L335 130 L324 141" fill="none" stroke="#d97706" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>' if like_charges else '<path d="M295 130 L260 130 M271 119 L260 130 L271 141" fill="none" stroke="#16a34a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>'
+            interaction_title = (
+                ("ਇੱਕੋ ਕਿਸਮ ਦੇ ਚਾਰਜ ਇੱਕ-ਦੂਜੇ ਨੂੰ ਦੂਰ ਧੱਕਦੇ ਹਨ" if is_pa_charge else "Like charges repel each other")
+                if like_charges else
+                ("ਵੱਖਰੀ ਕਿਸਮ ਦੇ ਚਾਰਜ ਇੱਕ-ਦੂਜੇ ਨੂੰ ਖਿੱਚਦੇ ਹਨ" if is_pa_charge else "Unlike charges attract each other")
+            )
+            charge_svg = f\"\"\"<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;background:rgba(128,128,128,.035)">
+<svg viewBox="0 0 440 245" width="100%" role="img" aria-label="Electric charge interaction showing like charges repelling and unlike charges attracting">
+  <defs><radialGradient id="chargeGlow"><stop offset="0%" stop-color="#ffffff" stop-opacity=".45"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></radialGradient></defs>
+  <path d="M32 205 H408" stroke="#94a3b8" stroke-width="2" stroke-dasharray="5 7" opacity=".55"/>
+  {left_motion}{right_motion}
+  <circle cx="145" cy="130" r="43" fill="{particle_color_left}" stroke="#ffffff" stroke-width="3"/>
+  <circle cx="145" cy="130" r="42" fill="url(#chargeGlow)"/>
+  <circle cx="295" cy="130" r="43" fill="{particle_color_right}" stroke="#ffffff" stroke-width="3"/>
+  <circle cx="295" cy="130" r="42" fill="url(#chargeGlow)"/>
+  <text x="145" y="143" font-size="42" font-weight="bold" fill="white" text-anchor="middle">{left_charge}</text>
+  <text x="295" y="143" font-size="42" font-weight="bold" fill="white" text-anchor="middle">{right_charge}</text>
+  <text x="145" y="75" font-size="13" fill="currentColor" text-anchor="middle">{"ਚਾਰਜ" if is_pa_charge else "CHARGE"}</text>
+  <text x="295" y="75" font-size="13" fill="currentColor" text-anchor="middle">{"ਚਾਰਜ" if is_pa_charge else "CHARGE"}</text>
+  <text x="220" y="32" font-size="15" font-weight="700" fill="{interaction_color}" text-anchor="middle">{("ਵਿਕਰਸ਼ਣ" if is_pa_charge else "REPULSION") if like_charges else ("ਆਕਰਸ਼ਣ" if is_pa_charge else "ATTRACTION")}</text>
+  <text x="220" y="231" font-size="12" fill="currentColor" text-anchor="middle">{("ਦਿਸ਼ਾਵਾਂ ਦਿਖਾਉਂਦੀਆਂ ਹਨ ਕਿ ਚਾਰਜ ਕਿਵੇਂ ਹਿਲਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰਦੇ ਹਨ" if is_pa_charge else "Arrows show the direction the charges tend to move")}</text>
+</svg></div>\"\"\"
+            st.markdown("#### " + ("ਬਿਜਲਈ ਚਾਰਜਾਂ ਦਾ ਪਰਸਪਰ ਪ੍ਰਭਾਵ" if is_pa_charge else "Interaction between electric charges"))
+            st.markdown(charge_svg, unsafe_allow_html=True)
+            if like_charges:
+                st.warning(interaction_title)
+            else:
+                st.success(interaction_title)
+            st.markdown("**" + ("ਯਾਦ ਰੱਖੋ" if is_pa_charge else "Remember") + "**")
+            st.write(("ਇੱਕੋ ਕਿਸਮ ਦੇ ਚਾਰਜ ਵਿਕਰਸ਼ਣ ਕਰਦੇ ਹਨ; ਵੱਖਰੀ ਕਿਸਮ ਦੇ ਚਾਰਜ ਆਕਰਸ਼ਣ ਕਰਦੇ ਹਨ।" if is_pa_charge else "Like charges repel; unlike charges attract."))
+            st.caption("Qualitative visual model only — no numerical values or measurements." if not is_pa_charge else "ਸਿਰਫ਼ ਗੁਣਾਤਮਕ ਦ੍ਰਿਸ਼ ਮਾਡਲ — ਕੋਈ ਸੰਖਿਆਤਮਕ ਮੁੱਲ ਜਾਂ ਮਾਪ ਨਹੀਂ।")
+            st.write("💡 " + note)
         elif kind == "charge":
-            st.metric(tr("magnetic"), f"{voltage*current_control:.1f} illustrative interaction units")
             st.write(note)
         elif kind == "fuse":
             is_pa_fuse = st.session_state.language != "en"
