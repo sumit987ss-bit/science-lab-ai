@@ -668,9 +668,91 @@ def electricity_lab():
             st.caption("Illustrative classroom simulation — not a real crane or a measurement." if not is_pa else "ਇਹ ਸਿਰਫ਼ ਸਿੱਖਣ ਲਈ ਵਰਚੁਅਲ ਮਾਡਲ ਹੈ, ਅਸਲੀ ਕਰੇਨ ਜਾਂ ਮਾਪ ਨਹੀਂ।")
             st.write("💡 " + note)
         elif kind == "electromagnet":
-            strength = turns * current_control
-            st.metric(tr("magnetic"), f"{strength:.1f} relative units")
-            st.write(f"{tr('turns')}: {turns} · {tr('current_control')}: {current_control:.1f} A")
+            if selected_class == 8 and exp_index == 3:
+                is_pa_em8 = st.session_state.language != "en"
+                active_color = "#16a34a" if closed else "#94a3b8"
+                magnet_fill = "#dc2626" if closed else "#94a3b8"
+                clip_group = (
+                    '<g stroke="#64748b" stroke-width="4" fill="none" stroke-linecap="round">'
+                    '<path d="M130 180 v18 q0 14 13 14 q13 0 13 -14 v-12"/>'
+                    '<path d="M165 180 v18 q0 14 13 14 q13 0 13 -14 v-12"/>'
+                    '<path d="M200 180 v18 q0 14 13 14 q13 0 13 -14 v-12"/>'
+                    '</g>'
+                    if closed else
+                    '<g stroke="#64748b" stroke-width="4" fill="none" stroke-linecap="round">'
+                    '<path d="M130 222 v12 q0 10 13 10 q13 0 13 -10 v-8"/>'
+                    '<path d="M165 222 v12 q0 10 13 10 q13 0 13 -10 v-8"/>'
+                    '<path d="M200 222 v12 q0 10 13 10 q13 0 13 -10 v-8"/>'
+                    '</g>'
+                )
+                field_lines = (
+                    '<g fill="none" stroke="#3b82f6" stroke-width="2.5">'
+                    '<path d="M125 115 C75 60 95 35 170 35 C245 35 265 60 225 115"/>'
+                    '<path d="M125 135 C75 190 95 215 170 215 C245 215 265 190 225 135"/>'
+                    '<path d="M138 118 C110 85 125 65 170 65 C215 65 230 85 212 118"/>'
+                    '<path d="M138 132 C110 165 125 185 170 185 C215 185 230 165 212 132"/>'
+                    '</g>'
+                    '<g fill="#3b82f6"><path d="M120 66 l-2 10 9 -4 Z"/><path d="M230 184 l2 -10 -9 4 Z"/></g>'
+                    if closed else
+                    '<g fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="5 6" opacity=".4">'
+                    '<path d="M125 115 C75 60 95 35 170 35 C245 35 265 60 225 115"/>'
+                    '<path d="M125 135 C75 190 95 215 170 215 C245 215 265 190 225 135"/>'
+                    '</g>'
+                )
+                status = (
+                    ("ਸਵਿੱਚ ਬੰਦ — ਕਰੰਟ ਵਹਿੰਦਾ ਹੈ; ਕੋਇਲ ਚੁੰਬਕ ਬਣਦੀ ਹੈ" if closed else "ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ — ਕਰੰਟ ਰੁਕਿਆ; ਚੁੰਬਕੀ ਪ੍ਰਭਾਵ ਘੱਟ/ਨਹੀਂ")
+                    if is_pa_em8 else
+                    ("SWITCH ON — CURRENT FLOWS; THE COIL BECOMES MAGNETIC" if closed else "SWITCH OPEN — CURRENT STOPS; THE MAGNETIC EFFECT DISAPPEARS")
+                )
+                em_svg = f"""
+<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;background:rgba(128,128,128,.035);">
+<svg viewBox="0 0 440 300" width="100%" role="img" aria-label="Two examples of electricity producing magnetism: an electromagnet lifting paper clips and magnetic field around a current-carrying wire">
+  <g stroke-linecap="round" stroke-linejoin="round">
+    <rect x="18" y="18" width="196" height="264" rx="12" fill="rgba(128,128,128,.04)" stroke="rgba(120,140,160,.45)"/>
+    <rect x="226" y="18" width="196" height="264" rx="12" fill="rgba(128,128,128,.04)" stroke="rgba(120,140,160,.45)"/>
+    <text x="116" y="39" fill="currentColor" font-size="12" font-weight="700" text-anchor="middle">{'ਕੋਇਲ ਵਾਲਾ ਚੁੰਬਕ' if is_pa_em8 else 'COIL ELECTROMAGNET'}</text>
+    <path d="M116 55 V80" stroke="#dc2626" stroke-width="4"/>
+    <path d="M116 55 H160 V70" stroke="#dc2626" stroke-width="4" fill="none"/>
+    <rect x="143" y="64" width="33" height="18" rx="4" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
+    <path d="M159 70 l-8 7 h12 l-8 7" fill="none" stroke="#475569" stroke-width="2"/>
+    <rect x="95" y="82" width="42" height="98" rx="6" fill="#64748b" stroke="#334155" stroke-width="2"/>
+    <g fill="none" stroke="#f59e0b" stroke-width="5">
+      <path d="M91 91 C145 91 145 100 91 100 C145 100 145 109 91 109 C145 109 145 118 91 118 C145 118 145 127 91 127 C145 127 145 136 91 136 C145 136 145 145 91 145 C145 145 145 154 91 154 C145 154 145 163 91 163"/>
+    </g>
+    <path d="M116 180 V195" stroke="{active_color}" stroke-width="5"/>
+    <rect x="70" y="195" width="92" height="12" rx="5" fill="{magnet_fill}" stroke="#7f1d1d" stroke-width="2"/>
+    {clip_group}
+    <text x="116" y="265" fill="currentColor" font-size="11" text-anchor="middle">{'ਲੋਹੇ ਦੀਆਂ ਕਲਿੱਪਾਂ' if is_pa_em8 else 'IRON PAPER CLIPS'}</text>
+    <text x="324" y="39" fill="currentColor" font-size="12" font-weight="700" text-anchor="middle">{'ਕਰੰਟ ਵਾਲੀ ਤਾਰ' if is_pa_em8 else 'CURRENT-CARRYING WIRE'}</text>
+    {field_lines}
+    <path d="M324 65 V231" stroke="{active_color}" stroke-width="7"/>
+    <path d="M324 70 l-7 12 h14 Z" fill="{active_color}"/>
+    <circle cx="275" cy="143" r="25" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
+    <path d="M275 121 L268 145 L275 139 L282 145 Z" fill="#dc2626"/>
+    <path d="M275 165 L268 141 L275 147 L282 141 Z" fill="#334155"/>
+    <text x="324" y="254" fill="currentColor" font-size="11" text-anchor="middle">{'ਚੁੰਬਕੀ ਖੇਤਰ' if is_pa_em8 else 'MAGNETIC FIELD'}</text>
+  </g>
+</svg>
+</div>
+"""
+                st.markdown("#### " + ("ਬਿਜਲੀ ਤੋਂ ਚੁੰਬਕਤਾ ਦੇ ਉਦਾਹਰਨ" if is_pa_em8 else "Examples of electricity producing magnetism"))
+                st.markdown(em_svg, unsafe_allow_html=True)
+                if closed:
+                    st.success(status)
+                else:
+                    st.info(status)
+                st.markdown("**" + ("ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ?" if is_pa_em8 else "How it works") + "**")
+                st.write(
+                    ("ਕੋਇਲ ਵਿੱਚੋਂ ਕਰੰਟ ਲੰਘਣ ਨਾਲ ਉਸ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਚੁੰਬਕੀ ਖੇਤਰ ਬਣਦਾ ਹੈ। ਲੋਹੇ ਦਾ ਕੋਰ ਇਸ ਪ੍ਰਭਾਵ ਨੂੰ ਮਜ਼ਬੂਤ ਕਰਦਾ ਹੈ ਅਤੇ ਇਲੈਕਟ੍ਰੋਮੈਗਨੈਟ ਕਲਿੱਪਾਂ ਨੂੰ ਖਿੱਚ ਸਕਦਾ ਹੈ। ਸਿੱਧੀ ਕਰੰਟ ਵਾਲੀ ਤਾਰ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਵੀ ਚੁੰਬਕੀ ਖੇਤਰ ਬਣਦਾ ਹੈ।"
+                    if is_pa_em8 else
+                    "Current through a coil creates a magnetic field. An iron core strengthens the effect, allowing the electromagnet to attract clips. A straight current-carrying wire also creates a magnetic field around it.")
+                )
+                st.caption("Qualitative visual model only — no numerical readings." if not is_pa_em8 else "ਸਿਰਫ਼ ਗੁਣਾਤਮਕ ਦ੍ਰਿਸ਼ ਮਾਡਲ — ਕੋਈ ਸੰਖਿਆਤਮਕ ਮਾਪ ਨਹੀਂ।")
+                st.write("💡 " + note)
+            else:
+                strength = turns * current_control
+                st.metric(tr("magnetic"), f"{strength:.1f} relative units")
+                st.write(f"{tr('turns')}: {turns} · {tr('current_control')}: {current_control:.1f} A")
         elif kind == "magnetic_field":
             if selected_class == 7 and exp_index == 4:
                 is_pa_field = st.session_state.language != "en"
