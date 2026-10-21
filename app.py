@@ -1014,7 +1014,7 @@ def electricity_lab():
                 '<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;background:rgba(128,128,128,.035);">'
                 '<svg viewBox="0 0 440 285" width="100%" role="img" aria-label="Qualitative cell circuit showing chemical energy converted into electrical energy, with a switch and bulb">'
                 '<g fill="none" stroke="' + wire_color + '" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">'
-                '<path d="M100 52 H175"/><path d="M242 52 H340 V108"/><path d="M340 155 V222 H100 V155"/>'
+                '<path d="M100 52 V116"/><path d="M100 135 V222"/><path d="M100 52 H175"/><path d="M242 52 H340 V108"/><path d="M340 155 V222 H100"/>'
                 '</g>'
                 + current_arrows +
                 '<g stroke="#334155" stroke-width="3"><line x1="78" y1="116" x2="122" y2="116"/><line x1="87" y1="135" x2="113" y2="135"/></g>'
