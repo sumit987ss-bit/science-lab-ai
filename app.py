@@ -637,6 +637,11 @@ def electricity_lab():
                 qualitative_result = ("ਕਰੰਟ ਵਧਣ ਦੀ ਪ੍ਰਵਿਰਤੀ ਦਿਖਾਈ ਗਈ ਹੈ।" if is_pa_ohms else "The model shows a tendency toward greater current.")
             else:
                 qualitative_result = ("ਕਰੰਟ ਘਟਣ ਦੀ ਪ੍ਰਵਿਰਤੀ ਦਿਖਾਈ ਗਈ ਹੈ।" if is_pa_ohms else "The model shows a tendency toward lower current.")
+            if closed:
+                current_band_label = {"Low": "ਘੱਟ" if is_pa_ohms else "LOW", "Medium": "ਦਰਮਿਆਨਾ" if is_pa_ohms else "MEDIUM", "High": "ਵੱਧ" if is_pa_ohms else "HIGH"}[current_band]
+                qualitative_current_label = ("ਕਰੰਟ ਦਾ ਗੁਣਾਤਮਕ ਪੱਧਰ: " if is_pa_ohms else "QUALITATIVE CURRENT: ") + current_band_label
+            else:
+                qualitative_current_label = "ਕੋਈ ਕਰੰਟ ਨਹੀਂ" if is_pa_ohms else "NO CURRENT"
             ohms_svg = f"""<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;background:rgba(128,128,128,.035)">
 <svg viewBox="0 0 440 260" width="100%" role="img" aria-label="Qualitative Ohm's law circuit with cell, resistor, switch, bulb and current flow arrows">
   <g fill="none" stroke="{wire_color}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
@@ -653,7 +658,7 @@ def electricity_lab():
   <text x="340" y="184" fill="currentColor" font-size="12" text-anchor="middle">{"ਬਲਬ" if is_pa_ohms else "BULB"}</text>
   <g fill="{current_color}"><path d="M110 58 l-10 -6 v12 Z"/><path d="M292 58 l-10 -6 v12 Z"/><path d="M292 210 l-10 -6 v12 Z"/></g>
   <rect x="100" y="222" width="240" height="27" rx="8" fill="#e2e8f0" stroke="#94a3b8"/>
-  <text x="220" y="240" fill="#334155" font-size="12" font-weight="700" text-anchor="middle">{("ਕਰੰਟ ਦਾ ਗੁਣਾਤਮਕ ਪੱਧਰ: " if is_pa_ohms else "QUALITATIVE CURRENT: ") + ({"Low": "ਘੱਟ" if is_pa_ohms else "LOW", "Medium": "ਦਰਮਿਆਨਾ" if is_pa_ohms else "MEDIUM", "High": "ਵੱਧ" if is_pa_ohms else "HIGH"}[current_band] if closed else ("ਕੋਈ ਕਰੰਟ ਨਹੀਂ" if is_pa_ohms else "NO CURRENT")}</text>
+   <text x="220" y="240" fill="#334155" font-size="12" font-weight="700" text-anchor="middle">{qualitative_current_label}</text>
 </svg></div>"""
             st.markdown("#### " + ("ਵੋਲਟੇਜ, ਕਰੰਟ ਅਤੇ ਰੋਧ ਦਾ ਮਾਡਲ" if is_pa_ohms else "Voltage, current and resistance model"))
             st.markdown(ohms_svg, unsafe_allow_html=True)
