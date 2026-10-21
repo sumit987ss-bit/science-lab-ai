@@ -989,7 +989,7 @@ def electricity_lab():
                 if not is_pa_plate else
                 "ਸਿਰਫ਼ ਗੁਣਾਤਮਕ ਚਿੱਤਰ — ਅਸਲ ਇਲੈਕਟ੍ਰੋਪਲੇਟਿੰਗ ਘੋਲ, ਇਲੈਕਟ੍ਰੋਡ ਦੇ ਪਦਾਰਥ ਅਤੇ ਕਰੰਟ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ; ਕੋਈ ਸੰਖਿਆਤਮਕ ਮਾਪ ਨਹੀਂ।"
             )
-        elif kind == "cell" and selected_class == 8 and exp_index == 4:
+        elif kind == "cell" and selected_class == 8 and exp_index == 4:  # LIVE-DEPLOY-VERIFY-2026-10-21
             # Class 8 Experiment 5: qualitative cell animation with no numerical readings.
             is_pa_cell = st.session_state.language != "en"
             active = closed
