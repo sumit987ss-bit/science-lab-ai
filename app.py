@@ -318,7 +318,63 @@ def electricity_lab():
         power = 0.0 if fuse_blown else 12.0
     with right:
         st.markdown("### " + tr("result"))
-        if kind == "magnet" and selected_class == 6 and exp_index == 4:
+        if selected_class == 10 and exp_index == 0 and kind == "ohms":
+            # Class 10 Experiment 1: quantitative verification of Ohm's law.
+            is_pa_ohms10 = st.session_state.language != "en"
+            measured_current = voltage / resistance if closed else 0.0
+            ohms_wire = "#16a34a" if closed else "#94a3b8"
+            ohms_bulb = "#fde047" if closed else "#e2e8f0"
+            ohms_glow = "filter:drop-shadow(0 0 10px #facc15);" if closed else ""
+            ohms_status = ("ਸਵਿੱਚ ਬੰਦ — ਕਰੰਟ ਵਹਿੰਦਾ ਹੈ" if is_pa_ohms10 else "SWITCH ON — CURRENT FLOWS") if closed else ("ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ — ਕਰੰਟ ਸਿਫ਼ਰ" if is_pa_ohms10 else "SWITCH OFF — CURRENT IS ZERO")
+            ohms_svg = f"""<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;background:rgba(128,128,128,.035)">
+<svg viewBox="0 0 460 300" width="100%" role="img" aria-label="Ohm's law circuit showing battery, ammeter in series, resistor and voltmeter in parallel">
+  <g fill="none" stroke="{ohms_wire}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M58 68 H132 M184 68 H244 M304 68 H390 V220 H58 V145 M58 68 V105"/>
+    <path d="M244 68 V125 M304 68 V125 M244 125 H304"/>
+  </g>
+  <g stroke="#334155" stroke-width="3"><line x1="40" y1="105" x2="76" y2="105"/><line x1="47" y1="123" x2="69" y2="123"/></g>
+  <text x="58" y="162" fill="currentColor" font-size="12" text-anchor="middle">{"ਸੈੱਲ" if is_pa_ohms10 else "CELL"}</text>
+  <circle cx="158" cy="68" r="26" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <text x="158" y="74" fill="#1d4ed8" font-size="18" font-weight="bold" text-anchor="middle">A</text>
+  <text x="158" y="32" fill="currentColor" font-size="12" text-anchor="middle">{"ਐਮੀਟਰ" if is_pa_ohms10 else "AMMETER (SERIES)"}</text>
+  <rect x="304" y="50" width="86" height="36" rx="7" fill="#fed7aa" stroke="#c2410c" stroke-width="2.5"/>
+  <path d="M313 68 l8 -9 l8 18 l8 -18 l8 18 l8 -18 l8 18 l8 -9" fill="none" stroke="#9a3412" stroke-width="2.5"/>
+  <text x="347" y="39" fill="currentColor" font-size="12" text-anchor="middle">{"ਰੋਧਕ" if is_pa_ohms10 else "RESISTOR"}</text>
+  <circle cx="274" cy="125" r="23" fill="#dcfce7" stroke="#15803d" stroke-width="3"/>
+  <text x="274" y="131" fill="#166534" font-size="17" font-weight="bold" text-anchor="middle">V</text>
+  <text x="274" y="160" fill="currentColor" font-size="11" text-anchor="middle">{"ਵੋਲਟਮੀਟਰ (ਸਮਾਂਤਰ)" if is_pa_ohms10 else "VOLTMETER (PARALLEL)"}</text>
+  <g fill="{ohms_wire}"><path d="M105 220 l-10 -6 v12 Z"/><path d="M215 220 l-10 -6 v12 Z"/></g>
+  <circle cx="390" cy="176" r="22" fill="{ohms_bulb}" stroke="#475569" stroke-width="3" style="{ohms_glow}"/>
+  <path d="M379 165 l22 22 M401 165 l-22 22" stroke="#475569" stroke-width="3"/>
+  <text x="390" y="210" fill="currentColor" font-size="11" text-anchor="middle">{"ਬਲਬ" if is_pa_ohms10 else "BULB"}</text>
+  <rect x="70" y="245" width="320" height="35" rx="9" fill="#e2e8f0" stroke="#94a3b8"/>
+  <text x="230" y="267" fill="#334155" font-size="13" font-weight="bold" text-anchor="middle">{ohms_status}</text>
+</svg></div>"""
+            st.markdown("#### " + ("ਓਮ ਦੇ ਨਿਯਮ ਦੀ ਜਾਂਚ ਲਈ ਸਰਕਟ" if is_pa_ohms10 else "Circuit to verify Ohm's law"))
+            st.markdown(ohms_svg, unsafe_allow_html=True)
+            m1, m2, m3 = st.columns(3)
+            m1.metric("ਵੋਲਟੇਜ (V)" if is_pa_ohms10 else "Voltage (V)", f"{voltage} V")
+            m2.metric("ਕਰੰਟ (I)" if is_pa_ohms10 else "Current (I)", f"{measured_current:.2f} A")
+            m3.metric("ਰੋਧ (R)" if is_pa_ohms10 else "Resistance (R)", f"{resistance} Ω")
+            st.markdown("**" + ("ਗਣਨਾ" if is_pa_ohms10 else "Calculation") + "**")
+            st.latex(r"I = \\frac{V}{R} = \\frac{" + str(voltage) + "}{" + str(resistance) + "} = " + f"{measured_current:.2f}" + r"\\text{ A}")
+            st.markdown("**" + ("ਸਥਿਰ ਰੋਧ ਲਈ ਅਵਲੋਕਨ ਸਾਰਣੀ" if is_pa_ohms10 else "Observation table at fixed resistance") + "**")
+            table_rows = []
+            for test_v in [0, 6, 12, 18, 24]:
+                test_i = test_v / resistance if closed else 0.0
+                ratio = f"{test_v / test_i:.2f} Ω" if test_i > 0 else "—"
+                table_rows.append({
+                    ("ਵੋਲਟੇਜ V (V)" if is_pa_ohms10 else "Voltage V (V)"): test_v,
+                    ("ਕਰੰਟ I (A)" if is_pa_ohms10 else "Current I (A)"): f"{test_i:.2f}",
+                    ("V/I (Ω)" if is_pa_ohms10 else "V/I (Ω)"): ratio,
+                })
+            st.dataframe(table_rows, hide_index=True, use_container_width=True)
+            if closed:
+                st.success("V/I ਲਗਭਗ ਸਥਿਰ ਰਹਿੰਦਾ ਹੈ ਅਤੇ ਚੁਣੇ ਰੋਧ ਦੇ ਬਰਾਬਰ ਹੈ — ਇਹ ਓਮ ਦੇ ਨਿਯਮ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ।" if is_pa_ohms10 else f"V/I remains constant at {resistance} Ω for this ideal fixed resistor, so the observations verify Ohm's law.")
+            else:
+                st.info("ਸਵਿੱਚ ਖੁੱਲ੍ਹਣ ਤੇ ਕਰੰਟ ਸਿਫ਼ਰ ਹੁੰਦਾ ਹੈ; ਨਿਯਮ ਦੀ ਜਾਂਚ ਲਈ ਸਵਿੱਚ ਚਾਲੂ ਕਰੋ।" if is_pa_ohms10 else "With the switch open, current is zero; close the switch to test Ohm's law.")
+            st.caption("ਆਦਰਸ਼ ਸਿਮੂਲੇਸ਼ਨ: ਸਾਰਣੀ ਗਣਿਤਕ ਮਾਡਲ ਤੋਂ ਬਣਦੀ ਹੈ, ਅਸਲੀ ਪ੍ਰਯੋਗਸ਼ਾਲਾ ਮਾਪ ਨਹੀਂ।" if is_pa_ohms10 else "Ideal simulation: the table is calculated from the model, not measured laboratory data. In a real experiment, record ammeter and voltmeter readings.")
+        elif kind == "magnet" and selected_class == 6 and exp_index == 4:
             # Two-panel interactive visual: material gallery and magnet test outcome.
             is_pa = st.session_state.language != "en"
             magnetic_items = [
