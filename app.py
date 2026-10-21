@@ -669,7 +669,6 @@ def electricity_lab():
             st.write("💡 " + note)
             st.caption("Qualitative visual only — no numerical values, units, calculated readings or graph." if not is_pa_ohms else "ਸਿਰਫ਼ ਗੁਣਾਤਮਕ ਦ੍ਰਿਸ਼ — ਕੋਈ ਸੰਖਿਆਤਮਕ ਮੁੱਲ, ਇਕਾਈਆਂ, ਗਣਨਾ ਜਾਂ ਗ੍ਰਾਫ ਨਹੀਂ।")
         elif kind == "series_parallel" and selected_class == 9 and exp_index == 2:
-        elif kind == "series_parallel" and selected_class == 9 and exp_index == 2:
             # Class 9 Experiment 3: independent switch controls for series and parallel circuits.
             is_pa_series = st.session_state.language != "en"
             series_switch = st.checkbox("ਲੜੀਵਾਰ ਸਰਕਟ ਦਾ ਸਵਿੱਚ" if is_pa_series else "Series circuit main switch", value=True, key="c9_exp3_series_switch")
