@@ -668,6 +668,57 @@ def electricity_lab():
                 st.info(qualitative_result)
             st.write("💡 " + note)
             st.caption("Qualitative visual only — no numerical values, units, calculated readings or graph." if not is_pa_ohms else "ਸਿਰਫ਼ ਗੁਣਾਤਮਕ ਦ੍ਰਿਸ਼ — ਕੋਈ ਸੰਖਿਆਤਮਕ ਮੁੱਲ, ਇਕਾਈਆਂ, ਗਣਨਾ ਜਾਂ ਗ੍ਰਾਫ ਨਹੀਂ।")
+        elif kind == "series_parallel" and selected_class == 9 and exp_index == 2:
+            # Class 9 Experiment 3: qualitative series vs parallel circuit comparison.
+            is_pa_series = st.session_state.language != "en"
+            wire_color = "#16a34a" if closed else "#94a3b8"
+            bulb_fill = "#fde047" if closed else "#e2e8f0"
+            bulb_glow = "filter:drop-shadow(0 0 8px #facc15);" if closed else ""
+            series_title = "ਲੜੀਵਾਰ ਜੋੜ" if is_pa_series else "SERIES CONNECTION"
+            parallel_title = "ਸਮਾਂਤਰ ਜੋੜ" if is_pa_series else "PARALLEL CONNECTION"
+            series_note = ("ਇੱਕੋ ਰਸਤਾ: ਸਾਰੇ ਬਲਬ ਇੱਕ ਲੜੀ ਵਿੱਚ ਹਨ।" if is_pa_series else "One continuous path: bulbs are connected one after another.")
+            parallel_note = ("ਵੱਖ-ਵੱਖ ਸ਼ਾਖਾਂ: ਹਰ ਬਲਬ ਲਈ ਆਪਣਾ ਰਸਤਾ ਹੈ।" if is_pa_series else "Separate branches: each bulb has its own path.")
+            status_label = ("ਸਵਿੱਚ ਬੰਦ — ਸਰਕਟ ਪੂਰਾ" if is_pa_series else "Switch closed — circuit complete") if closed else ("ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ — ਕਰੰਟ ਨਹੀਂ" if is_pa_series else "Switch open — no current")
+            series_svg = f"""<div style="border:1px solid rgba(120,140,160,.35);border-radius:14px;padding:8px;background:rgba(128,128,128,.035)">
+            <svg viewBox="0 0 340 220" width="100%" role="img" aria-label="Series circuit with two bulbs on one path">
+              <g fill="none" stroke="{wire_color}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M52 48 H95 M139 48 H201 M245 48 H288 V174 H52 V118 M52 48 V82"/>
+              </g>
+              <g stroke="#334155" stroke-width="3"><line x1="34" y1="82" x2="70" y2="82"/><line x1="41" y1="101" x2="63" y2="101"/></g>
+              <circle cx="117" cy="48" r="22" fill="{bulb_fill}" stroke="#475569" stroke-width="3" style="{bulb_glow}"/>
+              <path d="M107 38 l20 20 M127 38 l-20 20" stroke="#475569" stroke-width="3"/>
+              <circle cx="223" cy="48" r="22" fill="{bulb_fill}" stroke="#475569" stroke-width="3" style="{bulb_glow}"/>
+              <path d="M213 38 l20 20 M233 38 l-20 20" stroke="#475569" stroke-width="3"/>
+              <text x="52" y="137" fill="currentColor" font-size="11" text-anchor="middle">{"ਸੈੱਲ" if is_pa_series else "CELL"}</text>
+              <text x="170" y="202" fill="currentColor" font-size="12" font-weight="700" text-anchor="middle">{("ਇੱਕ ਕਰੰਟ ਰਸਤਾ" if is_pa_series else "ONE CURRENT PATH")}</text>
+            </svg></div>"""
+            parallel_svg = f"""<div style="border:1px solid rgba(120,140,160,.35);border-radius:14px;padding:8px;background:rgba(128,128,128,.035)">
+            <svg viewBox="0 0 340 220" width="100%" role="img" aria-label="Parallel circuit with two bulbs on separate branches">
+              <g fill="none" stroke="{wire_color}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M52 48 H288 V174 H52 V118 M52 48 V82"/>
+                <path d="M105 48 V82 M105 126 V174 M235 48 V82 M235 126 V174"/>
+              </g>
+              <g stroke="#334155" stroke-width="3"><line x1="34" y1="82" x2="70" y2="82"/><line x1="41" y1="101" x2="63" y2="101"/></g>
+              <circle cx="105" cy="104" r="22" fill="{bulb_fill}" stroke="#475569" stroke-width="3" style="{bulb_glow}"/>
+              <path d="M95 94 l20 20 M115 94 l-20 20" stroke="#475569" stroke-width="3"/>
+              <circle cx="235" cy="104" r="22" fill="{bulb_fill}" stroke="#475569" stroke-width="3" style="{bulb_glow}"/>
+              <path d="M225 94 l20 20 M245 94 l-20 20" stroke="#475569" stroke-width="3"/>
+              <text x="52" y="137" fill="currentColor" font-size="11" text-anchor="middle">{"ਸੈੱਲ" if is_pa_series else "CELL"}</text>
+              <text x="170" y="202" fill="currentColor" font-size="12" font-weight="700" text-anchor="middle">{("ਕਈ ਸ਼ਾਖਾਂ / ਰਸਤੇ" if is_pa_series else "BRANCHES / MULTIPLE PATHS")}</text>
+            </svg></div>"""
+            st.markdown("#### " + ("ਲੜੀਵਾਰ ਅਤੇ ਸਮਾਂਤਰ ਸਰਕਟਾਂ ਦੀ ਤੁਲਨਾ" if is_pa_series else "Compare Series and Parallel Circuits"))
+            col_series, col_parallel = st.columns(2)
+            with col_series:
+                st.markdown("**" + series_title + "**")
+                st.markdown(series_svg, unsafe_allow_html=True)
+                st.caption(series_note)
+            with col_parallel:
+                st.markdown("**" + parallel_title + "**")
+                st.markdown(parallel_svg, unsafe_allow_html=True)
+                st.caption(parallel_note)
+            st.info(status_label)
+            st.write("💡 " + note)
+            st.caption("Qualitative visuals only — no numerical readings, calculations, units or graphs." if not is_pa_series else "ਸਿਰਫ਼ ਗੁਣਾਤਮਕ ਦ੍ਰਿਸ਼ — ਕੋਈ ਸੰਖਿਆਤਮਕ ਰੀਡਿੰਗ, ਗਣਨਾ, ਇਕਾਈ ਜਾਂ ਗ੍ਰਾਫ ਨਹੀਂ।")
         elif kind in ("ohms", "series_parallel", "power", "heating"):
             m1, m2 = st.columns(2)
             m1.metric(tr("current"), f"{current:.3f} A")
