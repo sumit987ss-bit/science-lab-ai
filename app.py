@@ -207,6 +207,30 @@ def electricity_lab():
                 index=1,
                 key=f"class7_heat_resistance_level_{st.session_state.language}",
             )
+        class9_voltage_level = "Medium"
+        class9_resistance_level = "Medium"
+        if selected_class == 9 and exp_index == 1 and kind == "ohms":
+            is_pa_ohms_control = st.session_state.language != "en"
+            level_values = ["Low", "Medium", "High"]
+            level_labels = {
+                "Low": "ਘੱਟ" if is_pa_ohms_control else "Low",
+                "Medium": "ਦਰਮਿਆਨਾ" if is_pa_ohms_control else "Medium",
+                "High": "ਵੱਧ" if is_pa_ohms_control else "High",
+            }
+            class9_voltage_level = st.selectbox(
+                "ਵੋਲਟੇਜ ਦਾ ਪੱਧਰ" if is_pa_ohms_control else "Voltage level",
+                level_values,
+                index=1,
+                format_func=lambda x: level_labels[x],
+                key=f"class9_voltage_level_{st.session_state.language}",
+            )
+            class9_resistance_level = st.selectbox(
+                "ਰੋਧ ਦਾ ਪੱਧਰ" if is_pa_ohms_control else "Resistance level",
+                level_values,
+                index=1,
+                format_func=lambda x: level_labels[x],
+                key=f"class9_resistance_level_{st.session_state.language}",
+            )
         if kind == "conductors":
             material_options = {
                 "en": ["Copper", "Aluminium", "Iron", "Rubber", "Plastic", "Wood"],
@@ -246,7 +270,7 @@ def electricity_lab():
                 format_func=lambda x: solution_labels[x],
                 key=f"electrolysis_solution_{st.session_state.language}",
             )
-        if kind == "ohms":
+        if kind == "ohms" and not (selected_class == 9 and exp_index == 1):
             prediction = st.selectbox(tr("predict_q"), [tr("select_prediction"), tr("double"), tr("same"), tr("half")], key=f"pred_{selected_class}_{exp_index}")
             if prediction != tr("select_prediction"):
                 st.success(tr("correct") if prediction == tr("half") else tr("incorrect"))
@@ -591,6 +615,54 @@ def electricity_lab():
                  "In this qualitative model, increasing the current or resistance level shows greater heating in the resistor. This is illustrative, not a real measurement.")
             )
             st.write("💡 " + note)
+        elif kind == "ohms" and selected_class == 9 and exp_index == 1:
+            # Class 9 Experiment 2: qualitative Ohm's law exploration with no numerical values.
+            is_pa_ohms = st.session_state.language != "en"
+            relative_current_index = ["Low", "Medium", "High"].index(class9_voltage_level) - ["Low", "Medium", "High"].index(class9_resistance_level) + 1
+            current_band = "Low" if relative_current_index <= 0 else ("High" if relative_current_index >= 2 else "Medium")
+            current_colors = {"Low": "#64748b", "Medium": "#d97706", "High": "#16a34a"}
+            current_color = current_colors[current_band] if closed else "#94a3b8"
+            bulb_fill = "#e2e8f0" if not closed else {"Low": "#fde68a", "Medium": "#facc15", "High": "#fbbf24"}[current_band]
+            bulb_glow = "filter:drop-shadow(0 0 12px #facc15);" if closed and current_band == "High" else ""
+            wire_color = "#16a34a" if closed else "#94a3b8"
+            if not closed:
+                qualitative_result = ("ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ ਹੈ — ਕਰੰਟ ਨਹੀਂ ਵਹਿੰਦਾ।" if is_pa_ohms else "Switch open — no current flows.")
+            elif class9_voltage_level == "High" and class9_resistance_level == "Low":
+                qualitative_result = ("ਵੋਲਟੇਜ ਵੱਧ ਅਤੇ ਰੋਧ ਘੱਟ ਹੋਣ ਕਰਕੇ ਕਰੰਟ ਵੱਧ ਹੁੰਦਾ ਹੈ।" if is_pa_ohms else "Higher voltage and lower resistance give greater current.")
+            elif class9_voltage_level == "Low" and class9_resistance_level == "High":
+                qualitative_result = ("ਵੋਲਟੇਜ ਘੱਟ ਅਤੇ ਰੋਧ ਵੱਧ ਹੋਣ ਕਰਕੇ ਕਰੰਟ ਘੱਟ ਹੁੰਦਾ ਹੈ।" if is_pa_ohms else "Lower voltage and higher resistance give lower current.")
+            elif class9_voltage_level == class9_resistance_level:
+                qualitative_result = ("ਇਸ ਗੁਣਾਤਮਕ ਮਾਡਲ ਵਿੱਚ ਵੋਲਟੇਜ ਅਤੇ ਰੋਧ ਦੇ ਪੱਧਰ ਸੰਤੁਲਿਤ ਹਨ।" if is_pa_ohms else "In this qualitative model, voltage and resistance levels are balanced.")
+            elif class9_voltage_level == "High" or class9_resistance_level == "Low":
+                qualitative_result = ("ਕਰੰਟ ਵਧਣ ਦੀ ਪ੍ਰਵਿਰਤੀ ਦਿਖਾਈ ਗਈ ਹੈ।" if is_pa_ohms else "The model shows a tendency toward greater current.")
+            else:
+                qualitative_result = ("ਕਰੰਟ ਘਟਣ ਦੀ ਪ੍ਰਵਿਰਤੀ ਦਿਖਾਈ ਗਈ ਹੈ।" if is_pa_ohms else "The model shows a tendency toward lower current.")
+            ohms_svg = f"""<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;background:rgba(128,128,128,.035)">
+<svg viewBox="0 0 440 260" width="100%" role="img" aria-label="Qualitative Ohm's law circuit with cell, resistor, switch, bulb and current flow arrows">
+  <g fill="none" stroke="{wire_color}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M70 58 H150"/><path d="M235 58 H340 V103"/><path d="M340 153 V210 H70 V133"/><path d="M70 58 V103"/>
+  </g>
+  <g stroke="#334155" stroke-width="3"><line x1="50" y1="103" x2="90" y2="103"/><line x1="58" y1="123" x2="82" y2="123"/></g>
+  <text x="70" y="153" fill="currentColor" font-size="12" text-anchor="middle">{"ਸੈੱਲ" if is_pa_ohms else "CELL"}</text>
+  <rect x="150" y="43" width="85" height="30" rx="7" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <path d="M160 58 l8 -9 l8 18 l8 -18 l8 18 l8 -18 l8 18 l8 -9" fill="none" stroke="#1d4ed8" stroke-width="2.5"/>
+  <text x="192" y="30" fill="currentColor" font-size="12" text-anchor="middle">{"ਰੋਧਕ" if is_pa_ohms else "RESISTOR"}</text>
+  <circle cx="340" cy="128" r="25" fill="{bulb_fill}" stroke="#475569" stroke-width="3" style="{bulb_glow}"/>
+  <path d="M328 120 l8 8 l-6 8 l12 4 l7 -10" fill="none" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
+  <path d="M330 155 V162 H350 V155" fill="none" stroke="#475569" stroke-width="4"/>
+  <text x="340" y="184" fill="currentColor" font-size="12" text-anchor="middle">{"ਬਲਬ" if is_pa_ohms else "BULB"}</text>
+  <g fill="{current_color}"><path d="M110 58 l-10 -6 v12 Z"/><path d="M292 58 l-10 -6 v12 Z"/><path d="M292 210 l-10 -6 v12 Z"/></g>
+  <rect x="100" y="222" width="240" height="27" rx="8" fill="#e2e8f0" stroke="#94a3b8"/>
+  <text x="220" y="240" fill="#334155" font-size="12" font-weight="700" text-anchor="middle">{("ਕਰੰਟ ਦਾ ਗੁਣਾਤਮਕ ਪੱਧਰ: " if is_pa_ohms else "QUALITATIVE CURRENT: ") + ({"Low": "ਘੱਟ" if is_pa_ohms else "LOW", "Medium": "ਦਰਮਿਆਨਾ" if is_pa_ohms else "MEDIUM", "High": "ਵੱਧ" if is_pa_ohms else "HIGH"}[current_band] if closed else ("ਕੋਈ ਕਰੰਟ ਨਹੀਂ" if is_pa_ohms else "NO CURRENT")}</text>
+</svg></div>"""
+            st.markdown("#### " + ("ਵੋਲਟੇਜ, ਕਰੰਟ ਅਤੇ ਰੋਧ ਦਾ ਮਾਡਲ" if is_pa_ohms else "Voltage, current and resistance model"))
+            st.markdown(ohms_svg, unsafe_allow_html=True)
+            if closed:
+                st.success(qualitative_result)
+            else:
+                st.info(qualitative_result)
+            st.write("💡 " + note)
+            st.caption("Qualitative visual only — no numerical values, units, calculated readings or graph." if not is_pa_ohms else "ਸਿਰਫ਼ ਗੁਣਾਤਮਕ ਦ੍ਰਿਸ਼ — ਕੋਈ ਸੰਖਿਆਤਮਕ ਮੁੱਲ, ਇਕਾਈਆਂ, ਗਣਨਾ ਜਾਂ ਗ੍ਰਾਫ ਨਹੀਂ।")
         elif kind in ("ohms", "series_parallel", "power", "heating"):
             m1, m2 = st.columns(2)
             m1.metric(tr("current"), f"{current:.3f} A")
