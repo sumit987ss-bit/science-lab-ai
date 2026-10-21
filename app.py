@@ -717,7 +717,7 @@ def electricity_lab():
               </g>
               <path d="M105 48 V67 M105 85 V91 M105 131 V174" fill="none" stroke="{p1_wire}" stroke-width="4" stroke-linecap="round"/>
               <path d="M235 48 V67 M235 85 V91 M235 131 V174" fill="none" stroke="{p2_wire}" stroke-width="4" stroke-linecap="round"/>
-              <g stroke="#64748b" stroke-width="3" stroke-linecap="round"><circle cx="105" cy="68" r="2" fill="#64748b"/><circle cx="105" cy="84" r="2" fill="#64748b"/><line x1="105" y1="68" x2="105" y2="{78 if parallel_switch_1 else 58}"/><circle cx="235" cy="68" r="2" fill="#64748b"/><circle cx="235" cy="84" r="2" fill="#64748b"/><line x1="235" y1="68" x2="235" y2="{78 if parallel_switch_2 else 58}"/></g>
+              <g stroke="#64748b" stroke-width="3" stroke-linecap="round"><circle cx="105" cy="68" r="2" fill="#64748b"/><circle cx="105" cy="84" r="2" fill="#64748b"/><line x1="105" y1="68" x2="105" y2="{84 if parallel_switch_1 else 58}"/><circle cx="235" cy="68" r="2" fill="#64748b"/><circle cx="235" cy="84" r="2" fill="#64748b"/><line x1="235" y1="68" x2="235" y2="{84 if parallel_switch_2 else 58}"/></g>
               <circle cx="105" cy="111" r="20" fill="{p1_bulb}" stroke="#475569" stroke-width="3" style="{p1_glow}"/><path d="M96 102 l18 18 M114 102 l-18 18" stroke="#475569" stroke-width="3"/>
               <circle cx="235" cy="111" r="20" fill="{p2_bulb}" stroke="#475569" stroke-width="3" style="{p2_glow}"/><path d="M226 102 l18 18 M244 102 l-18 18" stroke="#475569" stroke-width="3"/>
               <g stroke="#334155" stroke-width="3"><line x1="34" y1="82" x2="70" y2="82"/><line x1="41" y1="101" x2="63" y2="101"/></g>
