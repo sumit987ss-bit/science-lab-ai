@@ -100,7 +100,7 @@ EXPERIMENTS = {
 ("Explore Electric Charge","ਬਿਜਲਈ ਚਾਰਜ ਦੀ ਖੋਜ","Model positive and negative charges and their attraction or repulsion.","ਧਨਾਤਮਕ ਅਤੇ ਰਿਣਾਤਮਕ ਚਾਰਜਾਂ ਦਾ ਖਿੱਚ ਅਤੇ ਵਿਕਰਸ਼ਣ ਮਾਡਲ ਰਾਹੀਂ ਸਮਝੋ।","charge","Like charges repel and unlike charges attract in the basic model.","ਮੂਲ ਮਾਡਲ ਵਿੱਚ ਇੱਕੋ ਕਿਸਮ ਦੇ ਚਾਰਜ ਦੂਰ ਧੱਕਦੇ ਹਨ ਅਤੇ ਵੱਖਰੀ ਕਿਸਮ ਦੇ ਖਿੱਚਦੇ ਹਨ।"),
 ("Voltage, Current and Resistance","ਵੋਲਟੇਜ, ਕਰੰਟ ਅਤੇ ਰੋਧ","Change circuit values and explore their relationship in a resistor.","ਸਰਕਟ ਦੇ ਮੁੱਲ ਬਦਲ ਕੇ ਰੋਧਕ ਵਿੱਚ ਉਨ੍ਹਾਂ ਦਾ ਸਬੰਧ ਸਮਝੋ।","ohms","For an ohmic resistor at constant conditions, current is proportional to voltage.","ਸਥਿਰ ਹਾਲਤਾਂ ਵਿੱਚ ਓਮਿਕ ਰੋਧਕ ਲਈ ਕਰੰਟ ਵੋਲਟੇਜ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੁੰਦਾ ਹੈ।"),
 ("Series and Parallel Circuits","ਲੜੀਵਾਰ ਅਤੇ ਸਮਾਂਤਰ ਸਰਕਟ","Compare bulb behaviour and current paths in two arrangements.","ਦੋ ਬਣਤਰਾਂ ਵਿੱਚ ਬਲਬਾਂ ਦੇ ਵਰਤਾਅ ਅਤੇ ਕਰੰਟ ਦੇ ਰਸਤੇ ਦੀ ਤੁਲਨਾ ਕਰੋ।","series_parallel","Series has one path; parallel circuits have branches.","ਲੜੀਵਾਰ ਸਰਕਟ ਵਿੱਚ ਇੱਕ ਰਸਤਾ ਹੁੰਦਾ ਹੈ; ਸਮਾਂਤਰ ਸਰਕਟ ਵਿੱਚ ਕਈ ਸ਼ਾਖਾਂ ਹੁੰਦੀਆਂ ਹਨ।"),
-("Electrical Power and Energy","ਬਿਜਲੀ ਸ਼ਕਤੀ ਅਤੇ ਊਰਜਾ","Calculate power and energy from voltage, current and time.","ਵੋਲਟੇਜ, ਕਰੰਟ ਅਤੇ ਸਮੇਂ ਤੋਂ ਸ਼ਕਤੀ ਅਤੇ ਊਰਜਾ ਦੀ ਗਣਨਾ ਕਰੋ।","power","Power is the rate of energy transfer; for a DC load P = V × I.","ਸ਼ਕਤੀ ਊਰਜਾ ਦੇ ਤਬਾਦਲੇ ਦੀ ਦਰ ਹੈ; DC ਲੋਡ ਲਈ P = V × I।"),
+("Electrical Power and Energy","ਬਿਜਲੀ ਸ਼ਕਤੀ ਅਤੇ ਊਰਜਾ","Explore how electrical energy changes into light, heat or motion in everyday devices.","ਰੋਜ਼ਾਨਾ ਉਪਕਰਣਾਂ ਵਿੱਚ ਬਿਜਲੀ ਊਰਜਾ ਦੇ ਰੋਸ਼ਨੀ, ਤਾਪ ਜਾਂ ਗਤੀ ਵਿੱਚ ਬਦਲਣ ਨੂੰ ਸਮਝੋ।","power","Electrical power describes how quickly energy is transferred; devices transform electrical energy into useful forms.","ਬਿਜਲੀ ਸ਼ਕਤੀ ਊਰਜਾ ਦੇ ਤਬਾਦਲੇ ਦੀ ਦਰ ਦਰਸਾਉਂਦੀ ਹੈ; ਉਪਕਰਣ ਬਿਜਲੀ ਊਰਜਾ ਨੂੰ ਲਾਭਦਾਇਕ ਰੂਪਾਂ ਵਿੱਚ ਬਦਲਦੇ ਹਨ।"),
 ("Static Electricity","ਸਥਿਰ ਬਿਜਲੀ","Explore how electric charge can attract light objects in a model.","ਮਾਡਲ ਰਾਹੀਂ ਸਮਝੋ ਕਿ ਬਿਜਲਈ ਚਾਰਜ ਹਲਕੀਆਂ ਵਸਤੂਆਂ ਨੂੰ ਖਿੱਚ ਸਕਦਾ ਹੈ।","charge","Static charge can exert forces without a continuous circuit.","ਸਥਿਰ ਚਾਰਜ ਲਗਾਤਾਰ ਸਰਕਟ ਤੋਂ ਬਿਨਾਂ ਵੀ ਬਲ ਲਗਾ ਸਕਦਾ ਹੈ।")
 ],
 10: [
@@ -1369,13 +1369,16 @@ def electricity_lab():
             "charge": ("How do like charges behave?", "Repel each other", ["Repel each other", "Always attract", "Disappear"], "ਇੱਕੋ ਕਿਸਮ ਦੇ ਚਾਰਜ ਕਿਵੇਂ ਵਰਤਦੇ ਹਨ?", "ਇੱਕ-ਦੂਜੇ ਨੂੰ ਦੂਰ ਧੱਕਦੇ ਹਨ", ["ਇੱਕ-ਦੂਜੇ ਨੂੰ ਦੂਰ ਧੱਕਦੇ ਹਨ", "ਹਮੇਸ਼ਾ ਖਿੱਚਦੇ ਹਨ", "ਗਾਇਬ ਹੋ ਜਾਂਦੇ ਹਨ"]),
             "ohms": ("For a fixed resistor, which is Ohm's law?", "V = I × R", ["V = I × R", "V = I + R", "V = I ÷ R"], "ਸਥਿਰ ਰੋਧ ਲਈ ਓਮ ਦਾ ਨਿਯਮ ਕਿਹੜਾ ਹੈ?", "V = I × R", ["V = I × R", "V = I + R", "V = I ÷ R"]),
             "series_parallel": ("How many main paths are in a series circuit?", "One", ["One", "Two or more", "None"], "ਲੜੀਵਾਰ ਸਰਕਟ ਵਿੱਚ ਕਿੰਨੇ ਮੁੱਖ ਰਸਤੇ ਹੁੰਦੇ ਹਨ?", "ਇੱਕ", ["ਇੱਕ", "ਦੋ ਜਾਂ ਵੱਧ", "ਕੋਈ ਨਹੀਂ"]),
-            "power": ("What does electrical power describe?", "How quickly electrical energy is transferred", ["How quickly electrical energy is transferred", "The colour of a wire", "The length of a switch"], "ਬਿਜਲੀ ਸ਼ਕਤੀ ਕੀ ਦਰਸਾਉਂਦੀ ਹੈ?", "ਬਿਜਲੀ ਊਰਜਾ ਦੇ ਤਬਾਦਲੇ ਦੀ ਦਰ", ["ਬਿਜਲੀ ਊਰਜਾ ਦੇ ਤਬਾਦਲੇ ਦੀ ਦਰ", "ਤਾਰ ਦਾ ਰੰਗ", "ਸਵਿੱਚ ਦੀ ਲੰਬਾਈ"]),
+            "power": ("Which formula gives electrical power?", "P = V × I", ["P = V × I", "P = V + I", "P = V ÷ I"], "ਬਿਜਲੀ ਸ਼ਕਤੀ ਦਾ ਸੂਤਰ ਕਿਹੜਾ ਹੈ?", "P = V × I", ["P = V × I", "P = V + I", "P = V ÷ I"]),
             "motor": ("What does an electric motor do?", "Converts electrical energy into motion", ["Converts electrical energy into motion", "Always stops motion", "Produces only light"], "ਇਲੈਕਟ੍ਰਿਕ ਮੋਟਰ ਕੀ ਕਰਦੀ ਹੈ?", "ਬਿਜਲੀ ਊਰਜਾ ਨੂੰ ਗਤੀ ਵਿੱਚ ਬਦਲਦੀ ਹੈ", ["ਬਿਜਲੀ ਊਰਜਾ ਨੂੰ ਗਤੀ ਵਿੱਚ ਬਦਲਦੀ ਹੈ", "ਗਤੀ ਹਮੇਸ਼ਾ ਰੋਕਦੀ ਹੈ", "ਸਿਰਫ਼ ਰੋਸ਼ਨੀ ਬਣਾਉਂਦੀ ਹੈ"]),
             "heating": ("Electrical energy in a resistor can change into what?", "Heat", ["Heat", "Gravity", "Weight"], "ਰੋਧਕ ਵਿੱਚ ਬਿਜਲੀ ਊਰਜਾ ਕਿਸ ਵਿੱਚ ਬਦਲ ਸਕਦੀ ਹੈ?", "ਤਾਪ", ["ਤਾਪ", "ਗੁਰੁਤਵਾਕਰਸ਼ਣ", "ਭਾਰ"]),
             "electromagnet": ("How can a crane electromagnet release scrap?", "By switching off the current", ["By switching off the current", "Adding more wires", "Changing its colour"], "ਕਰੇਨ ਦਾ ਬਿਜਲੀ-ਚੁੰਬਕ ਕਬਾੜ ਕਿਵੇਂ ਛੱਡਦਾ ਹੈ?", "ਕਰੰਟ ਬੰਦ ਕਰਨ ਨਾਲ", ["ਕਰੰਟ ਬੰਦ ਕਰਨ ਨਾਲ", "ਹੋਰ ਤਾਰ ਜੋੜ ਕੇ", "ਰੰਗ ਬਦਲਣ ਨਾਲ"]),
             "circuit": ("When does a bulb light?", "When the circuit is complete", ["When the circuit is complete", "When a wire is broken", "When the switch is open"], "ਬਲਬ ਕਦੋਂ ਜਗਦਾ ਹੈ?", "ਜਦੋਂ ਸਰਕਟ ਪੂਰਾ ਹੋਵੇ", ["ਜਦੋਂ ਸਰਕਟ ਪੂਰਾ ਹੋਵੇ", "ਜਦੋਂ ਤਾਰ ਟੁੱਟੀ ਹੋਵੇ", "ਜਦੋਂ ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ ਹੋਵੇ"])
         }
-        item = checks.get(kind, checks["circuit"])
+        if kind == "power" and selected_class == 9 and exp_index == 3:
+            item = ("What does electrical power describe?", "How quickly electrical energy is transferred", ["How quickly electrical energy is transferred", "The colour of a wire", "The length of a switch"], "ਬਿਜਲੀ ਸ਼ਕਤੀ ਕੀ ਦਰਸਾਉਂਦੀ ਹੈ?", "ਬਿਜਲੀ ਊਰਜਾ ਦੇ ਤਬਾਦਲੇ ਦੀ ਦਰ", ["ਬਿਜਲੀ ਊਰਜਾ ਦੇ ਤਬਾਦਲੇ ਦੀ ਦਰ", "ਤਾਰ ਦਾ ਰੰਗ", "ਸਵਿੱਚ ਦੀ ਲੰਬਾਈ"])
+        else:
+            item = checks.get(kind, checks["circuit"])
         prompt = item[3] if is_pa_check else item[0]
         correct = item[4] if is_pa_check else item[1]
         choices = item[5] if is_pa_check else item[2]
