@@ -209,6 +209,21 @@ def electricity_lab():
             )
         class9_voltage_level = "Medium"
         class9_resistance_level = "Medium"
+        class9_power_device = "bulb"
+        if selected_class == 9 and exp_index == 3 and kind == "power":
+            is_pa_power_control = st.session_state.language != "en"
+            power_devices = ["bulb", "fan", "heater"]
+            power_device_labels = {
+                "bulb": "ਬਲਬ" if is_pa_power_control else "Bulb (light and some heat)",
+                "fan": "ਪੱਖਾ" if is_pa_power_control else "Fan (motion)",
+                "heater": "ਹੀਟਰ" if is_pa_power_control else "Heater (heat)",
+            }
+            class9_power_device = st.selectbox(
+                "ਉਪਕਰਣ ਚੁਣੋ" if is_pa_power_control else "Choose an electrical device",
+                power_devices,
+                format_func=lambda x: power_device_labels[x],
+                key=f"class9_power_device_{st.session_state.language}",
+            )
         if selected_class == 9 and exp_index == 1 and kind == "ohms":
             is_pa_ohms_control = st.session_state.language != "en"
             level_values = ["Low", "Medium", "High"]
@@ -738,6 +753,47 @@ def electricity_lab():
                 st.info(parallel_status)
             st.write("💡 " + note)
             st.caption("Qualitative visuals only — no numerical readings, calculations, units or graphs." if not is_pa_series else "ਸਿਰਫ਼ ਗੁਣਾਤਮਕ ਦ੍ਰਿਸ਼ — ਕੋਈ ਸੰਖਿਆਤਮਕ ਰੀਡਿੰਗ, ਗਣਨਾ, ਇਕਾਈ ਜਾਂ ਗ੍ਰਾਫ ਨਹੀਂ।")
+        elif kind == "power" and selected_class == 9 and exp_index == 3:
+            # Class 9 Experiment 4: qualitative electrical power and energy transformations.
+            is_pa_power = st.session_state.language != "en"
+            device_label = {
+                "bulb": "ਬਲਬ" if is_pa_power else "BULB",
+                "fan": "ਪੱਖਾ" if is_pa_power else "FAN",
+                "heater": "ਹੀਟਰ" if is_pa_power else "HEATER",
+            }[class9_power_device]
+            if class9_power_device == "bulb":
+                device_art = f'<circle cx="310" cy="112" r="30" fill="{ "#fde047" if closed else "#e2e8f0" }" stroke="#475569" stroke-width="3"/><path d="M294 104 l10 10 l-7 9 l13 5 l13 -17 l7 10" fill="none" stroke="#475569" stroke-width="3" stroke-linecap="round"/><path d="M299 145 V154 H321 V145" fill="none" stroke="#64748b" stroke-width="4"/>'
+                output_label = "ਰੋਸ਼ਨੀ ਅਤੇ ਕੁਝ ਤਾਪ" if is_pa_power else "Light and some heat"
+                glow = '<g stroke="#f59e0b" stroke-width="3" stroke-linecap="round"><path d="M310 65 V55 M270 80 L262 72 M350 80 L358 72 M263 112 H252 M357 112 H368"/></g>' if closed else ""
+            elif class9_power_device == "fan":
+                device_art = f'<circle cx="310" cy="112" r="34" fill="#e0f2fe" stroke="#0369a1" stroke-width="3"/><circle cx="310" cy="112" r="7" fill="#0369a1"/><g fill="{ "#38bdf8" if closed else "#94a3b8" }"><path d="M310 105 C292 76 278 91 298 110 Z"/><path d="M317 112 C346 94 331 80 313 101 Z"/><path d="M310 119 C328 148 342 133 322 114 Z"/><path d="M303 112 C274 130 289 144 307 123 Z"/></g>'
+                output_label = "ਗਤੀ / ਹਵਾ" if is_pa_power else "Motion / moving air"
+                glow = '<path d="M350 88 q15 8 0 16 M356 108 q15 8 0 16" fill="none" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round"/>' if closed else ""
+            else:
+                device_art = f'<rect x="280" y="78" width="60" height="70" rx="9" fill="#e2e8f0" stroke="#475569" stroke-width="3"/><path d="M292 91 q8 -8 16 0 t16 0 M292 105 q8 -8 16 0 t16 0 M292 119 q8 -8 16 0 t16 0" fill="none" stroke="{ "#ea580c" if closed else "#94a3b8" }" stroke-width="4" stroke-linecap="round"/>'
+                output_label = "ਤਾਪ" if is_pa_power else "Heat"
+                glow = '<g stroke="#f97316" stroke-width="3" stroke-linecap="round"><path d="M292 67 q-6 -7 0 -14 M310 67 q-6 -7 0 -14 M328 67 q-6 -7 0 -14"/></g>' if closed else ""
+            wire_color = "#16a34a" if closed else "#94a3b8"
+            switch_art = '<path d="M126 62 L155 62" stroke="#16a34a" stroke-width="4" stroke-linecap="round"/>' if closed else '<path d="M126 62 L151 47" stroke="#ea580c" stroke-width="4" stroke-linecap="round"/>'
+            power_svg = f"""<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:10px;background:rgba(128,128,128,.035);">
+            <svg viewBox="0 0 420 220" width="100%" role="img" aria-label="Qualitative electrical power and energy transformation visual">
+              <g fill="none" stroke="{wire_color}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M60 62 H126"/><path d="M155 62 H310 V78"/><path d="M310 148 V184 H60 V110"/>
+              </g>
+              <g stroke="#475569" stroke-width="3" stroke-linecap="round"><line x1="48" y1="78" x2="72" y2="78"/><line x1="53" y1="91" x2="67" y2="91"/><line x1="60" y1="78" x2="60" y2="110"/></g>
+              {switch_art}
+              {device_art}{glow}
+              <g fill="currentColor" font-size="12" text-anchor="middle"><text x="60" y="132">{ "ਸੈੱਲ" if is_pa_power else "CELL" }</text><text x="140" y="35">{ "ਸਵਿੱਚ" if is_pa_power else "SWITCH" }</text><text x="310" y="174">{device_label}</text></g>
+              <rect x="82" y="190" width="256" height="23" rx="8" fill="#dbeafe" stroke="#93c5fd"/>
+              <text x="210" y="206" fill="#1e40af" font-size="12" font-weight="700" text-anchor="middle">{output_label}</text>
+            </svg></div>"""
+            st.markdown("#### " + ("ਬਿਜਲੀ ਸ਼ਕਤੀ ਅਤੇ ਊਰਜਾ ਦੇ ਰੂਪਾਂਤਰ" if is_pa_power else "Electrical Power and Energy Transformations"))
+            st.markdown(power_svg, unsafe_allow_html=True)
+            if closed:
+                st.success(("ਸਵਿੱਚ ਬੰਦ ਹੈ: ਉਪਕਰਣ ਬਿਜਲੀ ਊਰਜਾ ਨੂੰ ਲਾਭਦਾਇਕ ਰੂਪ ਵਿੱਚ ਬਦਲਦਾ ਹੈ।" if is_pa_power else "Switch closed: the device converts electrical energy into a useful form."))
+            else:
+                st.info(("ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ ਹੈ: ਸਰਕਟ ਟੁੱਟਿਆ ਹੈ ਅਤੇ ਉਪਕਰਣ ਕੰਮ ਨਹੀਂ ਕਰਦਾ।" if is_pa_power else "Switch open: the circuit is broken and the device is off."))
+            st.caption(("ਇਹ ਗੁਣਾਤਮਕ ਮਾਡਲ ਹੈ—ਕੋਈ ਅੰਕ, ਗਣਨਾ, ਇਕਾਈ ਜਾਂ ਗ੍ਰਾਫ ਨਹੀਂ।" if is_pa_power else "Qualitative model only — no numerical readings, calculations, units or graphs."))
         elif kind in ("ohms", "series_parallel", "power", "heating"):
             m1, m2 = st.columns(2)
             m1.metric(tr("current"), f"{current:.3f} A")
@@ -1313,7 +1369,7 @@ def electricity_lab():
             "charge": ("How do like charges behave?", "Repel each other", ["Repel each other", "Always attract", "Disappear"], "ਇੱਕੋ ਕਿਸਮ ਦੇ ਚਾਰਜ ਕਿਵੇਂ ਵਰਤਦੇ ਹਨ?", "ਇੱਕ-ਦੂਜੇ ਨੂੰ ਦੂਰ ਧੱਕਦੇ ਹਨ", ["ਇੱਕ-ਦੂਜੇ ਨੂੰ ਦੂਰ ਧੱਕਦੇ ਹਨ", "ਹਮੇਸ਼ਾ ਖਿੱਚਦੇ ਹਨ", "ਗਾਇਬ ਹੋ ਜਾਂਦੇ ਹਨ"]),
             "ohms": ("For a fixed resistor, which is Ohm's law?", "V = I × R", ["V = I × R", "V = I + R", "V = I ÷ R"], "ਸਥਿਰ ਰੋਧ ਲਈ ਓਮ ਦਾ ਨਿਯਮ ਕਿਹੜਾ ਹੈ?", "V = I × R", ["V = I × R", "V = I + R", "V = I ÷ R"]),
             "series_parallel": ("How many main paths are in a series circuit?", "One", ["One", "Two or more", "None"], "ਲੜੀਵਾਰ ਸਰਕਟ ਵਿੱਚ ਕਿੰਨੇ ਮੁੱਖ ਰਸਤੇ ਹੁੰਦੇ ਹਨ?", "ਇੱਕ", ["ਇੱਕ", "ਦੋ ਜਾਂ ਵੱਧ", "ਕੋਈ ਨਹੀਂ"]),
-            "power": ("Which formula gives electrical power?", "P = V × I", ["P = V × I", "P = V + I", "P = V ÷ I"], "ਬਿਜਲੀ ਸ਼ਕਤੀ ਦਾ ਸੂਤਰ ਕਿਹੜਾ ਹੈ?", "P = V × I", ["P = V × I", "P = V + I", "P = V ÷ I"]),
+            "power": ("What does electrical power describe?", "How quickly electrical energy is transferred", ["How quickly electrical energy is transferred", "The colour of a wire", "The length of a switch"], "ਬਿਜਲੀ ਸ਼ਕਤੀ ਕੀ ਦਰਸਾਉਂਦੀ ਹੈ?", "ਬਿਜਲੀ ਊਰਜਾ ਦੇ ਤਬਾਦਲੇ ਦੀ ਦਰ", ["ਬਿਜਲੀ ਊਰਜਾ ਦੇ ਤਬਾਦਲੇ ਦੀ ਦਰ", "ਤਾਰ ਦਾ ਰੰਗ", "ਸਵਿੱਚ ਦੀ ਲੰਬਾਈ"]),
             "motor": ("What does an electric motor do?", "Converts electrical energy into motion", ["Converts electrical energy into motion", "Always stops motion", "Produces only light"], "ਇਲੈਕਟ੍ਰਿਕ ਮੋਟਰ ਕੀ ਕਰਦੀ ਹੈ?", "ਬਿਜਲੀ ਊਰਜਾ ਨੂੰ ਗਤੀ ਵਿੱਚ ਬਦਲਦੀ ਹੈ", ["ਬਿਜਲੀ ਊਰਜਾ ਨੂੰ ਗਤੀ ਵਿੱਚ ਬਦਲਦੀ ਹੈ", "ਗਤੀ ਹਮੇਸ਼ਾ ਰੋਕਦੀ ਹੈ", "ਸਿਰਫ਼ ਰੋਸ਼ਨੀ ਬਣਾਉਂਦੀ ਹੈ"]),
             "heating": ("Electrical energy in a resistor can change into what?", "Heat", ["Heat", "Gravity", "Weight"], "ਰੋਧਕ ਵਿੱਚ ਬਿਜਲੀ ਊਰਜਾ ਕਿਸ ਵਿੱਚ ਬਦਲ ਸਕਦੀ ਹੈ?", "ਤਾਪ", ["ਤਾਪ", "ਗੁਰੁਤਵਾਕਰਸ਼ਣ", "ਭਾਰ"]),
             "electromagnet": ("How can a crane electromagnet release scrap?", "By switching off the current", ["By switching off the current", "Adding more wires", "Changing its colour"], "ਕਰੇਨ ਦਾ ਬਿਜਲੀ-ਚੁੰਬਕ ਕਬਾੜ ਕਿਵੇਂ ਛੱਡਦਾ ਹੈ?", "ਕਰੰਟ ਬੰਦ ਕਰਨ ਨਾਲ", ["ਕਰੰਟ ਬੰਦ ਕਰਨ ਨਾਲ", "ਹੋਰ ਤਾਰ ਜੋੜ ਕੇ", "ਰੰਗ ਬਦਲਣ ਨਾਲ"]),
