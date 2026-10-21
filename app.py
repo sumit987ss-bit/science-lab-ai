@@ -186,7 +186,7 @@ def electricity_lab():
                 ),
                 key=f"class7_fuse_condition_{st.session_state.language}",
             )
-        closed = st.checkbox(tr("switch"), value=True, key=f"sw_{selected_class}_{exp_index}") if (kind in ("circuit", "motor", "electromagnet", "magnetic_field", "ohms", "series_parallel", "power", "heating") and not (selected_class == 6 and exp_index == 1)) else True
+        closed = st.checkbox(tr("switch"), value=True, key=f"sw_{selected_class}_{exp_index}") if ((kind in ("circuit", "motor", "electromagnet", "magnetic_field", "ohms", "series_parallel", "power", "heating") or (selected_class == 8 and exp_index == 4 and kind == "cell")) and not (selected_class == 6 and exp_index == 1)) else True
         turns = 10
         current_control = 1.0
         material = None
@@ -988,6 +988,59 @@ def electricity_lab():
                 "Qualitative illustration only — actual plating depends on the electrolyte, electrode materials and current; no numerical readings."
                 if not is_pa_plate else
                 "ਸਿਰਫ਼ ਗੁਣਾਤਮਕ ਚਿੱਤਰ — ਅਸਲ ਇਲੈਕਟ੍ਰੋਪਲੇਟਿੰਗ ਘੋਲ, ਇਲੈਕਟ੍ਰੋਡ ਦੇ ਪਦਾਰਥ ਅਤੇ ਕਰੰਟ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ; ਕੋਈ ਸੰਖਿਆਤਮਕ ਮਾਪ ਨਹੀਂ।"
+            )
+        elif kind == "cell" and selected_class == 8 and exp_index == 4:
+            # Class 8 Experiment 5: qualitative cell animation with no numerical readings.
+            is_pa_cell = st.session_state.language != "en"
+            active = closed
+            wire_color = "#16a34a" if active else "#94a3b8"
+            bulb_fill = "#fde047" if active else "#e2e8f0"
+            bulb_glow = "filter: drop-shadow(0 0 12px #facc15);" if active else ""
+            current_arrows = (
+                '<g fill="#16a34a"><path d="M120 52 l-10 -6 l0 12 Z"/><path d="M330 52 l10 -6 l0 12 Z"/><path d="M330 222 l10 -6 l0 12 Z"/></g>'
+                if active else ""
+            )
+            switch_link = (
+                '<path d="M198 52 H242" stroke="#16a34a" stroke-width="5" stroke-linecap="round"/>'
+                if active else
+                '<path d="M198 52 L236 32" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>'
+            )
+            status = (
+                ("ਸਵਿੱਚ ਬੰਦ — ਕਰੰਟ ਵਹਿੰਦਾ ਹੈ ਅਤੇ ਬਲਬ ਜਗਦਾ ਹੈ" if active else "ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ — ਕਰੰਟ ਰੁਕਦਾ ਹੈ ਅਤੇ ਬਲਬ ਬੁੱਝਦਾ ਹੈ")
+                if is_pa_cell else
+                ("SWITCH CLOSED — CURRENT FLOWS AND BULB GLOWS" if active else "SWITCH OPEN — CURRENT STOPS AND BULB IS OFF")
+            )
+            cell_svg = (
+                '<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;background:rgba(128,128,128,.035);">'
+                '<svg viewBox="0 0 440 285" width="100%" role="img" aria-label="Qualitative cell circuit showing chemical energy converted into electrical energy, with a switch and bulb">'
+                '<g fill="none" stroke="' + wire_color + '" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">'
+                '<path d="M100 52 H175"/><path d="M242 52 H340 V108"/><path d="M340 155 V222 H100 V155"/>'
+                '</g>'
+                + current_arrows +
+                '<g stroke="#334155" stroke-width="3"><line x1="78" y1="116" x2="122" y2="116"/><line x1="87" y1="135" x2="113" y2="135"/></g>'
+                '<text x="100" y="170" fill="currentColor" font-size="12" text-anchor="middle">' + ("ਸੈੱਲ" if is_pa_cell else "CELL") + '</text>'
+                '<circle cx="340" cy="132" r="23" fill="' + bulb_fill + '" stroke="#475569" stroke-width="3" style="' + bulb_glow + '"/>'
+                '<path d="M328 130 l8 -8 l9 17 l8 -8" fill="none" stroke="#475569" stroke-width="3" stroke-linecap="round"/>'
+                '<path d="M330 157 V164 H350 V157" fill="none" stroke="#475569" stroke-width="4"/>'
+                '<text x="340" y="187" fill="currentColor" font-size="12" text-anchor="middle">' + ("ਬਲਬ" if is_pa_cell else "BULB") + '</text>'
+                '<circle cx="190" cy="52" r="5" fill="#475569"/><circle cx="242" cy="52" r="5" fill="#475569"/>'
+                + switch_link +
+                '<text x="216" y="20" fill="currentColor" font-size="12" text-anchor="middle">' + ("ਸਵਿੱਚ" if is_pa_cell else "SWITCH") + '</text>'
+                '<rect x="137" y="238" width="166" height="34" rx="9" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>'
+                '<text x="220" y="259" fill="#1e3a8a" font-size="12" font-weight="700" text-anchor="middle">' + ("ਰਸਾਇਣਕ ਊਰਜਾ → ਬਿਜਲੀ ਊਰਜਾ" if is_pa_cell else "CHEMICAL ENERGY → ELECTRICAL ENERGY") + '</text>'
+                '</svg></div>'
+            )
+            st.markdown("#### " + ("ਸੈੱਲ ਦਾ ਵਰਚੁਅਲ ਸਰਕਟ" if is_pa_cell else "Virtual cell circuit"))
+            st.markdown(cell_svg, unsafe_allow_html=True)
+            if active:
+                st.success(status)
+            else:
+                st.info(status)
+            st.write("💡 " + note)
+            st.caption(
+                "Qualitative visual model only — a cell converts chemical energy into electrical energy; no numerical readings."
+                if not is_pa_cell else
+                "ਸਿਰਫ਼ ਗੁਣਾਤਮਕ ਦ੍ਰਿਸ਼ ਮਾਡਲ — ਸੈੱਲ ਰਸਾਇਣਕ ਊਰਜਾ ਨੂੰ ਬਿਜਲੀ ਊਰਜਾ ਵਿੱਚ ਬਦਲਦਾ ਹੈ; ਕੋਈ ਸੰਖਿਆਤਮਕ ਮਾਪ ਨਹੀਂ।"
             )
         elif kind == "cell":
             st.metric(tr("voltage"), f"{voltage} V")
