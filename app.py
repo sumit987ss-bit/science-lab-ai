@@ -1076,7 +1076,7 @@ def electricity_lab():
                 if like_charges else
                 ("ਵੱਖਰੀ ਕਿਸਮ ਦੇ ਚਾਰਜ ਇੱਕ-ਦੂਜੇ ਨੂੰ ਖਿੱਚਦੇ ਹਨ" if is_pa_charge else "Unlike charges attract each other")
             )
-            charge_svg = f\"\"\"<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;background:rgba(128,128,128,.035)">
+            charge_svg = f"""<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;background:rgba(128,128,128,.035)">
 <svg viewBox="0 0 440 245" width="100%" role="img" aria-label="Electric charge interaction showing like charges repelling and unlike charges attracting">
   <defs><radialGradient id="chargeGlow"><stop offset="0%" stop-color="#ffffff" stop-opacity=".45"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></radialGradient></defs>
   <path d="M32 205 H408" stroke="#94a3b8" stroke-width="2" stroke-dasharray="5 7" opacity=".55"/>
@@ -1091,7 +1091,7 @@ def electricity_lab():
   <text x="295" y="75" font-size="13" fill="currentColor" text-anchor="middle">{"ਚਾਰਜ" if is_pa_charge else "CHARGE"}</text>
   <text x="220" y="32" font-size="15" font-weight="700" fill="{interaction_color}" text-anchor="middle">{("ਵਿਕਰਸ਼ਣ" if is_pa_charge else "REPULSION") if like_charges else ("ਆਕਰਸ਼ਣ" if is_pa_charge else "ATTRACTION")}</text>
   <text x="220" y="231" font-size="12" fill="currentColor" text-anchor="middle">{("ਦਿਸ਼ਾਵਾਂ ਦਿਖਾਉਂਦੀਆਂ ਹਨ ਕਿ ਚਾਰਜ ਕਿਵੇਂ ਹਿਲਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰਦੇ ਹਨ" if is_pa_charge else "Arrows show the direction the charges tend to move")}</text>
-</svg></div>\"\"\"
+</svg></div>"""
             st.markdown("#### " + ("ਬਿਜਲਈ ਚਾਰਜਾਂ ਦਾ ਪਰਸਪਰ ਪ੍ਰਭਾਵ" if is_pa_charge else "Interaction between electric charges"))
             st.markdown(charge_svg, unsafe_allow_html=True)
             if like_charges:
