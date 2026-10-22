@@ -1752,7 +1752,7 @@ PHYSICS_EXPERIMENTS = {
     ("Sound Vibrations","ਧੁਨੀ ਦੀਆਂ ਕੰਪਨਾਂ","Change vibration frequency in a string model.","ਤਾਰ ਦੇ ਮਾਡਲ ਵਿੱਚ ਕੰਪਨ ਦੀ ਆਵ੍ਰਿਤੀ ਬਦਲੋ।","sound","Sound is produced by vibrating sources.","ਧੁਨੀ ਕੰਪਨ ਕਰਦੇ ਸਰੋਤਾਂ ਤੋਂ ਪੈਦਾ ਹੁੰਦੀ ਹੈ।")
   ],
   8: [
-    ("Pressure and Area","ਦਬਾਅ ਅਤੇ ਖੇਤਰਫਲ","Explore how contact area changes pressure for the same force.","ਇੱਕੋ ਬਲ ਲਈ ਸੰਪਰਕ ਖੇਤਰਫਲ ਦਾ ਦਬਾਅ ਉੱਤੇ ਪ੍ਰਭਾਵ ਵੇਖੋ।","pressure_area","Pressure = force ÷ area.","ਦਬਾਅ = ਬਲ ÷ ਖੇਤਰਫਲ।"),
+    ("Pressure and Contact Area","ਦਬਾਅ ਅਤੇ ਸੰਪਰਕ ਖੇਤਰਫਲ","Explore everyday examples showing that a larger contact area reduces pressure, while a smaller contact area increases pressure.","ਰੋਜ਼ਾਨਾ ਦੀਆਂ ਉਦਾਹਰਨਾਂ ਰਾਹੀਂ ਵੇਖੋ ਕਿ ਵੱਡਾ ਸੰਪਰਕ ਖੇਤਰਫਲ ਦਬਾਅ ਘਟਾਉਂਦਾ ਹੈ ਅਤੇ ਛੋਟਾ ਖੇਤਰਫਲ ਦਬਾਅ ਵਧਾਉਂਦਾ ਹੈ।","pressure_area","For the same force, spreading it over a larger area produces less pressure; concentrating it on a smaller area produces more pressure.","ਇੱਕੋ ਬਲ ਵੱਡੇ ਖੇਤਰਫਲ ਉੱਤੇ ਫੈਲਣ ਨਾਲ ਦਬਾਅ ਘਟਦਾ ਹੈ; ਛੋਟੇ ਖੇਤਰਫਲ ਉੱਤੇ ਲੱਗਣ ਨਾਲ ਦਬਾਅ ਵਧਦਾ ਹੈ।"),
     ("Balanced and Unbalanced Forces","ਸੰਤੁਲਿਤ ਅਤੇ ਅਸੰਤੁਲਿਤ ਬਲ","Change opposing forces on a cart.","ਗੱਡੀ ਉੱਤੇ ਉਲਟ ਦਿਸ਼ਾਵਾਂ ਵਾਲੇ ਬਲ ਬਦਲੋ।","balanced","Balanced forces give zero net force; unbalanced forces can change motion.","ਸੰਤੁਲਿਤ ਬਲਾਂ ਦਾ ਕੁੱਲ ਬਲ ਸਿਫ਼ਰ ਹੁੰਦਾ ਹੈ।"),
     ("Conduction of Heat","ਤਾਪ ਦਾ ਚਾਲਨ","Compare heat transfer through different materials.","ਵੱਖਰੇ ਪਦਾਰਥਾਂ ਵਿੱਚੋਂ ਤਾਪ ਦੇ ਤਬਾਦਲੇ ਦੀ ਤੁਲਨਾ ਕਰੋ।","heat","Materials conduct heat at different rates.","ਪਦਾਰਥ ਤਾਪ ਨੂੰ ਵੱਖ-ਵੱਖ ਦਰਾਂ ਨਾਲ ਚਲਾਉਂਦੇ ਹਨ।"),
     ("Reflection in a Plane Mirror","ਸਮਤਲ ਸ਼ੀਸ਼ੇ ਵਿੱਚ ਪਰਾਵਰਤਨ","Trace incident and reflected rays.","ਆਉਣ ਵਾਲੀਆਂ ਅਤੇ ਪਰਾਵਰਤਿਤ ਕਿਰਨਾਂ ਦਾ ਪਤਾ ਲਗਾਓ।","reflection","The incident and reflected rays lie in the same plane.","ਆਗਮਨ ਅਤੇ ਪਰਾਵਰਤਿਤ ਕਿਰਨਾਂ ਇੱਕੋ ਸਮਤਲ ਵਿੱਚ ਹੁੰਦੀਆਂ ਹਨ।"),
@@ -1827,7 +1827,13 @@ def physics_lab():
     liquid_pressure_examples_experiment = pc == 7 and ei == 2 and kind == "pressure"
     reflection_angle_experiment = pc == 7 and ei == 3 and kind == "reflection"
     current_magnetic_field_experiment = pc == 7 and ei == 4 and kind == "magnetic_field"
-    if current_magnetic_field_experiment:
+    pressure_area_examples_experiment = pc == 8 and ei == 0 and kind == "pressure_area"
+    if pressure_area_examples_experiment:
+        pressure_area_examples = ["Snowshoes vs high heels", "Sharp knife vs blunt knife", "Broad tractor tyres vs narrow tyres", "Wide building foundation"]
+        pressure_area_examples_pa = ["ਬਰਫ਼ ਵਾਲੇ ਜੁੱਤੇ ਬਨਾਮ ਉੱਚੀ ਅੱਡੀ", "ਤੇਜ਼ ਛੁਰੀ ਬਨਾਮ ਮੋਟੀ ਧਾਰ ਵਾਲੀ ਛੁਰੀ", "ਚੌੜੇ ਟਰੈਕਟਰ ਟਾਇਰ ਬਨਾਮ ਤੰਗ ਟਾਇਰ", "ਚੌੜੀ ਇਮਾਰਤੀ ਨੀਂਹ"]
+        a = st.selectbox("Choose a surface-area example" if not is_pa else "ਸਤਹੀ ਖੇਤਰਫਲ ਦੀ ਉਦਾਹਰਨ ਚੁਣੋ", pressure_area_examples, format_func=lambda x: pressure_area_examples_pa[pressure_area_examples.index(x)] if is_pa else x, key="physics_class8_pressure_area_example")
+        b = a
+    elif current_magnetic_field_experiment:
         current_states = ["Switch ON — current flows", "Switch OFF — no current"]
         current_states_pa = ["ਸਵਿੱਚ ਚਾਲੂ — ਕਰੰਟ ਵਗਦਾ ਹੈ", "ਸਵਿੱਚ ਬੰਦ — ਕਰੰਟ ਨਹੀਂ ਵਗਦਾ"]
         a = st.selectbox("Operate the circuit switch" if not is_pa else "ਸਰਕਟ ਦਾ ਸਵਿੱਚ ਚਲਾਓ", current_states, format_func=lambda x: current_states_pa[current_states.index(x)] if is_pa else x, key="physics_class7_magnetic_current_switch")
@@ -1982,6 +1988,30 @@ def physics_lab():
             slow_label = "SLOW EXAMPLES" if not is_pa else "ਹੌਲੀਆਂ ਉਦਾਹਰਨਾਂ"
             fast_label = "SELECTED · FAST" if not is_pa else "ਚੁਣਿਆ · ਤੇਜ਼"
         visual = f'<rect x="12" y="12" width="210" height="206" rx="14" fill="#e0f2fe" fill-opacity=".35" {slow_style}/><rect x="238" y="12" width="210" height="206" rx="14" fill="#fef3c7" fill-opacity=".35" {fast_style}/><text x="117" y="36" text-anchor="middle" fill="currentColor" font-size="14" font-weight="700">{slow_label}</text><text x="343" y="36" text-anchor="middle" fill="currentColor" font-size="14" font-weight="700">{fast_label}</text><path d="M44 106 Q25 83 42 73 Q58 69 66 89 L82 96 L72 108 L54 107 Z" fill="#84cc16" stroke="#3f6212" stroke-width="3"/><circle cx="43" cy="78" r="3" fill="#3f6212"/><path d="M49 108 L43 124 M69 108 L76 124" stroke="#3f6212" stroke-width="4"/><circle cx="117" cy="111" r="8" fill="#2563eb"/><path d="M117 120 L112 139 M117 124 L133 129 M112 139 L103 151 M112 139 L126 151" stroke="#2563eb" stroke-width="5" stroke-linecap="round"/><path d="M28 163 H194" stroke="#64748b" stroke-width="3" stroke-dasharray="5 5"/><circle cx="286" cy="132" r="13" fill="#334155"/><circle cx="384" cy="132" r="13" fill="#334155"/><path d="M270 126 L285 93 L354 93 L385 126 Z" fill="#ef4444" stroke="#991b1b" stroke-width="3"/><rect x="300" y="99" width="25" height="17" rx="3" fill="#bfdbfe"/><rect x="330" y="99" width="19" height="17" rx="3" fill="#bfdbfe"/><path d="M265 78 H305 M297 70 L307 78 L297 86 M330 67 H370 M362 59 L372 67 L362 75" stroke="#f59e0b" stroke-width="3" fill="none"/><path d="M264 163 H423" stroke="#64748b" stroke-width="3" stroke-dasharray="5 5"/><text x="117" y="184" text-anchor="middle" fill="currentColor" font-size="12">{("Tortoise and walking person" if not is_pa else "ਕੱਛੂਆ ਅਤੇ ਪੈਦਲ ਵਿਅਕਤੀ")}</text><text x="343" y="184" text-anchor="middle" fill="currentColor" font-size="12">{("Racing car / fast train" if not is_pa else "ਰੇਸਿੰਗ ਕਾਰ / ਤੇਜ਼ ਰੇਲ")}</text><text x="117" y="203" text-anchor="middle" fill="currentColor" font-size="11">{("Less distance in same time" if not is_pa else "ਇੱਕੋ ਸਮੇਂ ਵਿੱਚ ਘੱਟ ਦੂਰੀ")}</text><text x="343" y="203" text-anchor="middle" fill="currentColor" font-size="11">{("More distance in same time" if not is_pa else "ਇੱਕੋ ਸਮੇਂ ਵਿੱਚ ਵੱਧ ਦੂਰੀ")}</text>'
+    elif pressure_area_examples_experiment:
+        if a == "Snowshoes vs high heels":
+            example_label = "SNOWSHOES vs HIGH HEELS" if not is_pa else "ਬਰਫ਼ ਵਾਲੇ ਜੁੱਤੇ ਬਨਾਮ ਉੱਚੀ ਅੱਡੀ"
+            left_label, right_label = ("WIDE SNOWSHOES", "NARROW HEELS") if not is_pa else ("ਚੌੜੇ ਜੁੱਤੇ", "ਤੰਗ ਅੱਡੀ")
+            left_shape = '<path d="M85 78 Q75 95 88 140 L165 140 Q177 95 163 78 Z" fill="#bae6fd" stroke="#0369a1" stroke-width="3"/>'
+            right_shape = '<path d="M322 78 L337 78 L334 126 L345 126 L345 140 L310 140 L310 126 L321 126 Z" fill="#fda4af" stroke="#be123c" stroke-width="3"/>'
+        elif a == "Sharp knife vs blunt knife":
+            example_label = "SHARP vs BLUNT KNIFE" if not is_pa else "ਤੇਜ਼ ਬਨਾਮ ਮੋਟੀ ਧਾਰ"
+            left_label, right_label = ("SHARP EDGE · SMALL AREA", "BLUNT EDGE · LARGER AREA") if not is_pa else ("ਤੇਜ਼ ਧਾਰ · ਛੋਟਾ ਖੇਤਰ", "ਮੋਟੀ ਧਾਰ · ਵੱਡਾ ਖੇਤਰ")
+            left_shape = '<path d="M85 86 L165 86 L125 142 Z" fill="#cbd5e1" stroke="#475569" stroke-width="3"/><path d="M125 142 V148" stroke="#be123c" stroke-width="5"/>'
+            right_shape = '<path d="M302 86 L382 86 L350 136 L334 136 Z" fill="#cbd5e1" stroke="#475569" stroke-width="3"/><path d="M334 136 H350" stroke="#be123c" stroke-width="8"/>'
+        elif a == "Broad tractor tyres vs narrow tyres":
+            example_label = "BROAD vs NARROW TYRES" if not is_pa else "ਚੌੜੇ ਬਨਾਮ ਤੰਗ ਟਾਇਰ"
+            left_label, right_label = ("BROAD TYRE · LARGER AREA", "NARROW TYRE · SMALLER AREA") if not is_pa else ("ਚੌੜਾ ਟਾਇਰ · ਵੱਡਾ ਖੇਤਰ", "ਤੰਗ ਟਾਇਰ · ਛੋਟਾ ਖੇਤਰ")
+            left_shape = '<rect x="91" y="72" width="68" height="76" rx="13" fill="#334155" stroke="#0f172a" stroke-width="3"/><path d="M100 82 L150 138 M150 82 L100 138" stroke="#94a3b8" stroke-width="4"/>'
+            right_shape = '<rect x="325" y="72" width="28" height="76" rx="8" fill="#334155" stroke="#0f172a" stroke-width="3"/><path d="M328 82 L350 138 M350 82 L328 138" stroke="#94a3b8" stroke-width="3"/>'
+        else:
+            example_label = "WIDE vs NARROW FOUNDATION" if not is_pa else "ਚੌੜੀ ਬਨਾਮ ਤੰਗ ਨੀਂਹ"
+            left_label, right_label = ("WIDE FOUNDATION", "NARROW FOUNDATION") if not is_pa else ("ਚੌੜੀ ਨੀਂਹ", "ਤੰਗ ਨੀਂਹ")
+            left_shape = '<rect x="82" y="65" width="90" height="66" fill="#d6d3d1" stroke="#78716c" stroke-width="3"/><rect x="65" y="131" width="124" height="18" fill="#a8a29e" stroke="#57534e" stroke-width="3"/>'
+            right_shape = '<rect x="307" y="65" width="90" height="66" fill="#d6d3d1" stroke="#78716c" stroke-width="3"/><rect x="338" y="131" width="28" height="18" fill="#a8a29e" stroke="#57534e" stroke-width="3"/>'
+        low_label = "LOWER PRESSURE" if not is_pa else "ਘੱਟ ਦਬਾਅ"
+        high_label = "HIGHER PRESSURE" if not is_pa else "ਵੱਧ ਦਬਾਅ"
+        visual = f'<rect x="12" y="12" width="436" height="206" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="32" text-anchor="middle" font-size="14" font-weight="700" fill="#334155">{example_label}</text><path d="M25 158 H435" stroke="#64748b" stroke-width="3"/>{left_shape}{right_shape}<path d="M125 42 V64 M117 56 L125 66 L133 56 M125 45 V62 M117 52 L125 62 L133 52" stroke="#0ea5e9" stroke-width="3" fill="none"/><path d="M337 42 V64 M329 56 L337 66 L345 56 M337 45 V62 M329 52 L337 62 L345 52" stroke="#f59e0b" stroke-width="3" fill="none"/><text x="125" y="177" text-anchor="middle" font-size="11" font-weight="700" fill="#0369a1">{left_label}</text><text x="337" y="177" text-anchor="middle" font-size="11" font-weight="700" fill="#be123c">{right_label}</text><text x="125" y="198" text-anchor="middle" font-size="13" font-weight="700" fill="#0369a1">{low_label}</text><text x="337" y="198" text-anchor="middle" font-size="13" font-weight="700" fill="#be123c">{high_label}</text>'
     elif kind in ("reflection","refraction"):
         ang = int(a)
         visual = f'<path d="M40 180 L420 180" stroke="#64748b" stroke-width="5"/><path d="M220 180 L{220-int(ang*1.5)} {180-int(ang*1.5)}" stroke="#f59e0b" stroke-width="4"/><path d="M220 180 L{220+int(ang*1.5)} {180-int(ang*1.5)}" stroke="#0ea5e9" stroke-width="4"/><circle cx="220" cy="180" r="5" fill="#e11d48"/><text x="70" y="35" fill="currentColor" font-size="16">Incident ray</text><text x="270" y="35" fill="currentColor" font-size="16">Outgoing ray</text>'
@@ -2060,7 +2090,16 @@ def physics_lab():
         result = f"Work = {float(a)*float(b):.2f} J; average power is work/time (set a time in a real measurement)." if not is_pa else f"ਕੰਮ = {float(a)*float(b):.2f} J"
     elif kind == "potential":
         result = f"Gravitational potential energy ≈ {float(a)*9.8*float(b):.2f} J" if not is_pa else f"ਗੁਰੁਤਵਾਕਰਸ਼ੀ ਸਥਿਤਿਜ ਊਰਜਾ ≈ {float(a)*9.8*float(b):.2f} J"
-    elif kind == "pressure_area":
+    elif pressure_area_examples_experiment:
+        if a == "Snowshoes vs high heels":
+            result = ("Snowshoes spread a person's weight over a larger area, so pressure on snow is lower. A narrow heel concentrates the same body weight on a small area, creating higher pressure." if not is_pa else "ਬਰਫ਼ ਵਾਲੇ ਜੁੱਤੇ ਸਰੀਰ ਦਾ ਭਾਰ ਵੱਡੇ ਖੇਤਰਫਲ ਉੱਤੇ ਫੈਲਾਉਂਦੇ ਹਨ, ਇਸ ਲਈ ਬਰਫ਼ ਉੱਤੇ ਦਬਾਅ ਘੱਟ ਹੁੰਦਾ ਹੈ। ਤੰਗ ਅੱਡੀ ਉਹੀ ਭਾਰ ਛੋਟੇ ਖੇਤਰ ਉੱਤੇ ਪਾਉਂਦੀ ਹੈ, ਇਸ ਲਈ ਦਬਾਅ ਵੱਧ ਹੁੰਦਾ ਹੈ।")
+        elif a == "Sharp knife vs blunt knife":
+            result = ("A sharp edge touches a very small area and creates greater pressure for the same push, helping it cut. A blunt edge spreads the push over a larger area and creates less pressure." if not is_pa else "ਤੇਜ਼ ਧਾਰ ਬਹੁਤ ਛੋਟੇ ਖੇਤਰ ਨੂੰ ਛੂੰਹਦੀ ਹੈ ਅਤੇ ਇੱਕੋ ਧੱਕੇ ਨਾਲ ਵੱਧ ਦਬਾਅ ਬਣਾਉਂਦੀ ਹੈ, ਜਿਸ ਨਾਲ ਕੱਟਣਾ ਸੌਖਾ ਹੁੰਦਾ ਹੈ। ਮੋਟੀ ਧਾਰ ਬਲ ਨੂੰ ਵੱਡੇ ਖੇਤਰ ਵਿੱਚ ਫੈਲਾਉਂਦੀ ਹੈ ਅਤੇ ਦਬਾਅ ਘੱਟ ਬਣਦਾ ਹੈ।")
+        elif a == "Broad tractor tyres vs narrow tyres":
+            result = ("Broad tyres spread the tractor's weight over a larger contact area and reduce pressure on soft soil. Narrow tyres concentrate the weight on a smaller area and produce greater pressure." if not is_pa else "ਚੌੜੇ ਟਾਇਰ ਟਰੈਕਟਰ ਦਾ ਭਾਰ ਵੱਡੇ ਸੰਪਰਕ ਖੇਤਰਫਲ ਉੱਤੇ ਫੈਲਾ ਕੇ ਨਰਮ ਮਿੱਟੀ ਉੱਤੇ ਦਬਾਅ ਘਟਾਉਂਦੇ ਹਨ। ਤੰਗ ਟਾਇਰ ਭਾਰ ਛੋਟੇ ਖੇਤਰ ਉੱਤੇ ਪਾ ਕੇ ਵੱਧ ਦਬਾਅ ਬਣਾਉਂਦੇ ਹਨ।")
+        else:
+            result = ("A wide building foundation spreads the building's weight over more ground and reduces pressure on the soil. A narrow foundation concentrates the load and increases pressure." if not is_pa else "ਚੌੜੀ ਇਮਾਰਤੀ ਨੀਂਹ ਇਮਾਰਤ ਦਾ ਭਾਰ ਵੱਧ ਜ਼ਮੀਨ ਉੱਤੇ ਫੈਲਾਉਂਦੀ ਹੈ ਅਤੇ ਮਿੱਟੀ ਉੱਤੇ ਦਬਾਅ ਘਟਾਉਂਦੀ ਹੈ। ਤੰਗ ਨੀਂਹ ਭਾਰ ਨੂੰ ਘੱਟ ਖੇਤਰ ਉੱਤੇ ਕੇਂਦਰਿਤ ਕਰਦੀ ਹੈ ਅਤੇ ਦਬਾਅ ਵਧਾਉਂਦੀ ਹੈ।")
+    elif kind == "pressure_area" and not pressure_area_examples_experiment:
         result = f"Pressure = {float(a)/(float(b)/10000):.2f} Pa" if not is_pa else f"ਦਬਾਅ = {float(a)/(float(b)/10000):.2f} Pa"
     elif kind == "pressure" and not liquid_pressure_examples_experiment:
         result = f"Hydrostatic pressure (gauge) ≈ ρgh = {float(a)*float(b)*9.8:.2f} Pa" if not is_pa else f"ਤਰਲ ਦਬਾਅ ≈ ρgh = {float(a)*float(b)*9.8:.2f} Pa"
