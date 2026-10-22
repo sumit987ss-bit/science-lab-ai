@@ -1736,6 +1736,193 @@ def electricity_lab():
         st.write(tr("safe"))
     st.caption(tr("safe"))
 
+PHYSICS_EXPERIMENTS = {
+  6: [
+    ("Measure Distance and Time","ਦੂਰੀ ਅਤੇ ਸਮਾਂ ਮਾਪੋ","Explore how distance and time describe motion.","ਗਤੀ ਨੂੰ ਦੂਰੀ ਅਤੇ ਸਮੇਂ ਨਾਲ ਸਮਝੋ।","motion","A moving object covers distance over time.","ਚੱਲਦੀ ਵਸਤੂ ਸਮੇਂ ਦੌਰਾਨ ਦੂਰੀ ਤੈਅ ਕਰਦੀ ਹੈ।"),
+    ("Compare Fast and Slow Motion","ਤੇਜ਼ ਅਤੇ ਹੌਲੀ ਗਤੀ ਦੀ ਤੁਲਨਾ","Change distance and time to compare average speed.","ਦੂਰੀ ਅਤੇ ਸਮਾਂ ਬਦਲ ਕੇ ਔਸਤ ਚਾਲ ਦੀ ਤੁਲਨਾ ਕਰੋ।","speed","Average speed = distance ÷ time.","ਔਸਤ ਚਾਲ = ਦੂਰੀ ÷ ਸਮਾਂ।"),
+    ("Explore Pushes and Pulls","ਧੱਕੇ ਅਤੇ ਖਿੱਚ ਦੀ ਖੋਜ","Change the applied force and observe a cart model.","ਲਗਾਏ ਬਲ ਨੂੰ ਬਦਲ ਕੇ ਗੱਡੀ ਦਾ ਮਾਡਲ ਵੇਖੋ।","force","A force can change an object's motion or direction.","ਬਲ ਵਸਤੂ ਦੀ ਗਤੀ ਜਾਂ ਦਿਸ਼ਾ ਬਦਲ ਸਕਦਾ ਹੈ।"),
+    ("Light and Shadows","ਰੋਸ਼ਨੀ ਅਤੇ ਪਰਛਾਵੇਂ","Move a light source and object to explore shadows.","ਪਰਛਾਵਾਂ ਸਮਝਣ ਲਈ ਰੋਸ਼ਨੀ ਅਤੇ ਵਸਤੂ ਹਿਲਾਓ।","shadow","Opaque objects block light and form shadows.","ਅਪਾਰਦਰਸ਼ੀ ਵਸਤੂਆਂ ਰੋਸ਼ਨੀ ਰੋਕ ਕੇ ਪਰਛਾਵਾਂ ਬਣਾਉਂਦੀਆਂ ਹਨ।"),
+    ("Magnets Attract or Repel","ਚੁੰਬਕ ਖਿੱਚਦੇ ਜਾਂ ਧੱਕਦੇ ਹਨ","Choose pole orientation and observe the interaction.","ਧਰੁਵਾਂ ਦੀ ਦਿਸ਼ਾ ਚੁਣ ਕੇ ਪ੍ਰਭਾਵ ਵੇਖੋ।","magnet","Like poles repel; unlike poles attract.","ਇੱਕੋ ਧਰੁਵ ਦੂਰ ਧੱਕਦੇ ਅਤੇ ਵੱਖਰੇ ਧਰੁਵ ਖਿੱਚਦੇ ਹਨ।")
+  ],
+  7: [
+    ("Motion on a Distance-Time Track","ਦੂਰੀ-ਸਮਾਂ ਪਟੜੀ ਉੱਤੇ ਗਤੀ","Compare the motion of a model object over time.","ਸਮੇਂ ਨਾਲ ਮਾਡਲ ਵਸਤੂ ਦੀ ਗਤੀ ਦੀ ਤੁਲਨਾ ਕਰੋ।","motion","A distance-time record helps describe motion.","ਦੂਰੀ-ਸਮਾਂ ਰਿਕਾਰਡ ਗਤੀ ਦਾ ਵਰਣਨ ਕਰਦਾ ਹੈ।"),
+    ("Friction on Different Surfaces","ਵੱਖਰੀਆਂ ਸਤਹਾਂ ਉੱਤੇ ਘਰਸ਼ਣ","Compare how surfaces affect a sliding block.","ਸਤਹਾਂ ਦਾ ਫਿਸਲਦੇ ਬਲਾਕ ਉੱਤੇ ਪ੍ਰਭਾਵ ਵੇਖੋ।","friction","Rougher surfaces often produce more friction.","ਖੁਰਦਰੀਆਂ ਸਤਹਾਂ ਉੱਤੇ ਆਮ ਤੌਰ ਤੇ ਘਰਸ਼ਣ ਵੱਧ ਹੁੰਦਾ ਹੈ।"),
+    ("Air and Water Pressure","ਹਵਾ ਅਤੇ ਪਾਣੀ ਦਾ ਦਬਾਅ","Explore how depth changes the pressure model.","ਡੂੰਘਾਈ ਨਾਲ ਦਬਾਅ ਦੇ ਮਾਡਲ ਵਿੱਚ ਤਬਦੀਲੀ ਵੇਖੋ।","pressure","Liquid pressure generally increases with depth.","ਤਰਲ ਦਾ ਦਬਾਅ ਆਮ ਤੌਰ ਤੇ ਡੂੰਘਾਈ ਨਾਲ ਵਧਦਾ ਹੈ।"),
+    ("Reflection of Light","ਰੋਸ਼ਨੀ ਦਾ ਪਰਾਵਰਤਨ","Change the incoming ray angle on a mirror.","ਸ਼ੀਸ਼ੇ ਉੱਤੇ ਆਉਣ ਵਾਲੀ ਕਿਰਨ ਦਾ ਕੋਣ ਬਦਲੋ।","reflection","Angle of incidence equals angle of reflection for a plane mirror.","ਸਮਤਲ ਸ਼ੀਸ਼ੇ ਵਿੱਚ ਆਗਮਨ ਕੋਣ ਪਰਾਵਰਤਨ ਕੋਣ ਦੇ ਬਰਾਬਰ ਹੁੰਦਾ ਹੈ।"),
+    ("Sound Vibrations","ਧੁਨੀ ਦੀਆਂ ਕੰਪਨਾਂ","Change vibration frequency in a string model.","ਤਾਰ ਦੇ ਮਾਡਲ ਵਿੱਚ ਕੰਪਨ ਦੀ ਆਵ੍ਰਿਤੀ ਬਦਲੋ।","sound","Sound is produced by vibrating sources.","ਧੁਨੀ ਕੰਪਨ ਕਰਦੇ ਸਰੋਤਾਂ ਤੋਂ ਪੈਦਾ ਹੁੰਦੀ ਹੈ।")
+  ],
+  8: [
+    ("Pressure and Area","ਦਬਾਅ ਅਤੇ ਖੇਤਰਫਲ","Explore how contact area changes pressure for the same force.","ਇੱਕੋ ਬਲ ਲਈ ਸੰਪਰਕ ਖੇਤਰਫਲ ਦਾ ਦਬਾਅ ਉੱਤੇ ਪ੍ਰਭਾਵ ਵੇਖੋ।","pressure_area","Pressure = force ÷ area.","ਦਬਾਅ = ਬਲ ÷ ਖੇਤਰਫਲ।"),
+    ("Balanced and Unbalanced Forces","ਸੰਤੁਲਿਤ ਅਤੇ ਅਸੰਤੁਲਿਤ ਬਲ","Change opposing forces on a cart.","ਗੱਡੀ ਉੱਤੇ ਉਲਟ ਦਿਸ਼ਾਵਾਂ ਵਾਲੇ ਬਲ ਬਦਲੋ।","balanced","Balanced forces give zero net force; unbalanced forces can change motion.","ਸੰਤੁਲਿਤ ਬਲਾਂ ਦਾ ਕੁੱਲ ਬਲ ਸਿਫ਼ਰ ਹੁੰਦਾ ਹੈ।"),
+    ("Conduction of Heat","ਤਾਪ ਦਾ ਚਾਲਨ","Compare heat transfer through different materials.","ਵੱਖਰੇ ਪਦਾਰਥਾਂ ਵਿੱਚੋਂ ਤਾਪ ਦੇ ਤਬਾਦਲੇ ਦੀ ਤੁਲਨਾ ਕਰੋ।","heat","Materials conduct heat at different rates.","ਪਦਾਰਥ ਤਾਪ ਨੂੰ ਵੱਖ-ਵੱਖ ਦਰਾਂ ਨਾਲ ਚਲਾਉਂਦੇ ਹਨ।"),
+    ("Reflection in a Plane Mirror","ਸਮਤਲ ਸ਼ੀਸ਼ੇ ਵਿੱਚ ਪਰਾਵਰਤਨ","Trace incident and reflected rays.","ਆਉਣ ਵਾਲੀਆਂ ਅਤੇ ਪਰਾਵਰਤਿਤ ਕਿਰਨਾਂ ਦਾ ਪਤਾ ਲਗਾਓ।","reflection","The incident and reflected rays lie in the same plane.","ਆਗਮਨ ਅਤੇ ਪਰਾਵਰਤਿਤ ਕਿਰਨਾਂ ਇੱਕੋ ਸਮਤਲ ਵਿੱਚ ਹੁੰਦੀਆਂ ਹਨ।"),
+    ("Simple Sound Wave","ਸਧਾਰਨ ਧੁਨੀ ਤਰੰਗ","Change frequency and amplitude in a wave display.","ਤਰੰਗ ਵਿੱਚ ਆਵ੍ਰਿਤੀ ਅਤੇ ਐਂਪਲੀਟਿਊਡ ਬਦਲੋ।","wave","Frequency relates to pitch; amplitude relates to loudness.","ਆਵ੍ਰਿਤੀ ਸੁਰ ਦੀ ਉਚਾਈ ਅਤੇ ਐਂਪਲੀਟਿਊਡ ਉੱਚੀ ਆਵਾਜ਼ ਨਾਲ ਜੁੜੀ ਹੈ।")
+  ],
+  9: [
+    ("Speed and Acceleration","ਚਾਲ ਅਤੇ ਤਵਰਣ","Explore changes in velocity over a time interval.","ਸਮੇਂ ਨਾਲ ਵੇਗ ਵਿੱਚ ਤਬਦੀਲੀ ਦੀ ਖੋਜ ਕਰੋ।","acceleration","Acceleration is change in velocity divided by time.","ਤਵਰਣ = ਵੇਗ ਵਿੱਚ ਤਬਦੀਲੀ ÷ ਸਮਾਂ।"),
+    ("Newton's Second Law","ਨਿਊਟਨ ਦਾ ਦੂਜਾ ਨਿਯਮ","Change force and mass to explore acceleration.","ਤਵਰਣ ਸਮਝਣ ਲਈ ਬਲ ਅਤੇ ਪੁੰਜ ਬਦਲੋ।","newton","For a constant mass, F = ma.","ਸਥਿਰ ਪੁੰਜ ਲਈ F = ma।"),
+    ("Work and Mechanical Energy","ਕੰਮ ਅਤੇ ਮਕੈਨੀਕੀ ਊਰਜਾ","Explore work done by a force over a distance.","ਦੂਰੀ ਉੱਤੇ ਬਲ ਦੁਆਰਾ ਕੀਤੇ ਕੰਮ ਨੂੰ ਸਮਝੋ।","work","For force along motion, work = force × distance.","ਗਤੀ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ਬਲ ਹੋਵੇ ਤਾਂ ਕੰਮ = ਬਲ × ਦੂਰੀ।"),
+    ("Refraction Through a Glass Block","ਕੱਚ ਦੇ ਬਲਾਕ ਵਿੱਚ ਅਪਵਰਤਨ","Observe a ray change direction at a boundary.","ਸੀਮਾ ਉੱਤੇ ਕਿਰਨ ਦੀ ਦਿਸ਼ਾ ਬਦਲਦੀ ਵੇਖੋ।","refraction","Light changes direction when it enters a different optical medium at an angle.","ਕੋਣ ਨਾਲ ਵੱਖਰੇ ਮਾਧਿਅਮ ਵਿੱਚ ਜਾਣ ਸਮੇਂ ਰੋਸ਼ਨੀ ਦੀ ਦਿਸ਼ਾ ਬਦਲ ਸਕਦੀ ਹੈ।"),
+    ("Gravitational Potential Energy","ਗੁਰੁਤਵਾਕਰਸ਼ੀ ਸਥਿਤਿਜ ਊਰਜਾ","Change mass and height in an energy model.","ਊਰਜਾ ਮਾਡਲ ਵਿੱਚ ਪੁੰਜ ਅਤੇ ਉਚਾਈ ਬਦਲੋ।","potential","Near Earth's surface, gravitational potential energy change ≈ mgh.","ਧਰਤੀ ਦੀ ਸਤਹ ਨੇੜੇ ਸਥਿਤਿਜ ਊਰਜਾ ਵਿੱਚ ਤਬਦੀਲੀ ਲਗਭਗ mgh ਹੈ।")
+  ],
+  10: [
+    ("Verify Laws of Reflection","ਪਰਾਵਰਤਨ ਦੇ ਨਿਯਮ ਦੀ ਜਾਂਚ","Change the incident angle and compare the reflected angle.","ਆਗਮਨ ਕੋਣ ਬਦਲ ਕੇ ਪਰਾਵਰਤਨ ਕੋਣ ਦੀ ਤੁਲਨਾ ਕਰੋ।","reflection","For an ideal plane mirror, i = r.","ਆਦਰਸ਼ ਸਮਤਲ ਸ਼ੀਸ਼ੇ ਲਈ i = r।"),
+    ("Refraction and Refractive Index","ਅਪਵਰਤਨ ਅਤੇ ਅਪਵਰਤਨ ਅੰਕ","Explore how optical medium affects ray bending.","ਪ੍ਰਕਾਸ਼ੀ ਮਾਧਿਅਮ ਦਾ ਕਿਰਨ ਦੇ ਮੁੜਨ ਉੱਤੇ ਪ੍ਰਭਾਵ ਵੇਖੋ।","refraction","Snell's law relates refractive indices and ray angles.","ਸਨੇਲ ਦਾ ਨਿਯਮ ਅਪਵਰਤਨ ਅੰਕਾਂ ਅਤੇ ਕਿਰਨਾਂ ਦੇ ਕੋਣਾਂ ਦਾ ਸਬੰਧ ਦੱਸਦਾ ਹੈ।"),
+    ("Convex Lens and Image Formation","ਉੱਤਲ ਲੈਂਸ ਅਤੇ ਪ੍ਰਤਿਬਿੰਬ","Change object distance to explore image position.","ਪ੍ਰਤਿਬਿੰਬ ਦੀ ਸਥਿਤੀ ਸਮਝਣ ਲਈ ਵਸਤੂ ਦੀ ਦੂਰੀ ਬਦਲੋ।","lens","Image characteristics depend on object distance and focal length.","ਪ੍ਰਤਿਬਿੰਬ ਦੀਆਂ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਵਸਤੂ ਦੀ ਦੂਰੀ ਅਤੇ ਫੋਕਸ ਦੂਰੀ ਉੱਤੇ ਨਿਰਭਰ ਹਨ।"),
+    ("Work, Power and Energy","ਕੰਮ, ਸ਼ਕਤੀ ਅਤੇ ਊਰਜਾ","Calculate work and average power in a simple model.","ਸਧਾਰਨ ਮਾਡਲ ਵਿੱਚ ਕੰਮ ਅਤੇ ਔਸਤ ਸ਼ਕਤੀ ਦੀ ਗਣਨਾ ਕਰੋ।","work","Work = force × distance; average power = work ÷ time.","ਕੰਮ = ਬਲ × ਦੂਰੀ; ਔਸਤ ਸ਼ਕਤੀ = ਕੰਮ ÷ ਸਮਾਂ।"),
+    ("Wave Frequency and Sound","ਤਰੰਗ ਆਵ੍ਰਿਤੀ ਅਤੇ ਧੁਨੀ","Change frequency and amplitude to compare wave properties.","ਤਰੰਗ ਦੀਆਂ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਦੀ ਤੁਲਨਾ ਲਈ ਆਵ੍ਰਿਤੀ ਅਤੇ ਐਂਪਲੀਟਿਊਡ ਬਦਲੋ।","wave","Frequency is measured in hertz; amplitude is a wave displacement measure.","ਆਵ੍ਰਿਤੀ ਹਰਟਜ਼ ਵਿੱਚ ਮਾਪੀ ਜਾਂਦੀ ਹੈ; ਐਂਪਲੀਟਿਊਡ ਵਿਸਥਾਪਨ ਦਾ ਮਾਪ ਹੈ।")
+  ]
+}
+
+def physics_lab():
+    if st.button(tr("back"), key="physics_back"):
+        go("home")
+        st.rerun()
+    is_pa = st.session_state.language != "en"
+    st.title("🚀 " + ("ਭੌਤਿਕ ਵਿਗਿਆਨ ਲੈਬ" if is_pa else "Physics Lab"))
+    st.caption("25 interactive experiments · Classes 6–10 · Virtual learning models")
+    classes = [6, 7, 8, 9, 10]
+    pc = st.selectbox("ਜਮਾਤ ਚੁਣੋ" if is_pa else "Select class", classes,
+        index=classes.index(st.session_state.get("physics_class", 6)),
+        format_func=lambda x: f"{x}ਵੀਂ ਜਮਾਤ" if is_pa else f"Class {x}", key="physics_class")
+    exp_list = PHYSICS_EXPERIMENTS[pc]
+    ei = st.selectbox("ਪ੍ਰਯੋਗ ਚੁਣੋ" if is_pa else "Select experiment", list(range(5)),
+        format_func=lambda i: f"EXPERIMENT {i+1} · {exp_list[i][1 if is_pa else 0]}", key=f"physics_exp_{pc}")
+    en_title, pa_title, en_aim, pa_aim, kind, en_note, pa_note = exp_list[ei]
+    title = pa_title if is_pa else en_title
+    aim = pa_aim if is_pa else en_aim
+    note = pa_note if is_pa else en_note
+    st.markdown("---")
+    st.header(f"EXPERIMENT {ei+1} · CLASS {pc}")
+    st.subheader(title)
+    st.markdown(f"**{'ਉਦੇਸ਼' if is_pa else 'Aim'}:** {aim}")
+    st.markdown("### " + ("ਇੰਟਰਐਕਟਿਵ ਕੰਟਰੋਲ" if is_pa else "Interactive controls"))
+    kind_labels = {
+      "motion":("Distance (m)","Time (s)","ਦੂਰੀ (m)","ਸਮਾਂ (s)"),
+      "speed":("Distance (m)","Time (s)","ਦੂਰੀ (m)","ਸਮਾਂ (s)"),
+      "force":("Applied force (N)","Mass (kg)","ਲਗਾਇਆ ਬਲ (N)","ਪੁੰਜ (kg)"),
+      "shadow":("Light distance (cm)","Object size (cm)","ਰੋਸ਼ਨੀ ਦੀ ਦੂਰੀ (cm)","ਵਸਤੂ ਦਾ ਆਕਾਰ (cm)"),
+      "magnet":("Pole arrangement","Strength (illustrative)","ਧਰੁਵਾਂ ਦੀ ਬਣਤਰ","ਤਾਕਤ (ਸਮਝਾਉਣ ਲਈ)"),
+      "friction":("Surface roughness","Block mass (kg)","ਸਤਹ ਦੀ ਖੁਰਦਰਾਪਣ","ਬਲਾਕ ਦਾ ਪੁੰਜ (kg)"),
+      "pressure":("Depth (m)","Liquid density (kg/m³)","ਡੂੰਘਾਈ (m)","ਤਰਲ ਘਣਤਾ (kg/m³)"),
+      "reflection":("Incident angle (°)","Mirror setting","ਆਗਮਨ ਕੋਣ (°)","ਸ਼ੀਸ਼ੇ ਦੀ ਸਥਿਤੀ"),
+      "sound":("Frequency (Hz)","Amplitude (relative)","ਆਵ੍ਰਿਤੀ (Hz)","ਐਂਪਲੀਟਿਊਡ (ਸਾਪੇਖ)"),
+      "pressure_area":("Force (N)","Contact area (cm²)","ਬਲ (N)","ਸੰਪਰਕ ਖੇਤਰਫਲ (cm²)"),
+      "balanced":("Rightward force (N)","Leftward force (N)","ਸੱਜੇ ਪਾਸੇ ਬਲ (N)","ਖੱਬੇ ਪਾਸੇ ਬਲ (N)"),
+      "heat":("Heating level (relative)","Material","ਤਾਪ ਪੱਧਰ (ਸਾਪੇਖ)","ਪਦਾਰਥ"),
+      "wave":("Frequency (Hz)","Amplitude (relative)","ਆਵ੍ਰਿਤੀ (Hz)","ਐਂਪਲੀਟਿਊਡ (ਸਾਪੇਖ)"),
+      "acceleration":("Final velocity (m/s)","Time (s)","ਅੰਤਿਮ ਵੇਗ (m/s)","ਸਮਾਂ (s)"),
+      "newton":("Force (N)","Mass (kg)","ਬਲ (N)","ਪੁੰਜ (kg)"),
+      "work":("Force (N)","Distance (m)","ਬਲ (N)","ਦੂਰੀ (m)"),
+      "refraction":("Incident angle (°)","Refractive index","ਆਗਮਨ ਕੋਣ (°)","ਅਪਵਰਤਨ ਅੰਕ"),
+      "potential":("Mass (kg)","Height (m)","ਪੁੰਜ (kg)","ਉਚਾਈ (m)"),
+      "lens":("Object distance (cm)","Focal length (cm)","ਵਸਤੂ ਦੀ ਦੂਰੀ (cm)","ਫੋਕਸ ਦੂਰੀ (cm)")
+    }
+    labels = kind_labels.get(kind, ("Control A","Control B","ਕੰਟਰੋਲ A","ਕੰਟਰੋਲ B"))
+    c1, c2 = st.columns(2)
+    with c1:
+        if kind == "magnet":
+            a = st.selectbox(labels[0] if not is_pa else labels[2], ["Unlike poles","Like poles"], key=f"ph_a_{pc}_{ei}")
+        elif kind == "heat":
+            a = st.slider(labels[0] if not is_pa else labels[2], 1, 10, 5, key=f"ph_a_{pc}_{ei}")
+        elif kind in ("motion","speed","force","pressure","pressure_area","balanced","friction","acceleration","newton","work","potential","lens"):
+            a = st.slider(labels[0] if not is_pa else labels[2], 1, 100 if kind in ("motion","speed") else 30, 10, key=f"ph_a_{pc}_{ei}")
+        elif kind in ("reflection","refraction"):
+            a = st.slider(labels[0] if not is_pa else labels[2], 5, 80, 35, key=f"ph_a_{pc}_{ei}")
+        elif kind in ("sound","wave"):
+            a = st.slider(labels[0] if not is_pa else labels[2], 100, 2000, 500, 100, key=f"ph_a_{pc}_{ei}")
+        elif kind == "shadow":
+            a = st.slider(labels[0] if not is_pa else labels[2], 10, 100, 40, key=f"ph_a_{pc}_{ei}")
+        else:
+            a = st.slider(labels[0] if not is_pa else labels[2], 1, 20, 5, key=f"ph_a_{pc}_{ei}")
+    with c2:
+        if kind == "magnet":
+            b = st.slider(labels[1] if not is_pa else labels[3], 1, 10, 5, key=f"ph_b_{pc}_{ei}")
+        elif kind == "heat":
+            b = st.selectbox(labels[1] if not is_pa else labels[3], ["Copper","Aluminium","Glass","Wood"], key=f"ph_b_{pc}_{ei}")
+        elif kind in ("motion","speed","force","pressure","pressure_area","balanced","friction","acceleration","newton","work","potential","lens"):
+            b = st.slider(labels[1] if not is_pa else labels[3], 1, 50, 5, key=f"ph_b_{pc}_{ei}")
+        elif kind in ("reflection","refraction"):
+            b = st.slider(labels[1] if not is_pa else labels[3], 1, 2, 1, key=f"ph_b_{pc}_{ei}") if kind == "reflection" else st.slider(labels[1] if not is_pa else labels[3], 1.0, 2.0, 1.5, 0.1, key=f"ph_b_{pc}_{ei}")
+        else:
+            b = st.slider(labels[1] if not is_pa else labels[3], 1, 10, 5, key=f"ph_b_{pc}_{ei}")
+    if kind in ("sound","wave"):
+        c = st.slider("Amplitude (relative)" if not is_pa else "ਐਂਪਲੀਟਿਊਡ (ਸਾਪੇਖ)", 1, 10, 5, key=f"ph_c_{pc}_{ei}")
+    elif kind in ("reflection","refraction"):
+        c = 0
+    else:
+        c = b
+    # Produce a distinct, responsive schematic for the selected phenomenon.
+    visual = ""
+    if kind in ("reflection","refraction"):
+        ang = int(a)
+        visual = f'<path d="M40 180 L420 180" stroke="#64748b" stroke-width="5"/><path d="M220 180 L{220-int(ang*1.5)} {180-int(ang*1.5)}" stroke="#f59e0b" stroke-width="4"/><path d="M220 180 L{220+int(ang*1.5)} {180-int(ang*1.5)}" stroke="#0ea5e9" stroke-width="4"/><circle cx="220" cy="180" r="5" fill="#e11d48"/><text x="70" y="35" fill="currentColor" font-size="16">Incident ray</text><text x="270" y="35" fill="currentColor" font-size="16">Outgoing ray</text>'
+    elif kind in ("sound","wave"):
+        pts = " ".join(f"{x},{105-int(c*5)*__import__('math').sin((x-20)*int(a)/300)}" for x in range(20,441,8))
+        visual = f'<polyline points="{pts}" fill="none" stroke="#0ea5e9" stroke-width="3"/><path d="M20 105 H440" stroke="#94a3b8" stroke-dasharray="4 5"/><text x="20" y="30" fill="currentColor" font-size="15">Frequency: {a} Hz</text>'
+    elif kind == "magnet":
+        visual = f'<rect x="75" y="80" width="125" height="55" rx="8" fill="#fecaca" stroke="#b91c1c" stroke-width="2"/><rect x="260" y="80" width="125" height="55" rx="8" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="2"/><text x="137" y="113" font-size="22" text-anchor="middle" fill="#991b1b">N</text><text x="322" y="113" font-size="22" text-anchor="middle" fill="#1e40af">{"S" if a=="Unlike poles" else "N"}</text><path d="M200 90 Q230 45 260 90 M200 125 Q230 170 260 125" stroke="#0ea5e9" fill="none" stroke-width="3"/>'
+    elif kind in ("force","friction","balanced","newton","motion","speed","acceleration"):
+        pos = 70 + int(min(250, float(a)*5))
+        visual = f'<path d="M35 185 H425" stroke="#64748b" stroke-width="4"/><rect x="{pos}" y="125" width="65" height="55" rx="8" fill="#bae6fd" stroke="#0284c7" stroke-width="3"/><circle cx="{pos+15}" cy="185" r="8" fill="#475569"/><circle cx="{pos+50}" cy="185" r="8" fill="#475569"/><path d="M{pos+32} 120 V65 M{pos+32} 65 l-10 14 M{pos+32} 65 l10 14" stroke="#f59e0b" stroke-width="4" fill="none"/><text x="35" y="35" fill="currentColor" font-size="16">Force / motion model</text>'
+    elif kind in ("pressure","pressure_area"):
+        visual = f'<rect x="100" y="55" width="260" height="135" fill="#bae6fd" fill-opacity=".55" stroke="#0284c7" stroke-width="2"/><path d="M100 90 H360 M100 125 H360 M100 160 H360" stroke="#0284c7" stroke-opacity=".5" stroke-width="2"/><path d="M230 75 V150 M220 140 L230 152 L240 140" stroke="#f59e0b" stroke-width="4" fill="none"/><text x="230" y="35" text-anchor="middle" fill="currentColor" font-size="15">Pressure model</text>'
+    elif kind == "lens":
+        visual = '<path d="M220 35 Q170 110 220 185 Q270 110 220 35" fill="#bae6fd" fill-opacity=".7" stroke="#0284c7" stroke-width="3"/><path d="M35 110 H405 M80 55 V165" stroke="#f59e0b" stroke-width="3"/><path d="M220 110 L360 70 M220 110 L360 150" stroke="#0ea5e9" stroke-width="3"/><text x="75" y="45" fill="currentColor" font-size="14">Object</text><text x="335" y="45" fill="currentColor" font-size="14">Image region</text>'
+    elif kind in ("work","potential"):
+        visual = f'<path d="M50 190 H410" stroke="#64748b" stroke-width="4"/><rect x="100" y="{150-int(min(100,float(b)*2))}" width="55" height="40" rx="5" fill="#bae6fd" stroke="#0284c7" stroke-width="3"/><path d="M130 45 V100 M120 90 L130 102 L140 90" stroke="#f59e0b" stroke-width="4" fill="none"/><text x="205" y="55" fill="currentColor" font-size="15">Work / energy</text>'
+    else:
+        visual = '<circle cx="130" cy="110" r="42" fill="#fde68a" stroke="#d97706" stroke-width="3"/><path d="M180 110 H280 M265 95 L282 110 L265 125" stroke="#0ea5e9" stroke-width="4" fill="none"/><rect x="300" y="75" width="75" height="70" rx="8" fill="#bae6fd" stroke="#0284c7" stroke-width="3"/><text x="130" y="116" text-anchor="middle" font-size="14" fill="#92400e">Input</text><text x="337" y="116" text-anchor="middle" font-size="14" fill="#075985">Effect</text>'
+    st.markdown("### " + ("ਦ੍ਰਿਸ਼ ਮਾਡਲ" if is_pa else "Visual model"))
+    st.markdown(f'<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;background:rgba(128,128,128,.035)"><svg viewBox="0 0 460 230" width="100%" role="img" aria-label="{title} interactive physics diagram">{visual}</svg></div>', unsafe_allow_html=True)
+    result = ""
+    if kind in ("motion","speed"):
+        value = float(a) / max(1.0,float(b))
+        result = f"Average speed = {value:.2f} m/s" if not is_pa else f"ਔਸਤ ਚਾਲ = {value:.2f} m/s"
+    elif kind in ("force","newton"):
+        result = f"Acceleration = {float(a)/max(1.0,float(b)):.2f} m/s² (F/m)" if not is_pa else f"ਤਵਰਣ = {float(a)/max(1.0,float(b)):.2f} m/s² (F/m)"
+    elif kind == "acceleration":
+        result = f"Average acceleration from rest = {float(a)/max(1.0,float(b)):.2f} m/s²" if not is_pa else f"ਆਰਾਮ ਤੋਂ ਔਸਤ ਤਵਰਣ = {float(a)/max(1.0,float(b)):.2f} m/s²"
+    elif kind == "work":
+        result = f"Work = {float(a)*float(b):.2f} J; average power is work/time (set a time in a real measurement)." if not is_pa else f"ਕੰਮ = {float(a)*float(b):.2f} J"
+    elif kind == "potential":
+        result = f"Gravitational potential energy ≈ {float(a)*9.8*float(b):.2f} J" if not is_pa else f"ਗੁਰੁਤਵਾਕਰਸ਼ੀ ਸਥਿਤਿਜ ਊਰਜਾ ≈ {float(a)*9.8*float(b):.2f} J"
+    elif kind == "pressure_area":
+        result = f"Pressure = {float(a)/(float(b)/10000):.2f} Pa" if not is_pa else f"ਦਬਾਅ = {float(a)/(float(b)/10000):.2f} Pa"
+    elif kind == "pressure":
+        result = f"Hydrostatic pressure (gauge) ≈ ρgh = {float(a)*float(b)*9.8:.2f} Pa" if not is_pa else f"ਤਰਲ ਦਬਾਅ ≈ ρgh = {float(a)*float(b)*9.8:.2f} Pa"
+    elif kind == "reflection":
+        result = f"Angle of reflection = {a}° for an ideal plane mirror." if not is_pa else f"ਆਦਰਸ਼ ਸ਼ੀਸ਼ੇ ਲਈ ਪਰਾਵਰਤਨ ਕੋਣ = {a}°।"
+    elif kind == "refraction":
+        result = f"Illustrative refractive index = {b}; ray bending depends on both media and incident angle." if not is_pa else f"ਸਮਝਾਉਣ ਲਈ ਅਪਵਰਤਨ ਅੰਕ = {b}।"
+    elif kind == "magnet":
+        result = "Attraction" if a == "Unlike poles" else "Repulsion"
+        if is_pa: result = "ਖਿੱਚ" if a == "Unlike poles" else "ਵਿਕਰਸ਼ਣ"
+    elif kind in ("sound","wave"):
+        result = f"Frequency = {a} Hz; period ≈ {1/float(a):.4f} s; amplitude setting = {c}/10." if not is_pa else f"ਆਵ੍ਰਿਤੀ = {a} Hz; ਆਵਰਤ ਕਾਲ ≈ {1/float(a):.4f} s।"
+    elif kind == "friction":
+        result = f"Illustrative friction tendency rises with roughness and normal force (mass setting {b} kg)." if not is_pa else f"ਖੁਰਦਰਾਪਣ ਅਤੇ ਲੰਬਕਾਰੀ ਬਲ ਵਧਣ ਨਾਲ ਘਰਸ਼ਣ ਦੀ ਰੁਝਾਨੀ ਮਾਤਰਾ ਵਧਦੀ ਹੈ।"
+    elif kind == "balanced":
+        net = float(a)-float(b)
+        result = f"Net force = {net:.1f} N; " + ("balanced" if net == 0 else "rightward resultant" if net > 0 else "leftward resultant")
+        if is_pa: result = f"ਕੁੱਲ ਬਲ = {net:.1f} N"
+    elif kind == "heat":
+        result = f"{b} is represented qualitatively; actual heat transfer depends on dimensions and conditions." if not is_pa else f"{b} ਦਾ ਤਾਪ ਚਾਲਨ ਗੁਣਾਤਮਕ ਤੌਰ ਤੇ ਦਿਖਾਇਆ ਗਿਆ ਹੈ।"
+    elif kind == "shadow":
+        result = "A larger object or a closer light source can produce a larger shadow in this simplified setup." if not is_pa else "ਇਸ ਸਧਾਰਨ ਮਾਡਲ ਵਿੱਚ ਵੱਡੀ ਵਸਤੂ ਜਾਂ ਨੇੜੇ ਰੋਸ਼ਨੀ ਨਾਲ ਵੱਡਾ ਪਰਛਾਵਾਂ ਬਣ ਸਕਦਾ ਹੈ।"
+    elif kind == "lens":
+        result = f"Object distance = {a} cm; focal length = {b} cm. Image behaviour changes around the focal length." if not is_pa else f"ਵਸਤੂ ਦੀ ਦੂਰੀ = {a} cm; ਫੋਕਸ ਦੂਰੀ = {b} cm।"
+    st.markdown("### " + ("ਨਿਰੀਖਣ" if is_pa else "Observation"))
+    st.success(result or note)
+    st.markdown("**" + ("ਵਿਗਿਆਨਕ ਵਿਆਖਿਆ" if is_pa else "Scientific explanation") + ":** " + note)
+    with st.expander("🧠 " + ("ਸੋਚੋ ਅਤੇ ਜਵਾਬ ਦਿਓ" if is_pa else "Think and answer")):
+        q = "ਕੰਟਰੋਲ ਬਦਲਣ ਨਾਲ ਨਤੀਜਾ ਕਿਉਂ ਬਦਲਿਆ?" if is_pa else "Why did the result change when you changed a control?"
+        st.write(q)
+        response = st.text_input("ਤੁਹਾਡਾ ਜਵਾਬ" if is_pa else "Your explanation", key=f"physics_reflect_{pc}_{ei}")
+        if st.button("ਜਵਾਬ ਦਿਖਾਓ" if is_pa else "Show learning point", key=f"physics_hint_{pc}_{ei}"):
+            st.info(note)
+    st.caption("Virtual model for learning. Results are simplified and are not substitutes for measured laboratory data." if not is_pa else "ਇਹ ਸਿੱਖਣ ਲਈ ਵਰਚੁਅਲ ਮਾਡਲ ਹੈ। ਨਤੀਜੇ ਸਰਲ ਕੀਤੇ ਗਏ ਹਨ, ਅਸਲ ਲੈਬ ਮਾਪ ਨਹੀਂ।")
+
 def planned_lab(page):
     if st.button(tr("back")):
         go("home")
@@ -1775,7 +1962,10 @@ if st.session_state.page == "home":
 elif st.session_state.page == "electricity":
     show_header()
     electricity_lab()
-elif st.session_state.page in ("chemistry","physics","biology","mentor"):
+elif st.session_state.page == "physics":
+    show_header()
+    physics_lab()
+elif st.session_state.page in ("chemistry","biology","mentor"):
     show_header()
     planned_lab(st.session_state.page)
 else:
