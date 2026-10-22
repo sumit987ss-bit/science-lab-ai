@@ -2504,7 +2504,7 @@ def physics_lab():
         result = f"Acceleration = {float(a)/max(1.0,float(b)):.2f} m/s² (F/m)" if not is_pa else f"ਤਵਰਣ = {float(a)/max(1.0,float(b)):.2f} m/s² (F/m)"
     elif kind == "acceleration" and not class9_speed_acceleration_experiment:
         result = f"Average acceleration from rest = {float(a)/max(1.0,float(b)):.2f} m/s²" if not is_pa else f"ਆਰਾਮ ਤੋਂ ਔਸਤ ਤਵਰਣ = {float(a)/max(1.0,float(b)):.2f} m/s²"
-    elif kind == "work":
+    elif kind == "work" and not class10_work_power_energy_experiment:
         result = f"Work = {float(a)*float(b):.2f} J; average power is work/time (set a time in a real measurement)." if not is_pa else f"ਕੰਮ = {float(a)*float(b):.2f} J"
     elif kind == "potential" and not class9_gravity_experiment:
         result = f"Gravitational potential energy ≈ {float(a)*9.8*float(b):.2f} J" if not is_pa else f"ਗੁਰੁਤਵਾਕਰਸ਼ੀ ਸਥਿਤਿਜ ਊਰਜਾ ≈ {float(a)*9.8*float(b):.2f} J"
