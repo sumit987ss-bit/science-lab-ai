@@ -1881,6 +1881,7 @@ def physics_lab():
     class9_speed_acceleration_experiment = pc == 9 and ei == 0 and kind == "acceleration"
     class9_newton_experiment = pc == 9 and ei == 1 and kind == "newton"
     class9_work_energy_experiment = pc == 9 and ei == 2 and kind == "work"
+    class9_refraction_experiment = pc == 9 and ei == 3 and kind == "refraction"
     # Class 8 sound uses a qualitative dropdown, not numeric frequency/amplitude sliders.
     if class8_sound_wave_examples_experiment:
         sound_examples = ["Soft, low-pitched sound", "Loud, low-pitched sound", "Soft, high-pitched sound", "Loud, high-pitched sound"]
@@ -1976,6 +1977,11 @@ def physics_lab():
             key="physics_class6_slow_fast_choice"
         )
         b = a
+    elif class9_refraction_experiment:
+        refraction_scenarios = ["Air to glass block", "Glass block to air"]
+        refraction_scenarios_pa = ["ਹਵਾ ਤੋਂ ਕੱਚ ਦੇ ਬਲਾਕ ਵਿੱਚ", "ਕੱਚ ਦੇ ਬਲਾਕ ਤੋਂ ਹਵਾ ਵਿੱਚ"]
+        a = st.selectbox("Choose the direction of light" if not is_pa else "ਰੋਸ਼ਨੀ ਦੀ ਦਿਸ਼ਾ ਚੁਣੋ", refraction_scenarios, format_func=lambda x: refraction_scenarios_pa[refraction_scenarios.index(x)] if is_pa else x, key="physics_class9_refraction_direction_" + st.session_state.language)
+        b = a
     elif class9_work_energy_experiment:
         work_scenarios = ["Pushing a box forward", "Lifting a box upward", "Holding a box still"]
         work_scenarios_pa = ["ਅੱਗੇ ਵੱਲ ਡੱਬੇ ਨੂੰ ਧੱਕਣਾ", "ਡੱਬੇ ਨੂੰ ਉੱਪਰ ਚੁੱਕਣਾ", "ਡੱਬੇ ਨੂੰ ਸਥਿਰ ਫੜਨਾ"]
@@ -2047,6 +2053,25 @@ def physics_lab():
         heading = "MOTION AND ACCELERATION" if not is_pa else "ਗਤੀ ਅਤੇ ਤਵਰਣ"
         road_label = "Vehicle positions (illustrative)" if not is_pa else "ਵਾਹਨ ਦੀਆਂ ਸਥਿਤੀਆਂ (ਸਮਝਾਉਣ ਲਈ)"
         visual = f'<rect x="12" y="12" width="436" height="206" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="32" text-anchor="middle" fill="#334155" font-size="14" font-weight="700">{heading}</text><path d="M30 150 H420" stroke="#64748b" stroke-width="3" stroke-dasharray="10 7"/>{positions}<rect x="92" y="75" width="78" height="35" rx="8" fill="#60a5fa" stroke="#1d4ed8" stroke-width="2"/><rect x="104" y="81" width="22" height="12" rx="2" fill="#dbeafe"/><rect x="132" y="81" width="22" height="12" rx="2" fill="#dbeafe"/><circle cx="108" cy="112" r="8" fill="#334155"/><circle cx="154" cy="112" r="8" fill="#334155"/>{motion_arrows}<text x="230" y="177" text-anchor="middle" fill="#334155" font-size="12">{road_label}</text><text x="230" y="201" text-anchor="middle" fill="#0f766e" font-size="13" font-weight="700">{scene_label}</text>'
+    elif class9_refraction_experiment:
+        if a == "Air to glass block":
+            ray_label = "AIR → GLASS: BENDS TOWARD NORMAL" if not is_pa else "ਹਵਾ → ਕੱਚ: ਲੰਬ ਵੱਲ ਮੁੜਦੀ ਹੈ"
+            incident_color = "#f59e0b"
+            refracted_color = "#0ea5e9"
+            refracted_path = '<path d="M65 58 L220 135 L272 175" stroke="#0ea5e9" stroke-width="4" fill="none" stroke-linecap="round"/>'
+            arrow_head = '<path d="M258 171 L274 176 L269 160" stroke="#0ea5e9" stroke-width="4" fill="none"/>'
+        else:
+            ray_label = "GLASS → AIR: BENDS AWAY FROM NORMAL" if not is_pa else "ਕੱਚ → ਹਵਾ: ਲੰਬ ਤੋਂ ਦੂਰ ਮੁੜਦੀ ਹੈ"
+            incident_color = "#f59e0b"
+            refracted_color = "#0ea5e9"
+            refracted_path = '<path d="M65 58 L220 135 L360 205" stroke="#0ea5e9" stroke-width="4" fill="none" stroke-linecap="round"/>'
+            arrow_head = '<path d="M344 196 L362 206 L356 187" stroke="#0ea5e9" stroke-width="4" fill="none"/>'
+        visual = f'<rect x="12" y="12" width="436" height="206" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="31" text-anchor="middle" font-size="14" font-weight="700" fill="#334155">{("REFRACTION OF LIGHT THROUGH A GLASS BLOCK" if not is_pa else "ਕੱਚ ਦੇ ਬਲਾਕ ਵਿੱਚ ਰੋਸ਼ਨੀ ਦਾ ਅਪਵਰਤਨ")}</text><rect x="70" y="82" width="320" height="112" rx="4" fill="#bae6fd" fill-opacity=".55" stroke="#0284c7" stroke-width="2"/><text x="92" y="101" font-size="11" fill="#075985">{("GLASS BLOCK" if not is_pa else "ਕੱਚ ਦਾ ਬਲਾਕ")}</text><path d="M220 45 V207" stroke="#64748b" stroke-width="2" stroke-dasharray="6 5"/><text x="229" y="53" font-size="11" fill="#475569">{("NORMAL" if not is_pa else "ਲੰਬ")}</text><path d="M65 58 L220 135" stroke="{incident_color}" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M207 126 L221 136 L216 119" stroke="{incident_color}" stroke-width="4" fill="none"/>{refracted_path}{arrow_head}<circle cx="220" cy="135" r="5" fill="#dc2626"/><text x="62" y="47" font-size="11" font-weight="700" fill="#b45309">{("INCIDENT RAY" if not is_pa else "ਆਗਮਨ ਕਿਰਨ")}</text><text x="230" y="211" text-anchor="middle" font-size="11" font-weight="700" fill="#0f766e">{ray_label}</text>'
+    elif class9_refraction_experiment:
+        if a == "Air to glass block":
+            result = ("As light enters glass from air at an angle, it slows down and bends towards the normal. The ray changes direction at the boundary." if not is_pa else "ਜਦੋਂ ਰੋਸ਼ਨੀ ਕੋਣ ਨਾਲ ਹਵਾ ਤੋਂ ਕੱਚ ਵਿੱਚ ਜਾਂਦੀ ਹੈ, ਇਸ ਦੀ ਗਤੀ ਘਟਦੀ ਹੈ ਅਤੇ ਕਿਰਨ ਲੰਬ ਵੱਲ ਮੁੜਦੀ ਹੈ। ਸੀਮਾ ਉੱਤੇ ਦਿਸ਼ਾ ਬਦਲਦੀ ਹੈ।")
+        else:
+            result = ("As light leaves glass and enters air at an angle, it speeds up and bends away from the normal." if not is_pa else "ਜਦੋਂ ਰੋਸ਼ਨੀ ਕੋਣ ਨਾਲ ਕੱਚ ਤੋਂ ਹਵਾ ਵਿੱਚ ਜਾਂਦੀ ਹੈ, ਇਸ ਦੀ ਗਤੀ ਵਧਦੀ ਹੈ ਅਤੇ ਕਿਰਨ ਲੰਬ ਤੋਂ ਦੂਰ ਮੁੜਦੀ ਹੈ।")
     elif class9_work_energy_experiment:
         if a == "Pushing a box forward":
             action_label = "FORCE + FORWARD MOTION" if not is_pa else "ਬਲ + ਅੱਗੇ ਵੱਲ ਗਤੀ"
