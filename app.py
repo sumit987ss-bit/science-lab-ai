@@ -169,7 +169,7 @@ def electricity_lab():
         # Keep controls aligned with the class level: Classes 6–9 use qualitative models.
         # Numerical voltage, resistance, coil-turn and current controls are shown only
         # for relevant Class 10 quantitative experiments.
-        quantitative_class10 = selected_class == 10 and kind in ("ohms", "series_parallel", "power", "heating")
+        quantitative_class10 = selected_class == 10 and (kind in ("ohms", "series_parallel", "power", "heating") or (kind == "magnetic_field" and exp_index == 3))
         voltage = st.slider(tr("voltage"), 0, 24, 12, 1, key=f"v_{selected_class}_{exp_index}") if quantitative_class10 else 12
         resistance = st.slider(tr("resistance"), 1, 100, 6, 1, key=f"r_{selected_class}_{exp_index}") if quantitative_class10 else 6
         # Class 7 Experiment 4 uses a current-condition selector, not a switch checkbox.
@@ -1165,6 +1165,52 @@ def electricity_lab():
                 strength = turns * current_control
                 st.metric(tr("magnetic"), f"{strength:.1f} relative units")
                 st.write(f"{tr('turns')}: {turns} · {tr('current_control')}: {current_control:.1f} A")
+        elif selected_class == 10 and exp_index == 3 and kind == "magnetic_field":
+            # Class 10 Experiment 4: quantitative model of magnetic field around a straight wire.
+            is_pa_wire10 = st.session_state.language != "en"
+            wire_current10 = voltage / resistance if closed and resistance else 0.0
+            # Relative visual index is proportional to current; it is not a measured field strength.
+            field_index10 = wire_current10 * 10.0
+            ring_color10 = "#2563eb" if closed and wire_current10 > 0 else "#94a3b8"
+            ring_opacity10 = min(1.0, 0.25 + field_index10 / 10.0)
+            ring_svg10 = ""
+            for radius10 in (32, 50, 68, 86):
+                ring_svg10 += f'<circle cx="230" cy="116" r="{radius10}" fill="none" stroke="{ring_color10}" stroke-width="2.5" opacity="{ring_opacity10:.2f}" stroke-dasharray="5 4"/>'
+            direction_art10 = (
+                '<circle cx="230" cy="116" r="13" fill="#dcfce7" stroke="#15803d" stroke-width="2"/><circle cx="230" cy="116" r="4" fill="#15803d"/>'
+                if closed else
+                '<circle cx="230" cy="116" r="13" fill="#f1f5f9" stroke="#64748b" stroke-width="2"/><path d="M221 107 L239 125 M239 107 L221 125" stroke="#64748b" stroke-width="2"/>'
+            )
+            compass_angle10 = 28 if closed and wire_current10 > 0 else 0
+            compass10 = f'<g transform="rotate({compass_angle10} 95 116)"><path d="M95 85 L87 119 L95 112 L103 119 Z" fill="#dc2626"/><path d="M95 147 L87 113 L95 120 L103 113 Z" fill="#334155"/></g>'
+            wire_svg10 = f"""<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:10px;background:rgba(128,128,128,.035);">
+            <svg viewBox="0 0 460 235" width="100%" role="img" aria-label="Numerical magnetic field simulation around a straight wire with circular field lines and compass">
+              {ring_svg10}
+              <path d="M230 24 V207" stroke="{ '#16a34a' if closed and wire_current10 > 0 else '#94a3b8' }" stroke-width="7" stroke-linecap="round"/>
+              {direction_art10}
+              <circle cx="95" cy="116" r="38" fill="#f8fafc" stroke="#64748b" stroke-width="3"/>
+              {compass10}
+              <circle cx="95" cy="116" r="4" fill="#0f172a"/>
+              <g fill="currentColor" font-size="12" text-anchor="middle"><text x="230" y="15">{ "ਕਰੰਟ ਵਾਲੀ ਤਾਰ" if is_pa_wire10 else "CURRENT-CARRYING WIRE" }</text><text x="95" y="169">{ "ਕੰਪਾਸ" if is_pa_wire10 else "COMPASS" }</text><text x="230" y="229">{ "ਗੋਲ ਚੁੰਬਕੀ ਖੇਤਰ ਰੇਖਾਵਾਂ" if is_pa_wire10 else "CIRCULAR MAGNETIC FIELD LINES" }</text></g>
+              <text x="230" y="202" fill="currentColor" font-size="12" text-anchor="middle">I = {wire_current10:.2f} A</text>
+            </svg></div>"""
+            st.markdown("#### " + ("ਸਿੱਧੀ ਤਾਰ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਚੁੰਬਕੀ ਖੇਤਰ" if is_pa_wire10 else "Magnetic Field Around a Straight Wire"))
+            st.markdown(wire_svg10, unsafe_allow_html=True)
+            st.markdown("**" + ("ਸੰਬੰਧਿਤ ਸੂਤਰ" if is_pa_wire10 else "Relevant relationship") + ":** I = V/R  ·  For a long straight wire, B ∝ I/r")
+            wire_a10, wire_b10, wire_c10 = st.columns(3)
+            wire_a10.metric("V (V)", f"{voltage}")
+            wire_b10.metric("I (A)", f"{wire_current10:.2f}")
+            wire_c10.metric("Relative field index", f"{field_index10:.2f}")
+            st.caption(("Relative field index ਸਿਰਫ਼ ਦ੍ਰਿਸ਼ ਤੁਲਨਾ ਲਈ ਹੈ, ਟੈਸਲਾ ਵਿੱਚ ਅਸਲ ਮਾਪ ਨਹੀਂ।" if is_pa_wire10 else "The relative field index is for visual comparison only; it is not a measured field in tesla."))
+            st.markdown("**" + ("ਵੱਖ-ਵੱਖ ਵੋਲਟੇਜਾਂ ਲਈ ਗਣਨਾ" if is_pa_wire10 else "Calculated observations at different voltages") + "**")
+            wire_rows10 = []
+            for v_wire10 in (6, 12, 18, 24):
+                i_wire10 = v_wire10 / resistance if closed else 0.0
+                wire_rows10.append({"V (V)": v_wire10, "R (Ω)": resistance, "I = V/R (A)": round(i_wire10, 2), "Relative index": round(i_wire10 * 10.0, 2)})
+            st.dataframe(wire_rows10, use_container_width=True, hide_index=True)
+            if not closed:
+                st.info("ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ ਹੈ: ਕਰੰਟ ਨਹੀਂ ਵਗਦਾ, ਇਸ ਲਈ ਕਰੰਟ ਕਾਰਨ ਚੁੰਬਕੀ ਖੇਤਰ ਨਹੀਂ ਬਣਦਾ।" if is_pa_wire10 else "Switch open: no current flows, so there is no current-induced magnetic field.")
+            st.caption(("ਆਦਰਸ਼ ਵਰਚੁਅਲ ਸਿਮੂਲੇਸ਼ਨ; ਅਸਲ ਮੈਦਾਨੀ ਤਾਕਤ ਤਾਰ ਤੋਂ ਦੂਰੀ ਅਤੇ ਹੋਰ ਹਾਲਾਤਾਂ 'ਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।" if is_pa_wire10 else "Ideal virtual simulation; actual field strength also depends on distance from the wire and other conditions."))
         elif kind == "magnetic_field":
             if selected_class == 7 and exp_index == 4:
                 is_pa_field = st.session_state.language != "en"
