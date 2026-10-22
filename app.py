@@ -825,7 +825,7 @@ def electricity_lab():
             <svg viewBox="0 0 340 235" width="100%" role="img" aria-label="Series circuit: one main switch controls both bulbs">
               <g fill="none" stroke="{series_wire}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M48 58 H92 M136 58 H204 M248 58 H292 V177 H195 M145 177 H48 V119 M48 58 V82"/>
-                <path d="M145 177 L${195 if series_switch else 170} ${177 if series_switch else 151}" stroke="#64748b" stroke-width="3"/>
+                <path d="M145 177 L{195 if series_switch else 170} {177 if series_switch else 151}" stroke="#64748b" stroke-width="3"/>
               </g>
               <g stroke="#334155" stroke-width="3"><line x1="31" y1="82" x2="65" y2="82"/><line x1="38" y1="101" x2="58" y2="101"/></g>
               <circle cx="114" cy="58" r="22" fill="{series_bulb}" stroke="#475569" stroke-width="3" style="{series_glow}"/>
