@@ -2382,7 +2382,7 @@ def physics_lab():
         result = f"Average acceleration from rest = {float(a)/max(1.0,float(b)):.2f} m/s²" if not is_pa else f"ਆਰਾਮ ਤੋਂ ਔਸਤ ਤਵਰਣ = {float(a)/max(1.0,float(b)):.2f} m/s²"
     elif kind == "work":
         result = f"Work = {float(a)*float(b):.2f} J; average power is work/time (set a time in a real measurement)." if not is_pa else f"ਕੰਮ = {float(a)*float(b):.2f} J"
-    elif kind == "potential":
+    elif kind == "potential" and not class9_gravity_experiment:
         result = f"Gravitational potential energy ≈ {float(a)*9.8*float(b):.2f} J" if not is_pa else f"ਗੁਰੁਤਵਾਕਰਸ਼ੀ ਸਥਿਤਿਜ ਊਰਜਾ ≈ {float(a)*9.8*float(b):.2f} J"
     elif pressure_area_examples_experiment:
         if a == "Snowshoes vs high heels":
