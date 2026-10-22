@@ -169,7 +169,7 @@ def electricity_lab():
         # Keep controls aligned with the class level: Classes 6–9 use qualitative models.
         # Numerical voltage, resistance, coil-turn and current controls are shown only
         # for relevant Class 10 quantitative experiments.
-        quantitative_class10 = selected_class == 10 and (kind in ("ohms", "series_parallel", "power", "heating") or (kind == "magnetic_field" and exp_index == 3))
+        quantitative_class10 = selected_class == 10 and (kind in ("ohms", "series_parallel", "power", "heating") or (kind == "magnetic_field" and exp_index == 3) or (kind == "motor" and exp_index == 4))
         voltage = st.slider(tr("voltage"), 0, 24, 12, 1, key=f"v_{selected_class}_{exp_index}") if quantitative_class10 else 12
         resistance = st.slider(tr("resistance"), 1, 100, 6, 1, key=f"r_{selected_class}_{exp_index}") if quantitative_class10 else 6
         # Class 7 Experiment 4 uses a current-condition selector, not a switch checkbox.
@@ -1641,6 +1641,50 @@ def electricity_lab():
             else:
                 st.success("ਕਰੰਟ ਫਿਊਜ਼ ਦੀ ਹੱਦ ਤੋਂ ਘੱਟ ਹੈ, ਇਸ ਲਈ ਫਿਊਜ਼ ਸਹੀ ਰਹਿੰਦਾ ਹੈ ਅਤੇ ਬਲਬ ਜਗਦਾ ਹੈ।" if is_pa_fuse else "Current is below the fuse rating, so the fuse stays intact and the bulb glows.")
             st.caption("ਸਿਰਫ਼ ਵਰਚੁਅਲ ਸਿਮੂਲੇਸ਼ਨ — ਅਸਲੀ ਫਿਊਜ਼ ਜਾਂ ਸ਼ਾਰਟ ਸਰਕਟ ਦੀ ਜਾਂਚ ਨਾ ਕਰੋ।" if is_pa_fuse else "Virtual simulation only — do not test a real fuse or create a real short circuit.")
+        elif selected_class == 10 and exp_index == 4 and kind == "motor":
+            # Class 10 Experiment 5: motor principle, with illustrative electrical/mechanical calculations.
+            is_pa_motor10 = st.session_state.language != "en"
+            motor_current10 = voltage / resistance if closed and resistance else 0.0
+            motor_input10 = voltage * motor_current10
+            motor_hours10 = st.slider("ਸਮਾਂ (ਘੰਟੇ)" if is_pa_motor10 else "Operating time (hours)", 0.5, 8.0, 1.0, 0.5, key="class10_motor_hours")
+            motor_eff10 = st.slider("ਮਾਡਲ ਦੀ ਕੁਸ਼ਲਤਾ (%)" if is_pa_motor10 else "Assumed model efficiency (%)", 10, 90, 70, 5, key="class10_motor_efficiency")
+            motor_output10 = motor_input10 * motor_eff10 / 100.0
+            motor_energy10 = motor_input10 * motor_hours10 / 1000.0
+            spin10 = closed and voltage > 0
+            rotor_angle10 = 35 if spin10 else 0
+            motor_color10 = "#16a34a" if spin10 else "#94a3b8"
+            rotor_art10 = f'<g transform="rotate({rotor_angle10} 230 108)"><rect x="216" y="67" width="28" height="82" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="3"/><path d="M230 74 V142 M220 108 H240" stroke="#b45309" stroke-width="3"/><circle cx="230" cy="108" r="7" fill="#92400e"/></g>'
+            spin_marks10 = '<path d="M195 61 A47 47 0 0 1 267 62 M262 53 L268 62 L257 64" fill="none" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>' if spin10 else ""
+            motor_svg10 = f"""<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:10px;background:rgba(128,128,128,.035);">
+            <svg viewBox="0 0 460 240" width="100%" role="img" aria-label="Simple DC motor showing north and south magnets, a rotating coil, axle and battery circuit">
+              <rect x="48" y="65" width="52" height="90" rx="8" fill="#fecaca" stroke="#b91c1c" stroke-width="2"/><text x="74" y="113" fill="#991b1b" font-size="22" font-weight="700" text-anchor="middle">N</text>
+              <rect x="360" y="65" width="52" height="90" rx="8" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="2"/><text x="386" y="113" fill="#1e40af" font-size="22" font-weight="700" text-anchor="middle">S</text>
+              <g stroke="#64748b" stroke-width="2" stroke-dasharray="5 5"><path d="M105 83 H355 M105 108 H355 M105 133 H355"/></g>
+              {rotor_art10}{spin_marks10}
+              <path d="M230 149 V178 H105 V201 H355 V178 H230" fill="none" stroke="{motor_color10}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="192" y="188" width="76" height="29" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><text x="230" y="207" fill="#1e40af" font-size="12" font-weight="700" text-anchor="middle">{voltage} V cell</text>
+              <g fill="currentColor" font-size="12" text-anchor="middle"><text x="74" y="53">{ "ਉੱਤਰੀ ਧਰੁਵ" if is_pa_motor10 else "NORTH POLE" }</text><text x="386" y="53">{ "ਦੱਖਣੀ ਧਰੁਵ" if is_pa_motor10 else "SOUTH POLE" }</text><text x="230" y="29">{ "ਕੋਇਲ / ਰੋਟਰ" if is_pa_motor10 else "COIL / ROTOR" }</text><text x="230" y="234">{ "ਕਰੰਟ ਚਾਲੂ: ਘੁੰਮਣ ਦਾ ਸਿਧਾਂਤ" if is_pa_motor10 and spin10 else "ਕਰੰਟ ਬੰਦ: ਰੋਟਰ ਰੁਕਿਆ" if is_pa_motor10 else "Current on: rotation principle" if spin10 else "Current off: rotor stopped" }</text></g>
+            </svg></div>"""
+            st.markdown("#### " + ("ਸਧਾਰਨ DC ਮੋਟਰ ਦਾ ਸਿਧਾਂਤ" if is_pa_motor10 else "Principle of a Simple DC Motor"))
+            st.markdown(motor_svg10, unsafe_allow_html=True)
+            st.markdown("**" + ("ਗਣਨਾ ਦੇ ਸੂਤਰ" if is_pa_motor10 else "Calculation formulas") + ":** I = V/R · P(input) = VI · P(output) = efficiency × P(input) · E = P(input) × time")
+            motor_a10, motor_b10, motor_c10 = st.columns(3)
+            motor_a10.metric("Current (A)", f"{motor_current10:.2f}")
+            motor_b10.metric("Input power (W)", f"{motor_input10:.2f}")
+            motor_c10.metric("Estimated output (W)", f"{motor_output10:.2f}")
+            st.metric("Electrical energy (kWh)", f"{motor_energy10:.4f}")
+            st.caption(("ਕੁਸ਼ਲਤਾ ਅਨੁਮਾਨਿਤ ਸੈਟਿੰਗ ਹੈ; ਇਹ ਅਸਲੀ ਮੋਟਰ ਦੀ ਮਾਪੀ ਹੋਈ ਕੁਸ਼ਲਤਾ ਨਹੀਂ।" if is_pa_motor10 else "Efficiency is an assumed setting; it is not a measured efficiency of a real motor."))
+            st.markdown("**" + ("ਵੋਲਟੇਜ ਅਨੁਸਾਰ ਗਣਨਾ ਕੀਤੀਆਂ ਰੀਡਿੰਗਾਂ" if is_pa_motor10 else "Calculated observations at different voltages") + "**")
+            motor_rows10 = []
+            for vm10 in (6, 12, 18, 24):
+                im10 = vm10 / resistance if closed else 0.0
+                pin10 = vm10 * im10
+                pout10 = pin10 * motor_eff10 / 100.0
+                motor_rows10.append({"V (V)": vm10, "R (Ω)": resistance, "I (A)": round(im10, 2), "Input P (W)": round(pin10, 2), "Estimated output P (W)": round(pout10, 2)})
+            st.dataframe(motor_rows10, use_container_width=True, hide_index=True)
+            if not closed:
+                st.info("ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ ਹੈ: ਕਰੰਟ ਨਹੀਂ ਵਗਦਾ ਅਤੇ ਮੋਟਰ ਰੁਕੀ ਰਹਿੰਦੀ ਹੈ।" if is_pa_motor10 else "Switch open: no current flows and the motor remains stopped.")
+            st.caption(("ਆਦਰਸ਼ ਵਰਚੁਅਲ ਮਾਡਲ; ਅਸਲ ਮੋਟਰ ਦੀ ਗਤੀ ਲੋਡ, ਬਣਤਰ ਅਤੇ ਹੋਰ ਕਾਰਕਾਂ 'ਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ। ਘਰੇਲੂ ਮੇਨ ਬਿਜਲੀ ਨਾਲ ਪ੍ਰਯੋਗ ਨਾ ਕਰੋ।" if is_pa_motor10 else "Ideal virtual model; real motor speed depends on load, design and other factors. Never experiment with household mains electricity."))
         elif kind == "motor":
             st.metric("Motor model", "Rotating" if closed and voltage > 0 else "Stopped")
             st.write(note)
