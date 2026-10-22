@@ -1832,6 +1832,7 @@ def physics_lab():
     balanced_forces_examples_experiment = pc == 8 and ei == 1 and kind == "balanced"
     heat_conduction_examples_experiment = pc == 8 and ei == 2 and kind == "heat"
     class8_sound_wave_examples_experiment = pc == 8 and ei == 4 and kind == "wave"
+    class9_speed_acceleration_experiment = pc == 9 and ei == 0 and kind == "acceleration"
     # Class 8 sound uses a qualitative dropdown, not numeric frequency/amplitude sliders.
     if class8_sound_wave_examples_experiment:
         sound_examples = ["Soft, low-pitched sound", "Loud, low-pitched sound", "Soft, high-pitched sound", "Loud, high-pitched sound"]
@@ -1927,6 +1928,11 @@ def physics_lab():
             key="physics_class6_slow_fast_choice"
         )
         b = a
+    elif class9_speed_acceleration_experiment:
+        motion_examples = ["Starting from rest and speeding up", "Moving at steady speed", "Slowing down", "Changing direction"]
+        motion_examples_pa = ["ਆਰਾਮ ਤੋਂ ਚੱਲ ਕੇ ਤੇਜ਼ ਹੋਣਾ", "ਇਕਸਾਰ ਚਾਲ ਨਾਲ ਚੱਲਣਾ", "ਹੌਲਾ ਹੋਣਾ", "ਦਿਸ਼ਾ ਬਦਲਣਾ"]
+        a = st.selectbox("Choose a motion example" if not is_pa else "ਗਤੀ ਦੀ ਉਦਾਹਰਨ ਚੁਣੋ", motion_examples, format_func=lambda x: motion_examples_pa[motion_examples.index(x)] if is_pa else x, key="physics_class9_motion_example_" + st.session_state.language)
+        b = a
     else:
         c1, c2 = st.columns(2)
         with c1:
@@ -1963,7 +1969,27 @@ def physics_lab():
         c = b
     # Produce a distinct, responsive schematic for the selected phenomenon.
     visual = ""
-    if current_magnetic_field_experiment:
+    if class9_speed_acceleration_experiment:
+        if a == "Starting from rest and speeding up":
+            motion_arrows = '<path d="M145 112 H195 M185 102 L197 112 L185 122 M220 112 H270 M260 102 L272 112 L260 122" stroke="#16a34a" stroke-width="4" fill="none"/>'
+            scene_label = "SPEEDING UP · SPACING GROWS" if not is_pa else "ਤੇਜ਼ ਹੋਣਾ · ਦੂਰੀ ਵਧਦੀ ਹੈ"
+            positions = '<circle cx="65" cy="145" r="5" fill="#0ea5e9"/><circle cx="100" cy="145" r="5" fill="#0ea5e9"/><circle cx="155" cy="145" r="5" fill="#0ea5e9"/><circle cx="235" cy="145" r="5" fill="#0ea5e9"/>'
+        elif a == "Moving at steady speed":
+            motion_arrows = '<path d="M145 112 H185 M175 102 L187 112 L175 122 M220 112 H260 M250 102 L262 112 L250 122" stroke="#0ea5e9" stroke-width="4" fill="none"/>'
+            scene_label = "STEADY SPEED · EQUAL SPACING" if not is_pa else "ਇਕਸਾਰ ਚਾਲ · ਬਰਾਬਰ ਦੂਰੀ"
+            positions = '<circle cx="65" cy="145" r="5" fill="#0ea5e9"/><circle cx="115" cy="145" r="5" fill="#0ea5e9"/><circle cx="165" cy="145" r="5" fill="#0ea5e9"/><circle cx="215" cy="145" r="5" fill="#0ea5e9"/>'
+        elif a == "Slowing down":
+            motion_arrows = '<path d="M145 112 H165 M155 102 L167 112 L155 122 M220 112 H240 M230 102 L242 112 L230 122" stroke="#f59e0b" stroke-width="4" fill="none"/>'
+            scene_label = "SLOWING DOWN · SPACING SHRINKS" if not is_pa else "ਹੌਲਾ ਹੋਣਾ · ਦੂਰੀ ਘਟਦੀ ਹੈ"
+            positions = '<circle cx="65" cy="145" r="5" fill="#0ea5e9"/><circle cx="145" cy="145" r="5" fill="#0ea5e9"/><circle cx="185" cy="145" r="5" fill="#0ea5e9"/><circle cx="210" cy="145" r="5" fill="#0ea5e9"/>'
+        else:
+            motion_arrows = '<path d="M145 112 H185 M175 102 L187 112 L175 122" stroke="#7c3aed" stroke-width="4" fill="none"/><path d="M210 126 L230 146 M220 146 H232 V134" stroke="#7c3aed" stroke-width="4" fill="none"/>'
+            scene_label = "DIRECTION CHANGES · VELOCITY CHANGES" if not is_pa else "ਦਿਸ਼ਾ ਬਦਲਦੀ ਹੈ · ਵੇਗ ਬਦਲਦਾ ਹੈ"
+            positions = '<circle cx="65" cy="145" r="5" fill="#0ea5e9"/><circle cx="115" cy="145" r="5" fill="#0ea5e9"/><circle cx="165" cy="145" r="5" fill="#0ea5e9"/><circle cx="215" cy="145" r="5" fill="#7c3aed"/>'
+        heading = "MOTION AND ACCELERATION" if not is_pa else "ਗਤੀ ਅਤੇ ਤਵਰਣ"
+        road_label = "Vehicle positions (illustrative)" if not is_pa else "ਵਾਹਨ ਦੀਆਂ ਸਥਿਤੀਆਂ (ਸਮਝਾਉਣ ਲਈ)"
+        visual = f'<rect x="12" y="12" width="436" height="206" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="32" text-anchor="middle" fill="#334155" font-size="14" font-weight="700">{heading}</text><path d="M30 150 H420" stroke="#64748b" stroke-width="3" stroke-dasharray="10 7"/>{positions}<rect x="92" y="75" width="78" height="35" rx="8" fill="#60a5fa" stroke="#1d4ed8" stroke-width="2"/><rect x="104" y="81" width="22" height="12" rx="2" fill="#dbeafe"/><rect x="132" y="81" width="22" height="12" rx="2" fill="#dbeafe"/><circle cx="108" cy="112" r="8" fill="#334155"/><circle cx="154" cy="112" r="8" fill="#334155"/>{motion_arrows}<text x="230" y="177" text-anchor="middle" fill="#334155" font-size="12">{road_label}</text><text x="230" y="201" text-anchor="middle" fill="#0f766e" font-size="13" font-weight="700">{scene_label}</text>'
+    elif current_magnetic_field_experiment:
         current_on = a.startswith("Switch ON")
         field_color = "#0ea5e9" if current_on else "#cbd5e1"
         field_lines = ('<ellipse cx="220" cy="112" rx="42" ry="30" fill="none" stroke="#0ea5e9" stroke-width="2.5"/><ellipse cx="220" cy="112" rx="68" ry="49" fill="none" stroke="#0ea5e9" stroke-width="2.5"/><ellipse cx="220" cy="112" rx="94" ry="68" fill="none" stroke="#0ea5e9" stroke-width="2.5"/>' if current_on else '<text x="220" y="80" text-anchor="middle" fill="#64748b" font-size="13">No current → no magnetic field from the wire</text>')
@@ -2172,12 +2198,20 @@ def physics_lab():
             result = ("The two pushes are equal and opposite. They balance each other, so the table’s motion does not change; if it was at rest, it stays at rest." if not is_pa else "ਦੋਵੇਂ ਧੱਕੇ ਬਰਾਬਰ ਅਤੇ ਉਲਟ ਦਿਸ਼ਾਵਾਂ ਵਿੱਚ ਹਨ। ਇਹ ਇੱਕ-ਦੂਜੇ ਨੂੰ ਸੰਤੁਲਿਤ ਕਰਦੇ ਹਨ, ਇਸ ਲਈ ਮੇਜ਼ ਦੀ ਗਤੀ ਨਹੀਂ ਬਦਲਦੀ; ਜੇ ਇਹ ਪਹਿਲਾਂ ਸਥਿਰ ਸੀ ਤਾਂ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ।")
         else:
             result = ("The pushes are opposite but unequal. The stronger push to the left makes the forces unbalanced, so the table accelerates left." if not is_pa else "ਧੱਕੇ ਉਲਟ ਦਿਸ਼ਾਵਾਂ ਵਿੱਚ ਹਨ ਪਰ ਬਰਾਬਰ ਨਹੀਂ। ਖੱਬੇ ਪਾਸੇ ਦਾ ਵੱਧ ਬਲ ਅਸੰਤੁਲਨ ਪੈਦਾ ਕਰਦਾ ਹੈ, ਇਸ ਲਈ ਮੇਜ਼ ਖੱਬੇ ਵੱਲ ਤੇਜ਼ ਹੁੰਦੀ ਹੈ।")
+    elif class9_speed_acceleration_experiment:
+        motion_results = {
+            "Starting from rest and speeding up": ("The vehicle's speed increases. Its velocity changes with time, so it is accelerating.", "ਵਾਹਨ ਦੀ ਚਾਲ ਵਧਦੀ ਹੈ। ਸਮੇਂ ਨਾਲ ਇਸ ਦਾ ਵੇਗ ਬਦਲਦਾ ਹੈ, ਇਸ ਲਈ ਤਵਰਣ ਹੁੰਦਾ ਹੈ।"),
+            "Moving at steady speed": ("If the vehicle keeps the same speed in a straight line, its velocity is constant and its acceleration is zero.", "ਜੇ ਵਾਹਨ ਸਿੱਧੀ ਰੇਖਾ ਵਿੱਚ ਇਕੋ ਚਾਲ ਨਾਲ ਚੱਲਦਾ ਹੈ ਤਾਂ ਵੇਗ ਸਥਿਰ ਹੈ ਅਤੇ ਤਵਰਣ ਸਿਫ਼ਰ ਹੈ।"),
+            "Slowing down": ("The vehicle's speed decreases. This is negative acceleration (deceleration) relative to its direction of motion.", "ਵਾਹਨ ਦੀ ਚਾਲ ਘਟਦੀ ਹੈ। ਗਤੀ ਦੀ ਦਿਸ਼ਾ ਦੇ ਸੰਦਰਭ ਵਿੱਚ ਇਸ ਨੂੰ ਰਿਣਾਤਮਕ ਤਵਰਣ ਜਾਂ ਮੰਦਨ ਕਹਿੰਦੇ ਹਨ।"),
+            "Changing direction": ("Velocity includes direction as well as speed. A change in direction means velocity changes, so acceleration occurs even if speed stays the same.", "ਵੇਗ ਵਿੱਚ ਚਾਲ ਦੇ ਨਾਲ ਦਿਸ਼ਾ ਵੀ ਸ਼ਾਮਲ ਹੁੰਦੀ ਹੈ। ਦਿਸ਼ਾ ਬਦਲਣ ਨਾਲ ਵੇਗ ਬਦਲਦਾ ਹੈ, ਇਸ ਲਈ ਇਕੋ ਚਾਲ ਹੋਣ ਤੇ ਵੀ ਤਵਰਣ ਹੋ ਸਕਦਾ ਹੈ।")
+        }
+        result = motion_results[a][1] if is_pa else motion_results[a][0]
     elif kind in ("motion","speed"):
         value = float(a) / max(1.0,float(b))
         result = f"Average speed = {value:.2f} m/s" if not is_pa else f"ਔਸਤ ਚਾਲ = {value:.2f} m/s"
     elif kind in ("force","newton"):
         result = f"Acceleration = {float(a)/max(1.0,float(b)):.2f} m/s² (F/m)" if not is_pa else f"ਤਵਰਣ = {float(a)/max(1.0,float(b)):.2f} m/s² (F/m)"
-    elif kind == "acceleration":
+    elif kind == "acceleration" and not class9_speed_acceleration_experiment:
         result = f"Average acceleration from rest = {float(a)/max(1.0,float(b)):.2f} m/s²" if not is_pa else f"ਆਰਾਮ ਤੋਂ ਔਸਤ ਤਵਰਣ = {float(a)/max(1.0,float(b)):.2f} m/s²"
     elif kind == "work":
         result = f"Work = {float(a)*float(b):.2f} J; average power is work/time (set a time in a real measurement)." if not is_pa else f"ਕੰਮ = {float(a)*float(b):.2f} J"
