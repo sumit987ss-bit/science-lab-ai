@@ -1818,34 +1818,44 @@ def physics_lab():
       "potential":("Mass (kg)","Height (m)","ਪੁੰਜ (kg)","ਉਚਾਈ (m)"),
       "lens":("Object distance (cm)","Focal length (cm)","ਵਸਤੂ ਦੀ ਦੂਰੀ (cm)","ਫੋਕਸ ਦੂਰੀ (cm)")
     }
-    labels = kind_labels.get(kind, ("Control A","Control B","ਕੰਟਰੋਲ A","ਕੰਟਰੋਲ B"))
-    c1, c2 = st.columns(2)
-    with c1:
-        if kind == "magnet":
-            a = st.selectbox(labels[0] if not is_pa else labels[2], ["Unlike poles","Like poles"], key=f"ph_a_{pc}_{ei}")
-        elif kind == "heat":
-            a = st.slider(labels[0] if not is_pa else labels[2], 1, 10, 5, key=f"ph_a_{pc}_{ei}")
-        elif kind in ("motion","speed","force","pressure","pressure_area","balanced","friction","acceleration","newton","work","potential","lens"):
-            a = st.slider(labels[0] if not is_pa else labels[2], 1, 100 if kind in ("motion","speed") else 30, 10, key=f"ph_a_{pc}_{ei}")
-        elif kind in ("reflection","refraction"):
-            a = st.slider(labels[0] if not is_pa else labels[2], 5, 80, 35, key=f"ph_a_{pc}_{ei}")
-        elif kind in ("sound","wave"):
-            a = st.slider(labels[0] if not is_pa else labels[2], 100, 2000, 500, 100, key=f"ph_a_{pc}_{ei}")
-        elif kind == "shadow":
-            a = st.slider(labels[0] if not is_pa else labels[2], 10, 100, 40, key=f"ph_a_{pc}_{ei}")
-        else:
-            a = st.slider(labels[0] if not is_pa else labels[2], 1, 20, 5, key=f"ph_a_{pc}_{ei}")
-    with c2:
-        if kind == "magnet":
-            b = st.slider(labels[1] if not is_pa else labels[3], 1, 10, 5, key=f"ph_b_{pc}_{ei}")
-        elif kind == "heat":
-            b = st.selectbox(labels[1] if not is_pa else labels[3], ["Copper","Aluminium","Glass","Wood"], key=f"ph_b_{pc}_{ei}")
-        elif kind in ("motion","speed","force","pressure","pressure_area","balanced","friction","acceleration","newton","work","potential","lens"):
-            b = st.slider(labels[1] if not is_pa else labels[3], 1, 50, 5, key=f"ph_b_{pc}_{ei}")
-        elif kind in ("reflection","refraction"):
-            b = st.slider(labels[1] if not is_pa else labels[3], 1, 2, 1, key=f"ph_b_{pc}_{ei}") if kind == "reflection" else st.slider(labels[1] if not is_pa else labels[3], 1.0, 2.0, 1.5, 0.1, key=f"ph_b_{pc}_{ei}")
-        else:
-            b = st.slider(labels[1] if not is_pa else labels[3], 1, 10, 5, key=f"ph_b_{pc}_{ei}")
+    labels = kind_labels.get(kind, ("Control A","Control B","કੰਟਰੋਲ A","ਕੰਟਰੋਲ B"))
+    slow_fast_experiment = pc == 6 and ei == 1 and kind == "speed"
+    if slow_fast_experiment:
+        a = st.selectbox(
+            "Choose an example" if not is_pa else "ਉਦਾਹਰਨ ਚੁਣੋ",
+            ["Slow motion", "Fast motion"],
+            format_func=lambda x: (("ਹੌਲੀ ਗਤੀ" if x == "Slow motion" else "ਤੇਜ਼ ਗਤੀ") if is_pa else x),
+            key="physics_class6_slow_fast_choice"
+        )
+        b = a
+    else:
+        c1, c2 = st.columns(2)
+        with c1:
+            if kind == "magnet":
+                a = st.selectbox(labels[0] if not is_pa else labels[2], ["Unlike poles","Like poles"], key=f"ph_a_{pc}_{ei}")
+            elif kind == "heat":
+                a = st.slider(labels[0] if not is_pa else labels[2], 1, 10, 5, key=f"ph_a_{pc}_{ei}")
+            elif kind in ("motion","speed","force","pressure","pressure_area","balanced","friction","acceleration","newton","work","potential","lens"):
+                a = st.slider(labels[0] if not is_pa else labels[2], 1, 100 if kind in ("motion","speed") else 30, 10, key=f"ph_a_{pc}_{ei}")
+            elif kind in ("reflection","refraction"):
+                a = st.slider(labels[0] if not is_pa else labels[2], 5, 80, 35, key=f"ph_a_{pc}_{ei}")
+            elif kind in ("sound","wave"):
+                a = st.slider(labels[0] if not is_pa else labels[2], 100, 2000, 500, 100, key=f"ph_a_{pc}_{ei}")
+            elif kind == "shadow":
+                a = st.slider(labels[0] if not is_pa else labels[2], 10, 100, 40, key=f"ph_a_{pc}_{ei}")
+            else:
+                a = st.slider(labels[0] if not is_pa else labels[2], 1, 20, 5, key=f"ph_a_{pc}_{ei}")
+        with c2:
+            if kind == "magnet":
+                b = st.slider(labels[1] if not is_pa else labels[3], 1, 10, 5, key=f"ph_b_{pc}_{ei}")
+            elif kind == "heat":
+                b = st.selectbox(labels[1] if not is_pa else labels[3], ["Copper","Aluminium","Glass","Wood"], key=f"ph_b_{pc}_{ei}")
+            elif kind in ("motion","speed","force","pressure","pressure_area","balanced","friction","acceleration","newton","work","potential","lens"):
+                b = st.slider(labels[1] if not is_pa else labels[3], 1, 50, 5, key=f"ph_b_{pc}_{ei}")
+            elif kind in ("reflection","refraction"):
+                b = st.slider(labels[1] if not is_pa else labels[3], 1, 2, 1, key=f"ph_b_{pc}_{ei}") if kind == "reflection" else st.slider(labels[1] if not is_pa else labels[3], 1.0, 2.0, 1.5, 0.1, key=f"ph_b_{pc}_{ei}")
+            else:
+                b = st.slider(labels[1] if not is_pa else labels[3], 1, 10, 5, key=f"ph_b_{pc}_{ei}")
     if kind in ("sound","wave"):
         c = st.slider("Amplitude (relative)" if not is_pa else "ਐਂਪਲੀਟਿਊਡ (ਸਾਪੇਖ)", 1, 10, 5, key=f"ph_c_{pc}_{ei}")
     elif kind in ("reflection","refraction"):
@@ -1854,7 +1864,19 @@ def physics_lab():
         c = b
     # Produce a distinct, responsive schematic for the selected phenomenon.
     visual = ""
-    if kind in ("reflection","refraction"):
+    if slow_fast_experiment:
+        if a == "Slow motion":
+            slow_style = 'stroke-width="5" stroke="#0ea5e9"'
+            fast_style = 'stroke-width="3" stroke="#94a3b8"'
+            slow_label = "SELECTED · SLOW" if not is_pa else "ਚੁਣਿਆ · ਹੌਲੀ"
+            fast_label = "FAST EXAMPLES" if not is_pa else "ਤੇਜ਼ ਉਦਾਹਰਨਾਂ"
+        else:
+            slow_style = 'stroke-width="3" stroke="#94a3b8"'
+            fast_style = 'stroke-width="5" stroke="#f59e0b"'
+            slow_label = "SLOW EXAMPLES" if not is_pa else "ਹੌਲੀਆਂ ਉਦਾਹਰਨਾਂ"
+            fast_label = "SELECTED · FAST" if not is_pa else "ਚੁਣਿਆ · ਤੇਜ਼"
+        visual = f'<rect x="12" y="12" width="210" height="206" rx="14" fill="#e0f2fe" fill-opacity=".35" {slow_style}/><rect x="238" y="12" width="210" height="206" rx="14" fill="#fef3c7" fill-opacity=".35" {fast_style}/><text x="117" y="36" text-anchor="middle" fill="currentColor" font-size="14" font-weight="700">{slow_label}</text><text x="343" y="36" text-anchor="middle" fill="currentColor" font-size="14" font-weight="700">{fast_label}</text><path d="M44 106 Q25 83 42 73 Q58 69 66 89 L82 96 L72 108 L54 107 Z" fill="#84cc16" stroke="#3f6212" stroke-width="3"/><circle cx="43" cy="78" r="3" fill="#3f6212"/><path d="M49 108 L43 124 M69 108 L76 124" stroke="#3f6212" stroke-width="4"/><circle cx="117" cy="111" r="8" fill="#2563eb"/><path d="M117 120 L112 139 M117 124 L133 129 M112 139 L103 151 M112 139 L126 151" stroke="#2563eb" stroke-width="5" stroke-linecap="round"/><path d="M28 163 H194" stroke="#64748b" stroke-width="3" stroke-dasharray="5 5"/><circle cx="286" cy="132" r="13" fill="#334155"/><circle cx="384" cy="132" r="13" fill="#334155"/><path d="M270 126 L285 93 L354 93 L385 126 Z" fill="#ef4444" stroke="#991b1b" stroke-width="3"/><rect x="300" y="99" width="25" height="17" rx="3" fill="#bfdbfe"/><rect x="330" y="99" width="19" height="17" rx="3" fill="#bfdbfe"/><path d="M265 78 H305 M297 70 L307 78 L297 86 M330 67 H370 M362 59 L372 67 L362 75" stroke="#f59e0b" stroke-width="3" fill="none"/><path d="M264 163 H423" stroke="#64748b" stroke-width="3" stroke-dasharray="5 5"/><text x="117" y="184" text-anchor="middle" fill="currentColor" font-size="12">{("Tortoise and walking person" if not is_pa else "ਕੱਛੂਆ ਅਤੇ ਪੈਦਲ ਵਿਅਕਤੀ")}</text><text x="343" y="184" text-anchor="middle" fill="currentColor" font-size="12">{("Racing car / fast train" if not is_pa else "ਰੇਸਿੰਗ ਕਾਰ / ਤੇਜ਼ ਰੇਲ")}</text><text x="117" y="203" text-anchor="middle" fill="currentColor" font-size="11">{("Less distance in same time" if not is_pa else "ਇੱਕੋ ਸਮੇਂ ਵਿੱਚ ਘੱਟ ਦੂਰੀ")}</text><text x="343" y="203" text-anchor="middle" fill="currentColor" font-size="11">{("More distance in same time" if not is_pa else "ਇੱਕੋ ਸਮੇਂ ਵਿੱਚ ਵੱਧ ਦੂਰੀ")}</text>'
+    elif kind in ("reflection","refraction"):
         ang = int(a)
         visual = f'<path d="M40 180 L420 180" stroke="#64748b" stroke-width="5"/><path d="M220 180 L{220-int(ang*1.5)} {180-int(ang*1.5)}" stroke="#f59e0b" stroke-width="4"/><path d="M220 180 L{220+int(ang*1.5)} {180-int(ang*1.5)}" stroke="#0ea5e9" stroke-width="4"/><circle cx="220" cy="180" r="5" fill="#e11d48"/><text x="70" y="35" fill="currentColor" font-size="16">Incident ray</text><text x="270" y="35" fill="currentColor" font-size="16">Outgoing ray</text>'
     elif kind in ("sound","wave"):
@@ -1876,7 +1898,12 @@ def physics_lab():
     st.markdown("### " + ("ਦ੍ਰਿਸ਼ ਮਾਡਲ" if is_pa else "Visual model"))
     st.markdown(f'<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;background:rgba(128,128,128,.035)"><svg viewBox="0 0 460 230" width="100%" role="img" aria-label="{title} interactive physics diagram">{visual}</svg></div>', unsafe_allow_html=True)
     result = ""
-    if kind in ("motion","speed"):
+    if slow_fast_experiment:
+        if a == "Slow motion":
+            result = ("Slow motion: a tortoise or a walking person usually covers less distance in the same time." if not is_pa else "ਹੌਲੀ ਗਤੀ: ਕੱਛੂਆ ਜਾਂ ਪੈਦਲ ਚੱਲਦਾ ਵਿਅਕਤੀ ਆਮ ਤੌਰ ਤੇ ਇੱਕੋ ਸਮੇਂ ਵਿੱਚ ਘੱਟ ਦੂਰੀ ਤੈਅ ਕਰਦਾ ਹੈ।")
+        else:
+            result = ("Fast motion: a racing car or a fast train usually covers more distance in the same time." if not is_pa else "ਤੇਜ਼ ਗਤੀ: ਰੇਸਿੰਗ ਕਾਰ ਜਾਂ ਤੇਜ਼ ਰੇਲ ਆਮ ਤੌਰ ਤੇ ਇੱਕੋ ਸਮੇਂ ਵਿੱਚ ਵੱਧ ਦੂਰੀ ਤੈਅ ਕਰਦੀ ਹੈ।")
+    elif kind in ("motion","speed"):
         value = float(a) / max(1.0,float(b))
         result = f"Average speed = {value:.2f} m/s" if not is_pa else f"ਔਸਤ ਚਾਲ = {value:.2f} m/s"
     elif kind in ("force","newton"):
