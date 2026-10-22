@@ -1883,6 +1883,7 @@ def physics_lab():
     class9_work_energy_experiment = pc == 9 and ei == 2 and kind == "work"
     class9_refraction_experiment = pc == 9 and ei == 3 and kind == "refraction"
     class9_gravity_experiment = pc == 9 and ei == 4 and kind == "potential"
+    class10_reflection_experiment = pc == 10 and ei == 0 and kind == "reflection"
     # Class 8 sound uses a qualitative dropdown, not numeric frequency/amplitude sliders.
     if class8_sound_wave_examples_experiment:
         sound_examples = ["Soft, low-pitched sound", "Loud, low-pitched sound", "Soft, high-pitched sound", "Loud, high-pitched sound"]
@@ -1978,6 +1979,11 @@ def physics_lab():
             key="physics_class6_slow_fast_choice"
         )
         b = a
+    elif class10_reflection_experiment:
+        reflection_scenarios = ["Shallow incident ray", "Medium incident ray", "Steep incident ray"]
+        reflection_scenarios_pa = ["ਛੋਟੇ ਝੁਕਾਅ ਵਾਲੀ ਆਗਮਨ ਕਿਰਨ", "ਦਰਮਿਆਨੇ ਝੁਕਾਅ ਵਾਲੀ ਆਗਮਨ ਕਿਰਨ", "ਵੱਧ ਝੁਕਾਅ ਵਾਲੀ ਆਗਮਨ ਕਿਰਨ"]
+        a = st.selectbox("Choose an incident ray" if not is_pa else "ਆਗਮਨ ਕਿਰਨ ਚੁਣੋ", reflection_scenarios, format_func=lambda x: reflection_scenarios_pa[reflection_scenarios.index(x)] if is_pa else x, key="physics_class10_reflection_scenario_" + st.session_state.language)
+        b = a
     elif class9_gravity_experiment:
         gravity_scenarios = ["Ball at a high position", "Ball at a low position", "Ball falling"]
         gravity_scenarios_pa = ["ਉੱਚੀ ਥਾਂ ਉੱਤੇ ਗੇਂਦ", "ਨੀਵੀਂ ਥਾਂ ਉੱਤੇ ਗੇਂਦ", "ਡਿੱਗਦੀ ਹੋਈ ਗੇਂਦ"]
@@ -2059,6 +2065,21 @@ def physics_lab():
         heading = "MOTION AND ACCELERATION" if not is_pa else "ਗਤੀ ਅਤੇ ਤਵਰਣ"
         road_label = "Vehicle positions (illustrative)" if not is_pa else "ਵਾਹਨ ਦੀਆਂ ਸਥਿਤੀਆਂ (ਸਮਝਾਉਣ ਲਈ)"
         visual = f'<rect x="12" y="12" width="436" height="206" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="32" text-anchor="middle" fill="#334155" font-size="14" font-weight="700">{heading}</text><path d="M30 150 H420" stroke="#64748b" stroke-width="3" stroke-dasharray="10 7"/>{positions}<rect x="92" y="75" width="78" height="35" rx="8" fill="#60a5fa" stroke="#1d4ed8" stroke-width="2"/><rect x="104" y="81" width="22" height="12" rx="2" fill="#dbeafe"/><rect x="132" y="81" width="22" height="12" rx="2" fill="#dbeafe"/><circle cx="108" cy="112" r="8" fill="#334155"/><circle cx="154" cy="112" r="8" fill="#334155"/>{motion_arrows}<text x="230" y="177" text-anchor="middle" fill="#334155" font-size="12">{road_label}</text><text x="230" y="201" text-anchor="middle" fill="#0f766e" font-size="13" font-weight="700">{scene_label}</text>'
+    elif class10_reflection_experiment:
+        if a == "Shallow incident ray":
+            ray_start_x, ray_start_y = 65, 82
+        elif a == "Medium incident ray":
+            ray_start_x, ray_start_y = 65, 48
+        else:
+            ray_start_x, ray_start_y = 110, 38
+        reflected_end_x = 440 - ray_start_x
+        reflected_end_y = ray_start_y
+        reflection_heading = "REFLECTION OF LIGHT — PLANE MIRROR" if not is_pa else "ਸਮਤਲ ਸ਼ੀਸ਼ੇ ਤੋਂ ਰੋਸ਼ਨੀ ਦਾ ਪਰਾਵਰਤਨ"
+        incident_label = "INCIDENT RAY" if not is_pa else "ਆਗਮਨ ਕਿਰਨ"
+        reflected_label = "REFLECTED RAY" if not is_pa else "ਪਰਾਵਰਤਿਤ ਕਿਰਨ"
+        normal_label = "NORMAL" if not is_pa else "ਲੰਬ"
+        law_label = "ANGLE OF INCIDENCE = ANGLE OF REFLECTION" if not is_pa else "ਆਗਮਨ ਕੋਣ = ਪਰਾਵਰਤਨ ਕੋਣ"
+        visual = f'<rect x="12" y="12" width="436" height="206" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="30" text-anchor="middle" font-size="13" font-weight="700" fill="#334155">{reflection_heading}</text><rect x="42" y="144" width="376" height="8" rx="3" fill="#94a3b8" stroke="#475569" stroke-width="1"/><path d="M220 43 V193" stroke="#64748b" stroke-width="2" stroke-dasharray="6 5"/><text x="229" y="53" font-size="10" fill="#475569">{normal_label}</text><path d="M{ray_start_x} {ray_start_y} L220 145" stroke="#f59e0b" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M220 145 L{reflected_end_x} {reflected_end_y}" stroke="#0ea5e9" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M{ray_start_x+10} {ray_start_y+4} L{ray_start_x} {ray_start_y} L{ray_start_x+3} {ray_start_y+12}" stroke="#f59e0b" stroke-width="3" fill="none"/><path d="M{reflected_end_x-13} {reflected_end_y+2} L{reflected_end_x} {reflected_end_y} L{reflected_end_x-4} {reflected_end_y+13}" stroke="#0ea5e9" stroke-width="3" fill="none"/><path d="M190 116 A40 40 0 0 1 220 105" stroke="#f59e0b" stroke-width="2" fill="none"/><path d="M220 105 A40 40 0 0 1 250 116" stroke="#0ea5e9" stroke-width="2" fill="none"/><text x="78" y="65" font-size="10" font-weight="700" fill="#b45309">{incident_label}</text><text x="320" y="65" font-size="10" font-weight="700" fill="#0369a1">{reflected_label}</text><text x="230" y="202" text-anchor="middle" font-size="11" font-weight="700" fill="#0f766e">{law_label}</text>'
     elif class9_gravity_experiment:
         if a == "Ball at a high position":
             ball_y = 70
@@ -2091,6 +2112,8 @@ def physics_lab():
             arrow_head = '<path d="M342 67 L362 64 L352 82" stroke="#0ea5e9" stroke-width="4" fill="none"/>'
         incident_path = '<path d="M65 58 L220 135" stroke="#f59e0b" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M207 126 L221 136 L216 119" stroke="#f59e0b" stroke-width="4" fill="none"/>' if a == "Air to glass block" else '<path d="M65 205 L220 135" stroke="#f59e0b" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M205 143 L221 135 L203 131" stroke="#f59e0b" stroke-width="4" fill="none"/>'
         visual = f'<rect x="12" y="12" width="436" height="206" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="31" text-anchor="middle" font-size="14" font-weight="700" fill="#334155">{("REFRACTION OF LIGHT THROUGH A GLASS BLOCK" if not is_pa else "ਕੱਚ ਦੇ ਬਲਾਕ ਵਿੱਚ ਰੋਸ਼ਨੀ ਦਾ ਅਪਵਰਤਨ")}</text><rect x="70" y="82" width="320" height="112" rx="4" fill="#bae6fd" fill-opacity=".55" stroke="#0284c7" stroke-width="2"/><text x="92" y="101" font-size="11" fill="#075985">{("GLASS BLOCK" if not is_pa else "ਕੱਚ ਦਾ ਬਲਾਕ")}</text><path d="M220 45 V207" stroke="#64748b" stroke-width="2" stroke-dasharray="6 5"/><text x="229" y="53" font-size="11" fill="#475569">{("NORMAL" if not is_pa else "ਲੰਬ")}</text>{incident_path}{refracted_path}{arrow_head}<circle cx="220" cy="135" r="5" fill="#dc2626"/><text x="62" y="47" font-size="11" font-weight="700" fill="#b45309">{("INCIDENT RAY" if not is_pa else "ਆਗਮਨ ਕਿਰਨ")}</text><text x="230" y="211" text-anchor="middle" font-size="11" font-weight="700" fill="#0f766e">{ray_label}</text>'
+    elif class10_reflection_experiment:
+        result = ("The incident ray strikes the plane mirror and reflects on the other side of the normal. The reflected ray makes the same angle with the normal as the incident ray. The mirror, incident ray, reflected ray and normal lie in the same plane." if not is_pa else "ਆਗਮਨ ਕਿਰਨ ਸਮਤਲ ਸ਼ੀਸ਼ੇ ਨਾਲ ਟਕਰਾ ਕੇ ਲੰਬ ਦੇ ਦੂਜੇ ਪਾਸੇ ਪਰਾਵਰਤਿਤ ਹੁੰਦੀ ਹੈ। ਪਰਾਵਰਤਨ ਕੋਣ, ਆਗਮਨ ਕੋਣ ਦੇ ਬਰਾਬਰ ਹੁੰਦਾ ਹੈ। ਸ਼ੀਸ਼ਾ, ਆਗਮਨ ਕਿਰਨ, ਪਰਾਵਰਤਿਤ ਕਿਰਨ ਅਤੇ ਲੰਬ ਇੱਕੋ ਸਮਤਲ ਵਿੱਚ ਹੁੰਦੇ ਹਨ।")
     elif class9_gravity_experiment:
         if a == "Ball at a high position":
             result = ("The ball is higher above the ground, so it has more gravitational potential energy. If released, gravity pulls it downward." if not is_pa else "ਗੇਂਦ ਜ਼ਮੀਨ ਤੋਂ ਵੱਧ ਉਚਾਈ ਉੱਤੇ ਹੈ, ਇਸ ਲਈ ਇਸ ਦੀ ਗੁਰੁਤਵਾਕਰਸ਼ੀ ਸਥਿਤਿਜ ਊਰਜਾ ਵੱਧ ਹੈ। ਛੱਡਣ ਉੱਤੇ ਗੁਰੁਤਵਾਕਰਸ਼ਣ ਇਸ ਨੂੰ ਹੇਠਾਂ ਖਿੱਚੇਗਾ।")
