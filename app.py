@@ -941,6 +941,51 @@ def electricity_lab():
             else:
                 st.info("ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ ਹੈ: ਦੋਵੇਂ ਸਰਕਟਾਂ ਵਿੱਚ ਕਰੰਟ ਸਿਫ਼ਰ ਹੈ।" if is_pa_rnet else "Switch is open: current is zero in both circuits.")
             st.caption("ਆਦਰਸ਼ ਸਿਮੂਲੇਸ਼ਨ—ਸਾਰਣੀ ਗਣਨਾ ਨਾਲ ਬਣਦੀ ਹੈ, ਅਸਲੀ ਲੈਬ ਮਾਪ ਨਹੀਂ। ਘਰੇਲੂ ਮੇਨ ਬਿਜਲੀ ਨਾਲ ਕਦੇ ਪ੍ਰਯੋਗ ਨਾ ਕਰੋ।" if is_pa_rnet else "Ideal simulation: table values are calculated, not real lab measurements. Never experiment with household mains electricity.")
+        elif selected_class == 10 and exp_index == 2 and kind == "power":
+            # Class 10 Experiment 3: quantitative electrical power and energy model.
+            is_pa_power10 = st.session_state.language != "en"
+            current_power10 = voltage / resistance if closed and resistance else 0.0
+            power_w10 = voltage * current_power10
+            hours_power10 = st.slider("ਸਮਾਂ (ਘੰਟੇ)" if is_pa_power10 else "Operating time (hours)", 0.5, 8.0, 2.0, 0.5, key="class10_power_hours")
+            energy_wh10 = power_w10 * hours_power10
+            energy_kwh10 = energy_wh10 / 1000.0
+            circuit_color10 = "#16a34a" if closed and voltage > 0 else "#94a3b8"
+            bulb_fill10 = "#fde047" if closed and voltage > 0 else "#e2e8f0"
+            glow10 = '<g stroke="#f59e0b" stroke-width="3" stroke-linecap="round"><path d="M290 48 V37 M262 61 L254 53 M318 61 L326 53 M252 83 H241 M328 83 H339"/></g>' if closed and voltage > 0 else ""
+            power_svg10 = f"""<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:10px;background:rgba(128,128,128,.035);">
+            <svg viewBox="0 0 420 210" width="100%" role="img" aria-label="Electrical power circuit with cell, switch, resistor and glowing bulb">
+              <g fill="none" stroke="{circuit_color10}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M55 68 H105"/><path d="M140 68 H290 V51"/><path d="M290 116 V165 H55 V108"/>
+              </g>
+              <g stroke="#475569" stroke-width="3" stroke-linecap="round"><line x1="43" y1="76" x2="67" y2="76"/><line x1="48" y1="90" x2="62" y2="90"/></g>
+              <path d="{ 'M105 68 L140 68' if closed else 'M105 68 L134 52' }" stroke="{circuit_color10}" stroke-width="4" stroke-linecap="round"/>
+              <circle cx="290" cy="83" r="33" fill="{bulb_fill10}" stroke="#475569" stroke-width="3"/>
+              <path d="M274 72 L284 82 L278 91 L291 98 L305 77 L313 86" fill="none" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
+              <path d="M278 116 V126 H302 V116" fill="none" stroke="#64748b" stroke-width="4"/>
+              {glow10}
+              <rect x="156" y="145" width="118" height="30" rx="8" fill="#dbeafe" stroke="#93c5fd"/>
+              <text x="215" y="164" fill="#1e40af" font-size="12" font-weight="700" text-anchor="middle">R = {resistance} Ω</text>
+              <g fill="currentColor" font-size="12" text-anchor="middle"><text x="55" y="128">{ "ਸੈੱਲ" if is_pa_power10 else "CELL" }</text><text x="122" y="39">{ "ਸਵਿੱਚ" if is_pa_power10 else "SWITCH" }</text><text x="290" y="137">{ "ਬਲਬ" if is_pa_power10 else "BULB / LOAD" }</text></g>
+              <text x="210" y="198" fill="currentColor" font-size="12" text-anchor="middle">V = {voltage} V · I = {current_power10:.2f} A · P = {power_w10:.2f} W</text>
+            </svg></div>"""
+            st.markdown("#### " + ("ਬਿਜਲੀ ਸ਼ਕਤੀ ਅਤੇ ਊਰਜਾ" if is_pa_power10 else "Electrical Power and Energy"))
+            st.markdown(power_svg10, unsafe_allow_html=True)
+            st.markdown("**" + ("ਸੂਤਰ" if is_pa_power10 else "Formula") + ":** P = VI = V²/R  ·  E = Pt")
+            c10a, c10b, c10c = st.columns(3)
+            c10a.metric("I (A)", f"{current_power10:.2f}")
+            c10b.metric("P (W)", f"{power_w10:.2f}")
+            c10c.metric("E (kWh)", f"{energy_kwh10:.4f}")
+            st.caption(("ਗਣਨਾ ਕੀਤਾ ਮਾਡਲ: E = P × ਸਮਾਂ। ਇਹ ਅਸਲੀ ਪ੍ਰਯੋਗ ਦੀ ਰੀਡਿੰਗ ਨਹੀਂ ਹੈ।" if is_pa_power10 else "Calculated simulation: E = power × time. These are modelled values, not real laboratory readings."))
+            table_rows10 = []
+            for v10 in (6, 12, 18, 24):
+                i10 = v10 / resistance if closed else 0.0
+                p10 = v10 * i10
+                table_rows10.append({"V (V)": v10, "R (Ω)": resistance, "I (A)": round(i10, 2), "P (W)": round(p10, 2)})
+            st.markdown("**" + ("ਵੋਲਟੇਜ ਬਦਲਣ ਨਾਲ ਰੀਡਿੰਗਾਂ" if is_pa_power10 else "Readings as voltage changes") + "**")
+            st.dataframe(table_rows10, use_container_width=True, hide_index=True)
+            if not closed:
+                st.info("ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ ਹੈ: ਕਰੰਟ, ਸ਼ਕਤੀ ਅਤੇ ਊਰਜਾ ਸਿਫ਼ਰ ਹਨ।" if is_pa_power10 else "Switch open: current, power and energy are zero.")
+            st.caption(("ਸਿਰਫ਼ ਆਦਰਸ਼ ਘੱਟ-ਵੋਲਟੇਜ ਸਿਮੂਲੇਸ਼ਨ; ਘਰੇਲੂ ਮੇਨ ਬਿਜਲੀ ਨਾਲ ਪ੍ਰਯੋਗ ਨਾ ਕਰੋ।" if is_pa_power10 else "Ideal low-voltage simulation only; never experiment with household mains electricity."))
         elif kind in ("ohms", "series_parallel", "power", "heating"):
             m1, m2 = st.columns(2)
             m1.metric(tr("current"), f"{current:.3f} A")
