@@ -1882,6 +1882,7 @@ def physics_lab():
     class9_newton_experiment = pc == 9 and ei == 1 and kind == "newton"
     class9_work_energy_experiment = pc == 9 and ei == 2 and kind == "work"
     class9_refraction_experiment = pc == 9 and ei == 3 and kind == "refraction"
+    class9_gravity_experiment = pc == 9 and ei == 4 and kind == "potential"
     # Class 8 sound uses a qualitative dropdown, not numeric frequency/amplitude sliders.
     if class8_sound_wave_examples_experiment:
         sound_examples = ["Soft, low-pitched sound", "Loud, low-pitched sound", "Soft, high-pitched sound", "Loud, high-pitched sound"]
@@ -1977,6 +1978,11 @@ def physics_lab():
             key="physics_class6_slow_fast_choice"
         )
         b = a
+    elif class9_gravity_experiment:
+        gravity_scenarios = ["Ball at a high position", "Ball at a low position", "Ball falling"]
+        gravity_scenarios_pa = ["ਉੱਚੀ ਥਾਂ ਉੱਤੇ ਗੇਂਦ", "ਨੀਵੀਂ ਥਾਂ ਉੱਤੇ ਗੇਂਦ", "ਡਿੱਗਦੀ ਹੋਈ ਗੇਂਦ"]
+        a = st.selectbox("Choose a gravity situation" if not is_pa else "ਗੁਰੁਤਵਾਕਰਸ਼ਣ ਦੀ ਸਥਿਤੀ ਚੁਣੋ", gravity_scenarios, format_func=lambda x: gravity_scenarios_pa[gravity_scenarios.index(x)] if is_pa else x, key="physics_class9_gravity_situation_" + st.session_state.language)
+        b = a
     elif class9_refraction_experiment:
         refraction_scenarios = ["Air to glass block", "Glass block to air"]
         refraction_scenarios_pa = ["ਹਵਾ ਤੋਂ ਕੱਚ ਦੇ ਬਲਾਕ ਵਿੱਚ", "ਕੱਚ ਦੇ ਬਲਾਕ ਤੋਂ ਹਵਾ ਵਿੱਚ"]
@@ -2053,6 +2059,30 @@ def physics_lab():
         heading = "MOTION AND ACCELERATION" if not is_pa else "ਗਤੀ ਅਤੇ ਤਵਰਣ"
         road_label = "Vehicle positions (illustrative)" if not is_pa else "ਵਾਹਨ ਦੀਆਂ ਸਥਿਤੀਆਂ (ਸਮਝਾਉਣ ਲਈ)"
         visual = f'<rect x="12" y="12" width="436" height="206" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="32" text-anchor="middle" fill="#334155" font-size="14" font-weight="700">{heading}</text><path d="M30 150 H420" stroke="#64748b" stroke-width="3" stroke-dasharray="10 7"/>{positions}<rect x="92" y="75" width="78" height="35" rx="8" fill="#60a5fa" stroke="#1d4ed8" stroke-width="2"/><rect x="104" y="81" width="22" height="12" rx="2" fill="#dbeafe"/><rect x="132" y="81" width="22" height="12" rx="2" fill="#dbeafe"/><circle cx="108" cy="112" r="8" fill="#334155"/><circle cx="154" cy="112" r="8" fill="#334155"/>{motion_arrows}<text x="230" y="177" text-anchor="middle" fill="#334155" font-size="12">{road_label}</text><text x="230" y="201" text-anchor="middle" fill="#0f766e" font-size="13" font-weight="700">{scene_label}</text>'
+    elif class9_gravity_experiment:
+        if a == "Ball at a high position":
+            ball_y = 70
+            ball_color = "#f97316"
+            scene_label = "MORE GRAVITATIONAL POTENTIAL ENERGY" if not is_pa else "ਵੱਧ ਗੁਰੁਤਵਾਕਰਸ਼ੀ ਸਥਿਤਿਜ ਊਰਜਾ"
+            object_motion = '<path d="M118 87 V132 M108 121 L118 134 L128 121" stroke="#dc2626" stroke-width="3" fill="none" stroke-linecap="round"/>'
+        elif a == "Ball at a low position":
+            ball_y = 143
+            ball_color = "#f97316"
+            scene_label = "LESS GRAVITATIONAL POTENTIAL ENERGY" if not is_pa else "ਘੱਟ ਗੁਰੁਤਵਾਕਰਸ਼ੀ ਸਥਿਤਿਜ ਊਰਜਾ"
+            object_motion = '<path d="M118 158 V180 M108 170 L118 182 L128 170" stroke="#dc2626" stroke-width="3" fill="none" stroke-linecap="round"/>'
+        else:
+            ball_y = 92
+            ball_color = "#f97316"
+            scene_label = "GRAVITY PULLS THE BALL DOWNWARD" if not is_pa else "ਗੁਰੁਤਵਾਕਰਸ਼ਣ ਗੇਂਦ ਨੂੰ ਹੇਠਾਂ ਖਿੱਚਦਾ ਹੈ"
+            object_motion = '<path d="M118 111 V163 M108 151 L118 165 L128 151" stroke="#dc2626" stroke-width="4" fill="none" stroke-linecap="round"/>'
+        visual = f'<rect x="12" y="12" width="436" height="206" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="31" text-anchor="middle" font-size="14" font-weight="700" fill="#334155">{("GRAVITY AND GRAVITATIONAL POTENTIAL ENERGY" if not is_pa else "ਗੁਰੁਤਵਾਕਰਸ਼ਣ ਅਤੇ ਸਥਿਤਿਜ ਊਰਜਾ")}</text><path d="M45 190 H420" stroke="#64748b" stroke-width="4"/><path d="M45 116 H168 V190" stroke="#94a3b8" stroke-width="3" fill="none"/><path d="M45 116 H168" stroke="#64748b" stroke-width="5"/><circle cx="118" cy="{ball_y}" r="17" fill="{ball_color}" stroke="#9a3412" stroke-width="3"/><path d="M112 {ball_y-5} Q118 {ball_y-14} 125 {ball_y-4}" stroke="#fed7aa" stroke-width="3" fill="none"/>{object_motion}<path d="M235 61 V140 M225 128 L235 142 L245 128" stroke="#7c3aed" stroke-width="4" fill="none" stroke-linecap="round"/><text x="270" y="82" font-size="12" font-weight="700" fill="#6d28d9">{("GRAVITY" if not is_pa else "ਗੁਰੁਤਵਾਕਰਸ਼ਣ")}</text><text x="280" y="101" font-size="11" fill="#334155">{("Pulls objects toward Earth" if not is_pa else "ਵਸਤੂਆਂ ਨੂੰ ਧਰਤੀ ਵੱਲ ਖਿੱਚਦਾ ਹੈ")}</text><text x="235" y="207" text-anchor="middle" font-size="11" font-weight="700" fill="#0f766e">{scene_label}</text>'
+    elif class9_gravity_experiment:
+        if a == "Ball at a high position":
+            result = ("The ball is higher above the ground, so it has more gravitational potential energy. If released, gravity pulls it downward." if not is_pa else "ਗੇਂਦ ਜ਼ਮੀਨ ਤੋਂ ਵੱਧ ਉਚਾਈ ਉੱਤੇ ਹੈ, ਇਸ ਲਈ ਇਸ ਦੀ ਗੁਰੁਤਵਾਕਰਸ਼ੀ ਸਥਿਤਿਜ ਊਰਜਾ ਵੱਧ ਹੈ। ਛੱਡਣ ਉੱਤੇ ਗੁਰੁਤਵਾਕਰਸ਼ਣ ਇਸ ਨੂੰ ਹੇਠਾਂ ਖਿੱਚੇਗਾ।")
+        elif a == "Ball at a low position":
+            result = ("Near the ground, the ball has less gravitational potential energy than it would at a higher position." if not is_pa else "ਜ਼ਮੀਨ ਦੇ ਨੇੜੇ ਗੇਂਦ ਦੀ ਗੁਰੁਤਵਾਕਰਸ਼ੀ ਸਥਿਤਿਜ ਊਰਜਾ ਉੱਚੀ ਥਾਂ ਨਾਲੋਂ ਘੱਟ ਹੁੰਦੀ ਹੈ।")
+        else:
+            result = ("Gravity pulls the ball downward. As it falls, gravitational potential energy is transferred mainly into kinetic energy." if not is_pa else "ਗੁਰੁਤਵਾਕਰਸ਼ਣ ਗੇਂਦ ਨੂੰ ਹੇਠਾਂ ਖਿੱਚਦਾ ਹੈ। ਡਿੱਗਣ ਸਮੇਂ ਸਥਿਤਿਜ ਊਰਜਾ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਗਤੀ ਊਰਜਾ ਵਿੱਚ ਬਦਲਦੀ ਹੈ।")
     elif class9_refraction_experiment:
         if a == "Air to glass block":
             ray_label = "AIR → GLASS: BENDS TOWARD NORMAL" if not is_pa else "ਹਵਾ → ਕੱਚ: ਲੰਬ ਵੱਲ ਮੁੜਦੀ ਹੈ"
