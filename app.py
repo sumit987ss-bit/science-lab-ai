@@ -1832,6 +1832,7 @@ def physics_lab():
     balanced_forces_examples_experiment = pc == 8 and ei == 1 and kind == "balanced"
     heat_conduction_examples_experiment = pc == 8 and ei == 2 and kind == "heat"
     class8_sound_wave_examples_experiment = pc == 8 and ei == 4 and kind == "wave"
+    # Class 8 sound uses a qualitative dropdown, not numeric frequency/amplitude sliders.
     if class8_sound_wave_examples_experiment:
         sound_examples = ["Soft, low-pitched sound", "Loud, low-pitched sound", "Soft, high-pitched sound", "Loud, high-pitched sound"]
         sound_examples_pa = ["ਹੌਲੀ, ਨੀਵੀਂ ਸੁਰ ਵਾਲੀ ਧੁਨੀ", "ਉੱਚੀ ਆਵਾਜ਼, ਨੀਵੀਂ ਸੁਰ", "ਹੌਲੀ, ਉੱਚੀ ਸੁਰ ਵਾਲੀ ਧੁਨੀ", "ਉੱਚੀ ਆਵਾਜ਼, ਉੱਚੀ ਸੁਰ"]
