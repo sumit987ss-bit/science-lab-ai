@@ -2559,7 +2559,7 @@ def physics_lab():
         if is_pa: result = "ਖਿੱਚ" if a == "Unlike poles" else "ਵਿਕਰਸ਼ਣ"
     elif class8_sound_wave_examples_experiment:
         result = ("A louder sound is shown with a taller wave (greater amplitude), while a softer sound has a smaller wave. A high-pitched sound has more wave cycles in the same space than a low-pitched sound. This is a qualitative visual; no measurements are calculated." if not is_pa else "ਉੱਚੀ ਆਵਾਜ਼ ਨੂੰ ਵੱਡੀ ਐਂਪਲੀਟਿਊਡ ਵਾਲੀ ਤਰੰਗ ਅਤੇ ਹੌਲੀ ਆਵਾਜ਼ ਨੂੰ ਛੋਟੀ ਤਰੰਗ ਨਾਲ ਦਿਖਾਇਆ ਗਿਆ ਹੈ। ਉੱਚੀ ਸੁਰ ਵਿੱਚ ਇੱਕੋ ਥਾਂ ਅੰਦਰ ਨੀਵੀਂ ਸੁਰ ਨਾਲੋਂ ਵੱਧ ਤਰੰਗ-ਚੱਕਰ ਹੁੰਦੇ ਹਨ। ਇਹ ਗੁਣਾਤਮਕ ਦ੍ਰਿਸ਼ ਹੈ; ਕੋਈ ਗਣਨਾ ਨਹੀਂ ਕੀਤੀ ਜਾਂਦੀ।")
-    elif kind in ("sound","wave"):
+    elif kind in ("sound","wave") and not class10_wave_sound_experiment:
         result = f"Frequency = {a} Hz; period ≈ {1/float(a):.4f} s; amplitude setting = {c}/10." if not is_pa else f"ਆਵ੍ਰਿਤੀ = {a} Hz; ਆਵਰਤ ਕਾਲ ≈ {1/float(a):.4f} s।"
     elif kind == "friction" and not friction_types_experiment:
         result = f"Illustrative friction tendency rises with roughness and normal force (mass setting {b} kg)." if not is_pa else f"ਖੁਰਦਰਾਪਣ ਅਤੇ ਲੰਬਕਾਰੀ ਬਲ ਵਧਣ ਨਾਲ ਘਰਸ਼ਣ ਦੀ ਰੁਝਾਨੀ ਮਾਤਰਾ ਵਧਦੀ ਹੈ।"
