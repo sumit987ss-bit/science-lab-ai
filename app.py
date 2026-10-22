@@ -1880,6 +1880,7 @@ def physics_lab():
     class8_sound_wave_examples_experiment = pc == 8 and ei == 4 and kind == "wave"
     class9_speed_acceleration_experiment = pc == 9 and ei == 0 and kind == "acceleration"
     class9_newton_experiment = pc == 9 and ei == 1 and kind == "newton"
+    class9_work_energy_experiment = pc == 9 and ei == 2 and kind == "work"
     # Class 8 sound uses a qualitative dropdown, not numeric frequency/amplitude sliders.
     if class8_sound_wave_examples_experiment:
         sound_examples = ["Soft, low-pitched sound", "Loud, low-pitched sound", "Soft, high-pitched sound", "Loud, high-pitched sound"]
@@ -1975,6 +1976,11 @@ def physics_lab():
             key="physics_class6_slow_fast_choice"
         )
         b = a
+    elif class9_work_energy_experiment:
+        work_scenarios = ["Pushing a box forward", "Lifting a box upward", "Holding a box still"]
+        work_scenarios_pa = ["ਅੱਗੇ ਵੱਲ ਡੱਬੇ ਨੂੰ ਧੱਕਣਾ", "ਡੱਬੇ ਨੂੰ ਉੱਪਰ ਚੁੱਕਣਾ", "ਡੱਬੇ ਨੂੰ ਸਥਿਰ ਫੜਨਾ"]
+        a = st.selectbox("Choose a work-and-energy situation" if not is_pa else "ਕੰਮ ਅਤੇ ਊਰਜਾ ਦੀ ਸਥਿਤੀ ਚੁਣੋ", work_scenarios, format_func=lambda x: work_scenarios_pa[work_scenarios.index(x)] if is_pa else x, key="physics_class9_work_energy_scenario_" + st.session_state.language)
+        b = a
     elif class9_newton_experiment:
         push_levels = ["Gentle push", "Strong push"]
         mass_levels = ["Light cart", "Loaded cart"]
@@ -2041,6 +2047,29 @@ def physics_lab():
         heading = "MOTION AND ACCELERATION" if not is_pa else "ਗਤੀ ਅਤੇ ਤਵਰਣ"
         road_label = "Vehicle positions (illustrative)" if not is_pa else "ਵਾਹਨ ਦੀਆਂ ਸਥਿਤੀਆਂ (ਸਮਝਾਉਣ ਲਈ)"
         visual = f'<rect x="12" y="12" width="436" height="206" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="32" text-anchor="middle" fill="#334155" font-size="14" font-weight="700">{heading}</text><path d="M30 150 H420" stroke="#64748b" stroke-width="3" stroke-dasharray="10 7"/>{positions}<rect x="92" y="75" width="78" height="35" rx="8" fill="#60a5fa" stroke="#1d4ed8" stroke-width="2"/><rect x="104" y="81" width="22" height="12" rx="2" fill="#dbeafe"/><rect x="132" y="81" width="22" height="12" rx="2" fill="#dbeafe"/><circle cx="108" cy="112" r="8" fill="#334155"/><circle cx="154" cy="112" r="8" fill="#334155"/>{motion_arrows}<text x="230" y="177" text-anchor="middle" fill="#334155" font-size="12">{road_label}</text><text x="230" y="201" text-anchor="middle" fill="#0f766e" font-size="13" font-weight="700">{scene_label}</text>'
+    elif class9_work_energy_experiment:
+        if a == "Pushing a box forward":
+            action_label = "FORCE + FORWARD MOTION" if not is_pa else "ਬਲ + ਅੱਗੇ ਵੱਲ ਗਤੀ"
+            energy_label = "WORK IS DONE ON THE BOX" if not is_pa else "ਡੱਬੇ ਉੱਤੇ ਕੰਮ ਹੁੰਦਾ ਹੈ"
+            person = '<circle cx="80" cy="85" r="13" fill="#f1c27d" stroke="#92400e" stroke-width="2"/><path d="M80 98 V137 M80 108 L111 120 L130 120 M80 137 L65 160 M80 137 L95 160" stroke="#2563eb" stroke-width="7" stroke-linecap="round" fill="none"/>'
+            action = '<path d="M126 119 H178 M166 109 L180 119 L166 129" stroke="#16a34a" stroke-width="5" fill="none" stroke-linecap="round"/>'
+            box = '<rect x="184" y="91" width="75" height="58" rx="5" fill="#c08457" stroke="#854d0e" stroke-width="3"/><path d="M194 101 L249 139 M249 101 L194 139" stroke="#a16207" stroke-width="2"/>'
+            track = '<path d="M35 166 H420" stroke="#64748b" stroke-width="4"/><path d="M280 166 H370 M358 156 L372 166 L358 176" stroke="#0ea5e9" stroke-width="4" fill="none"/>'
+        elif a == "Lifting a box upward":
+            action_label = "UPWARD FORCE + UPWARD MOTION" if not is_pa else "ਉੱਪਰ ਵੱਲ ਬਲ + ਉੱਪਰ ਵੱਲ ਗਤੀ"
+            energy_label = "ENERGY IS STORED AS HEIGHT INCREASES" if not is_pa else "ਉਚਾਈ ਵਧਣ ਨਾਲ ਸਥਿਤਿਜ ਊਰਜਾ ਵਧਦੀ ਹੈ"
+            person = '<circle cx="80" cy="93" r="13" fill="#f1c27d" stroke="#92400e" stroke-width="2"/><path d="M80 106 V145 M80 115 L104 102 L127 91 M80 145 L65 166 M80 145 L95 166" stroke="#2563eb" stroke-width="7" stroke-linecap="round" fill="none"/>'
+            action = '<path d="M213 86 V48 M203 58 L213 46 L223 58" stroke="#16a34a" stroke-width="5" fill="none" stroke-linecap="round"/>'
+            box = '<rect x="178" y="88" width="70" height="48" rx="5" fill="#c08457" stroke="#854d0e" stroke-width="3"/><path d="M188 98 L238 126 M238 98 L188 126" stroke="#a16207" stroke-width="2"/>'
+            track = '<path d="M35 175 H420" stroke="#64748b" stroke-width="4"/><path d="M278 162 V100" stroke="#94a3b8" stroke-width="2" stroke-dasharray="5 5"/>'
+        else:
+            action_label = "NO MOVEMENT" if not is_pa else "ਕੋਈ ਗਤੀ ਨਹੀਂ"
+            energy_label = "NO MECHANICAL WORK ON THE BOX WHILE IT STAYS STILL" if not is_pa else "ਡੱਬਾ ਸਥਿਰ ਰਹੇ ਤਾਂ ਉਸ ਉੱਤੇ ਮਕੈਨੀਕੀ ਕੰਮ ਨਹੀਂ ਹੁੰਦਾ"
+            person = '<circle cx="80" cy="85" r="13" fill="#f1c27d" stroke="#92400e" stroke-width="2"/><path d="M80 98 V137 M80 108 L108 121 L132 121 M80 137 L65 160 M80 137 L95 160" stroke="#2563eb" stroke-width="7" stroke-linecap="round" fill="none"/>'
+            action = '<path d="M132 120 H170" stroke="#64748b" stroke-width="4" stroke-dasharray="5 5"/>'
+            box = '<rect x="184" y="91" width="75" height="58" rx="5" fill="#c08457" stroke="#854d0e" stroke-width="3"/><path d="M194 101 L249 139 M249 101 L194 139" stroke="#a16207" stroke-width="2"/>'
+            track = '<path d="M35 166 H420" stroke="#64748b" stroke-width="4"/>'
+        visual = f'<rect x="12" y="12" width="436" height="206" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="31" text-anchor="middle" font-size="14" font-weight="700" fill="#334155">{("WORK AND MECHANICAL ENERGY" if not is_pa else "ਕੰਮ ਅਤੇ ਮਕੈਨੀਕੀ ਊਰਜਾ")}</text>{person}{action}{box}{track}<text x="230" y="190" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">{action_label}</text><text x="230" y="207" text-anchor="middle" font-size="11" font-weight="700" fill="#0f766e">{energy_label}</text>'
     elif class9_newton_experiment:
         strong_push = a == "Strong push"
         loaded_cart = b == "Loaded cart"
@@ -2273,6 +2302,13 @@ def physics_lab():
             result = ("A stronger push helps the loaded cart accelerate more than a gentle push would, although its greater mass resists changes in motion." if not is_pa else "ਜ਼ੋਰਦਾਰ ਧੱਕਾ ਭਰੀ ਗੱਡੀ ਨੂੰ ਹਲਕੇ ਧੱਕੇ ਨਾਲੋਂ ਵੱਧ ਤਵਰਣ ਦਿੰਦਾ ਹੈ, ਪਰ ਵੱਧ ਪੁੰਜ ਗਤੀ ਵਿੱਚ ਤਬਦੀਲੀ ਦਾ ਵਿਰੋਧ ਕਰਦਾ ਹੈ।")
         else:
             result = ("A light cart responds more readily to a gentle push than a loaded cart would." if not is_pa else "ਹਲਕੀ ਗੱਡੀ ਹਲਕੇ ਧੱਕੇ ਨਾਲ ਵੀ ਭਾਰੀ ਗੱਡੀ ਨਾਲੋਂ ਆਸਾਨੀ ਨਾਲ ਗਤੀ ਬਦਲਦੀ ਹੈ।")
+    elif class9_work_energy_experiment:
+        if a == "Pushing a box forward":
+            result = ("When a force moves the box in the direction of the push, mechanical work is done. Energy is transferred to the moving box." if not is_pa else "ਜਦੋਂ ਬਲ ਡੱਬੇ ਨੂੰ ਧੱਕੇ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ਹਿਲਾਉਂਦਾ ਹੈ, ਤਾਂ ਮਕੈਨੀਕੀ ਕੰਮ ਹੁੰਦਾ ਹੈ। ਊਰਜਾ ਚੱਲਦੇ ਡੱਬੇ ਨੂੰ ਮਿਲਦੀ ਹੈ।")
+        elif a == "Lifting a box upward":
+            result = ("Lifting the box does work against gravity. As its height increases, its gravitational potential energy increases." if not is_pa else "ਡੱਬੇ ਨੂੰ ਚੁੱਕਣ ਸਮੇਂ ਗੁਰੁਤਵਾਕਰਸ਼ਣ ਦੇ ਵਿਰੁੱਧ ਕੰਮ ਹੁੰਦਾ ਹੈ। ਉਚਾਈ ਵਧਣ ਨਾਲ ਇਸ ਦੀ ਗੁਰੁਤਵਾਕਰਸ਼ੀ ਸਥਿਤਿਜ ਊਰਜਾ ਵਧਦੀ ਹੈ।")
+        else:
+            result = ("If the box does not move, no mechanical work is done on it by the holding force, even though effort is applied." if not is_pa else "ਜੇ ਡੱਬਾ ਹਿਲਦਾ ਨਹੀਂ, ਤਾਂ ਫੜਨ ਵਾਲੇ ਬਲ ਦੁਆਰਾ ਉਸ ਉੱਤੇ ਮਕੈਨੀਕੀ ਕੰਮ ਨਹੀਂ ਹੁੰਦਾ, ਭਾਵੇਂ ਜ਼ੋਰ ਲਾਇਆ ਜਾ ਰਿਹਾ ਹੋਵੇ।")
     elif class9_speed_acceleration_experiment:
         motion_results = {
             "Starting from rest and speeding up": ("The vehicle's speed increases. Its velocity changes with time, so it is accelerating.", "ਵਾਹਨ ਦੀ ਚਾਲ ਵਧਦੀ ਹੈ। ਸਮੇਂ ਨਾਲ ਇਸ ਦਾ ਵੇਗ ਬਦਲਦਾ ਹੈ, ਇਸ ਲਈ ਤਵਰਣ ਹੁੰਦਾ ਹੈ।"),
