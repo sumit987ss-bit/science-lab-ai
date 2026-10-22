@@ -1825,7 +1825,12 @@ def physics_lab():
     magnet_poles_experiment = pc == 6 and ei == 4 and kind == "magnet"
     friction_types_experiment = pc == 7 and ei == 1 and kind == "friction"
     liquid_pressure_examples_experiment = pc == 7 and ei == 2 and kind == "pressure"
-    if liquid_pressure_examples_experiment:
+    reflection_angle_experiment = pc == 7 and ei == 3 and kind == "reflection"
+    if reflection_angle_experiment:
+        reflection_angles = [10, 20, 30, 40, 50, 60, 70, 80]
+        a = st.selectbox("Select angle of incidence" if not is_pa else "ਆਗਮਨ ਕੋਣ ਚੁਣੋ", reflection_angles, index=2, format_func=lambda x: f"{x}°", key="physics_class7_reflection_angle")
+        b = a
+    elif liquid_pressure_examples_experiment:
         pressure_examples = ["Water jets from holes at different depths", "Water pressing against a dam wall", "Water flowing from an overhead tank"]
         pressure_examples_pa = ["ਵੱਖ-ਵੱਖ ਡੂੰਘਾਈਆਂ ਵਾਲੇ ਛੇਕਾਂ ਵਿੱਚੋਂ ਪਾਣੀ ਦੀਆਂ ਧਾਰਾਂ", "ਬੰਨ੍ਹ ਦੀ ਕੰਧ ਉੱਤੇ ਪਾਣੀ ਦਾ ਦਬਾਅ", "ਉੱਚੀ ਟੈਂਕੀ ਵਿੱਚੋਂ ਪਾਣੀ ਦਾ ਵਹਾਅ"]
         a = st.selectbox("Choose a liquid-pressure example" if not is_pa else "ਤਰਲ ਦਬਾਅ ਦੀ ਉਦਾਹਰਨ ਚੁਣੋ", pressure_examples, format_func=lambda x: pressure_examples_pa[pressure_examples.index(x)] if is_pa else x, key="physics_class7_liquid_pressure_example")
@@ -1897,7 +1902,12 @@ def physics_lab():
         c = b
     # Produce a distinct, responsive schematic for the selected phenomenon.
     visual = ""
-    if liquid_pressure_examples_experiment:
+    if reflection_angle_experiment:
+        ray_geometry = {10: (21, 118), 20: (41, 113), 30: (60, 104), 40: (77, 92), 50: (92, 77), 60: (104, 60), 70: (113, 41), 80: (118, 21)}
+        dx, dy = ray_geometry[int(a)]
+        angle_label = f"{int(a)}°"
+        visual = f'<rect x="12" y="12" width="436" height="206" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="32" text-anchor="middle" fill="#334155" font-size="14" font-weight="700">LAW OF REFLECTION</text><path d="M35 180 H425" stroke="#64748b" stroke-width="5"/><text x="405" y="201" text-anchor="end" fill="#334155" font-size="12">Plane mirror</text><path d="M220 48 V180" stroke="#64748b" stroke-width="2" stroke-dasharray="6 5"/><text x="230" y="55" fill="#334155" font-size="12">Normal</text><path d="M{220-dx} {180-dy} L220 180" stroke="#f59e0b" stroke-width="4" fill="none"/><path d="M220 180 L{220+dx} {180-dy}" stroke="#0ea5e9" stroke-width="4" fill="none"/><path d="M{220-dx+10} {180-dy+8} L{220-dx} {180-dy} L{220-dx+12} {180-dy+1}" stroke="#f59e0b" stroke-width="3" fill="none"/><path d="M{220+dx-12} {180-dy+1} L{220+dx} {180-dy} L{220+dx-10} {180-dy+8}" stroke="#0ea5e9" stroke-width="3" fill="none"/><path d="M220 180 L{220-dx} {180-dy}" stroke="#f59e0b" stroke-width="4" fill="none"/><path d="M220 180 L{220+dx} {180-dy}" stroke="#0ea5e9" stroke-width="4" fill="none"/><circle cx="220" cy="180" r="5" fill="#e11d48"/><text x="75" y="65" fill="#b45309" font-size="13" font-weight="700">Incident ray</text><text x="310" y="65" fill="#0369a1" font-size="13" font-weight="700">Reflected ray</text><text x="{220-dx-18}" y="{180-dy+38}" fill="#b45309" font-size="14" font-weight="700">{angle_label}</text><text x="{220+dx+2}" y="{180-dy+38}" fill="#0369a1" font-size="14" font-weight="700">{angle_label}</text><text x="230" y="211" text-anchor="middle" fill="#334155" font-size="12">Angle of incidence = angle of reflection</text>'
+    elif liquid_pressure_examples_experiment:
         if a.startswith("Water jets"):
             visual = '<rect x="18" y="18" width="424" height="194" rx="14" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/><text x="230" y="38" text-anchor="middle" font-size="15" font-weight="700" fill="#334155">LIQUID PRESSURE INCREASES WITH DEPTH</text><path d="M90 50 V172 Q90 185 105 185 H280 Q295 185 295 172 V50" fill="#7dd3fc" fill-opacity=".65" stroke="#0369a1" stroke-width="3"/><path d="M93 68 H292 M93 102 H292 M93 136 H292" stroke="#0284c7" stroke-width="2" stroke-dasharray="5 4"/><circle cx="90" cy="75" r="5" fill="#0f172a"/><circle cx="90" cy="112" r="5" fill="#0f172a"/><circle cx="90" cy="150" r="5" fill="#0f172a"/><path d="M90 75 H137 M129 68 L139 75 L129 82" stroke="#0ea5e9" stroke-width="3" fill="none"/><path d="M90 112 H180 M172 105 L182 112 L172 119" stroke="#0ea5e9" stroke-width="3" fill="none"/><path d="M90 150 H230 M222 143 L232 150 L222 157" stroke="#dc2626" stroke-width="4" fill="none"/><text x="350" y="78" font-size="12" fill="#334155">Upper hole</text><text x="350" y="115" font-size="12" fill="#334155">Middle hole</text><text x="350" y="153" font-size="12" fill="#334155">Lower hole</text><text x="230" y="204" text-anchor="middle" font-size="12" fill="#334155">Deeper hole → stronger outward jet</text>'
         elif a.startswith("Water pressing"):
@@ -1981,7 +1991,9 @@ def physics_lab():
     st.markdown("### " + ("ਦ੍ਰਿਸ਼ ਮਾਡਲ" if is_pa else "Visual model"))
     st.markdown(f'<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;background:rgba(128,128,128,.035)"><svg viewBox="0 0 460 230" width="100%" role="img" aria-label="{title} interactive physics diagram">{visual}</svg></div>', unsafe_allow_html=True)
     result = ""
-    if liquid_pressure_examples_experiment:
+    if reflection_angle_experiment:
+        result = (f"Angle of incidence = {a}° and angle of reflection = {a}°. The reflected ray changes direction with the selected angle; both angles are measured from the normal." if not is_pa else f"ਆਗਮਨ ਕੋਣ = {a}° ਅਤੇ ਪਰਾਵਰਤਨ ਕੋਣ = {a}°। ਪਰਾਵਰਤਿਤ ਕਿਰਨ ਚੁਣੇ ਕੋਣ ਅਨੁਸਾਰ ਦਿਸ਼ਾ ਬਦਲਦੀ ਹੈ; ਦੋਵੇਂ ਕੋਣ ਲੰਬ ਤੋਂ ਮਾਪੇ ਜਾਂਦੇ ਹਨ।")
+    elif liquid_pressure_examples_experiment:
         if a.startswith("Water jets"):
             result = ("Liquid pressure increases with depth, so water from a lower hole usually shoots farther than water from an upper hole." if not is_pa else "ਤਰਲ ਦਾ ਦਬਾਅ ਡੂੰਘਾਈ ਨਾਲ ਵਧਦਾ ਹੈ, ਇਸ ਲਈ ਹੇਠਲੇ ਛੇਕ ਵਿੱਚੋਂ ਪਾਣੀ ਦੀ ਧਾਰ ਆਮ ਤੌਰ ਤੇ ਉੱਪਰਲੇ ਛੇਕ ਨਾਲੋਂ ਦੂਰ ਜਾਂਦੀ ਹੈ।")
         elif a.startswith("Water pressing"):
@@ -2037,7 +2049,7 @@ def physics_lab():
         result = f"Pressure = {float(a)/(float(b)/10000):.2f} Pa" if not is_pa else f"ਦਬਾਅ = {float(a)/(float(b)/10000):.2f} Pa"
     elif kind == "pressure" and not liquid_pressure_examples_experiment:
         result = f"Hydrostatic pressure (gauge) ≈ ρgh = {float(a)*float(b)*9.8:.2f} Pa" if not is_pa else f"ਤਰਲ ਦਬਾਅ ≈ ρgh = {float(a)*float(b)*9.8:.2f} Pa"
-    elif kind == "reflection":
+    elif kind == "reflection" and not reflection_angle_experiment:
         result = f"Angle of reflection = {a}° for an ideal plane mirror." if not is_pa else f"ਆਦਰਸ਼ ਸ਼ੀਸ਼ੇ ਲਈ ਪਰਾਵਰਤਨ ਕੋਣ = {a}°।"
     elif kind == "refraction":
         result = f"Illustrative refractive index = {b}; ray bending depends on both media and incident angle." if not is_pa else f"ਸਮਝਾਉਣ ਲਈ ਅਪਵਰਤਨ ਅੰਕ = {b}।"
