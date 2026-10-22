@@ -824,14 +824,14 @@ def electricity_lab():
             series_svg = f"""<div style="border:1px solid rgba(120,140,160,.35);border-radius:14px;padding:8px;background:rgba(128,128,128,.035)">
             <svg viewBox="0 0 340 235" width="100%" role="img" aria-label="Series circuit: one main switch controls both bulbs">
               <g fill="none" stroke="{series_wire}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M48 58 H92 M136 58 H204 M248 58 H292 V177 H48 V119 M48 58 V82"/>
+                <path d="M48 58 H92 M136 58 H204 M248 58 H292 V177 H195 M145 177 H48 V119 M48 58 V82"/>
+                <path d="M145 177 L${195 if series_switch else 170} ${177 if series_switch else 151}" stroke="#64748b" stroke-width="3"/>
               </g>
               <g stroke="#334155" stroke-width="3"><line x1="31" y1="82" x2="65" y2="82"/><line x1="38" y1="101" x2="58" y2="101"/></g>
               <circle cx="114" cy="58" r="22" fill="{series_bulb}" stroke="#475569" stroke-width="3" style="{series_glow}"/>
               <path d="M104 48 l20 20 M124 48 l-20 20" stroke="#475569" stroke-width="3"/>
               <circle cx="226" cy="58" r="22" fill="{series_bulb}" stroke="#475569" stroke-width="3" style="{series_glow}"/>
               <path d="M216 48 l20 20 M236 48 l-20 20" stroke="#475569" stroke-width="3"/>
-              <path d="M150 177 l15 -10 l15 10" fill="none" stroke="#64748b" stroke-width="3"/>
               <text x="48" y="139" fill="currentColor" font-size="11" text-anchor="middle">{"ਸੈੱਲ" if is_pa_series else "CELL"}</text>
               <text x="180" y="158" fill="currentColor" font-size="10" text-anchor="middle">{"ਮੁੱਖ ਸਵਿੱਚ" if is_pa_series else "MAIN SWITCH"}</text>
               <text x="170" y="211" fill="currentColor" font-size="12" font-weight="700" text-anchor="middle">{"ਇੱਕ ਰਸਤਾ • ਦੋਵੇਂ ਬਲਬ ਇਕੱਠੇ" if is_pa_series else "ONE PATH • BOTH BULBS TOGETHER"}</text>
