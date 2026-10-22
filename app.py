@@ -1824,7 +1824,13 @@ def physics_lab():
     shadow_examples_experiment = pc == 6 and ei == 3 and kind == "shadow"
     magnet_poles_experiment = pc == 6 and ei == 4 and kind == "magnet"
     friction_types_experiment = pc == 7 and ei == 1 and kind == "friction"
-    if friction_types_experiment:
+    liquid_pressure_examples_experiment = pc == 7 and ei == 2 and kind == "pressure"
+    if liquid_pressure_examples_experiment:
+        pressure_examples = ["Water jets from holes at different depths", "Water pressing against a dam wall", "Water flowing from an overhead tank"]
+        pressure_examples_pa = ["ਵੱਖ-ਵੱਖ ਡੂੰਘਾਈਆਂ ਵਾਲੇ ਛੇਕਾਂ ਵਿੱਚੋਂ ਪਾਣੀ ਦੀਆਂ ਧਾਰਾਂ", "ਬੰਨ੍ਹ ਦੀ ਕੰਧ ਉੱਤੇ ਪਾਣੀ ਦਾ ਦਬਾਅ", "ਉੱਚੀ ਟੈਂਕੀ ਵਿੱਚੋਂ ਪਾਣੀ ਦਾ ਵਹਾਅ"]
+        a = st.selectbox("Choose a liquid-pressure example" if not is_pa else "ਤਰਲ ਦਬਾਅ ਦੀ ਉਦਾਹਰਨ ਚੁਣੋ", pressure_examples, format_func=lambda x: pressure_examples_pa[pressure_examples.index(x)] if is_pa else x, key="physics_class7_liquid_pressure_example")
+        b = a
+    elif friction_types_experiment:
         friction_examples = ["Sliding friction — block on different surfaces", "Rolling friction — wheel on a road", "Fluid friction — cyclist or boat through a fluid"]
         friction_examples_pa = ["ਸਰਕਣ ਘਰਸ਼ਣ — ਵੱਖਰੀਆਂ ਸਤਹਾਂ ਉੱਤੇ ਬਲਾਕ", "ਲੁੜਕਣ ਘਰਸ਼ਣ — ਸੜਕ ਉੱਤੇ ਪਹੀਆ", "ਤਰਲ ਘਰਸ਼ਣ — ਹਵਾ ਜਾਂ ਪਾਣੀ ਵਿੱਚ ਸਾਈਕਲ ਸਵਾਰ / ਕਿਸ਼ਤੀ"]
         a = st.selectbox("Choose a type of friction" if not is_pa else "ਘਰਸ਼ਣ ਦੀ ਕਿਸਮ ਚੁਣੋ", friction_examples, format_func=lambda x: friction_examples_pa[friction_examples.index(x)] if is_pa else x, key="physics_class7_friction_type")
@@ -1891,7 +1897,14 @@ def physics_lab():
         c = b
     # Produce a distinct, responsive schematic for the selected phenomenon.
     visual = ""
-    if friction_types_experiment:
+    if liquid_pressure_examples_experiment:
+        if a.startswith("Water jets"):
+            visual = '<rect x="18" y="18" width="424" height="194" rx="14" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/><text x="230" y="38" text-anchor="middle" font-size="15" font-weight="700" fill="#334155">LIQUID PRESSURE INCREASES WITH DEPTH</text><path d="M90 50 V172 Q90 185 105 185 H280 Q295 185 295 172 V50" fill="#7dd3fc" fill-opacity=".65" stroke="#0369a1" stroke-width="3"/><path d="M93 68 H292 M93 102 H292 M93 136 H292" stroke="#0284c7" stroke-width="2" stroke-dasharray="5 4"/><circle cx="90" cy="75" r="5" fill="#0f172a"/><circle cx="90" cy="112" r="5" fill="#0f172a"/><circle cx="90" cy="150" r="5" fill="#0f172a"/><path d="M90 75 H137 M129 68 L139 75 L129 82" stroke="#0ea5e9" stroke-width="3" fill="none"/><path d="M90 112 H180 M172 105 L182 112 L172 119" stroke="#0ea5e9" stroke-width="3" fill="none"/><path d="M90 150 H230 M222 143 L232 150 L222 157" stroke="#dc2626" stroke-width="4" fill="none"/><text x="350" y="78" font-size="12" fill="#334155">Upper hole</text><text x="350" y="115" font-size="12" fill="#334155">Middle hole</text><text x="350" y="153" font-size="12" fill="#334155">Lower hole</text><text x="230" y="204" text-anchor="middle" font-size="12" fill="#334155">Deeper hole → stronger outward jet</text>'
+        elif a.startswith("Water pressing"):
+            visual = '<rect x="18" y="18" width="424" height="194" rx="14" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/><text x="230" y="38" text-anchor="middle" font-size="15" font-weight="700" fill="#334155">WATER PRESSURE ON A DAM</text><path d="M35 58 H260 V178 H35 Z" fill="#7dd3fc" fill-opacity=".7" stroke="#0284c7" stroke-width="2"/><path d="M35 58 H260" stroke="#0284c7" stroke-width="3"/><path d="M260 48 L310 178 L260 178 Z" fill="#94a3b8" stroke="#475569" stroke-width="3"/><path d="M90 75 H145 M137 67 L147 75 L137 83 M90 112 H175 M167 104 L177 112 L167 120 M90 150 H215 M207 142 L217 150 L207 158" stroke="#dc2626" stroke-width="4" fill="none"/><text x="115" y="52" text-anchor="middle" font-size="12" fill="#334155">Water</text><text x="345" y="100" text-anchor="middle" font-size="13" fill="#334155">Dam wall</text><text x="230" y="204" text-anchor="middle" font-size="12" fill="#334155">Wall is built thicker near the bottom</text>'
+        else:
+            visual = '<rect x="18" y="18" width="424" height="194" rx="14" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/><text x="230" y="38" text-anchor="middle" font-size="15" font-weight="700" fill="#334155">OVERHEAD WATER TANK</text><rect x="105" y="48" width="150" height="100" rx="5" fill="#7dd3fc" fill-opacity=".65" stroke="#0369a1" stroke-width="3"/><path d="M105 75 H255 M105 102 H255 M105 129 H255" stroke="#0284c7" stroke-width="2" stroke-dasharray="5 4"/><path d="M255 130 H320 V178 H385" stroke="#64748b" stroke-width="10" fill="none"/><path d="M320 178 H385" stroke="#38bdf8" stroke-width="5"/><path d="M320 178 H385 M377 170 L387 178 L377 186" stroke="#0ea5e9" stroke-width="3" fill="none"/><path d="M180 148 V178 M172 170 L180 180 L188 170" stroke="#0ea5e9" stroke-width="3" fill="none"/><text x="180" y="93" text-anchor="middle" font-size="14" fill="#075985">Water</text><text x="325" y="153" text-anchor="middle" font-size="12" fill="#334155">Outlet pipe</text><text x="230" y="204" text-anchor="middle" font-size="12" fill="#334155">Water head helps push water through the pipe</text>'
+    elif friction_types_experiment:
         if a.startswith("Sliding"):
             visual = '<rect x="18" y="18" width="424" height="194" rx="14" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/><text x="230" y="40" text-anchor="middle" font-size="15" font-weight="700" fill="#334155">SLIDING FRICTION · SURFACE COMPARISON</text><rect x="35" y="75" width="175" height="88" rx="6" fill="#d6d3d1" stroke="#78716c" stroke-width="2"/><path d="M38 92 l12 -8 l12 8 l12 -8 l12 8 l12 -8 l12 8 l12 -8 l12 8 l12 -8 l12 8 l12 -8 l12 8" stroke="#78716c" stroke-width="3" fill="none"/><rect x="250" y="75" width="175" height="88" rx="6" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/><path d="M252 92 H423 M252 112 H423 M252 132 H423 M252 152 H423" stroke="#60a5fa" stroke-width="2"/><rect x="83" y="53" width="72" height="35" rx="5" fill="#f59e0b" stroke="#92400e" stroke-width="2"/><rect x="300" y="53" width="72" height="35" rx="5" fill="#f59e0b" stroke="#92400e" stroke-width="2"/><path d="M80 47 H45 M53 39 L43 47 L53 55 M158 47 H193 M185 39 L195 47 L185 55" stroke="#dc2626" stroke-width="3" fill="none"/><path d="M300 47 H275 M283 39 L273 47 L283 55 M372 47 H405 M397 39 L407 47 L397 55" stroke="#0ea5e9" stroke-width="3" fill="none"/><text x="122" y="185" text-anchor="middle" font-size="13" fill="#334155">Rough carpet / rough wood</text><text x="337" y="185" text-anchor="middle" font-size="13" fill="#1e40af">Smooth tile / polished surface</text><text x="230" y="204" text-anchor="middle" font-size="12" fill="#334155">Rougher surface usually resists sliding more</text>'
         elif a.startswith("Rolling"):
@@ -1968,7 +1981,14 @@ def physics_lab():
     st.markdown("### " + ("ਦ੍ਰਿਸ਼ ਮਾਡਲ" if is_pa else "Visual model"))
     st.markdown(f'<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;background:rgba(128,128,128,.035)"><svg viewBox="0 0 460 230" width="100%" role="img" aria-label="{title} interactive physics diagram">{visual}</svg></div>', unsafe_allow_html=True)
     result = ""
-    if friction_types_experiment:
+    if liquid_pressure_examples_experiment:
+        if a.startswith("Water jets"):
+            result = ("Liquid pressure increases with depth, so water from a lower hole usually shoots farther than water from an upper hole." if not is_pa else "ਤਰਲ ਦਾ ਦਬਾਅ ਡੂੰਘਾਈ ਨਾਲ ਵਧਦਾ ਹੈ, ਇਸ ਲਈ ਹੇਠਲੇ ਛੇਕ ਵਿੱਚੋਂ ਪਾਣੀ ਦੀ ਧਾਰ ਆਮ ਤੌਰ ਤੇ ਉੱਪਰਲੇ ਛੇਕ ਨਾਲੋਂ ਦੂਰ ਜਾਂਦੀ ਹੈ।")
+        elif a.startswith("Water pressing"):
+            result = ("Water pressure is greater at greater depth. That is why dam walls are designed thicker and stronger near the bottom." if not is_pa else "ਵੱਧ ਡੂੰਘਾਈ ਉੱਤੇ ਪਾਣੀ ਦਾ ਦਬਾਅ ਵੱਧ ਹੁੰਦਾ ਹੈ। ਇਸੇ ਲਈ ਬੰਨ੍ਹ ਦੀ ਕੰਧ ਹੇਠਾਂ ਵੱਲ ਵਧੇਰੇ ਮੋਟੀ ਅਤੇ ਮਜ਼ਬੂਤ ਬਣਾਈ ਜਾਂਦੀ ਹੈ।")
+        else:
+            result = ("Water pressure at the outlet depends partly on the height of water above it. An overhead tank can push water through connected pipes." if not is_pa else "ਨਿਕਾਸ ਵਾਲੀ ਥਾਂ ਉੱਤੇ ਪਾਣੀ ਦਾ ਦਬਾਅ ਉਸ ਤੋਂ ਉੱਪਰਲੇ ਪਾਣੀ ਦੀ ਉਚਾਈ ਉੱਤੇ ਵੀ ਨਿਰਭਰ ਕਰਦਾ ਹੈ। ਉੱਚੀ ਟੈਂਕੀ ਪਾਈਪਾਂ ਵਿੱਚੋਂ ਪਾਣੀ ਧੱਕ ਸਕਦੀ ਹੈ।")
+    elif friction_types_experiment:
         if a.startswith("Sliding"):
             result = ("Sliding friction acts when two surfaces slide against each other. A rough carpet usually opposes sliding more than a smooth tile." if not is_pa else "ਜਦੋਂ ਦੋ ਸਤਹਾਂ ਇੱਕ-ਦੂਜੇ ਉੱਤੇ ਸਰਕਦੀਆਂ ਹਨ ਤਾਂ ਸਰਕਣ ਘਰਸ਼ਣ ਲੱਗਦਾ ਹੈ। ਖੁਰਦਰਾ ਕਾਰਪੇਟ ਆਮ ਤੌਰ ਤੇ ਚਿਕਣੀ ਟਾਇਲ ਨਾਲੋਂ ਵੱਧ ਰੁਕਾਵਟ ਪੈਦਾ ਕਰਦਾ ਹੈ।")
         elif a.startswith("Rolling"):
@@ -2015,7 +2035,7 @@ def physics_lab():
         result = f"Gravitational potential energy ≈ {float(a)*9.8*float(b):.2f} J" if not is_pa else f"ਗੁਰੁਤਵਾਕਰਸ਼ੀ ਸਥਿਤਿਜ ਊਰਜਾ ≈ {float(a)*9.8*float(b):.2f} J"
     elif kind == "pressure_area":
         result = f"Pressure = {float(a)/(float(b)/10000):.2f} Pa" if not is_pa else f"ਦਬਾਅ = {float(a)/(float(b)/10000):.2f} Pa"
-    elif kind == "pressure":
+    elif kind == "pressure" and not liquid_pressure_examples_experiment:
         result = f"Hydrostatic pressure (gauge) ≈ ρgh = {float(a)*float(b)*9.8:.2f} Pa" if not is_pa else f"ਤਰਲ ਦਬਾਅ ≈ ρgh = {float(a)*float(b)*9.8:.2f} Pa"
     elif kind == "reflection":
         result = f"Angle of reflection = {a}° for an ideal plane mirror." if not is_pa else f"ਆਦਰਸ਼ ਸ਼ੀਸ਼ੇ ਲਈ ਪਰਾਵਰਤਨ ਕੋਣ = {a}°।"
