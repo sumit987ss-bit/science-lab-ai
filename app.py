@@ -2711,6 +2711,63 @@ def chemistry_visual(kind, pa, choice=None):
         "electrochemistry": '<path d="M95 70 L115 70 L110 140 Q140 150 170 140 L165 70" fill="#b8e0ef" stroke="#397b98" stroke-width="3"/><rect x="118" y="70" width="9" height="45" fill="#c1c7ce"/><rect x="150" y="70" width="9" height="45" fill="#d7a85d"/><circle cx="130" cy="120" r="4" fill="#d7a85d"/><circle cx="145" cy="128" r="4" fill="#d7a85d"/><path d="M210 105 H260" stroke="#4c8198" stroke-width="4"/><path d="M248 94 L260 105 L248 116" stroke="#4c8198" stroke-width="4" fill="none"/><rect x="310" y="70" width="80" height="70" rx="8" fill="#b9c4ce" stroke="#71808e" stroke-width="2"/><rect x="310" y="70" width="80" height="12" rx="4" fill="#d9a84e"/>'
     }
     drawing = common.get(kind, common["reaction"])
+    # Add a selected-sample label and visual cue for each Class 6 dropdown choice.
+    if kind == "materials" and choice:
+        groups = {
+            "Metal spoon": ("METALS / CONDUCTORS", "ધાતਾਂ / ਚਾਲਕ", "#b8c8d8"),
+            "Iron nail": ("METALS / CONDUCTORS", "ਧਾਤਾਂ / ਚਾਲਕ", "#b8c8d8"),
+            "Wood": ("OPAQUE / RIGID", "ਅਪਾਰਦਰਸ਼ੀ / ਸਖ਼ਤ", "#c89b68"),
+            "Plastic ruler": ("LIGHTWEIGHT INSULATORS", "ਹਲਕੇ ਕੁਚਾਲਕ", "#80c9b0"),
+            "Rubber band": ("FLEXIBLE INSULATORS", "ਲਚਕੀਲੇ ਕੁਚਾਲਕ", "#80c9b0"),
+            "Cotton cloth": ("SOFT / FLEXIBLE", "ਨਰਮ / ਲਚਕੀਲੇ", "#e7c6d7"),
+            "Clear glass": ("TRANSPARENT", "ਪਾਰਦਰਸ਼ੀ", "#8ad8e8"),
+            "Cardboard": ("OPAQUE", "ਅਪਾਰਦਰਸ਼ੀ", "#c89b68")
+        }
+        group = groups.get(choice, ("MATERIAL GROUP", "ਪਦਾਰਥ ਸਮੂਹ", "#b8c8d8"))
+        drawing += f'<rect x="35" y="45" width="410" height="30" rx="8" fill="{group[2]}" opacity=".9"/><text x="240" y="65" text-anchor="middle" font-size="13" font-weight="bold" fill="#243746">{choice.upper()} → {group[0]}</text><text x="240" y="185" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">{group[1] if pa else group[0]}</text>'
+    elif kind == "solubility" and choice:
+        soluble = choice in ("Salt in water", "Sugar in water")
+        oil = choice == "Oil and water"
+        label = "SOLUBLE / ਘੁਲਣਸ਼ੀਲ" if soluble else ("SEPARATE LAYER / ਵੱਖਰੀ ਪਰਤ" if oil else "INSOLUBLE / ਅਘੁਲਣਸ਼ੀਲ")
+        color = "#2e9d75" if soluble else ("#d49b2a" if oil else "#bd7950")
+        dots = ''.join(f'<circle cx="{x}" cy="{y}" r="4" fill="{("#ffffff" if soluble else "#986b47")}"/>' for x, y in ([(122,105),(140,120),(155,99),(131,135),(158,133),(145,89)] if soluble else [(122,137),(140,139),(158,136),(132,127),(150,129),(143,119)]))
+        layer = '<rect x="280" y="83" width="70" height="20" rx="3" fill="#efc34f"/>' if oil else ""
+        drawing += f'<rect x="55" y="42" width="370" height="32" rx="8" fill="{color}" opacity=".25"/><text x="240" y="63" text-anchor="middle" font-size="13" font-weight="bold" fill="currentColor">{choice.upper()} — {label}</text>{dots}{layer}<text x="240" y="183" text-anchor="middle" font-size="12" font-weight="bold" fill="{color}">{label}</text>'
+    elif kind == "changes" and choice:
+        physical = choice in ("Ice melting", "Water freezing", "Water evaporating", "Tearing paper", "Dissolving sugar")
+        label = "PHYSICAL CHANGE" if physical else "CHEMICAL CHANGE"
+        pa_label = "ਭੌਤਿਕ ਤਬਦੀਲੀ" if physical else "ਰਸਾਇਣਕ ਤਬਦੀਲੀ"
+        tint = "#4c9bc4" if physical else "#c56c45"
+        examples = {
+            "Ice melting": "ICE → WATER",
+            "Water freezing": "WATER → ICE",
+            "Water evaporating": "WATER → VAPOUR",
+            "Tearing paper": "PAPER → PIECES",
+            "Dissolving sugar": "SUGAR + WATER",
+            "Rusting iron": "IRON → RUST",
+            "Curdling milk": "MILK → CURDS",
+            "Paper burning (diagram only)": "PAPER → ASH + GASES"
+        }
+        drawing += f'<rect x="55" y="43" width="370" height="32" rx="8" fill="{tint}" opacity=".25"/><text x="240" y="64" text-anchor="middle" font-size="13" font-weight="bold" fill="currentColor">{label}</text><text x="240" y="183" text-anchor="middle" font-size="13" font-weight="bold" fill="currentColor">{examples.get(choice, choice)} — {pa_label if pa else label}</text>'
+    elif kind == "transparency" and choice:
+        categories = {
+            "Clear glass": ("TRANSPARENT", "ਪਾਰਦਰਸ਼ੀ"),
+            "Clean water": ("TRANSPARENT", "ਪਾਰਦਰਸ਼ੀ"),
+            "Tracing sheet": ("TRANSLUCENT", "ਅਰਧ-ਪਾਰਦਰਸ਼ੀ"),
+            "Frosted glass": ("TRANSLUCENT", "ਅਰਧ-ਪਾਰਦਰਸ਼ੀ"),
+            "Thin cloth": ("TRANSLUCENT", "ਅਰਧ-ਪਾਰਦਰਸ਼ੀ"),
+            "Cardboard": ("OPAQUE", "ਅਪਾਰਦਰਸ਼ੀ"),
+            "Wooden board": ("OPAQUE", "ਅਪਾਰਦਰਸ਼ੀ")
+        }
+        category = categories.get(choice, ("SELECT MATERIAL", "ਪਦਾਰਥ ਚੁਣੋ"))
+        tint = "#2e9d75" if category[0] == "TRANSPARENT" else ("#d49b2a" if category[0] == "TRANSLUCENT" else "#bd7950")
+        if category[0] == "TRANSPARENT":
+            rays = '<path d="M105 112 H370 M358 101 L370 112 L358 123" stroke="#e4a72e" stroke-width="4" fill="none"/>'
+        elif category[0] == "TRANSLUCENT":
+            rays = '<path d="M105 112 H195 M220 95 L270 112 L220 129 M270 112 L370 90 M270 112 L370 134" stroke="#e4a72e" stroke-width="3" fill="none"/>'
+        else:
+            rays = '<path d="M105 112 H190 M180 102 L190 112 L180 122" stroke="#e4a72e" stroke-width="4" fill="none"/><path d="M230 80 L270 145 M270 80 L230 145" stroke="#e4a72e" stroke-width="4"/>'
+        drawing += f'<rect x="55" y="42" width="370" height="30" rx="8" fill="{tint}" opacity=".25"/><text x="240" y="62" text-anchor="middle" font-size="13" font-weight="bold" fill="currentColor">{choice.upper()} → {category[0]}</text>{rays}<text x="240" y="183" text-anchor="middle" font-size="12" font-weight="bold" fill="{tint}">{category[1] if pa else category[0]}</text>'
     return f"""
     <div style="border:1px solid #9bb6c4;border-radius:16px;padding:10px;margin:10px 0;background:linear-gradient(135deg,rgba(200,230,240,.25),rgba(210,245,225,.25))">
       <div style="font-weight:800;letter-spacing:.04em;text-align:center;margin-bottom:4px">{title}</div>
