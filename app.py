@@ -1886,6 +1886,7 @@ def physics_lab():
     class10_reflection_experiment = pc == 10 and ei == 0 and kind == "reflection"
     class10_refraction_experiment = pc == 10 and ei == 1 and kind == "refraction"
     class10_convex_lens_experiment = pc == 10 and ei == 2 and kind == "lens"
+    class10_work_power_energy_experiment = pc == 10 and ei == 3 and kind == "work"
     # Class 8 sound uses a qualitative dropdown, not numeric frequency/amplitude sliders.
     if class8_sound_wave_examples_experiment:
         sound_examples = ["Soft, low-pitched sound", "Loud, low-pitched sound", "Soft, high-pitched sound", "Loud, high-pitched sound"]
@@ -1981,6 +1982,11 @@ def physics_lab():
             key="physics_class6_slow_fast_choice"
         )
         b = a
+    elif class10_work_power_energy_experiment:
+        work_power_cases = ["Pushing a box and it moves", "Lifting a load", "Holding a box still", "Doing the same task quickly", "Doing the same task slowly"]
+        work_power_cases_pa = ["ਡੱਬੇ ਨੂੰ ਧੱਕਣਾ ਅਤੇ ਇਸ ਦਾ ਚੱਲਣਾ", "ਭਾਰ ਨੂੰ ਉੱਪਰ ਚੁੱਕਣਾ", "ਡੱਬੇ ਨੂੰ ਸਥਿਰ ਫੜਨਾ", "ਉਹੀ ਕੰਮ ਜਲਦੀ ਕਰਨਾ", "ਉਹੀ ਕੰਮ ਹੌਲੀ ਕਰਨਾ"]
+        a = st.selectbox("Choose a work and power situation" if not is_pa else "ਕੰਮ ਅਤੇ ਸ਼ਕਤੀ ਦੀ ਸਥਿਤੀ ਚੁਣੋ", work_power_cases, format_func=lambda x: work_power_cases_pa[work_power_cases.index(x)] if is_pa else x, key="physics_class10_work_power_case_" + st.session_state.language)
+        b = a
     elif class10_convex_lens_experiment:
         lens_cases = ["Object beyond 2F", "Object at 2F", "Object between F and 2F", "Object at F", "Object between lens and F"]
         lens_cases_pa = ["ਵਸਤੂ 2F ਤੋਂ ਪਰੇ", "ਵਸਤੂ 2F ਉੱਤੇ", "ਵਸਤੂ F ਅਤੇ 2F ਵਿਚਕਾਰ", "ਵਸਤੂ F ਉੱਤੇ", "ਲੈਂਸ ਅਤੇ F ਵਿਚਕਾਰ ਵਸਤੂ"]
@@ -2058,7 +2064,32 @@ def physics_lab():
     # Produce a distinct, responsive schematic for the selected phenomenon.
     # Class 10 lens case is an independent if branch, not an elif without a parent.
     visual = ""
-    if class10_convex_lens_experiment:
+    if class10_work_power_energy_experiment:
+        work_heading = "WORK, POWER AND ENERGY" if not is_pa else "ਕੰਮ, ਸ਼ਕਤੀ ਅਤੇ ਊਰਜਾ"
+        person = '<circle cx="65" cy="105" r="13" fill="#f1c27d" stroke="#92400e" stroke-width="2"/><path d="M65 118 V153 M65 128 L88 143 L105 143 M65 153 L51 176 M65 153 L80 176" stroke="#2563eb" stroke-width="7" stroke-linecap="round" fill="none"/>'
+        box_shape = '<rect x="108" y="121" width="58" height="43" rx="4" fill="#c08457" stroke="#854d0e" stroke-width="3"/><path d="M116 129 L158 156 M158 129 L116 156" stroke="#a16207" stroke-width="2"/>'
+        if a == "Pushing a box and it moves":
+            action = '<path d="M90 142 H106 M99 134 L108 142 L99 150" stroke="#16a34a" stroke-width="4" fill="none"/>'
+            scene = "FORCE + DISPLACEMENT = WORK" if not is_pa else "ਬਲ + ਵਿਸਥਾਪਨ = ਕੰਮ"
+            extra = '<path d="M180 176 H330 M320 166 L332 176 L320 186" stroke="#16a34a" stroke-width="4" fill="none"/><rect x="250" y="127" width="58" height="43" rx="4" fill="#c08457" stroke="#854d0e" stroke-width="3"/>'
+        elif a == "Lifting a load":
+            action = '<path d="M139 118 V73 M129 84 L139 71 L149 84" stroke="#16a34a" stroke-width="4" fill="none"/>'
+            scene = "WORK DONE AGAINST GRAVITY" if not is_pa else "ਗੁਰੁਤਵਾਕਰਸ਼ਣ ਦੇ ਵਿਰੁੱਧ ਕੰਮ"
+            extra = '<path d="M115 83 H163 V117 H115 Z" fill="#c08457" stroke="#854d0e" stroke-width="3"/><path d="M139 67 V52" stroke="#64748b" stroke-width="3"/>'
+        elif a == "Holding a box still":
+            action = '<path d="M102 141 H111 M105 134 L112 141 L105 148" stroke="#64748b" stroke-width="3" fill="none"/>'
+            scene = "NO DISPLACEMENT · NO WORK ON THE BOX" if not is_pa else "ਵਿਸਥਾਪਨ ਨਹੀਂ · ਡੱਬੇ ਉੱਤੇ ਕੰਮ ਨਹੀਂ"
+            extra = '<path d="M180 120 V165 M170 130 L180 118 L190 130 M170 155 L180 167 L190 155" stroke="#7c3aed" stroke-width="3" fill="none"/>'
+        elif a == "Doing the same task quickly":
+            action = '<path d="M92 142 H106 M99 134 L108 142 L99 150" stroke="#16a34a" stroke-width="4" fill="none"/>'
+            scene = "SAME WORK IN LESS TIME · GREATER POWER" if not is_pa else "ਉਹੀ ਕੰਮ ਘੱਟ ਸਮੇਂ ਵਿੱਚ · ਵੱਧ ਸ਼ਕਤੀ"
+            extra = '<circle cx="285" cy="140" r="27" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/><path d="M285 140 L285 120 M285 140 L301 149" stroke="#15803d" stroke-width="3" fill="none"/><path d="M325 140 H365 M355 130 L367 140 L355 150" stroke="#16a34a" stroke-width="4" fill="none"/>'
+        else:
+            action = '<path d="M92 142 H106 M99 134 L108 142 L99 150" stroke="#f59e0b" stroke-width="3" fill="none"/>'
+            scene = "SAME WORK IN MORE TIME · LOWER POWER" if not is_pa else "ਉਹੀ ਕੰਮ ਵੱਧ ਸਮੇਂ ਵਿੱਚ · ਘੱਟ ਸ਼ਕਤੀ"
+            extra = '<circle cx="285" cy="140" r="27" fill="#fef3c7" stroke="#d97706" stroke-width="3"/><path d="M285 140 L285 120 M285 140 L301 149" stroke="#b45309" stroke-width="3" fill="none"/><path d="M325 140 H365 M355 130 L367 140 L355 150" stroke="#d97706" stroke-width="4" fill="none"/>'
+        visual = f'<rect x="12" y="12" width="436" height="206" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="31" text-anchor="middle" font-size="14" font-weight="700" fill="#334155">{work_heading}</text><path d="M30 180 H420" stroke="#94a3b8" stroke-width="3"/>{person}{box_shape}{action}{extra}<text x="230" y="204" text-anchor="middle" font-size="10" font-weight="700" fill="#0f766e">{scene}</text>'
+    elif class10_convex_lens_experiment:
         lens_heading = "CONVEX LENS: IMAGE FORMATION" if not is_pa else "ਉੱਤਲ ਲੈਂਸ: ਪ੍ਰਤਿਬਿੰਬ ਬਣਨਾ"
         axis = '<path d="M28 142 H432" stroke="#64748b" stroke-width="2"/><path d="M424 136 L434 142 L424 148" stroke="#64748b" stroke-width="2" fill="none"/>'
         lens_shape = '<path d="M230 43 Q195 142 230 225 Q265 142 230 43" fill="#bae6fd" fill-opacity=".75" stroke="#0284c7" stroke-width="3"/>'
@@ -2514,6 +2545,15 @@ def physics_lab():
         result = f"{b} is represented qualitatively; actual heat transfer depends on dimensions and conditions." if not is_pa else f"{b} ਦਾ ਤਾਪ ਚਾਲਨ ਗੁਣਾਤਮਕ ਤੌਰ ਤੇ ਦਿਖਾਇਆ ਗਿਆ ਹੈ।"
     elif kind == "shadow" and not shadow_examples_experiment:
         result = "A larger object or a closer light source can produce a larger shadow in this simplified setup." if not is_pa else "ਇਸ ਸਧਾਰਨ ਮਾਡਲ ਵਿੱਚ ਵੱਡੀ ਵਸਤੂ ਜਾਂ ਨੇੜੇ ਰੋਸ਼ਨੀ ਨਾਲ ਵੱਡਾ ਪਰਛਾਵਾਂ ਬਣ ਸਕਦਾ ਹੈ।"
+    elif class10_work_power_energy_experiment:
+        work_power_results = {
+            "Pushing a box and it moves": ("Work is done when a force causes displacement in its direction. The moving box shows force and displacement together.", "ਜਦੋਂ ਬਲ ਵਸਤੂ ਦਾ ਆਪਣੀ ਦਿਸ਼ਾ ਵਿੱਚ ਵਿਸਥਾਪਨ ਕਰਦਾ ਹੈ ਤਾਂ ਕੰਮ ਹੁੰਦਾ ਹੈ। ਚੱਲਦਾ ਡੱਬਾ ਬਲ ਅਤੇ ਵਿਸਥਾਪਨ ਦੋਵੇਂ ਦਿਖਾਉਂਦਾ ਹੈ।"),
+            "Lifting a load": ("Lifting the load requires work against gravity, transferring energy to the raised object.", "ਭਾਰ ਨੂੰ ਉੱਪਰ ਚੁੱਕਣ ਲਈ ਗੁਰੁਤਵਾਕਰਸ਼ਣ ਦੇ ਵਿਰੁੱਧ ਕੰਮ ਕਰਨਾ ਪੈਂਦਾ ਹੈ ਅਤੇ ਵਸਤੂ ਦੀ ਊਰਜਾ ਵਧਦੀ ਹੈ।"),
+            "Holding a box still": ("If the box does not move, there is no displacement; in the school-physics sense, no mechanical work is done on the box by the holding force.", "ਜੇ ਡੱਬਾ ਹਿਲਦਾ ਨਹੀਂ ਤਾਂ ਵਿਸਥਾਪਨ ਨਹੀਂ ਹੁੰਦਾ; ਸਕੂਲੀ ਭੌਤਿਕ ਵਿਗਿਆਨ ਅਨੁਸਾਰ ਫੜਨ ਵਾਲੇ ਬਲ ਦੁਆਰਾ ਡੱਬੇ ਉੱਤੇ ਮਕੈਨੀਕੀ ਕੰਮ ਨਹੀਂ ਹੁੰਦਾ।"),
+            "Doing the same task quickly": ("Power describes how quickly work is done. Doing the same work in less time means greater power.", "ਸ਼ਕਤੀ ਦੱਸਦੀ ਹੈ ਕਿ ਕੰਮ ਕਿੰਨੀ ਜਲਦੀ ਹੁੰਦਾ ਹੈ। ਉਹੀ ਕੰਮ ਘੱਟ ਸਮੇਂ ਵਿੱਚ ਕਰਨ ਦਾ ਅਰਥ ਵੱਧ ਸ਼ਕਤੀ ਹੈ।"),
+            "Doing the same task slowly": ("Power describes how quickly work is done. Doing the same work in more time means lower power.", "ਸ਼ਕਤੀ ਦੱਸਦੀ ਹੈ ਕਿ ਕੰਮ ਕਿੰਨੀ ਜਲਦੀ ਹੁੰਦਾ ਹੈ। ਉਹੀ ਕੰਮ ਵੱਧ ਸਮੇਂ ਵਿੱਚ ਕਰਨ ਦਾ ਅਰਥ ਘੱਟ ਸ਼ਕਤੀ ਹੈ।")
+        }
+        result = work_power_results[a][1] if is_pa else work_power_results[a][0]
     elif class10_convex_lens_experiment:
         lens_results = {
             "Object beyond 2F": ("The image forms between F and 2F on the opposite side of the convex lens. It is real, inverted and smaller.", "ਪ੍ਰਤਿਬਿੰਬ ਉੱਤਲ ਲੈਂਸ ਦੇ ਦੂਜੇ ਪਾਸੇ F ਅਤੇ 2F ਵਿਚਕਾਰ ਬਣਦਾ ਹੈ। ਇਹ ਅਸਲੀ, ਉਲਟਾ ਅਤੇ ਛੋਟਾ ਹੁੰਦਾ ਹੈ।"),
