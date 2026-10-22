@@ -1822,7 +1822,11 @@ def physics_lab():
     slow_fast_experiment = pc == 6 and ei == 1 and kind == "speed"
     force_examples_experiment = pc == 6 and ei == 2 and kind == "force"
     shadow_examples_experiment = pc == 6 and ei == 3 and kind == "shadow"
-    if shadow_examples_experiment:
+    magnet_poles_experiment = pc == 6 and ei == 4 and kind == "magnet"
+    if magnet_poles_experiment:
+        a = st.selectbox("Choose the poles facing each other" if not is_pa else "ਇੱਕ-ਦੂਜੇ ਵੱਲ ਮੂੰਹ ਕਰਦੇ ਧਰੁਵ ਚੁਣੋ", ["Like poles (N–N)", "Unlike poles (N–S)"], format_func=lambda x: (("ਇੱਕੋ ਜਿਹੇ ਧਰੁਵ (N–N)" if x.startswith("Like") else "ਵੱਖਰੇ ਧਰੁਵ (N–S)") if is_pa else x), key="physics_class6_magnet_poles")
+        b = a
+    elif shadow_examples_experiment:
         shadow_examples = ["Torch and hand", "Tree on a sunny day", "Opaque book blocking light", "Translucent curtain"]
         shadow_examples_pa = ["ਟਾਰਚ ਅਤੇ ਹੱਥ", "ਧੁੱਪ ਵਿੱਚ ਦਰੱਖਤ", "ਰੋਸ਼ਨੀ ਰੋਕਦੀ ਅਪਾਰਦਰਸ਼ੀ ਕਿਤਾਬ", "ਅਰਧ-ਪਾਰਦਰਸ਼ੀ ਪਰਦਾ"]
         a = st.selectbox(
@@ -1881,7 +1885,23 @@ def physics_lab():
         c = b
     # Produce a distinct, responsive schematic for the selected phenomenon.
     visual = ""
-    if force_examples_experiment:
+    if magnet_poles_experiment:
+        like_poles = a.startswith("Like")
+        left_x = 42 if like_poles else 70
+        right_x = 285 if like_poles else 230
+        gap_label = ("REPEL · MOVE APART" if like_poles else "ATTRACT · TOUCH") if not is_pa else ("ਵਿਕਰਸ਼ਣ · ਦੂਰ ਹਟਦੇ ਹਨ" if like_poles else "ਖਿੱਚ · ਇਕੱਠੇ ਜੁੜਦੇ ਹਨ")
+        left_bar = f'<rect x="{left_x}" y="85" width="80" height="54" rx="5" fill="#2563eb" stroke="#1e3a8a" stroke-width="2"/><rect x="{left_x+80}" y="85" width="80" height="54" rx="5" fill="#ef4444" stroke="#991b1b" stroke-width="2"/><text x="{left_x+40}" y="118" text-anchor="middle" font-size="21" font-weight="700" fill="white">S</text><text x="{left_x+120}" y="118" text-anchor="middle" font-size="21" font-weight="700" fill="white">N</text>'
+        right_left_pole = "N" if like_poles else "S"
+        right_right_pole = "S" if like_poles else "N"
+        right_left_color = "#ef4444" if like_poles else "#2563eb"
+        right_right_color = "#2563eb" if like_poles else "#ef4444"
+        right_bar = f'<rect x="{right_x}" y="85" width="80" height="54" rx="5" fill="{right_left_color}" stroke="#1e3a8a" stroke-width="2"/><rect x="{right_x+80}" y="85" width="80" height="54" rx="5" fill="{right_right_color}" stroke="#991b1b" stroke-width="2"/><text x="{right_x+40}" y="118" text-anchor="middle" font-size="21" font-weight="700" fill="white">{right_left_pole}</text><text x="{right_x+120}" y="118" text-anchor="middle" font-size="21" font-weight="700" fill="white">{right_right_pole}</text>'
+        if like_poles:
+            movement = '<path d="M205 93 H175 M183 85 L173 93 L183 101 M255 93 H285 M277 85 L287 93 L277 101" stroke="#f59e0b" stroke-width="4" fill="none"/><text x="230" y="68" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">N ↔ N</text>'
+        else:
+            movement = '<path d="M185 65 H215 M207 57 L217 65 L207 73 M275 65 H245 M253 57 L243 65 L253 73" stroke="#0ea5e9" stroke-width="4" fill="none"/><text x="230" y="48" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">N ↔ S</text>'
+        visual = left_bar + right_bar + movement + f'<path d="M20 160 H440" stroke="#94a3b8" stroke-width="3"/><text x="230" y="195" text-anchor="middle" font-size="16" font-weight="700" fill="currentColor">{gap_label}</text><text x="{left_x+80}" y="153" text-anchor="middle" font-size="12" fill="currentColor">Magnet 1</text><text x="{right_x+80}" y="153" text-anchor="middle" font-size="12" fill="currentColor">Magnet 2</text>'
+    elif force_examples_experiment:
         selected_push = a in ("Push a shopping cart", "Kick a football")
         action_label = ("PUSH" if selected_push else "PULL") if not is_pa else ("ਧੱਕਾ" if selected_push else "ਖਿੱਚ")
         if a == "Push a shopping cart":
@@ -1935,7 +1955,12 @@ def physics_lab():
     st.markdown("### " + ("ਦ੍ਰਿਸ਼ ਮਾਡਲ" if is_pa else "Visual model"))
     st.markdown(f'<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;background:rgba(128,128,128,.035)"><svg viewBox="0 0 460 230" width="100%" role="img" aria-label="{title} interactive physics diagram">{visual}</svg></div>', unsafe_allow_html=True)
     result = ""
-    if force_examples_experiment:
+    if magnet_poles_experiment:
+        if a.startswith("Like"):
+            result = ("Like poles (N–N) repel, so both bar magnets move apart. Each magnet has both north and south poles." if not is_pa else "ਇੱਕੋ ਜਿਹੇ ਧਰੁਵ (N–N) ਇੱਕ-ਦੂਜੇ ਨੂੰ ਦੂਰ ਧੱਕਦੇ ਹਨ, ਇਸ ਲਈ ਦੋਵੇਂ ਬਾਰ ਚੁੰਬਕ ਦੂਰ ਹੁੰਦੇ ਹਨ। ਹਰ ਚੁੰਬਕ ਵਿੱਚ ਉੱਤਰੀ ਅਤੇ ਦੱਖਣੀ ਦੋਵੇਂ ਧਰੁਵ ਹੁੰਦੇ ਹਨ।")
+        else:
+            result = ("Unlike poles (N–S) attract, so the magnets move toward each other and touch in this simplified model. Each magnet has both N and S poles." if not is_pa else "ਵੱਖਰੇ ਧਰੁਵ (N–S) ਇੱਕ-ਦੂਜੇ ਨੂੰ ਖਿੱਚਦੇ ਹਨ, ਇਸ ਲਈ ਇਸ ਸਰਲ ਮਾਡਲ ਵਿੱਚ ਦੋਵੇਂ ਚੁੰਬਕ ਨੇੜੇ ਆ ਕੇ ਛੂਹਦੇ ਹਨ। ਹਰ ਚੁੰਬਕ ਵਿੱਚ N ਅਤੇ S ਦੋਵੇਂ ਧਰੁਵ ਹੁੰਦੇ ਹਨ।")
+    elif force_examples_experiment:
         if a == "Push a shopping cart":
             result = ("Pushing the cart applies a force that can make it move or change its speed." if not is_pa else "ਗੱਡੀ ਨੂੰ ਧੱਕਣ ਨਾਲ ਲੱਗਿਆ ਬਲ ਇਸ ਨੂੰ ਚਲਾ ਸਕਦਾ ਹੈ ਜਾਂ ਇਸ ਦੀ ਚਾਲ ਬਦਲ ਸਕਦਾ ਹੈ।")
         elif a == "Kick a football":
@@ -1976,7 +2001,7 @@ def physics_lab():
         result = f"Angle of reflection = {a}° for an ideal plane mirror." if not is_pa else f"ਆਦਰਸ਼ ਸ਼ੀਸ਼ੇ ਲਈ ਪਰਾਵਰਤਨ ਕੋਣ = {a}°।"
     elif kind == "refraction":
         result = f"Illustrative refractive index = {b}; ray bending depends on both media and incident angle." if not is_pa else f"ਸਮਝਾਉਣ ਲਈ ਅਪਵਰਤਨ ਅੰਕ = {b}।"
-    elif kind == "magnet":
+    elif kind == "magnet" and not magnet_poles_experiment:
         result = "Attraction" if a == "Unlike poles" else "Repulsion"
         if is_pa: result = "ਖਿੱਚ" if a == "Unlike poles" else "ਵਿਕਰਸ਼ਣ"
     elif kind in ("sound","wave"):
