@@ -753,6 +753,27 @@ def electricity_lab():
 </svg></div>"""
             st.markdown("#### " + ("ਵੋਲਟੇਜ, ਕਰੰਟ ਅਤੇ ਰੋਧ ਦਾ ਮਾਡਲ" if is_pa_ohms else "Voltage, current and resistance model"))
             st.markdown(ohms_svg, unsafe_allow_html=True)
+            # Additional qualitative visual: compare selected levels without exposing numbers.
+            level_width = {"Low": 70, "Medium": 135, "High": 200}
+            voltage_width = level_width[class9_voltage_level]
+            resistance_width = level_width[class9_resistance_level]
+            voltage_caption = {"Low": "LOW" if not is_pa_ohms else "ਘੱਟ", "Medium": "MEDIUM" if not is_pa_ohms else "ਦਰਮਿਆਨਾ", "High": "HIGH" if not is_pa_ohms else "ਵੱਧ"}[class9_voltage_level]
+            resistance_caption = {"Low": "LOW" if not is_pa_ohms else "ਘੱਟ", "Medium": "MEDIUM" if not is_pa_ohms else "ਦਰਮਿਆਨਾ", "High": "HIGH" if not is_pa_ohms else "ਵੱਧ"}[class9_resistance_level]
+            current_caption = ({"Low": "LOW" if not is_pa_ohms else "ਘੱਟ", "Medium": "MEDIUM" if not is_pa_ohms else "ਦਰਮਿਆਨਾ", "High": "HIGH" if not is_pa_ohms else "ਵੱਧ"}[current_band] if closed else ("OFF" if not is_pa_ohms else "ਬੰਦ"))
+            comparison_title = "COMPARE THE LEVELS" if not is_pa_ohms else "ਪੱਧਰਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ"
+            voltage_title = "VOLTAGE" if not is_pa_ohms else "ਵੋਲਟੇਜ"
+            resistance_title = "RESISTANCE" if not is_pa_ohms else "ਰੋਧ"
+            current_title = "CURRENT" if not is_pa_ohms else "ਕਰੰਟ"
+            comparison_svg = f"""<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;margin-top:10px;background:rgba(128,128,128,.035)">
+<svg viewBox="0 0 440 205" width="100%" role="img" aria-label="Qualitative comparison bars for voltage, resistance and current, with no numerical readings">
+<text x="220" y="22" fill="currentColor" font-size="14" font-weight="700" text-anchor="middle">{comparison_title}</text>
+<text x="18" y="52" fill="currentColor" font-size="12" font-weight="700">{voltage_title}</text><rect x="130" y="37" width="220" height="20" rx="8" fill="#e2e8f0"/><rect x="130" y="37" width="{voltage_width}" height="20" rx="8" fill="#0ea5e9"/><text x="370" y="52" fill="#0369a1" font-size="12" font-weight="700">{voltage_caption}</text>
+<text x="18" y="93" fill="currentColor" font-size="12" font-weight="700">{resistance_title}</text><rect x="130" y="78" width="220" height="20" rx="8" fill="#e2e8f0"/><rect x="130" y="78" width="{resistance_width}" height="20" rx="8" fill="#f59e0b"/><text x="370" y="93" fill="#b45309" font-size="12" font-weight="700">{resistance_caption}</text>
+<text x="18" y="134" fill="currentColor" font-size="12" font-weight="700">{current_title}</text><rect x="130" y="119" width="220" height="20" rx="8" fill="#e2e8f0"/><rect x="130" y="119" width="{level_width[current_band] if closed else 0}" height="20" rx="8" fill="{current_color}"/><text x="370" y="134" fill="currentColor" font-size="12" font-weight="700">{current_caption}</text>
+<text x="220" y="174" fill="currentColor" font-size="11" text-anchor="middle">{"ਸੰਕੇਤਕ ਪੱਧਰ — ਅਸਲੀ ਮਾਪ ਨਹੀਂ" if is_pa_ohms else "Illustrative levels — not measured values"}</text>
+<text x="220" y="192" fill="currentColor" font-size="11" text-anchor="middle">{"ਵੱਧ ਵੋਲਟੇਜ ਕਰੰਟ ਵਧਾਉਂਦਾ; ਵੱਧ ਰੋਧ ਕਰੰਟ ਘਟਾਉਂਦਾ" if is_pa_ohms else "Higher voltage tends to raise current; higher resistance tends to lower it"}</text>
+</svg></div>"""
+            st.markdown(comparison_svg, unsafe_allow_html=True)
             if closed:
                 st.success(qualitative_result)
             else:
