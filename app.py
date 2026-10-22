@@ -1884,6 +1884,7 @@ def physics_lab():
     class9_refraction_experiment = pc == 9 and ei == 3 and kind == "refraction"
     class9_gravity_experiment = pc == 9 and ei == 4 and kind == "potential"
     class10_reflection_experiment = pc == 10 and ei == 0 and kind == "reflection"
+    class10_refraction_experiment = pc == 10 and ei == 1 and kind == "refraction"
     # Class 8 sound uses a qualitative dropdown, not numeric frequency/amplitude sliders.
     if class8_sound_wave_examples_experiment:
         sound_examples = ["Soft, low-pitched sound", "Loud, low-pitched sound", "Soft, high-pitched sound", "Loud, high-pitched sound"]
@@ -1979,6 +1980,11 @@ def physics_lab():
             key="physics_class6_slow_fast_choice"
         )
         b = a
+    elif class10_refraction_experiment:
+        refraction_scenarios = ["Air into glass", "Glass into air", "Light straight along the normal"]
+        refraction_scenarios_pa = ["ਹਵਾ ਤੋਂ ਕੱਚ ਵਿੱਚ", "ਕੱਚ ਤੋਂ ਹਵਾ ਵਿੱਚ", "ਲੰਬ ਦੇ ਨਾਲ ਸਿੱਧੀ ਰੋਸ਼ਨੀ"]
+        a = st.selectbox("Choose the light path" if not is_pa else "ਰੋਸ਼ਨੀ ਦਾ ਰਸਤਾ ਚੁਣੋ", refraction_scenarios, format_func=lambda x: refraction_scenarios_pa[refraction_scenarios.index(x)] if is_pa else x, key="physics_class10_refraction_path_" + st.session_state.language)
+        b = a
     elif class10_reflection_experiment:
         reflection_scenarios = ["Shallow incident ray", "Medium incident ray", "Steep incident ray"]
         reflection_scenarios_pa = ["ਛੋਟੇ ਝੁਕਾਅ ਵਾਲੀ ਆਗਮਨ ਕਿਰਨ", "ਦਰਮਿਆਨੇ ਝੁਕਾਅ ਵਾਲੀ ਆਗਮਨ ਕਿਰਨ", "ਵੱਧ ਝੁਕਾਅ ਵਾਲੀ ਆਗਮਨ ਕਿਰਨ"]
@@ -2065,6 +2071,22 @@ def physics_lab():
         heading = "MOTION AND ACCELERATION" if not is_pa else "ਗਤੀ ਅਤੇ ਤਵਰਣ"
         road_label = "Vehicle positions (illustrative)" if not is_pa else "ਵਾਹਨ ਦੀਆਂ ਸਥਿਤੀਆਂ (ਸਮਝਾਉਣ ਲਈ)"
         visual = f'<rect x="12" y="12" width="436" height="206" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="32" text-anchor="middle" fill="#334155" font-size="14" font-weight="700">{heading}</text><path d="M30 150 H420" stroke="#64748b" stroke-width="3" stroke-dasharray="10 7"/>{positions}<rect x="92" y="75" width="78" height="35" rx="8" fill="#60a5fa" stroke="#1d4ed8" stroke-width="2"/><rect x="104" y="81" width="22" height="12" rx="2" fill="#dbeafe"/><rect x="132" y="81" width="22" height="12" rx="2" fill="#dbeafe"/><circle cx="108" cy="112" r="8" fill="#334155"/><circle cx="154" cy="112" r="8" fill="#334155"/>{motion_arrows}<text x="230" y="177" text-anchor="middle" fill="#334155" font-size="12">{road_label}</text><text x="230" y="201" text-anchor="middle" fill="#0f766e" font-size="13" font-weight="700">{scene_label}</text>'
+    elif class10_refraction_experiment:
+        if a == "Air into glass":
+            path_label = "AIR → GLASS: BENDS TOWARD NORMAL" if not is_pa else "ਹਵਾ → ਕੱਚ: ਲੰਬ ਵੱਲ ਮੁੜਦੀ ਹੈ"
+            ray_paths = '<path d="M55 55 L220 115 L255 178" stroke="#f59e0b" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M241 173 L256 180 L254 162" stroke="#f59e0b" stroke-width="3" fill="none"/>'
+            media_labels = '<text x="65" y="83" font-size="12" fill="#075985">AIR</text><text x="75" y="177" font-size="12" fill="#075985">GLASS</text>'
+        elif a == "Glass into air":
+            path_label = "GLASS → AIR: BENDS AWAY FROM NORMAL" if not is_pa else "ਕੱਚ → ਹਵਾ: ਲੰਬ ਤੋਂ ਦੂਰ ਮੁੜਦੀ ਹੈ"
+            ray_paths = '<path d="M55 178 L220 115 L365 45" stroke="#f59e0b" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M346 47 L366 44 L357 62" stroke="#f59e0b" stroke-width="3" fill="none"/>'
+            media_labels = '<text x="65" y="83" font-size="12" fill="#075985">AIR</text><text x="75" y="177" font-size="12" fill="#075985">GLASS</text>'
+        else:
+            path_label = "ALONG THE NORMAL: NO CHANGE IN DIRECTION" if not is_pa else "ਲੰਬ ਦੇ ਨਾਲ: ਦਿਸ਼ਾ ਨਹੀਂ ਬਦਲਦੀ"
+            ray_paths = '<path d="M220 42 V188" stroke="#f59e0b" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M211 173 L220 190 L229 173" stroke="#f59e0b" stroke-width="3" fill="none"/>'
+            media_labels = '<text x="65" y="83" font-size="12" fill="#075985">AIR</text><text x="75" y="177" font-size="12" fill="#075985">GLASS</text>'
+        refraction_heading = "REFRACTION OF LIGHT" if not is_pa else "ਰੋਸ਼ਨੀ ਦਾ ਅਪਵਰਤਨ"
+        normal_label = "NORMAL" if not is_pa else "ਲੰਬ"
+        visual = f'<rect x="12" y="12" width="436" height="206" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="30" text-anchor="middle" font-size="14" font-weight="700" fill="#334155">{refraction_heading}</text><rect x="38" y="110" width="394" height="82" rx="3" fill="#bae6fd" fill-opacity=".55" stroke="#0284c7" stroke-width="2"/><path d="M220 40 V200" stroke="#64748b" stroke-width="2" stroke-dasharray="6 5"/><text x="229" y="51" font-size="10" fill="#475569">{normal_label}</text>{media_labels}{ray_paths}<circle cx="220" cy="115" r="5" fill="#dc2626"/><text x="230" y="211" text-anchor="middle" font-size="10" font-weight="700" fill="#0f766e">{path_label}</text>'
     elif class10_reflection_experiment:
         if a == "Shallow incident ray":
             ray_start_x, ray_start_y = 65, 82
@@ -2112,6 +2134,13 @@ def physics_lab():
             arrow_head = '<path d="M342 67 L362 64 L352 82" stroke="#0ea5e9" stroke-width="4" fill="none"/>'
         incident_path = '<path d="M65 58 L220 135" stroke="#f59e0b" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M207 126 L221 136 L216 119" stroke="#f59e0b" stroke-width="4" fill="none"/>' if a == "Air to glass block" else '<path d="M65 205 L220 135" stroke="#f59e0b" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M205 143 L221 135 L203 131" stroke="#f59e0b" stroke-width="4" fill="none"/>'
         visual = f'<rect x="12" y="12" width="436" height="206" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="31" text-anchor="middle" font-size="14" font-weight="700" fill="#334155">{("REFRACTION OF LIGHT THROUGH A GLASS BLOCK" if not is_pa else "ਕੱਚ ਦੇ ਬਲਾਕ ਵਿੱਚ ਰੋਸ਼ਨੀ ਦਾ ਅਪਵਰਤਨ")}</text><rect x="70" y="82" width="320" height="112" rx="4" fill="#bae6fd" fill-opacity=".55" stroke="#0284c7" stroke-width="2"/><text x="92" y="101" font-size="11" fill="#075985">{("GLASS BLOCK" if not is_pa else "ਕੱਚ ਦਾ ਬਲਾਕ")}</text><path d="M220 45 V207" stroke="#64748b" stroke-width="2" stroke-dasharray="6 5"/><text x="229" y="53" font-size="11" fill="#475569">{("NORMAL" if not is_pa else "ਲੰਬ")}</text>{incident_path}{refracted_path}{arrow_head}<circle cx="220" cy="135" r="5" fill="#dc2626"/><text x="62" y="47" font-size="11" font-weight="700" fill="#b45309">{("INCIDENT RAY" if not is_pa else "ਆਗਮਨ ਕਿਰਨ")}</text><text x="230" y="211" text-anchor="middle" font-size="11" font-weight="700" fill="#0f766e">{ray_label}</text>'
+    elif class10_refraction_experiment:
+        if a == "Air into glass":
+            result = ("When light enters glass from air at an angle, it slows down and bends towards the normal." if not is_pa else "ਜਦੋਂ ਰੋਸ਼ਨੀ ਕੋਣ ਨਾਲ ਹਵਾ ਤੋਂ ਕੱਚ ਵਿੱਚ ਜਾਂਦੀ ਹੈ, ਇਸ ਦੀ ਗਤੀ ਘਟਦੀ ਹੈ ਅਤੇ ਕਿਰਨ ਲੰਬ ਵੱਲ ਮੁੜਦੀ ਹੈ।")
+        elif a == "Glass into air":
+            result = ("When light travels from glass into air at an angle, it speeds up and bends away from the normal." if not is_pa else "ਜਦੋਂ ਰੋਸ਼ਨੀ ਕੋਣ ਨਾਲ ਕੱਚ ਤੋਂ ਹਵਾ ਵਿੱਚ ਜਾਂਦੀ ਹੈ, ਇਸ ਦੀ ਗਤੀ ਵਧਦੀ ਹੈ ਅਤੇ ਕਿਰਨ ਲੰਬ ਤੋਂ ਦੂਰ ਮੁੜਦੀ ਹੈ।")
+        else:
+            result = ("A ray travelling along the normal enters the new medium without changing direction." if not is_pa else "ਲੰਬ ਦੇ ਨਾਲ ਆਉਣ ਵਾਲੀ ਕਿਰਨ ਨਵੇਂ ਮਾਧਿਅਮ ਵਿੱਚ ਦਿਸ਼ਾ ਬਦਲੇ ਬਿਨਾਂ ਜਾਂਦੀ ਹੈ।")
     elif class10_reflection_experiment:
         result = ("The incident ray strikes the plane mirror and reflects on the other side of the normal. The reflected ray makes the same angle with the normal as the incident ray. The mirror, incident ray, reflected ray and normal lie in the same plane." if not is_pa else "ਆਗਮਨ ਕਿਰਨ ਸਮਤਲ ਸ਼ੀਸ਼ੇ ਨਾਲ ਟਕਰਾ ਕੇ ਲੰਬ ਦੇ ਦੂਜੇ ਪਾਸੇ ਪਰਾਵਰਤਿਤ ਹੁੰਦੀ ਹੈ। ਪਰਾਵਰਤਨ ਕੋਣ, ਆਗਮਨ ਕੋਣ ਦੇ ਬਰਾਬਰ ਹੁੰਦਾ ਹੈ। ਸ਼ੀਸ਼ਾ, ਆਗਮਨ ਕਿਰਨ, ਪਰਾਵਰਤਿਤ ਕਿਰਨ ਅਤੇ ਲੰਬ ਇੱਕੋ ਸਮਤਲ ਵਿੱਚ ਹੁੰਦੇ ਹਨ।")
     elif class9_gravity_experiment:
