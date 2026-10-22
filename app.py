@@ -1879,6 +1879,7 @@ def physics_lab():
     heat_conduction_examples_experiment = pc == 8 and ei == 2 and kind == "heat"
     class8_sound_wave_examples_experiment = pc == 8 and ei == 4 and kind == "wave"
     class9_speed_acceleration_experiment = pc == 9 and ei == 0 and kind == "acceleration"
+    class9_newton_experiment = pc == 9 and ei == 1 and kind == "newton"
     # Class 8 sound uses a qualitative dropdown, not numeric frequency/amplitude sliders.
     if class8_sound_wave_examples_experiment:
         sound_examples = ["Soft, low-pitched sound", "Loud, low-pitched sound", "Soft, high-pitched sound", "Loud, high-pitched sound"]
@@ -1974,6 +1975,11 @@ def physics_lab():
             key="physics_class6_slow_fast_choice"
         )
         b = a
+    elif class9_newton_experiment:
+        push_levels = ["Gentle push", "Strong push"]
+        mass_levels = ["Light cart", "Loaded cart"]
+        a = st.selectbox("Choose push strength" if not is_pa else "ਧੱਕੇ ਦੀ ਤਾਕਤ ਚੁਣੋ", push_levels, format_func=lambda x: ({"Gentle push":"ਹਲਕਾ ਧੱਕਾ","Strong push":"ਜ਼ੋਰਦਾਰ ਧੱਕਾ"}[x] if is_pa else x), key="physics_class9_newton_push_" + st.session_state.language)
+        b = st.selectbox("Choose cart load" if not is_pa else "ਗੱਡੀ ਦਾ ਭਾਰ ਚੁਣੋ", mass_levels, format_func=lambda x: ({"Light cart":"ਹਲਕੀ ਗੱਡੀ","Loaded cart":"ਭਾਰ ਵਾਲੀ ਗੱਡੀ"}[x] if is_pa else x), key="physics_class9_newton_mass_" + st.session_state.language)
     elif class9_speed_acceleration_experiment:
         motion_examples = ["Starting from rest and speeding up", "Moving at steady speed", "Slowing down", "Changing direction"]
         motion_examples_pa = ["ਆਰਾਮ ਤੋਂ ਚੱਲ ਕੇ ਤੇਜ਼ ਹੋਣਾ", "ਇਕਸਾਰ ਚਾਲ ਨਾਲ ਚੱਲਣਾ", "ਹੌਲਾ ਹੋਣਾ", "ਦਿਸ਼ਾ ਬਦਲਣਾ"]
@@ -2035,6 +2041,18 @@ def physics_lab():
         heading = "MOTION AND ACCELERATION" if not is_pa else "ਗਤੀ ਅਤੇ ਤਵਰਣ"
         road_label = "Vehicle positions (illustrative)" if not is_pa else "ਵਾਹਨ ਦੀਆਂ ਸਥਿਤੀਆਂ (ਸਮਝਾਉਣ ਲਈ)"
         visual = f'<rect x="12" y="12" width="436" height="206" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="32" text-anchor="middle" fill="#334155" font-size="14" font-weight="700">{heading}</text><path d="M30 150 H420" stroke="#64748b" stroke-width="3" stroke-dasharray="10 7"/>{positions}<rect x="92" y="75" width="78" height="35" rx="8" fill="#60a5fa" stroke="#1d4ed8" stroke-width="2"/><rect x="104" y="81" width="22" height="12" rx="2" fill="#dbeafe"/><rect x="132" y="81" width="22" height="12" rx="2" fill="#dbeafe"/><circle cx="108" cy="112" r="8" fill="#334155"/><circle cx="154" cy="112" r="8" fill="#334155"/>{motion_arrows}<text x="230" y="177" text-anchor="middle" fill="#334155" font-size="12">{road_label}</text><text x="230" y="201" text-anchor="middle" fill="#0f766e" font-size="13" font-weight="700">{scene_label}</text>'
+    elif class9_newton_experiment:
+        strong_push = a == "Strong push"
+        loaded_cart = b == "Loaded cart"
+        cart_x = 150 if loaded_cart else 175
+        cart_color = "#c08457" if loaded_cart else "#60a5fa"
+        arrow_len = 82 if strong_push else 42
+        arrow_color = "#16a34a" if strong_push else "#0ea5e9"
+        push_label = ("ਜ਼ੋਰਦਾਰ ਧੱਕਾ" if is_pa and strong_push else "ਹਲਕਾ ਧੱਕਾ" if is_pa else "STRONGER PUSH" if strong_push else "GENTLE PUSH")
+        load_label = ("ਵੱਧ ਭਾਰ" if is_pa and loaded_cart else "ਘੱਟ ਭਾਰ" if is_pa else "MORE MASS" if loaded_cart else "LESS MASS")
+        effect_label = ("ਵੱਧ ਤਵਰਣ" if is_pa and strong_push and not loaded_cart else "ਘੱਟ ਤਵਰਣ" if is_pa else "GREATER ACCELERATION" if strong_push and not loaded_cart else "SMALLER ACCELERATION")
+        mass_block = f'<rect x="{cart_x+28}" y="82" width="44" height="27" rx="4" fill="#a16207" stroke="#713f12" stroke-width="2"/>' if loaded_cart else ""
+        visual = f"""<rect x="12" y="12" width="436" height="206" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="31" text-anchor="middle" font-size="14" font-weight="700" fill="#334155">{("NEWTON'S SECOND LAW" if not is_pa else "ਨਿਊਟਨ ਦਾ ਦੂਜਾ ਨਿਯਮ")}</text><path d="M30 174 H425" stroke="#64748b" stroke-width="4"/><rect x="{cart_x}" y="111" width="100" height="48" rx="8" fill="{cart_color}" stroke="#475569" stroke-width="3"/><circle cx="{cart_x+22}" cy="166" r="10" fill="#334155"/><circle cx="{cart_x+78}" cy="166" r="10" fill="#334155"/>{mass_block}<path d="M{cart_x-8} 132 H{cart_x-arrow_len} M{cart_x-arrow_len+10} 122 L{cart_x-arrow_len} 132 L{cart_x-arrow_len+10} 142" stroke="{arrow_color}" stroke-width="{6 if strong_push else 4}" fill="none" stroke-linecap="round"/><text x="230" y="62" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">{push_label} · {load_label}</text><text x="230" y="202" text-anchor="middle" font-size="13" font-weight="700" fill="#0f766e">{effect_label}</text>"""
     elif current_magnetic_field_experiment:
         current_on = a.startswith("Switch ON")
         field_color = "#0ea5e9" if current_on else "#cbd5e1"
@@ -2244,6 +2262,17 @@ def physics_lab():
             result = ("The two pushes are equal and opposite. They balance each other, so the table’s motion does not change; if it was at rest, it stays at rest." if not is_pa else "ਦੋਵੇਂ ਧੱਕੇ ਬਰਾਬਰ ਅਤੇ ਉਲਟ ਦਿਸ਼ਾਵਾਂ ਵਿੱਚ ਹਨ। ਇਹ ਇੱਕ-ਦੂਜੇ ਨੂੰ ਸੰਤੁਲਿਤ ਕਰਦੇ ਹਨ, ਇਸ ਲਈ ਮੇਜ਼ ਦੀ ਗਤੀ ਨਹੀਂ ਬਦਲਦੀ; ਜੇ ਇਹ ਪਹਿਲਾਂ ਸਥਿਰ ਸੀ ਤਾਂ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ।")
         else:
             result = ("The pushes are opposite but unequal. The stronger push to the left makes the forces unbalanced, so the table accelerates left." if not is_pa else "ਧੱਕੇ ਉਲਟ ਦਿਸ਼ਾਵਾਂ ਵਿੱਚ ਹਨ ਪਰ ਬਰਾਬਰ ਨਹੀਂ। ਖੱਬੇ ਪਾਸੇ ਦਾ ਵੱਧ ਬਲ ਅਸੰਤੁਲਨ ਪੈਦਾ ਕਰਦਾ ਹੈ, ਇਸ ਲਈ ਮੇਜ਼ ਖੱਬੇ ਵੱਲ ਤੇਜ਼ ਹੁੰਦੀ ਹੈ।")
+    elif class9_newton_experiment:
+        strong_push = a == "Strong push"
+        loaded_cart = b == "Loaded cart"
+        if strong_push and not loaded_cart:
+            result = ("A stronger net force produces greater acceleration when the mass is small. This is a qualitative model, with no numerical calculations." if not is_pa else "ਘੱਟ ਪੁੰਜ ਵਾਲੀ ਗੱਡੀ ਉੱਤੇ ਵੱਧ ਨਤੀਜਕ ਬਲ ਵੱਧ ਤਵਰਣ ਪੈਦਾ ਕਰਦਾ ਹੈ। ਇਹ ਗੁਣਾਤਮਕ ਮਾਡਲ ਹੈ, ਕੋਈ ਸੰਖਿਆਤਮਕ ਗਣਨਾ ਨਹੀਂ।")
+        elif not strong_push and loaded_cart:
+            result = ("A loaded cart accelerates less under a gentle push because its mass is greater." if not is_pa else "ਵੱਧ ਪੁੰਜ ਵਾਲੀ ਭਰੀ ਗੱਡੀ ਹਲਕੇ ਧੱਕੇ ਨਾਲ ਘੱਟ ਤਵਰਣ ਕਰਦੀ ਹੈ।")
+        elif strong_push and loaded_cart:
+            result = ("A stronger push helps the loaded cart accelerate more than a gentle push would, although its greater mass resists changes in motion." if not is_pa else "ਜ਼ੋਰਦਾਰ ਧੱਕਾ ਭਰੀ ਗੱਡੀ ਨੂੰ ਹਲਕੇ ਧੱਕੇ ਨਾਲੋਂ ਵੱਧ ਤਵਰਣ ਦਿੰਦਾ ਹੈ, ਪਰ ਵੱਧ ਪੁੰਜ ਗਤੀ ਵਿੱਚ ਤਬਦੀਲੀ ਦਾ ਵਿਰੋਧ ਕਰਦਾ ਹੈ।")
+        else:
+            result = ("A light cart responds more readily to a gentle push than a loaded cart would." if not is_pa else "ਹਲਕੀ ਗੱਡੀ ਹਲਕੇ ਧੱਕੇ ਨਾਲ ਵੀ ਭਾਰੀ ਗੱਡੀ ਨਾਲੋਂ ਆਸਾਨੀ ਨਾਲ ਗਤੀ ਬਦਲਦੀ ਹੈ।")
     elif class9_speed_acceleration_experiment:
         motion_results = {
             "Starting from rest and speeding up": ("The vehicle's speed increases. Its velocity changes with time, so it is accelerating.", "ਵਾਹਨ ਦੀ ਚਾਲ ਵਧਦੀ ਹੈ। ਸਮੇਂ ਨਾਲ ਇਸ ਦਾ ਵੇਗ ਬਦਲਦਾ ਹੈ, ਇਸ ਲਈ ਤਵਰਣ ਹੁੰਦਾ ਹੈ।"),
