@@ -1821,7 +1821,18 @@ def physics_lab():
     labels = kind_labels.get(kind, ("Control A","Control B","કੰਟਰੋਲ A","ਕੰਟਰੋਲ B"))
     slow_fast_experiment = pc == 6 and ei == 1 and kind == "speed"
     force_examples_experiment = pc == 6 and ei == 2 and kind == "force"
-    if force_examples_experiment:
+    shadow_examples_experiment = pc == 6 and ei == 3 and kind == "shadow"
+    if shadow_examples_experiment:
+        shadow_examples = ["Torch and hand", "Tree on a sunny day", "Opaque book blocking light", "Translucent curtain"]
+        shadow_examples_pa = ["ਟਾਰਚ ਅਤੇ ਹੱਥ", "ਧੁੱਪ ਵਿੱਚ ਦਰੱਖਤ", "ਰੋਸ਼ਨੀ ਰੋਕਦੀ ਅਪਾਰਦਰਸ਼ੀ ਕਿਤਾਬ", "ਅਰਧ-ਪਾਰਦਰਸ਼ੀ ਪਰਦਾ"]
+        a = st.selectbox(
+            "Choose a light and shadow example" if not is_pa else "ਰੋਸ਼ਨੀ ਅਤੇ ਪਰਛਾਵੇਂ ਦੀ ਉਦਾਹਰਨ ਚੁਣੋ",
+            shadow_examples,
+            format_func=lambda x: shadow_examples_pa[shadow_examples.index(x)] if is_pa else x,
+            key="physics_class6_shadow_example"
+        )
+        b = a
+    elif force_examples_experiment:
         examples = ["Push a shopping cart", "Kick a football", "Pull a wagon", "Open a drawer"]
         punjabi_examples = ["ਖਰੀਦਦਾਰੀ ਵਾਲੀ ਗੱਡੀ ਨੂੰ ਧੱਕਾ", "ਫੁੱਟਬਾਲ ਨੂੰ ਲੱਤ ਮਾਰਨਾ", "ਗੱਡੇ ਨੂੰ ਖਿੱਚਣਾ", "ਦਰਾਜ਼ ਖੋਲ੍ਹਣਾ"]
         a = st.selectbox("Choose a force example" if not is_pa else "ਬਲ ਦੀ ਉਦਾਹਰਨ ਚੁਣੋ", examples, format_func=lambda x: (punjabi_examples[examples.index(x)] if is_pa else x), key="physics_class6_force_example")
@@ -1881,6 +1892,15 @@ def physics_lab():
             visual = '<circle cx="160" cy="151" r="14" fill="#334155"/><circle cx="225" cy="151" r="14" fill="#334155"/><path d="M140 98 H240 L225 137 H155 Z" fill="#fb923c" stroke="#c2410c" stroke-width="3"/><path d="M140 105 L95 68 L75 68" stroke="#334155" stroke-width="5" fill="none"/><path d="M55 65 H90 M82 57 L92 65 L82 73" stroke="#0ea5e9" stroke-width="4" fill="none"/><text x="215" y="45" text-anchor="middle" fill="currentColor" font-size="18" font-weight="700">PULL ←</text><text x="200" y="190" text-anchor="middle" fill="currentColor" font-size="14">Pulling a wagon</text>'
         else:
             visual = '<rect x="165" y="60" width="130" height="100" rx="5" fill="#c08457" stroke="#854d0e" stroke-width="4"/><rect x="180" y="75" width="100" height="70" fill="#f5d0a9" stroke="#854d0e" stroke-width="3"/><circle cx="230" cy="110" r="5" fill="#854d0e"/><path d="M85 110 H145 M137 102 L147 110 L137 118" stroke="#0ea5e9" stroke-width="4" fill="none"/><text x="230" y="35" text-anchor="middle" fill="currentColor" font-size="18" font-weight="700">PULL ←</text><text x="230" y="190" text-anchor="middle" fill="currentColor" font-size="14">Opening a drawer</text>'
+    elif shadow_examples_experiment:
+        if a == "Torch and hand":
+            visual = '<circle cx="70" cy="112" r="27" fill="#fde68a" stroke="#d97706" stroke-width="3"/><path d="M92 112 H140 M130 104 L142 112 L130 120" stroke="#f59e0b" stroke-width="4" fill="none"/><path d="M172 150 L172 110 Q172 95 184 95 Q194 95 194 110 L194 84 Q194 72 204 72 Q214 72 214 84 L214 102 Q224 90 232 101 L232 130 L220 158 Z" fill="#f8c9a5" stroke="#9a3412" stroke-width="3"/><path d="M245 65 L245 175 L425 175 L425 65 Z" fill="#334155" fill-opacity=".12"/><path d="M245 65 L245 175 L300 175 L300 65 Z" fill="#334155" fill-opacity=".3"/><text x="70" y="160" text-anchor="middle" fill="currentColor" font-size="13">Torch</text><text x="198" y="195" text-anchor="middle" fill="currentColor" font-size="13">Hand</text><text x="335" y="195" text-anchor="middle" fill="currentColor" font-size="13">Shadow</text>'
+        elif a == "Tree on a sunny day":
+            visual = '<circle cx="75" cy="58" r="27" fill="#fde047" stroke="#ca8a04" stroke-width="3"/><path d="M103 70 L175 100" stroke="#f59e0b" stroke-width="4"/><path d="M175 100 L240 125" stroke="#f59e0b" stroke-width="4"/><path d="M210 178 L210 105" stroke="#854d0e" stroke-width="15"/><circle cx="210" cy="80" r="39" fill="#65a30d" stroke="#3f6212" stroke-width="3"/><path d="M255 175 L425 175 L390 160 L320 160 Z" fill="#334155" fill-opacity=".45"/><path d="M20 180 H440" stroke="#64748b" stroke-width="3"/><text x="75" y="105" text-anchor="middle" fill="currentColor" font-size="13">Sunlight</text><text x="330" y="198" text-anchor="middle" fill="currentColor" font-size="13">Tree shadow</text>'
+        elif a == "Opaque book blocking light":
+            visual = '<circle cx="65" cy="105" r="25" fill="#fde68a" stroke="#d97706" stroke-width="3"/><path d="M92 92 L160 70 M92 105 H160 M92 118 L160 140" stroke="#f59e0b" stroke-width="3"/><rect x="160" y="65" width="55" height="95" rx="4" fill="#2563eb" stroke="#1e3a8a" stroke-width="3"/><path d="M220 65 L220 160 L420 160 L420 65 Z" fill="#334155" fill-opacity=".16"/><path d="M220 65 L220 160 L290 160 L290 65 Z" fill="#334155" fill-opacity=".38"/><path d="M20 180 H440" stroke="#64748b" stroke-width="3"/><text x="65" y="150" text-anchor="middle" fill="currentColor" font-size="13">Light</text><text x="187" y="178" text-anchor="middle" fill="currentColor" font-size="13">Book</text><text x="330" y="185" text-anchor="middle" fill="currentColor" font-size="13">Dark shadow</text>'
+        else:
+            visual = '<circle cx="65" cy="105" r="25" fill="#fde68a" stroke="#d97706" stroke-width="3"/><path d="M92 92 L155 70 M92 105 H155 M92 118 L155 140" stroke="#f59e0b" stroke-width="3"/><rect x="155" y="50" width="25" height="115" fill="#7dd3fc" fill-opacity=".45" stroke="#0284c7" stroke-width="3"/><path d="M184 92 L255 82 M184 105 H255 M184 118 L255 128" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5 5"/><rect x="255" y="55" width="155" height="105" fill="#334155" fill-opacity=".12"/><path d="M20 180 H440" stroke="#64748b" stroke-width="3"/><text x="65" y="150" text-anchor="middle" fill="currentColor" font-size="13">Light</text><text x="168" y="185" text-anchor="middle" fill="currentColor" font-size="13">Curtain</text><text x="330" y="185" text-anchor="middle" fill="currentColor" font-size="13">Faint shadow</text>'
     elif slow_fast_experiment:
         if a == "Slow motion":
             slow_style = 'stroke-width="5" stroke="#0ea5e9"'
@@ -1924,6 +1944,14 @@ def physics_lab():
             result = ("Pulling applies a force toward the person and can move the wagon." if not is_pa else "ਖਿੱਚਣ ਨਾਲ ਵਿਅਕਤੀ ਵੱਲ ਬਲ ਲੱਗਦਾ ਹੈ ਅਤੇ ਗੱਡਾ ਹਿੱਲ ਸਕਦਾ ਹੈ।")
         else:
             result = ("Pulling the handle applies a force that opens the drawer." if not is_pa else "ਹੈਂਡਲ ਖਿੱਚਣ ਨਾਲ ਬਲ ਲੱਗਦਾ ਹੈ ਅਤੇ ਦਰਾਜ਼ ਖੁੱਲ੍ਹਦੀ ਹੈ।")
+    elif shadow_examples_experiment:
+        shadow_results = {
+            "Torch and hand": ("The hand blocks some torchlight, so a shadow forms behind it.", "ਹੱਥ ਟਾਰਚ ਦੀ ਰੋਸ਼ਨੀ ਰੋਕਦਾ ਹੈ, ਇਸ ਲਈ ਪਿੱਛੇ ਪਰਛਾਵਾਂ ਬਣਦਾ ਹੈ।"),
+            "Tree on a sunny day": ("A tree blocks sunlight and casts a shadow on the ground.", "ਦਰੱਖਤ ਸੂਰਜ ਦੀ ਰੋਸ਼ਨੀ ਰੋਕਦਾ ਹੈ ਅਤੇ ਜ਼ਮੀਨ ਉੱਤੇ ਪਰਛਾਵਾਂ ਪੈਂਦਾ ਹੈ।"),
+            "Opaque book blocking light": ("An opaque book blocks light and makes a distinct dark shadow.", "ਅਪਾਰਦਰਸ਼ੀ ਕਿਤਾਬ ਰੋਸ਼ਨੀ ਰੋਕਦੀ ਹੈ ਅਤੇ ਸਪਸ਼ਟ ਗੂੜ੍ਹਾ ਪਰਛਾਵਾਂ ਬਣਾਉਂਦੀ ਹੈ।"),
+            "Translucent curtain": ("A translucent curtain lets some light through, so the shadow is usually softer and fainter.", "ਅਰਧ-ਪਾਰਦਰਸ਼ੀ ਪਰਦਾ ਕੁਝ ਰੋਸ਼ਨੀ ਲੰਘਣ ਦਿੰਦਾ ਹੈ, ਇਸ ਲਈ ਪਰਛਾਵਾਂ ਆਮ ਤੌਰ ਤੇ ਹਲਕਾ ਹੁੰਦਾ ਹੈ।")
+        }
+        result = shadow_results[a][1] if is_pa else shadow_results[a][0]
     elif slow_fast_experiment:
         if a == "Slow motion":
             result = ("Slow motion: a tortoise or a walking person usually covers less distance in the same time." if not is_pa else "ਹੌਲੀ ਗਤੀ: ਕੱਛੂਆ ਜਾਂ ਪੈਦਲ ਚੱਲਦਾ ਵਿਅਕਤੀ ਆਮ ਤੌਰ ਤੇ ਇੱਕੋ ਸਮੇਂ ਵਿੱਚ ਘੱਟ ਦੂਰੀ ਤੈਅ ਕਰਦਾ ਹੈ।")
@@ -1961,7 +1989,7 @@ def physics_lab():
         if is_pa: result = f"ਕੁੱਲ ਬਲ = {net:.1f} N"
     elif kind == "heat":
         result = f"{b} is represented qualitatively; actual heat transfer depends on dimensions and conditions." if not is_pa else f"{b} ਦਾ ਤਾਪ ਚਾਲਨ ਗੁਣਾਤਮਕ ਤੌਰ ਤੇ ਦਿਖਾਇਆ ਗਿਆ ਹੈ।"
-    elif kind == "shadow":
+    elif kind == "shadow" and not shadow_examples_experiment:
         result = "A larger object or a closer light source can produce a larger shadow in this simplified setup." if not is_pa else "ਇਸ ਸਧਾਰਨ ਮਾਡਲ ਵਿੱਚ ਵੱਡੀ ਵਸਤੂ ਜਾਂ ਨੇੜੇ ਰੋਸ਼ਨੀ ਨਾਲ ਵੱਡਾ ਪਰਛਾਵਾਂ ਬਣ ਸਕਦਾ ਹੈ।"
     elif kind == "lens":
         result = f"Object distance = {a} cm; focal length = {b} cm. Image behaviour changes around the focal length." if not is_pa else f"ਵਸਤੂ ਦੀ ਦੂਰੀ = {a} cm; ਫੋਕਸ ਦੂਰੀ = {b} cm।"
