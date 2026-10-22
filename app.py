@@ -1826,7 +1826,13 @@ def physics_lab():
     friction_types_experiment = pc == 7 and ei == 1 and kind == "friction"
     liquid_pressure_examples_experiment = pc == 7 and ei == 2 and kind == "pressure"
     reflection_angle_experiment = pc == 7 and ei == 3 and kind == "reflection"
-    if reflection_angle_experiment:
+    current_magnetic_field_experiment = pc == 7 and ei == 4 and kind == "magnetic_field"
+    if current_magnetic_field_experiment:
+        current_states = ["Switch ON — current flows", "Switch OFF — no current"]
+        current_states_pa = ["ਸਵਿੱਚ ਚਾਲੂ — ਕਰੰਟ ਵਗਦਾ ਹੈ", "ਸਵਿੱਚ ਬੰਦ — ਕਰੰਟ ਨਹੀਂ ਵਗਦਾ"]
+        a = st.selectbox("Operate the circuit switch" if not is_pa else "ਸਰਕਟ ਦਾ ਸਵਿੱਚ ਚਲਾਓ", current_states, format_func=lambda x: current_states_pa[current_states.index(x)] if is_pa else x, key="physics_class7_magnetic_current_switch")
+        b = a
+    elif reflection_angle_experiment:
         reflection_angles = [10, 20, 30, 40, 50, 60, 70, 80]
         a = st.selectbox("Select angle of incidence" if not is_pa else "ਆਗਮਨ ਕੋਣ ਚੁਣੋ", reflection_angles, index=2, format_func=lambda x: f"{x}°", key="physics_class7_reflection_angle")
         b = a
@@ -1902,7 +1908,14 @@ def physics_lab():
         c = b
     # Produce a distinct, responsive schematic for the selected phenomenon.
     visual = ""
-    if reflection_angle_experiment:
+    if current_magnetic_field_experiment:
+        current_on = a.startswith("Switch ON")
+        field_color = "#0ea5e9" if current_on else "#cbd5e1"
+        field_lines = ('<ellipse cx="220" cy="112" rx="42" ry="30" fill="none" stroke="#0ea5e9" stroke-width="2.5"/><ellipse cx="220" cy="112" rx="68" ry="49" fill="none" stroke="#0ea5e9" stroke-width="2.5"/><ellipse cx="220" cy="112" rx="94" ry="68" fill="none" stroke="#0ea5e9" stroke-width="2.5"/>' if current_on else '<text x="220" y="80" text-anchor="middle" fill="#64748b" font-size="13">No current → no magnetic field from the wire</text>')
+        needle = ('<path d="M95 93 L86 123 L95 116 L104 123 Z" fill="#dc2626"/><path d="M95 145 L86 115 L95 122 L104 115 Z" fill="#334155"/>' if current_on else '<path d="M95 88 L95 123 L88 115 Z" fill="#dc2626"/><path d="M95 145 L95 112 L102 120 Z" fill="#334155"/>')
+        status_text = ("SWITCH ON · FIELD PRESENT" if current_on else "SWITCH OFF · FIELD DISAPPEARS") if not is_pa else ("ਸਵਿੱਚ ਚਾਲੂ · ਚੁੰਬਕੀ ਖੇਤਰ ਮੌਜੂਦ" if current_on else "ਸਵਿੱਚ ਬੰਦ · ਚੁੰਬਕੀ ਖੇਤਰ ਖਤਮ")
+        visual = f'<rect x="12" y="12" width="436" height="206" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="31" text-anchor="middle" fill="#334155" font-size="14" font-weight="700">MAGNETIC EFFECT OF CURRENT</text>{field_lines}<path d="M220 45 V178" stroke="#b45309" stroke-width="7"/><circle cx="220" cy="112" r="6" fill="#f59e0b" stroke="#92400e" stroke-width="2"/><text x="245" y="54" fill="#334155" font-size="12">Current-carrying wire</text><circle cx="95" cy="116" r="34" fill="#fff" stroke="#64748b" stroke-width="2"/>{needle}<text x="95" y="164" text-anchor="middle" fill="#334155" font-size="12">Compass</text><rect x="340" y="72" width="72" height="48" rx="6" fill="{('#bbf7d0' if current_on else '#e2e8f0')}" stroke="{('#15803d' if current_on else '#64748b')}" stroke-width="2"/><text x="376" y="91" text-anchor="middle" fill="#334155" font-size="11">Switch</text><text x="376" y="108" text-anchor="middle" fill="#334155" font-size="12" font-weight="700">{('ON' if current_on else 'OFF')}</text><path d="M340 96 H292 V45 H220" stroke="#64748b" stroke-width="3" fill="none"/><path d="M220 178 V190 H340 V120" stroke="#64748b" stroke-width="3" fill="none"/><text x="230" y="207" text-anchor="middle" fill="#334155" font-size="12">{status_text}</text>'
+    elif reflection_angle_experiment:
         ray_geometry = {10: (21, 118), 20: (41, 113), 30: (60, 104), 40: (77, 92), 50: (92, 77), 60: (104, 60), 70: (113, 41), 80: (118, 21)}
         dx, dy = ray_geometry[int(a)]
         angle_label = f"{int(a)}°"
@@ -1991,7 +2004,9 @@ def physics_lab():
     st.markdown("### " + ("ਦ੍ਰਿਸ਼ ਮਾਡਲ" if is_pa else "Visual model"))
     st.markdown(f'<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;background:rgba(128,128,128,.035)"><svg viewBox="0 0 460 230" width="100%" role="img" aria-label="{title} interactive physics diagram">{visual}</svg></div>', unsafe_allow_html=True)
     result = ""
-    if reflection_angle_experiment:
+    if current_magnetic_field_experiment:
+        result = ("When the switch is ON, current flows through the wire and a magnetic field is produced around it. When the switch is OFF, current stops and the magnetic effect from the current-carrying wire disappears." if not is_pa else "ਸਵਿੱਚ ਚਾਲੂ ਹੋਣ ਤੇ ਤਾਰ ਵਿੱਚੋਂ ਕਰੰਟ ਵਗਦਾ ਹੈ ਅਤੇ ਇਸ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਚੁੰਬਕੀ ਖੇਤਰ ਬਣਦਾ ਹੈ। ਸਵਿੱਚ ਬੰਦ ਹੋਣ ਤੇ ਕਰੰਟ ਰੁਕ ਜਾਂਦਾ ਹੈ ਅਤੇ ਕਰੰਟ ਕਾਰਨ ਬਣਿਆ ਚੁੰਬਕੀ ਪ੍ਰਭਾਵ ਖਤਮ ਹੋ ਜਾਂਦਾ ਹੈ।")
+    elif reflection_angle_experiment:
         result = (f"Angle of incidence = {a}° and angle of reflection = {a}°. The reflected ray changes direction with the selected angle; both angles are measured from the normal." if not is_pa else f"ਆਗਮਨ ਕੋਣ = {a}° ਅਤੇ ਪਰਾਵਰਤਨ ਕੋਣ = {a}°। ਪਰਾਵਰਤਿਤ ਕਿਰਨ ਚੁਣੇ ਕੋਣ ਅਨੁਸਾਰ ਦਿਸ਼ਾ ਬਦਲਦੀ ਹੈ; ਦੋਵੇਂ ਕੋਣ ਲੰਬ ਤੋਂ ਮਾਪੇ ਜਾਂਦੇ ਹਨ।")
     elif liquid_pressure_examples_experiment:
         if a.startswith("Water jets"):
