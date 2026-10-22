@@ -1829,6 +1829,7 @@ def physics_lab():
     current_magnetic_field_experiment = pc == 7 and ei == 4 and kind == "magnetic_field"
     pressure_area_examples_experiment = pc == 8 and ei == 0 and kind == "pressure_area"
     balanced_forces_examples_experiment = pc == 8 and ei == 1 and kind == "balanced"
+    heat_conduction_examples_experiment = pc == 8 and ei == 2 and kind == "heat"
     if balanced_forces_examples_experiment:
         balanced_force_examples = ["Both people push the table to the right", "People push equally in opposite directions", "People push in opposite directions, one harder"]
         balanced_force_examples_pa = ["ਦੋਵੇਂ ਵਿਅਕਤੀ ਮੇਜ਼ ਨੂੰ ਸੱਜੇ ਧੱਕਦੇ ਹਨ", "ਦੋਵੇਂ ਬਰਾਬਰ ਬਲ ਨਾਲ ਉਲਟ ਧੱਕਦੇ ਹਨ", "ਉਲਟ ਦਿਸ਼ਾਵਾਂ ਵਿੱਚ ਧੱਕਾ, ਇੱਕ ਵੱਧ ਤਾਕਤ ਨਾਲ"]
@@ -1862,6 +1863,11 @@ def physics_lab():
             result = ("The two pushes are equal and opposite. They balance each other, so the table’s motion does not change; if it was at rest, it stays at rest." if not is_pa else "ਦੋਵੇਂ ਧੱਕੇ ਬਰਾਬਰ ਅਤੇ ਉਲਟ ਦਿਸ਼ਾਵਾਂ ਵਿੱਚ ਹਨ। ਇਹ ਇੱਕ-ਦੂਜੇ ਨੂੰ ਸੰਤੁਲਿਤ ਕਰਦੇ ਹਨ, ਇਸ ਲਈ ਮੇਜ਼ ਦੀ ਗਤੀ ਨਹੀਂ ਬਦਲਦੀ; ਜੇ ਇਹ ਪਹਿਲਾਂ ਸਥਿਰ ਸੀ ਤਾਂ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ।")
         else:
             result = ("The pushes are opposite but unequal. The stronger push to the left makes the forces unbalanced, so the table accelerates left." if not is_pa else "ਧੱਕੇ ਉਲਟ ਦਿਸ਼ਾਵਾਂ ਵਿੱਚ ਹਨ ਪਰ ਬਰਾਬਰ ਨਹੀਂ। ਖੱਬੇ ਪਾਸੇ ਦਾ ਵੱਧ ਬਲ ਅਸੰਤੁਲਨ ਪੈਦਾ ਕਰਦਾ ਹੈ, ਇਸ ਲਈ ਮੇਜ਼ ਖੱਬੇ ਵੱਲ ਤੇਜ਼ ਹੁੰਦੀ ਹੈ।")
+    elif heat_conduction_examples_experiment:
+        heat_materials = ["Metal rod (iron / steel)", "Copper spoon", "Wooden stick", "Plastic ruler"]
+        heat_materials_pa = ["ਧਾਤ ਦੀ ਛੜ (ਲੋਹਾ / ਸਟੀਲ)", "ਤਾਂਬੇ ਦਾ ਚਮਚਾ", "ਲੱਕੜੀ ਦੀ ਛੜੀ", "ਪਲਾਸਟਿਕ ਦਾ ਪੈਮਾਨਾ"]
+        a = st.selectbox("Choose a material to heat" if not is_pa else "ਗਰਮ ਕਰਨ ਲਈ ਪਦਾਰਥ ਚੁਣੋ", heat_materials, format_func=lambda x: heat_materials_pa[heat_materials.index(x)] if is_pa else x, key="physics_class8_heat_material")
+        b = a
     elif pressure_area_examples_experiment:
         pressure_area_examples = ["Snowshoes vs high heels", "Sharp knife vs blunt knife", "Broad tractor tyres vs narrow tyres", "Wide building foundation"]
         pressure_area_examples_pa = ["ਬਰਫ਼ ਵਾਲੇ ਜੁੱਤੇ ਬਨਾਮ ਉੱਚੀ ਅੱਡੀ", "ਤੇਜ਼ ਛੁਰੀ ਬਨਾਮ ਮੋਟੀ ਧਾਰ ਵਾਲੀ ਛੁਰੀ", "ਚੌੜੇ ਟਰੈਕਟਰ ਟਾਇਰ ਬਨਾਮ ਤੰਗ ਟਾਇਰ", "ਚੌੜੀ ਇਮਾਰਤੀ ਨੀਂਹ"]
@@ -2046,6 +2052,13 @@ def physics_lab():
         low_label = "LOWER PRESSURE" if not is_pa else "ਘੱਟ ਦਬਾਅ"
         high_label = "HIGHER PRESSURE" if not is_pa else "ਵੱਧ ਦਬਾਅ"
         visual = f'<rect x="12" y="12" width="436" height="206" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="32" text-anchor="middle" font-size="14" font-weight="700" fill="#334155">{example_label}</text><path d="M25 158 H435" stroke="#64748b" stroke-width="3"/>{left_shape}{right_shape}<path d="M125 42 V64 M117 56 L125 66 L133 56 M125 45 V62 M117 52 L125 62 L133 52" stroke="#0ea5e9" stroke-width="3" fill="none"/><path d="M337 42 V64 M329 56 L337 66 L345 56 M337 45 V62 M329 52 L337 62 L345 52" stroke="#f59e0b" stroke-width="3" fill="none"/><text x="125" y="177" text-anchor="middle" font-size="11" font-weight="700" fill="#0369a1">{left_label}</text><text x="337" y="177" text-anchor="middle" font-size="11" font-weight="700" fill="#be123c">{right_label}</text><text x="125" y="198" text-anchor="middle" font-size="13" font-weight="700" fill="#0369a1">{low_label}</text><text x="337" y="198" text-anchor="middle" font-size="13" font-weight="700" fill="#be123c">{high_label}</text>'
+    elif heat_conduction_examples_experiment:
+        is_conductor = a in ("Metal rod (iron / steel)", "Copper spoon")
+        material_label = ({"Metal rod (iron / steel)": "METAL ROD", "Copper spoon": "COPPER SPOON", "Wooden stick": "WOOD", "Plastic ruler": "PLASTIC"}[a])
+        transfer_label = ("HEAT TRAVELS ALONG METAL" if is_conductor else "HEAT DOES NOT TRAVEL EASILY") if not is_pa else ("ਧਾਤ ਵਿੱਚ ਤਾਪ ਅੱਗੇ ਵੱਲ ਜਾਂਦਾ ਹੈ" if is_conductor else "ਤਾਪ ਆਸਾਨੀ ਨਾਲ ਅੱਗੇ ਨਹੀਂ ਜਾਂਦਾ")
+        rod_color = "#fb923c" if is_conductor else "#94a3b8"
+        heat_marks = '<path d="M180 95 L198 83 M220 95 L238 83 M260 95 L278 83 M300 95 L318 83" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>' if is_conductor else '<path d="M180 95 L192 91 M220 95 L232 91" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/>'
+        visual = f'<rect x="12" y="12" width="436" height="206" rx="14" fill="#fff7ed" stroke="#fdba74" stroke-width="2"/><text x="230" y="31" text-anchor="middle" font-size="14" font-weight="700" fill="#7c2d12">{material_label}</text><path d="M55 150 H405" stroke="#64748b" stroke-width="4"/><rect x="120" y="88" width="250" height="24" rx="8" fill="{rod_color}" stroke="#475569" stroke-width="2"/><path d="M68 148 C48 128 75 117 62 99 C92 111 98 129 82 148 Z" fill="#ef4444"/><path d="M82 148 C68 130 95 121 91 105 C116 128 111 138 101 148 Z" fill="#f59e0b"/><path d="M100 148 C91 132 113 124 112 113 C132 133 124 141 119 148 Z" fill="#facc15"/>{heat_marks}<text x="83" y="174" text-anchor="middle" font-size="12" font-weight="700" fill="#9a3412">{("HEAT SOURCE" if not is_pa else "ਤਾਪ ਸਰੋਤ")}</text><text x="245" y="72" text-anchor="middle" font-size="12" font-weight="700" fill="#9a3412">{("HOT END" if not is_pa else "ਗਰਮ ਸਿਰਾ")}</text><text x="350" y="137" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">{("FAR END" if not is_pa else "ਦੂਰਲਾ ਸਿਰਾ")}</text><text x="230" y="198" text-anchor="middle" font-size="13" font-weight="700" fill="#7c2d12">{transfer_label}</text>'
     elif kind in ("reflection","refraction"):
         ang = int(a)
         visual = f'<path d="M40 180 L420 180" stroke="#64748b" stroke-width="5"/><path d="M220 180 L{220-int(ang*1.5)} {180-int(ang*1.5)}" stroke="#f59e0b" stroke-width="4"/><path d="M220 180 L{220+int(ang*1.5)} {180-int(ang*1.5)}" stroke="#0ea5e9" stroke-width="4"/><circle cx="220" cy="180" r="5" fill="#e11d48"/><text x="70" y="35" fill="currentColor" font-size="16">Incident ray</text><text x="270" y="35" fill="currentColor" font-size="16">Outgoing ray</text>'
@@ -2180,6 +2193,9 @@ def physics_lab():
         net = float(a)-float(b)
         result = f"Net force = {net:.1f} N; " + ("balanced" if net == 0 else "rightward resultant" if net > 0 else "leftward resultant")
         if is_pa: result = f"ਕੁੱਲ ਬਲ = {net:.1f} N"
+    elif heat_conduction_examples_experiment:
+        is_conductor = a in ("Metal rod (iron / steel)", "Copper spoon")
+        result = (("Metals such as iron, steel and copper conduct heat relatively well. Heating one end transfers thermal energy along the material toward the cooler end. Wood and plastic are comparatively poor conductors, so heat travels through them much less readily. This is a qualitative illustration, not a timed measurement." if not is_pa else "ਲੋਹਾ, ਸਟੀਲ ਅਤੇ ਤਾਂਬਾ ਵਰਗੀਆਂ ਧਾਤਾਂ ਤਾਪ ਦੀਆਂ ਚੰਗੀਆਂ ਚਾਲਕ ਹਨ। ਇੱਕ ਸਿਰਾ ਗਰਮ ਕਰਨ ਨਾਲ ਤਾਪੀ ਊਰਜਾ ਠੰਢੇ ਸਿਰੇ ਵੱਲ ਪਹੁੰਚਦੀ ਹੈ। ਲੱਕੜ ਅਤੇ ਪਲਾਸਟਿਕ ਤਾਪ ਦੇ ਮਾੜੇ ਚਾਲਕ ਹਨ, ਇਸ ਲਈ ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਤਾਪ ਘੱਟ ਆਸਾਨੀ ਨਾਲ ਲੰਘਦਾ ਹੈ। ਇਹ ਗੁਣਾਤਮਕ ਚਿੱਤਰ ਹੈ, ਸਮੇਂ ਨਾਲ ਮਾਪ ਨਹੀਂ।")
     elif kind == "heat":
         result = f"{b} is represented qualitatively; actual heat transfer depends on dimensions and conditions." if not is_pa else f"{b} ਦਾ ਤਾਪ ਚਾਲਨ ਗੁਣਾਤਮਕ ਤੌਰ ਤੇ ਦਿਖਾਇਆ ਗਿਆ ਹੈ।"
     elif kind == "shadow" and not shadow_examples_experiment:
