@@ -2056,6 +2056,7 @@ def physics_lab():
     else:
         c = b
     # Produce a distinct, responsive schematic for the selected phenomenon.
+    # Class 10 lens case is an independent if branch, not an elif without a parent.
     visual = ""
     if class10_convex_lens_experiment:
         lens_heading = "CONVEX LENS: IMAGE FORMATION" if not is_pa else "ਉੱਤਲ ਲੈਂਸ: ਪ੍ਰਤਿਬਿੰਬ ਬਣਨਾ"
