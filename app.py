@@ -2057,7 +2057,7 @@ def physics_lab():
         c = b
     # Produce a distinct, responsive schematic for the selected phenomenon.
     visual = ""
-    elif class10_convex_lens_experiment:
+    if class10_convex_lens_experiment:
         lens_heading = "CONVEX LENS: IMAGE FORMATION" if not is_pa else "ਉੱਤਲ ਲੈਂਸ: ਪ੍ਰਤਿਬਿੰਬ ਬਣਨਾ"
         axis = '<path d="M28 142 H432" stroke="#64748b" stroke-width="2"/><path d="M424 136 L434 142 L424 148" stroke="#64748b" stroke-width="2" fill="none"/>'
         lens_shape = '<path d="M230 43 Q195 142 230 225 Q265 142 230 43" fill="#bae6fd" fill-opacity=".75" stroke="#0284c7" stroke-width="3"/>'
