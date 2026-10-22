@@ -1753,7 +1753,7 @@ PHYSICS_EXPERIMENTS = {
   ],
   8: [
     ("Pressure and Contact Area","ਦਬਾਅ ਅਤੇ ਸੰਪਰਕ ਖੇਤਰਫਲ","Explore everyday examples showing that a larger contact area reduces pressure, while a smaller contact area increases pressure.","ਰੋਜ਼ਾਨਾ ਦੀਆਂ ਉਦਾਹਰਨਾਂ ਰਾਹੀਂ ਵੇਖੋ ਕਿ ਵੱਡਾ ਸੰਪਰਕ ਖੇਤਰਫਲ ਦਬਾਅ ਘਟਾਉਂਦਾ ਹੈ ਅਤੇ ਛੋਟਾ ਖੇਤਰਫਲ ਦਬਾਅ ਵਧਾਉਂਦਾ ਹੈ।","pressure_area","For the same force, spreading it over a larger area produces less pressure; concentrating it on a smaller area produces more pressure.","ਇੱਕੋ ਬਲ ਵੱਡੇ ਖੇਤਰਫਲ ਉੱਤੇ ਫੈਲਣ ਨਾਲ ਦਬਾਅ ਘਟਦਾ ਹੈ; ਛੋਟੇ ਖੇਤਰਫਲ ਉੱਤੇ ਲੱਗਣ ਨਾਲ ਦਬਾਅ ਵਧਦਾ ਹੈ।"),
-    ("Balanced and Unbalanced Forces","ਸੰਤੁਲਿਤ ਅਤੇ ਅਸੰਤੁਲਿਤ ਬਲ","Change opposing forces on a cart.","ਗੱਡੀ ਉੱਤੇ ਉਲਟ ਦਿਸ਼ਾਵਾਂ ਵਾਲੇ ਬਲ ਬਦਲੋ।","balanced","Balanced forces give zero net force; unbalanced forces can change motion.","ਸੰਤੁਲਿਤ ਬਲਾਂ ਦਾ ਕੁੱਲ ਬਲ ਸਿਫ਼ਰ ਹੁੰਦਾ ਹੈ।"),
+    ("Balanced and Unbalanced Forces","ਸੰਤੁਲਿਤ ਅਤੇ ਅਸੰਤੁਲਿਤ ਬਲ","Observe two people pushing a table in the same direction, in opposite directions, and with unequal opposing pushes.","ਦੋ ਵਿਅਕਤੀਆਂ ਨੂੰ ਮੇਜ਼ ਇੱਕੋ ਦਿਸ਼ਾ ਵਿੱਚ, ਉਲਟ ਦਿਸ਼ਾਵਾਂ ਵਿੱਚ ਅਤੇ ਅਸਮਾਨ ਬਲ ਨਾਲ ਧੱਕਦੇ ਵੇਖੋ।","balanced","Balanced forces do not change an object’s motion; an unbalanced force can start, stop, speed up, slow down or change its direction.","ਸੰਤੁਲਿਤ ਬਲ ਵਸਤੂ ਦੀ ਗਤੀ ਨਹੀਂ ਬਦਲਦੇ; ਅਸੰਤੁਲਿਤ ਬਲ ਵਸਤੂ ਨੂੰ ਚਲਾ, ਰੋਕ ਜਾਂ ਉਸ ਦੀ ਚਾਲ ਜਾਂ ਦਿਸ਼ਾ ਬਦਲ ਸਕਦਾ ਹੈ।"),
     ("Conduction of Heat","ਤਾਪ ਦਾ ਚਾਲਨ","Compare heat transfer through different materials.","ਵੱਖਰੇ ਪਦਾਰਥਾਂ ਵਿੱਚੋਂ ਤਾਪ ਦੇ ਤਬਾਦਲੇ ਦੀ ਤੁਲਨਾ ਕਰੋ।","heat","Materials conduct heat at different rates.","ਪਦਾਰਥ ਤਾਪ ਨੂੰ ਵੱਖ-ਵੱਖ ਦਰਾਂ ਨਾਲ ਚਲਾਉਂਦੇ ਹਨ।"),
     ("Reflection in a Plane Mirror","ਸਮਤਲ ਸ਼ੀਸ਼ੇ ਵਿੱਚ ਪਰਾਵਰਤਨ","Trace incident and reflected rays.","ਆਉਣ ਵਾਲੀਆਂ ਅਤੇ ਪਰਾਵਰਤਿਤ ਕਿਰਨਾਂ ਦਾ ਪਤਾ ਲਗਾਓ।","reflection","The incident and reflected rays lie in the same plane.","ਆਗਮਨ ਅਤੇ ਪਰਾਵਰਤਿਤ ਕਿਰਨਾਂ ਇੱਕੋ ਸਮਤਲ ਵਿੱਚ ਹੁੰਦੀਆਂ ਹਨ।"),
     ("Simple Sound Wave","ਸਧਾਰਨ ਧੁਨੀ ਤਰੰਗ","Change frequency and amplitude in a wave display.","ਤਰੰਗ ਵਿੱਚ ਆਵ੍ਰਿਤੀ ਅਤੇ ਐਂਪਲੀਟਿਊਡ ਬਦਲੋ।","wave","Frequency relates to pitch; amplitude relates to loudness.","ਆਵ੍ਰਿਤੀ ਸੁਰ ਦੀ ਉਚਾਈ ਅਤੇ ਐਂਪਲੀਟਿਊਡ ਉੱਚੀ ਆਵਾਜ਼ ਨਾਲ ਜੁੜੀ ਹੈ।")
@@ -1828,7 +1828,13 @@ def physics_lab():
     reflection_angle_experiment = pc == 7 and ei == 3 and kind == "reflection"
     current_magnetic_field_experiment = pc == 7 and ei == 4 and kind == "magnetic_field"
     pressure_area_examples_experiment = pc == 8 and ei == 0 and kind == "pressure_area"
-    if pressure_area_examples_experiment:
+    balanced_forces_examples_experiment = pc == 8 and ei == 1 and kind == "balanced"
+    if balanced_forces_examples_experiment:
+        balanced_force_examples = ["Both people push the table to the right", "People push equally in opposite directions", "People push in opposite directions, one harder"]
+        balanced_force_examples_pa = ["ਦੋਵੇਂ ਵਿਅਕਤੀ ਮੇਜ਼ ਨੂੰ ਸੱਜੇ ਧੱਕਦੇ ਹਨ", "ਦੋਵੇਂ ਬਰਾਬਰ ਬਲ ਨਾਲ ਉਲਟ ਧੱਕਦੇ ਹਨ", "ਉਲਟ ਦਿਸ਼ਾਵਾਂ ਵਿੱਚ ਧੱਕਾ, ਇੱਕ ਵੱਧ ਤਾਕਤ ਨਾਲ"]
+        a = st.selectbox("Choose how the people push the table" if not is_pa else "ਚੁਣੋ ਕਿ ਵਿਅਕਤੀ ਮੇਜ਼ ਨੂੰ ਕਿਵੇਂ ਧੱਕਦੇ ਹਨ", balanced_force_examples, format_func=lambda x: balanced_force_examples_pa[balanced_force_examples.index(x)] if is_pa else x, key="physics_class8_balanced_force_example")
+        b = a
+    elif pressure_area_examples_experiment:
         pressure_area_examples = ["Snowshoes vs high heels", "Sharp knife vs blunt knife", "Broad tractor tyres vs narrow tyres", "Wide building foundation"]
         pressure_area_examples_pa = ["ਬਰਫ਼ ਵਾਲੇ ਜੁੱਤੇ ਬਨਾਮ ਉੱਚੀ ਅੱਡੀ", "ਤੇਜ਼ ਛੁਰੀ ਬਨਾਮ ਮੋਟੀ ਧਾਰ ਵਾਲੀ ਛੁਰੀ", "ਚੌੜੇ ਟਰੈਕਟਰ ਟਾਇਰ ਬਨਾਮ ਤੰਗ ਟਾਇਰ", "ਚੌੜੀ ਇਮਾਰਤੀ ਨੀਂਹ"]
         a = st.selectbox("Choose a surface-area example" if not is_pa else "ਸਤਹੀ ਖੇਤਰਫਲ ਦੀ ਉਦਾਹਰਨ ਚੁਣੋ", pressure_area_examples, format_func=lambda x: pressure_area_examples_pa[pressure_area_examples.index(x)] if is_pa else x, key="physics_class8_pressure_area_example")
