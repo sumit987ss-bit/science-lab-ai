@@ -870,6 +870,77 @@ def electricity_lab():
             else:
                 st.info(("ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ ਹੈ: ਸਰਕਟ ਟੁੱਟਿਆ ਹੈ ਅਤੇ ਉਪਕਰਣ ਕੰਮ ਨਹੀਂ ਕਰਦਾ।" if is_pa_power else "Switch open: the circuit is broken and the device is off."))
             st.caption(("ਇਹ ਗੁਣਾਤਮਕ ਮਾਡਲ ਹੈ—ਕੋਈ ਅੰਕ, ਗਣਨਾ, ਇਕਾਈ ਜਾਂ ਗ੍ਰਾਫ ਨਹੀਂ।" if is_pa_power else "Qualitative model only — no numerical readings, calculations, units or graphs."))
+        elif selected_class == 10 and exp_index == 1 and kind == "series_parallel":
+            # Class 10 Experiment 2: compare equivalent resistance and current in series/parallel.
+            is_pa_rnet = st.session_state.language != "en"
+            r_each = resistance
+            r_series = 2 * r_each
+            r_parallel = r_each / 2
+            i_series = voltage / r_series if closed else 0.0
+            i_parallel_total = voltage / r_parallel if closed else 0.0
+            i_branch = voltage / r_each if closed else 0.0
+            wire = "#16a34a" if closed else "#94a3b8"
+            bulb_fill = "#fde047" if closed else "#e2e8f0"
+            bulb_glow = "filter:drop-shadow(0 0 8px #facc15);" if closed else ""
+            net_title = "ਲੜੀਵਾਰ ਅਤੇ ਸਮਾਂਤਰ ਰੋਧ ਦੀ ਤੁਲਨਾ" if is_pa_rnet else "Compare Series and Parallel Resistance"
+            net_svg = f"""<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:10px;background:rgba(128,128,128,.035)">
+<svg viewBox="0 0 460 430" width="100%" role="img" aria-label="Side-by-side series and parallel circuits with two equal resistors">
+  <text x="230" y="22" fill="currentColor" font-size="15" font-weight="bold" text-anchor="middle">{net_title}</text>
+  <text x="115" y="53" fill="currentColor" font-size="13" font-weight="bold" text-anchor="middle">{"ਲੜੀਵਾਰ ਸਰਕਟ" if is_pa_rnet else "SERIES CIRCUIT"}</text>
+  <g fill="none" stroke="{wire}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M40 95 H74 M112 95 H140 M178 95 H205 V185 H40 V135 M40 95 V108"/>
+    <path d="M74 95 l7 -10 l8 20 l8 -20 l8 20 l7 -10"/>
+    <path d="M140 95 l7 -10 l8 20 l8 -20 l8 20 l7 -10"/>
+  </g>
+  <g fill="currentColor" font-size="11" text-anchor="middle"><text x="40" y="155">{"ਸੈੱਲ" if is_pa_rnet else "CELL"}</text><text x="93" y="75">R₁ = {r_each} Ω</text><text x="159" y="75">R₂ = {r_each} Ω</text></g>
+  <circle cx="205" cy="140" r="16" fill="{bulb_fill}" stroke="#475569" stroke-width="2" style="{bulb_glow}"/><path d="M197 132 l16 16 m0 -16 l-16 16" stroke="#475569" stroke-width="2"/>
+  <text x="115" y="210" fill="currentColor" font-size="12" text-anchor="middle">{"Rₛ = 2R = " if is_pa_rnet else "Rₛ = 2R = "}{r_series} Ω</text>
+  <text x="345" y="53" fill="currentColor" font-size="13" font-weight="bold" text-anchor="middle">{"ਸਮਾਂਤਰ ਸਰਕਟ" if is_pa_rnet else "PARALLEL CIRCUIT"}</text>
+  <g fill="none" stroke="{wire}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M260 95 H286 M324 95 H365 M260 95 V185 H365 V95 M260 95 V108"/>
+    <path d="M286 95 l7 -10 l8 20 l8 -20 l8 20 l7 -10"/>
+    <path d="M260 140 H286 M324 140 H365"/>
+    <path d="M286 140 l7 -10 l8 20 l8 -20 l8 20 l7 -10"/>
+  </g>
+  <g fill="currentColor" font-size="11" text-anchor="middle"><text x="260" y="155">{"ਸੈੱਲ" if is_pa_rnet else "CELL"}</text><text x="305" y="75">R₁ = {r_each} Ω</text><text x="305" y="166">R₂ = {r_each} Ω</text></g>
+  <text x="345" y="210" fill="currentColor" font-size="12" text-anchor="middle">{"Rₚ = R/2 = " if is_pa_rnet else "Rₚ = R/2 = "}{r_parallel:g} Ω</text>
+  <line x1="20" y1="232" x2="440" y2="232" stroke="#94a3b8" stroke-dasharray="5 5"/>
+  <rect x="24" y="250" width="412" height="68" rx="10" fill="#dbeafe" stroke="#93c5fd"/>
+  <text x="230" y="275" fill="#1e40af" font-size="13" font-weight="bold" text-anchor="middle">{"ਲੜੀਵਾਰ: ਘੱਟ ਕਰੰਟ" if is_pa_rnet else "SERIES: LOWER TOTAL CURRENT"}</text>
+  <text x="230" y="298" fill="#1e40af" font-size="12" text-anchor="middle">Iₛ = V / Rₛ = {i_series:.3f} A</text>
+  <rect x="24" y="330" width="412" height="68" rx="10" fill="#dcfce7" stroke="#86efac"/>
+  <text x="230" y="355" fill="#166534" font-size="13" font-weight="bold" text-anchor="middle">{"ਸਮਾਂਤਰ: ਵੱਧ ਕੁੱਲ ਕਰੰਟ" if is_pa_rnet else "PARALLEL: HIGHER TOTAL CURRENT"}</text>
+  <text x="230" y="378" fill="#166534" font-size="12" text-anchor="middle">Iₚ = V / Rₚ = {i_parallel_total:.3f} A</text>
+</svg></div>"""
+            st.markdown("#### " + ("ਦੋ ਸਰਕਟਾਂ ਦਾ ਦ੍ਰਿਸ਼ ਮਾਡਲ" if is_pa_rnet else "Visual comparison of the two circuits"))
+            st.markdown(net_svg, unsafe_allow_html=True)
+            st.markdown("**" + ("ਮੌਜੂਦਾ ਸੈਟਿੰਗ ਲਈ ਗਣਨਾ" if is_pa_rnet else "Calculations for the selected settings") + "**")
+            st.latex(r"R_s = R_1 + R_2 = " + str(r_each) + r" + " + str(r_each) + r" = " + str(r_series) + r"\,\Omega")
+            st.latex(r"R_p = \frac{R_1R_2}{R_1+R_2} = \frac{" + str(r_each) + r"\times" + str(r_each) + "}{" + str(r_each) + "+" + str(r_each) + r"} = " + f"{r_parallel:g}" + r"\,\Omega")
+            c1, c2, c3 = st.columns(3)
+            c1.metric("ਵੋਲਟੇਜ (V)" if is_pa_rnet else "Voltage (V)", f"{voltage} V")
+            c2.metric("ਲੜੀਵਾਰ Rₛ" if is_pa_rnet else "Series Rₛ", f"{r_series} Ω")
+            c3.metric("ਸਮਾਂਤਰ Rₚ" if is_pa_rnet else "Parallel Rₚ", f"{r_parallel:g} Ω")
+            c4, c5, c6 = st.columns(3)
+            c4.metric("ਲੜੀਵਾਰ ਕਰੰਟ" if is_pa_rnet else "Series current", f"{i_series:.3f} A")
+            c5.metric("ਸਮਾਂਤਰ ਕੁੱਲ ਕਰੰਟ" if is_pa_rnet else "Parallel total current", f"{i_parallel_total:.3f} A")
+            c6.metric("ਸਮਾਂਤਰ ਹਰ ਸ਼ਾਖਾ" if is_pa_rnet else "Each parallel branch", f"{i_branch:.3f} A")
+            obs = []
+            for test_v in [6, 12, 18, 24]:
+                si = test_v / r_series if closed else 0.0
+                pi = test_v / r_parallel if closed else 0.0
+                obs.append({
+                    ("ਵੋਲਟੇਜ (V)" if is_pa_rnet else "Voltage (V)"): test_v,
+                    ("ਲੜੀਵਾਰ ਕਰੰਟ (A)" if is_pa_rnet else "Series current (A)"): f"{si:.3f}",
+                    ("ਸਮਾਂਤਰ ਕੁੱਲ ਕਰੰਟ (A)" if is_pa_rnet else "Parallel total current (A)"): f"{pi:.3f}",
+                })
+            st.markdown("**" + ("ਨਿਰੀਖਣ ਸਾਰਣੀ (ਦੋਵੇਂ ਰੋਧ ਬਰਾਬਰ)" if is_pa_rnet else "Observation table (two equal resistors)") + "**")
+            st.dataframe(obs, hide_index=True, use_container_width=True)
+            if closed:
+                st.success("ਲੜੀਵਾਰ ਰੋਧ ਵੱਧ ਹੋਣ ਕਰਕੇ ਕਰੰਟ ਘੱਟ ਹੈ; ਸਮਾਂਤਰ ਸਮਤੁੱਲ ਰੋਧ ਘੱਟ ਹੋਣ ਕਰਕੇ ਕੁੱਲ ਕਰੰਟ ਵੱਧ ਹੈ।" if is_pa_rnet else "Series resistance is higher, so its current is lower. Parallel equivalent resistance is lower, so its total current is higher.")
+            else:
+                st.info("ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ ਹੈ: ਦੋਵੇਂ ਸਰਕਟਾਂ ਵਿੱਚ ਕਰੰਟ ਸਿਫ਼ਰ ਹੈ।" if is_pa_rnet else "Switch is open: current is zero in both circuits.")
+            st.caption("ਆਦਰਸ਼ ਸਿਮੂਲੇਸ਼ਨ—ਸਾਰਣੀ ਗਣਨਾ ਨਾਲ ਬਣਦੀ ਹੈ, ਅਸਲੀ ਲੈਬ ਮਾਪ ਨਹੀਂ। ਘਰੇਲੂ ਮੇਨ ਬਿਜਲੀ ਨਾਲ ਕਦੇ ਪ੍ਰਯੋਗ ਨਾ ਕਰੋ।" if is_pa_rnet else "Ideal simulation: table values are calculated, not real lab measurements. Never experiment with household mains electricity.")
         elif kind in ("ohms", "series_parallel", "power", "heating"):
             m1, m2 = st.columns(2)
             m1.metric(tr("current"), f"{current:.3f} A")
