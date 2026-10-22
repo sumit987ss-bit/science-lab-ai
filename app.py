@@ -1834,6 +1834,34 @@ def physics_lab():
         balanced_force_examples_pa = ["ਦੋਵੇਂ ਵਿਅਕਤੀ ਮੇਜ਼ ਨੂੰ ਸੱਜੇ ਧੱਕਦੇ ਹਨ", "ਦੋਵੇਂ ਬਰਾਬਰ ਬਲ ਨਾਲ ਉਲਟ ਧੱਕਦੇ ਹਨ", "ਉਲਟ ਦਿਸ਼ਾਵਾਂ ਵਿੱਚ ਧੱਕਾ, ਇੱਕ ਵੱਧ ਤਾਕਤ ਨਾਲ"]
         a = st.selectbox("Choose how the people push the table" if not is_pa else "ਚੁਣੋ ਕਿ ਵਿਅਕਤੀ ਮੇਜ਼ ਨੂੰ ਕਿਵੇਂ ਧੱਕਦੇ ਹਨ", balanced_force_examples, format_func=lambda x: balanced_force_examples_pa[balanced_force_examples.index(x)] if is_pa else x, key="physics_class8_balanced_force_example")
         b = a
+    elif balanced_forces_examples_experiment:
+        same_direction = a == "Both people push the table to the right"
+        equal_opposite = a == "People push equally in opposite directions"
+        person_left = '<circle cx="58" cy="72" r="13" fill="#f1c27d" stroke="#92400e" stroke-width="2"/><path d="M58 85 V119 M58 94 L82 103 L96 103 M58 119 L45 143 M58 119 L72 143" stroke="#2563eb" stroke-width="7" stroke-linecap="round" fill="none"/>'
+        person_right = '<circle cx="402" cy="72" r="13" fill="#f1c27d" stroke="#92400e" stroke-width="2"/><path d="M402 85 V119 M402 94 L378 103 L364 103 M402 119 L389 143 M402 119 L416 143" stroke="#16a34a" stroke-width="7" stroke-linecap="round" fill="none"/>'
+        if same_direction:
+            left_arrow = '<path d="M155 105 H95 M105 95 L93 105 L105 115" stroke="#0ea5e9" stroke-width="5" fill="none"/>'
+            right_arrow = '<path d="M305 105 H365 M355 95 L367 105 L355 115" stroke="#f59e0b" stroke-width="5" fill="none"/>'
+            motion_text = "TABLE MOVES RIGHT →" if not is_pa else "ਮੇਜ਼ ਸੱਜੇ ਵੱਲ ਚੱਲਦੀ ਹੈ →"
+            status_text = "UNBALANCED · BOTH PUSH RIGHT" if not is_pa else "ਅਸੰਤੁਲਿਤ · ਦੋਵੇਂ ਸੱਜੇ ਧੱਕਦੇ ਹਨ"
+        elif equal_opposite:
+            left_arrow = '<path d="M165 105 H105 M115 95 L103 105 L115 115" stroke="#0ea5e9" stroke-width="5" fill="none"/>'
+            right_arrow = '<path d="M295 105 H355 M345 95 L357 105 L345 115" stroke="#f59e0b" stroke-width="5" fill="none"/>'
+            motion_text = "TABLE STAYS STILL" if not is_pa else "ਮੇਜ਼ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ"
+            status_text = "BALANCED · EQUAL OPPOSING FORCES" if not is_pa else "ਸੰਤੁਲਿਤ · ਬਰਾਬਰ ਉਲਟ ਬਲ"
+        else:
+            left_arrow = '<path d="M165 105 H75 M85 95 L73 105 L85 115" stroke="#0ea5e9" stroke-width="7" fill="none"/>'
+            right_arrow = '<path d="M295 105 H335 M325 95 L337 105 L325 115" stroke="#f59e0b" stroke-width="3" fill="none"/>'
+            motion_text = "TABLE MOVES LEFT ←" if not is_pa else "ਮੇਜ਼ ਖੱਬੇ ਵੱਲ ਚੱਲਦੀ ਹੈ ←"
+            status_text = "UNBALANCED · LEFT PUSH STRONGER" if not is_pa else "ਅਸੰਤੁਲਿਤ · ਖੱਬੇ ਪਾਸੇ ਦਾ ਧੱਕਾ ਵੱਧ"
+        visual = f'<rect x="12" y="12" width="436" height="206" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="30" text-anchor="middle" font-size="13" font-weight="700" fill="#334155">{("TWO PEOPLE PUSHING A TABLE" if not is_pa else "ਦੋ ਵਿਅਕਤੀ ਮੇਜ਼ ਨੂੰ ਧੱਕਦੇ ਹੋਏ")}</text>{person_left}{person_right}<rect x="155" y="84" width="150" height="43" rx="5" fill="#c08457" stroke="#854d0e" stroke-width="3"/><path d="M175 127 V151 M285 127 V151" stroke="#854d0e" stroke-width="6"/>{left_arrow}{right_arrow}<text x="230" y="174" text-anchor="middle" font-size="11" font-weight="700" fill="#334155">{status_text}</text><text x="230" y="198" text-anchor="middle" font-size="14" font-weight="700" fill="#0f766e">{motion_text}</text>'
+    elif balanced_forces_examples_experiment:
+        if a == "Both people push the table to the right":
+            result = ("Both people push in the same direction, so their effects add together. The forces are unbalanced and the table moves to the right." if not is_pa else "ਦੋਵੇਂ ਵਿਅਕਤੀ ਇੱਕੋ ਦਿਸ਼ਾ ਵਿੱਚ ਧੱਕਦੇ ਹਨ, ਇਸ ਲਈ ਉਨ੍ਹਾਂ ਦੇ ਬਲ ਇਕੱਠੇ ਹੋ ਜਾਂਦੇ ਹਨ। ਬਲ ਅਸੰਤੁਲਿਤ ਹਨ ਅਤੇ ਮੇਜ਼ ਸੱਜੇ ਵੱਲ ਚੱਲਦੀ ਹੈ।")
+        elif a == "People push equally in opposite directions":
+            result = ("The two pushes are equal and opposite. They balance each other, so the table’s motion does not change; if it was at rest, it stays at rest." if not is_pa else "ਦੋਵੇਂ ਧੱਕੇ ਬਰਾਬਰ ਅਤੇ ਉਲਟ ਦਿਸ਼ਾਵਾਂ ਵਿੱਚ ਹਨ। ਇਹ ਇੱਕ-ਦੂਜੇ ਨੂੰ ਸੰਤੁਲਿਤ ਕਰਦੇ ਹਨ, ਇਸ ਲਈ ਮੇਜ਼ ਦੀ ਗਤੀ ਨਹੀਂ ਬਦਲਦੀ; ਜੇ ਇਹ ਪਹਿਲਾਂ ਸਥਿਰ ਸੀ ਤਾਂ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ।")
+        else:
+            result = ("The pushes are opposite but unequal. The stronger push to the left makes the forces unbalanced, so the table accelerates left." if not is_pa else "ਧੱਕੇ ਉਲਟ ਦਿਸ਼ਾਵਾਂ ਵਿੱਚ ਹਨ ਪਰ ਬਰਾਬਰ ਨਹੀਂ। ਖੱਬੇ ਪਾਸੇ ਦਾ ਵੱਧ ਬਲ ਅਸੰਤੁਲਨ ਪੈਦਾ ਕਰਦਾ ਹੈ, ਇਸ ਲਈ ਮੇਜ਼ ਖੱਬੇ ਵੱਲ ਤੇਜ਼ ਹੁੰਦੀ ਹੈ।")
     elif pressure_area_examples_experiment:
         pressure_area_examples = ["Snowshoes vs high heels", "Sharp knife vs blunt knife", "Broad tractor tyres vs narrow tyres", "Wide building foundation"]
         pressure_area_examples_pa = ["ਬਰਫ਼ ਵਾਲੇ ਜੁੱਤੇ ਬਨਾਮ ਉੱਚੀ ਅੱਡੀ", "ਤੇਜ਼ ਛੁਰੀ ਬਨਾਮ ਮੋਟੀ ਧਾਰ ਵਾਲੀ ਛੁਰੀ", "ਚੌੜੇ ਟਰੈਕਟਰ ਟਾਇਰ ਬਨਾਮ ਤੰਗ ਟਾਇਰ", "ਚੌੜੀ ਇਮਾਰਤੀ ਨੀਂਹ"]
