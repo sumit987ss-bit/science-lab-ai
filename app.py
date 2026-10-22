@@ -1885,6 +1885,7 @@ def physics_lab():
     class9_gravity_experiment = pc == 9 and ei == 4 and kind == "potential"
     class10_reflection_experiment = pc == 10 and ei == 0 and kind == "reflection"
     class10_refraction_experiment = pc == 10 and ei == 1 and kind == "refraction"
+    class10_convex_lens_experiment = pc == 10 and ei == 2 and kind == "lens"
     # Class 8 sound uses a qualitative dropdown, not numeric frequency/amplitude sliders.
     if class8_sound_wave_examples_experiment:
         sound_examples = ["Soft, low-pitched sound", "Loud, low-pitched sound", "Soft, high-pitched sound", "Loud, high-pitched sound"]
@@ -1980,6 +1981,11 @@ def physics_lab():
             key="physics_class6_slow_fast_choice"
         )
         b = a
+    elif class10_convex_lens_experiment:
+        lens_cases = ["Object beyond 2F", "Object at 2F", "Object between F and 2F", "Object at F", "Object between lens and F"]
+        lens_cases_pa = ["ਵਸਤੂ 2F ਤੋਂ ਪਰੇ", "ਵਸਤੂ 2F ਉੱਤੇ", "ਵਸਤੂ F ਅਤੇ 2F ਵਿਚਕਾਰ", "ਵਸਤੂ F ਉੱਤੇ", "ਲੈਂਸ ਅਤੇ F ਵਿਚਕਾਰ ਵਸਤੂ"]
+        a = st.selectbox("Choose object position" if not is_pa else "ਵਸਤੂ ਦੀ ਸਥਿਤੀ ਚੁਣੋ", lens_cases, format_func=lambda x: lens_cases_pa[lens_cases.index(x)] if is_pa else x, key="physics_class10_lens_case_" + st.session_state.language)
+        b = a
     elif class10_refraction_experiment:
         refraction_scenarios = ["Air into glass", "Glass into air", "Light straight along the normal"]
         refraction_scenarios_pa = ["ਹਵਾ ਤੋਂ ਕੱਚ ਵਿੱਚ", "ਕੱਚ ਤੋਂ ਹਵਾ ਵਿੱਚ", "ਲੰਬ ਦੇ ਨਾਲ ਸਿੱਧੀ ਰੋਸ਼ਨੀ"]
@@ -2051,7 +2057,41 @@ def physics_lab():
         c = b
     # Produce a distinct, responsive schematic for the selected phenomenon.
     visual = ""
-    if class9_speed_acceleration_experiment:
+    elif class10_convex_lens_experiment:
+        lens_heading = "CONVEX LENS: IMAGE FORMATION" if not is_pa else "ਉੱਤਲ ਲੈਂਸ: ਪ੍ਰਤਿਬਿੰਬ ਬਣਨਾ"
+        axis = '<path d="M28 142 H432" stroke="#64748b" stroke-width="2"/><path d="M424 136 L434 142 L424 148" stroke="#64748b" stroke-width="2" fill="none"/>'
+        lens_shape = '<path d="M230 43 Q195 142 230 225 Q265 142 230 43" fill="#bae6fd" fill-opacity=".75" stroke="#0284c7" stroke-width="3"/>'
+        markers = '<path d="M160 75 V205 M300 75 V205 M90 92 V192 M370 92 V192" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4"/><text x="160" y="68" text-anchor="middle" font-size="11" fill="#475569">F</text><text x="300" y="68" text-anchor="middle" font-size="11" fill="#475569">F</text><text x="90" y="85" text-anchor="middle" font-size="11" fill="#475569">2F</text><text x="370" y="85" text-anchor="middle" font-size="11" fill="#475569">2F</text>'
+        if a == "Object beyond 2F":
+            obj_x, img_x, image_y = 60, 340, 192
+            image_label = "REAL · INVERTED · SMALLER" if not is_pa else "ਅਸਲੀ · ਉਲਟਾ · ਛੋਟਾ"
+            rays = '<path d="M60 92 L230 92 L340 112" stroke="#f59e0b" stroke-width="2.5" fill="none"/><path d="M60 92 L230 192 L340 112" stroke="#0ea5e9" stroke-width="2.5" fill="none"/>'
+        elif a == "Object at 2F":
+            obj_x, img_x, image_y = 90, 370, 192
+            image_label = "REAL · INVERTED · SAME SIZE" if not is_pa else "ਅਸਲੀ · ਉਲਟਾ · ਬਰਾਬਰ ਆਕਾਰ"
+            rays = '<path d="M90 92 L230 92 L370 92" stroke="#f59e0b" stroke-width="2.5" fill="none"/><path d="M90 92 L230 192 L370 192" stroke="#0ea5e9" stroke-width="2.5" fill="none"/>'
+        elif a == "Object between F and 2F":
+            obj_x, img_x, image_y = 125, 405, 219
+            image_label = "REAL · INVERTED · LARGER" if not is_pa else "ਅਸਲੀ · ਉਲਟਾ · ਵੱਡਾ"
+            rays = '<path d="M125 92 L230 92 L405 65" stroke="#f59e0b" stroke-width="2.5" fill="none"/><path d="M125 92 L230 192 L405 65" stroke="#0ea5e9" stroke-width="2.5" fill="none"/>'
+        elif a == "Object at F":
+            obj_x, img_x, image_y = 160, 410, 192
+            image_label = "IMAGE AT INFINITY · RAYS PARALLEL" if not is_pa else "ਪ੍ਰਤਿਬਿੰਬ ਅਨੰਤ ਉੱਤੇ · ਕਿਰਨਾਂ ਸਮਾਂਤਰ"
+            rays = '<path d="M160 92 L230 92 L410 92" stroke="#f59e0b" stroke-width="2.5" fill="none"/><path d="M160 92 L230 192 L410 192" stroke="#0ea5e9" stroke-width="2.5" fill="none"/>'
+        else:
+            obj_x, img_x, image_y = 195, 125, 65
+            image_label = "VIRTUAL · UPRIGHT · MAGNIFIED" if not is_pa else "ਆਭਾਸੀ · ਸਿੱਧਾ · ਵੱਡਾ"
+            rays = '<path d="M195 92 L230 92 L405 65" stroke="#f59e0b" stroke-width="2.5" fill="none"/><path d="M195 92 L230 192 L405 192" stroke="#0ea5e9" stroke-width="2.5" fill="none" stroke-dasharray="5 4"/><path d="M230 92 L125 65 M230 192 L125 65" stroke="#7c3aed" stroke-width="2" fill="none" stroke-dasharray="5 4"/>'
+        object_arrow = f'<path d="M{obj_x} 142 V92 M{obj_x-7} 102 L{obj_x} 90 L{obj_x+7} 102" stroke="#16a34a" stroke-width="4" fill="none"/>'
+        if a == "Object at F":
+            image_arrow = '<path d="M370 92 H420 M410 84 L422 92 L410 100" stroke="#7c3aed" stroke-width="3" fill="none"/>'
+        else:
+            tip_y = image_y
+            tail_y = image_y + 28 if image_y < 142 else image_y - 28
+            image_arrow = f'<path d="M{img_x} {tail_y} V{tip_y} M{img_x-7} {tip_y+8 if tip_y < tail_y else tip_y-8} L{img_x} {tip_y} L{img_x+7} {tip_y+8 if tip_y < tail_y else tip_y-8}" stroke="#dc2626" stroke-width="4" fill="none"/>'
+        object_tag = "OBJECT" if not is_pa else "ਵਸਤੂ"
+        visual = f'<rect x="12" y="12" width="436" height="206" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="30" text-anchor="middle" font-size="13" font-weight="700" fill="#334155">{lens_heading}</text>{axis}{markers}{lens_shape}{rays}{object_arrow}{image_arrow}<text x="{obj_x}" y="165" text-anchor="middle" font-size="10" font-weight="700" fill="#15803d">{object_tag}</text><text x="230" y="211" text-anchor="middle" font-size="10" font-weight="700" fill="#0f766e">{image_label}</text>'
+    elif class9_speed_acceleration_experiment:
         if a == "Starting from rest and speeding up":
             motion_arrows = '<path d="M145 112 H195 M185 102 L197 112 L185 122 M220 112 H270 M260 102 L272 112 L260 122" stroke="#16a34a" stroke-width="4" fill="none"/>'
             scene_label = "SPEEDING UP · SPACING GROWS" if not is_pa else "ਤੇਜ਼ ਹੋਣਾ · ਦੂਰੀ ਵਧਦੀ ਹੈ"
@@ -2473,6 +2513,15 @@ def physics_lab():
         result = f"{b} is represented qualitatively; actual heat transfer depends on dimensions and conditions." if not is_pa else f"{b} ਦਾ ਤਾਪ ਚਾਲਨ ਗੁਣਾਤਮਕ ਤੌਰ ਤੇ ਦਿਖਾਇਆ ਗਿਆ ਹੈ।"
     elif kind == "shadow" and not shadow_examples_experiment:
         result = "A larger object or a closer light source can produce a larger shadow in this simplified setup." if not is_pa else "ਇਸ ਸਧਾਰਨ ਮਾਡਲ ਵਿੱਚ ਵੱਡੀ ਵਸਤੂ ਜਾਂ ਨੇੜੇ ਰੋਸ਼ਨੀ ਨਾਲ ਵੱਡਾ ਪਰਛਾਵਾਂ ਬਣ ਸਕਦਾ ਹੈ।"
+    elif class10_convex_lens_experiment:
+        lens_results = {
+            "Object beyond 2F": ("The image forms between F and 2F on the opposite side of the convex lens. It is real, inverted and smaller.", "ਪ੍ਰਤਿਬਿੰਬ ਉੱਤਲ ਲੈਂਸ ਦੇ ਦੂਜੇ ਪਾਸੇ F ਅਤੇ 2F ਵਿਚਕਾਰ ਬਣਦਾ ਹੈ। ਇਹ ਅਸਲੀ, ਉਲਟਾ ਅਤੇ ਛੋਟਾ ਹੁੰਦਾ ਹੈ।"),
+            "Object at 2F": ("The image forms at 2F on the opposite side. It is real, inverted and the same size as the object.", "ਪ੍ਰਤਿਬਿੰਬ ਦੂਜੇ ਪਾਸੇ 2F ਉੱਤੇ ਬਣਦਾ ਹੈ। ਇਹ ਅਸਲੀ, ਉਲਟਾ ਅਤੇ ਵਸਤੂ ਦੇ ਬਰਾਬਰ ਆਕਾਰ ਦਾ ਹੁੰਦਾ ਹੈ।"),
+            "Object between F and 2F": ("The image forms beyond 2F on the opposite side. It is real, inverted and enlarged.", "ਪ੍ਰਤਿਬਿੰਬ ਦੂਜੇ ਪਾਸੇ 2F ਤੋਂ ਪਰੇ ਬਣਦਾ ਹੈ। ਇਹ ਅਸਲੀ, ਉਲਟਾ ਅਤੇ ਵੱਡਾ ਹੁੰਦਾ ਹੈ।"),
+            "Object at F": ("The emerging rays are parallel; the image is considered to form at infinity.", "ਬਾਹਰ ਨਿਕਲਣ ਵਾਲੀਆਂ ਕਿਰਨਾਂ ਸਮਾਂਤਰ ਹੁੰਦੀਆਂ ਹਨ; ਪ੍ਰਤਿਬਿੰਬ ਅਨੰਤ ਉੱਤੇ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ।"),
+            "Object between lens and F": ("The image is on the same side as the object. It is virtual, upright and enlarged.", "ਪ੍ਰਤਿਬਿੰਬ ਵਸਤੂ ਵਾਲੇ ਪਾਸੇ ਬਣਦਾ ਹੈ। ਇਹ ਆਭਾਸੀ, ਸਿੱਧਾ ਅਤੇ ਵੱਡਾ ਹੁੰਦਾ ਹੈ।")
+        }
+        result = lens_results[a][1] if is_pa else lens_results[a][0]
     elif kind == "lens":
         result = f"Object distance = {a} cm; focal length = {b} cm. Image behaviour changes around the focal length." if not is_pa else f"ਵਸਤੂ ਦੀ ਦੂਰੀ = {a} cm; ਫੋਕਸ ਦੂਰੀ = {b} cm।"
     st.markdown("### " + ("ਨਿਰੀਖਣ" if is_pa else "Observation"))
