@@ -1823,7 +1823,13 @@ def physics_lab():
     force_examples_experiment = pc == 6 and ei == 2 and kind == "force"
     shadow_examples_experiment = pc == 6 and ei == 3 and kind == "shadow"
     magnet_poles_experiment = pc == 6 and ei == 4 and kind == "magnet"
-    if magnet_poles_experiment:
+    friction_types_experiment = pc == 7 and ei == 1 and kind == "friction"
+    if friction_types_experiment:
+        friction_examples = ["Sliding friction — block on different surfaces", "Rolling friction — wheel on a road", "Fluid friction — cyclist or boat through a fluid"]
+        friction_examples_pa = ["ਸਰਕਣ ਘਰਸ਼ਣ — ਵੱਖਰੀਆਂ ਸਤਹਾਂ ਉੱਤੇ ਬਲਾਕ", "ਲੁੜਕਣ ਘਰਸ਼ਣ — ਸੜਕ ਉੱਤੇ ਪਹੀਆ", "ਤਰਲ ਘਰਸ਼ਣ — ਹਵਾ ਜਾਂ ਪਾਣੀ ਵਿੱਚ ਸਾਈਕਲ ਸਵਾਰ / ਕਿਸ਼ਤੀ"]
+        a = st.selectbox("Choose a type of friction" if not is_pa else "ਘਰਸ਼ਣ ਦੀ ਕਿਸਮ ਚੁਣੋ", friction_examples, format_func=lambda x: friction_examples_pa[friction_examples.index(x)] if is_pa else x, key="physics_class7_friction_type")
+        b = a
+    elif magnet_poles_experiment:
         a = st.selectbox("Choose the poles facing each other" if not is_pa else "ਇੱਕ-ਦੂਜੇ ਵੱਲ ਮੂੰਹ ਕਰਦੇ ਧਰੁਵ ਚੁਣੋ", ["Like poles (N–N)", "Unlike poles (N–S)"], format_func=lambda x: (("ਇੱਕੋ ਜਿਹੇ ਧਰੁਵ (N–N)" if x.startswith("Like") else "ਵੱਖਰੇ ਧਰੁਵ (N–S)") if is_pa else x), key="physics_class6_magnet_poles")
         b = a
     elif shadow_examples_experiment:
@@ -1885,7 +1891,14 @@ def physics_lab():
         c = b
     # Produce a distinct, responsive schematic for the selected phenomenon.
     visual = ""
-    if magnet_poles_experiment:
+    if friction_types_experiment:
+        if a.startswith("Sliding"):
+            visual = '<rect x="18" y="18" width="424" height="194" rx="14" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/><text x="230" y="40" text-anchor="middle" font-size="15" font-weight="700" fill="#334155">SLIDING FRICTION · SURFACE COMPARISON</text><rect x="35" y="75" width="175" height="88" rx="6" fill="#d6d3d1" stroke="#78716c" stroke-width="2"/><path d="M38 92 l12 -8 l12 8 l12 -8 l12 8 l12 -8 l12 8 l12 -8 l12 8 l12 -8 l12 8 l12 -8 l12 8" stroke="#78716c" stroke-width="3" fill="none"/><rect x="250" y="75" width="175" height="88" rx="6" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/><path d="M252 92 H423 M252 112 H423 M252 132 H423 M252 152 H423" stroke="#60a5fa" stroke-width="2"/><rect x="83" y="53" width="72" height="35" rx="5" fill="#f59e0b" stroke="#92400e" stroke-width="2"/><rect x="300" y="53" width="72" height="35" rx="5" fill="#f59e0b" stroke="#92400e" stroke-width="2"/><path d="M80 47 H45 M53 39 L43 47 L53 55 M158 47 H193 M185 39 L195 47 L185 55" stroke="#dc2626" stroke-width="3" fill="none"/><path d="M300 47 H275 M283 39 L273 47 L283 55 M372 47 H405 M397 39 L407 47 L397 55" stroke="#0ea5e9" stroke-width="3" fill="none"/><text x="122" y="185" text-anchor="middle" font-size="13" fill="#334155">Rough carpet / rough wood</text><text x="337" y="185" text-anchor="middle" font-size="13" fill="#1e40af">Smooth tile / polished surface</text><text x="230" y="204" text-anchor="middle" font-size="12" fill="#334155">Rougher surface usually resists sliding more</text>'
+        elif a.startswith("Rolling"):
+            visual = '<rect x="18" y="18" width="424" height="194" rx="14" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/><text x="230" y="40" text-anchor="middle" font-size="15" font-weight="700" fill="#334155">ROLLING FRICTION</text><rect x="35" y="130" width="175" height="38" fill="#d6d3d1" stroke="#78716c" stroke-width="2"/><path d="M38 139 l12 -8 l12 8 l12 -8 l12 8 l12 -8 l12 8 l12 -8 l12 8 l12 -8 l12 8 l12 -8 l12 8" stroke="#78716c" stroke-width="2" fill="none"/><rect x="250" y="130" width="175" height="38" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/><path d="M252 140 H423 M252 151 H423 M252 162 H423" stroke="#60a5fa" stroke-width="2"/><circle cx="120" cy="112" r="27" fill="#475569" stroke="#0f172a" stroke-width="3"/><circle cx="120" cy="112" r="8" fill="#f8fafc"/><path d="M150 105 H190 M182 97 L192 105 L182 113" stroke="#dc2626" stroke-width="4" fill="none"/><circle cx="337" cy="112" r="27" fill="#475569" stroke="#0f172a" stroke-width="3"/><circle cx="337" cy="112" r="8" fill="#f8fafc"/><path d="M365 105 H405 M397 97 L407 105 L397 113" stroke="#0ea5e9" stroke-width="4" fill="none"/><text x="120" y="190" text-anchor="middle" font-size="13" fill="#334155">Rough road</text><text x="337" y="190" text-anchor="middle" font-size="13" fill="#1e40af">Smooth road</text>'
+        else:
+            visual = '<rect x="18" y="18" width="424" height="194" rx="14" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/><text x="230" y="40" text-anchor="middle" font-size="15" font-weight="700" fill="#334155">FLUID FRICTION · AIR / WATER RESISTANCE</text><path d="M35 85 Q55 65 75 85 T115 85 T155 85 T195 85 T235 85 T275 85 T315 85 T355 85 T395 85 T430 85 M35 105 Q55 85 75 105 T115 105 T155 105 T195 105 T235 105 T275 105 T315 105 T355 105 T395 105 T430 105" stroke="#38bdf8" stroke-width="3" fill="none"/><path d="M35 155 Q55 135 75 155 T115 155 T155 155 T195 155 T235 155 T275 155 T315 155 T355 155 T395 155 T430 155" stroke="#38bdf8" stroke-width="3" fill="none"/><path d="M115 76 L155 76 L176 88 L155 100 L115 100 L95 88 Z" fill="#f59e0b" stroke="#92400e" stroke-width="2"/><circle cx="130" cy="72" r="10" fill="#2563eb"/><path d="M145 77 L164 63 L180 70" stroke="#2563eb" stroke-width="5" fill="none"/><path d="M195 88 H245 M237 80 L247 88 L237 96" stroke="#dc2626" stroke-width="4" fill="none"/><path d="M280 137 Q320 115 360 137 L345 160 L295 160 Z" fill="#f59e0b" stroke="#92400e" stroke-width="2"/><path d="M300 135 L320 115 L340 135" stroke="#92400e" stroke-width="3" fill="none"/><path d="M365 145 H410 M402 137 L412 145 L402 153" stroke="#dc2626" stroke-width="4" fill="none"/><text x="140" y="122" text-anchor="middle" font-size="13" fill="#334155">Cyclist in air</text><text x="330" y="184" text-anchor="middle" font-size="13" fill="#334155">Boat in water</text>'
+    elif magnet_poles_experiment:
         like_poles = a.startswith("Like")
         left_x = 42 if like_poles else 70
         right_x = 285 if like_poles else 230
@@ -1955,7 +1968,14 @@ def physics_lab():
     st.markdown("### " + ("ਦ੍ਰਿਸ਼ ਮਾਡਲ" if is_pa else "Visual model"))
     st.markdown(f'<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;background:rgba(128,128,128,.035)"><svg viewBox="0 0 460 230" width="100%" role="img" aria-label="{title} interactive physics diagram">{visual}</svg></div>', unsafe_allow_html=True)
     result = ""
-    if magnet_poles_experiment:
+    if friction_types_experiment:
+        if a.startswith("Sliding"):
+            result = ("Sliding friction acts when two surfaces slide against each other. A rough carpet usually opposes sliding more than a smooth tile." if not is_pa else "ਜਦੋਂ ਦੋ ਸਤਹਾਂ ਇੱਕ-ਦੂਜੇ ਉੱਤੇ ਸਰਕਦੀਆਂ ਹਨ ਤਾਂ ਸਰਕਣ ਘਰਸ਼ਣ ਲੱਗਦਾ ਹੈ। ਖੁਰਦਰਾ ਕਾਰਪੇਟ ਆਮ ਤੌਰ ਤੇ ਚਿਕਣੀ ਟਾਇਲ ਨਾਲੋਂ ਵੱਧ ਰੁਕਾਵਟ ਪੈਦਾ ਕਰਦਾ ਹੈ।")
+        elif a.startswith("Rolling"):
+            result = ("Rolling friction acts when a wheel or ball rolls over a surface. A rough road usually resists rolling more than a smooth road." if not is_pa else "ਜਦੋਂ ਪਹੀਆ ਜਾਂ ਗੇਂਦ ਸਤਹ ਉੱਤੇ ਲੁੜਕਦੀ ਹੈ ਤਾਂ ਲੁੜਕਣ ਘਰਸ਼ਣ ਹੁੰਦਾ ਹੈ। ਖੁਰਦਰੀ ਸੜਕ ਆਮ ਤੌਰ ਤੇ ਚਿਕਣੀ ਸੜਕ ਨਾਲੋਂ ਲੁੜਕਣ ਨੂੰ ਵੱਧ ਰੋਕਦੀ ਹੈ।")
+        else:
+            result = ("Fluid friction (drag) acts when an object moves through air or water. The fluid pushes against the moving cyclist or boat." if not is_pa else "ਜਦੋਂ ਕੋਈ ਵਸਤੂ ਹਵਾ ਜਾਂ ਪਾਣੀ ਵਿੱਚੋਂ ਲੰਘਦੀ ਹੈ ਤਾਂ ਤਰਲ ਘਰਸ਼ਣ ਜਾਂ ਡਰੈਗ ਲੱਗਦਾ ਹੈ। ਹਵਾ ਜਾਂ ਪਾਣੀ ਚੱਲਦੇ ਸਾਈਕਲ ਸਵਾਰ ਜਾਂ ਕਿਸ਼ਤੀ ਦੀ ਗਤੀ ਦਾ ਵਿਰੋਧ ਕਰਦਾ ਹੈ।")
+    elif magnet_poles_experiment:
         if a.startswith("Like"):
             result = ("Like poles (N–N) repel, so both bar magnets move apart. Each magnet has both north and south poles." if not is_pa else "ਇੱਕੋ ਜਿਹੇ ਧਰੁਵ (N–N) ਇੱਕ-ਦੂਜੇ ਨੂੰ ਦੂਰ ਧੱਕਦੇ ਹਨ, ਇਸ ਲਈ ਦੋਵੇਂ ਬਾਰ ਚੁੰਬਕ ਦੂਰ ਹੁੰਦੇ ਹਨ। ਹਰ ਚੁੰਬਕ ਵਿੱਚ ਉੱਤਰੀ ਅਤੇ ਦੱਖਣੀ ਦੋਵੇਂ ਧਰੁਵ ਹੁੰਦੇ ਹਨ।")
         else:
@@ -2006,7 +2026,7 @@ def physics_lab():
         if is_pa: result = "ਖਿੱਚ" if a == "Unlike poles" else "ਵਿਕਰਸ਼ਣ"
     elif kind in ("sound","wave"):
         result = f"Frequency = {a} Hz; period ≈ {1/float(a):.4f} s; amplitude setting = {c}/10." if not is_pa else f"ਆਵ੍ਰਿਤੀ = {a} Hz; ਆਵਰਤ ਕਾਲ ≈ {1/float(a):.4f} s।"
-    elif kind == "friction":
+    elif kind == "friction" and not friction_types_experiment:
         result = f"Illustrative friction tendency rises with roughness and normal force (mass setting {b} kg)." if not is_pa else f"ਖੁਰਦਰਾਪਣ ਅਤੇ ਲੰਬਕਾਰੀ ਬਲ ਵਧਣ ਨਾਲ ਘਰਸ਼ਣ ਦੀ ਰੁਝਾਨੀ ਮਾਤਰਾ ਵਧਦੀ ਹੈ।"
     elif kind == "balanced":
         net = float(a)-float(b)
