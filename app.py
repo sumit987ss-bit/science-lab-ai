@@ -2951,6 +2951,305 @@ def chemistry_lab():
         st.text_input("ਤੁਹਾਡਾ ਜਵਾਬ" if pa else "Your explanation", key=f"chem_reflect_{cc}_{ei}_{st.session_state.language}")
     st.caption("Virtual educational model only. Follow teacher supervision and school laboratory safety rules for any real practical work." if not pa else "ਇਹ ਸਿਰਫ਼ ਵਰਚੁਅਲ ਸਿੱਖਣ ਮਾਡਲ ਹੈ। ਅਸਲ ਪ੍ਰਯੋਗ ਅਧਿਆਪਕ ਦੀ ਦੇਖ-ਰੇਖ ਅਤੇ ਸਕੂਲ ਦੀ ਲੈਬ ਸੁਰੱਖਿਆ ਦੇ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਹੀ ਕਰੋ।")
 
+
+
+# Class-wise Biology Lab: five interactive, visual experiments for Classes 6–10.
+# Topics are aligned broadly with the PSEB/NCERT middle- and secondary-school Science curriculum.
+BIOLOGY_EXPERIMENTS = {
+    6: [
+        ("Explore Plant and Animal Cells", "ਪੌਦਿਆਂ ਅਤੇ ਜਾਨਵਰਾਂ ਦੇ ਕੋਸ਼ਾਂ ਦੀ ਖੋਜ", "Compare the main visible parts of plant and animal cells.", "ਪੌਦੇ ਅਤੇ ਜਾਨਵਰ ਦੇ ਕੋਸ਼ਾਂ ਦੇ ਮੁੱਖ ਭਾਗਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।", "cell"),
+        ("Seed Germination", "ਬੀਜ ਦਾ ਅੰਕੁਰਣ", "Observe how a seed develops into a seedling when suitable conditions are available.", "ਢੁਕਵੀਆਂ ਹਾਲਤਾਂ ਵਿੱਚ ਬੀਜ ਤੋਂ ਪੌਦਾ ਬਣਨ ਦੀ ਪ੍ਰਕਿਰਿਆ ਵੇਖੋ।", "germination"),
+        ("What Does a Plant Need?", "ਪੌਦੇ ਨੂੰ ਕੀ ਚਾਹੀਦਾ ਹੈ?", "Explore the roles of light, water and air in plant growth.", "ਪੌਦੇ ਦੇ ਵਾਧੇ ਵਿੱਚ ਰੋਸ਼ਨੀ, ਪਾਣੀ ਅਤੇ ਹਵਾ ਦੀ ਭੂਮਿਕਾ ਜਾਣੋ।", "plant_needs"),
+        ("Food Chains in a Habitat", "ਆਵਾਸ ਵਿੱਚ ਭੋਜਨ ਲੜੀ", "Trace how food energy moves from plants to animals.", "ਪੌਦਿਆਂ ਤੋਂ ਜਾਨਵਰਾਂ ਤੱਕ ਭੋਜਨ ਊਰਜਾ ਦਾ ਵਹਾਅ ਸਮਝੋ।", "food_chain"),
+        ("Adaptations in Living Things", "ਜੀਵਾਂ ਵਿੱਚ ਅਨੁਕੂਲਨ", "Connect an organism's features with the habitat where it lives.", "ਜੀਵ ਦੀਆਂ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਨੂੰ ਉਸ ਦੇ ਆਵਾਸ ਨਾਲ ਜੋੜੋ।", "adaptation"),
+    ],
+    7: [
+        ("Photosynthesis in Green Plants", "ਹਰੇ ਪੌਦਿਆਂ ਵਿੱਚ ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ", "Model how leaves use light, water and carbon dioxide to make food.", "ਪੱਤੇ ਰੋਸ਼ਨੀ, ਪਾਣੀ ਅਤੇ ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ ਨਾਲ ਭੋਜਨ ਕਿਵੇਂ ਬਣਾਉਂਦੇ ਹਨ, ਸਮਝੋ।", "photosynthesis"),
+        ("Nutrition in Animals", "ਜਾਨਵਰਾਂ ਵਿੱਚ ਪੋਸ਼ਣ", "Follow food through the main stages of digestion.", "ਭੋਜਨ ਦੇ ਪਚਣ ਦੇ ਮੁੱਖ ਪੜਾਅ ਵੇਖੋ।", "digestion"),
+        ("Breathing and Respiration", "ਸਾਹ ਲੈਣਾ ਅਤੇ ਸ਼ਵਾਸ ਕਿਰਿਆ", "Distinguish breathing from the release of energy in cells.", "ਸਾਹ ਲੈਣ ਅਤੇ ਕੋਸ਼ਾਂ ਵਿੱਚ ਊਰਜਾ ਮੁਕਤ ਹੋਣ ਦਾ ਫਰਕ ਸਮਝੋ।", "respiration"),
+        ("Water Transport in Plants", "ਪੌਦਿਆਂ ਵਿੱਚ ਪਾਣੀ ਦੀ ਆਵਾਜਾਈ", "Trace water from roots through the stem to leaves.", "ਜੜ੍ਹਾਂ ਤੋਂ ਤਣੇ ਰਾਹੀਂ ਪੱਤਿਆਂ ਤੱਕ ਪਾਣੀ ਦਾ ਸਫ਼ਰ ਵੇਖੋ।", "transport_plant"),
+        ("Parts of a Flower", "ਫੁੱਲ ਦੇ ਭਾਗ", "Identify the main flower parts involved in pollination and seed formation.", "ਪਰਾਗਣ ਅਤੇ ਬੀਜ ਬਣਨ ਨਾਲ ਸੰਬੰਧਿਤ ਫੁੱਲ ਦੇ ਮੁੱਖ ਭਾਗ ਪਛਾਣੋ।", "flower"),
+    ],
+    8: [
+        ("Helpful and Harmful Microorganisms", "ਲਾਭਦਾਇਕ ਅਤੇ ਹਾਨੀਕਾਰਕ ਸੂਖਮ ਜੀਵ", "Compare useful microbes in food production with microbes that can cause disease.", "ਭੋਜਨ ਬਣਾਉਣ ਵਾਲੇ ਲਾਭਦਾਇਕ ਸੂਖਮ ਜੀਵਾਂ ਅਤੇ ਰੋਗ ਪੈਦਾ ਕਰ ਸਕਣ ਵਾਲਿਆਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।", "microbes"),
+        ("Crop Growth and Plant Health", "ਫ਼ਸਲ ਦਾ ਵਾਧਾ ਅਤੇ ਪੌਦਿਆਂ ਦੀ ਸਿਹਤ", "Explore healthy crop conditions and the roles of soil, water and nutrients.", "ਮਿੱਟੀ, ਪਾਣੀ ਅਤੇ ਪੋਸ਼ਕ ਤੱਤਾਂ ਦੀ ਫ਼ਸਲ ਦੇ ਵਾਧੇ ਵਿੱਚ ਭੂਮਿਕਾ ਜਾਣੋ।", "crop"),
+        ("Cell Organelles and Their Jobs", "ਕੋਸ਼ਿਕਾ ਦੇ ਅੰਗ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ", "Match common cell structures with their functions.", "ਕੋਸ਼ਿਕਾ ਦੀਆਂ ਬਣਤਰਾਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੇ ਕੰਮਾਂ ਨਾਲ ਜੋੜੋ।", "organelles"),
+        ("Protecting Biodiversity", "ਜੈਵ ਵਿਭਿੰਨਤਾ ਦੀ ਰੱਖਿਆ", "Explore how habitat protection supports plants and animals.", "ਆਵਾਸ ਦੀ ਰੱਖਿਆ ਪੌਦਿਆਂ ਅਤੇ ਜਾਨਵਰਾਂ ਦੀ ਮਦਦ ਕਿਵੇਂ ਕਰਦੀ ਹੈ, ਸਮਝੋ।", "biodiversity"),
+        ("Ecosystem Relationships", "ਪਰਿਸਥਿਤਕੀ ਤੰਤਰ ਦੇ ਸੰਬੰਧ", "Observe producers, consumers and decomposers in an ecosystem.", "ਪਰਿਸਥਿਤਕੀ ਤੰਤਰ ਵਿੱਚ ਉਤਪਾਦਕਾਂ, ਖਪਤਕਾਰਾਂ ਅਤੇ ਵਿਘਟਕਾਂ ਨੂੰ ਵੇਖੋ।", "ecosystem"),
+    ],
+    9: [
+        ("Plant and Animal Tissues", "ਪੌਦਿਆਂ ਅਤੇ ਜਾਨਵਰਾਂ ਦੇ ਟਿਸ਼ੂ", "Compare how groups of specialised cells perform different jobs.", "ਵਿਸ਼ੇਸ਼ੀਕ੍ਰਿਤ ਕੋਸ਼ਾਂ ਦੇ ਸਮੂਹ ਵੱਖ-ਵੱਖ ਕੰਮ ਕਿਵੇਂ ਕਰਦੇ ਹਨ, ਸਮਝੋ।", "tissue"),
+        ("Diffusion and Osmosis", "ਵਿਸਰਣ ਅਤੇ ਪਰਾਸਰਣ", "Model movement of particles and water across a selectively permeable membrane.", "ਕਣਾਂ ਅਤੇ ਪਾਣੀ ਦੀ ਚੋਣਵੀਂ ਪਾਰਗਮਣ ਝਿੱਲੀ ਰਾਹੀਂ ਗਤੀ ਦਾ ਮਾਡਲ ਵੇਖੋ।", "osmosis"),
+        ("Nutrition and Digestion", "ਪੋਸ਼ਣ ਅਤੇ ਪਚਣ", "Trace the pathway of food and the role of digestive organs.", "ਭੋਜਨ ਦੇ ਰਸਤੇ ਅਤੇ ਪਾਚਕ ਅੰਗਾਂ ਦੀ ਭੂਮਿਕਾ ਵੇਖੋ।", "digestion"),
+        ("Respiration in Living Cells", "ਜੀਵਤ ਕੋਸ਼ਾਂ ਵਿੱਚ ਸ਼ਵਾਸ ਕਿਰਿਆ", "Compare aerobic respiration with energy release when oxygen is limited.", "ਆਕਸੀਜਨ ਦੀ ਉਪਲਬਧਤਾ ਅਨੁਸਾਰ ਊਰਜਾ ਮੁਕਤ ਹੋਣ ਦੀ ਤੁਲਨਾ ਕਰੋ।", "respiration"),
+        ("Circulation in Humans", "ਮਨੁੱਖਾਂ ਵਿੱਚ ਖੂਨ ਦਾ ਸੰਚਾਰ", "Follow blood between the heart, lungs and body.", "ਦਿਲ, ਫੇਫੜਿਆਂ ਅਤੇ ਸਰੀਰ ਵਿਚਕਾਰ ਖੂਨ ਦਾ ਰਸਤਾ ਵੇਖੋ।", "circulation"),
+    ],
+    10: [
+        ("Nutrition in Humans", "ਮਨੁੱਖਾਂ ਵਿੱਚ ਪੋਸ਼ਣ", "Explore ingestion, digestion, absorption and assimilation.", "ਭੋਜਨ ਗ੍ਰਹਿਣ, ਪਚਣ, ਅਵਸ਼ੋਸ਼ਣ ਅਤੇ ਅੰਗੀਕਰਨ ਨੂੰ ਸਮਝੋ।", "digestion"),
+        ("Respiration and Gas Exchange", "ਸ਼ਵਾਸ ਕਿਰਿਆ ਅਤੇ ਗੈਸਾਂ ਦਾ ਆਦਾਨ-ਪ੍ਰਦਾਨ", "Trace air into the lungs and oxygen transfer into the blood.", "ਫੇਫੜਿਆਂ ਤੱਕ ਹਵਾ ਅਤੇ ਖੂਨ ਵਿੱਚ ਆਕਸੀਜਨ ਦੇ ਜਾਣ ਦਾ ਰਸਤਾ ਵੇਖੋ।", "respiration"),
+        ("Transport and Excretion", "ਆਵਾਜਾਈ ਅਤੇ ਨਿਕਾਸ", "Compare blood transport with kidney filtration and urine formation.", "ਖੂਨ ਰਾਹੀਂ ਆਵਾਜਾਈ ਅਤੇ ਗੁਰਦਿਆਂ ਵਿੱਚ ਛਾਣਨ ਤੇ ਪਿਸ਼ਾਬ ਬਣਨ ਦੀ ਤੁਲਨਾ ਕਰੋ।", "excretion"),
+        ("Reproduction in Plants", "ਪੌਦਿਆਂ ਵਿੱਚ ਪ੍ਰਜਨਨ", "Model pollination, fertilisation and seed formation.", "ਪਰਾਗਣ, ਨਿਸ਼ੇਚਨ ਅਤੇ ਬੀਜ ਬਣਨ ਦਾ ਮਾਡਲ ਵੇਖੋ।", "reproduction"),
+        ("Heredity and Variation", "ਵੰਸ਼ਾਣੁਕਤਾ ਅਤੇ ਵੱਖਰਾਪਣ", "Explore how inherited traits can resemble parents while variation remains.", "ਵਿਰਾਸਤੀ ਲੱਛਣ ਮਾਪਿਆਂ ਵਰਗੇ ਹੋ ਸਕਦੇ ਹਨ ਪਰ ਵੱਖਰਾਪਣ ਵੀ ਰਹਿੰਦਾ ਹੈ, ਸਮਝੋ।", "heredity"),
+    ],
+}
+
+BIOLOGY_OPTIONS = {
+    "cell": [
+        ("Plant cell", "ਪੌਦੇ ਦਾ ਕੋਸ਼", "Plant cells have a cell wall, membrane, cytoplasm, nucleus and often a large vacuole.", "ਪੌਦੇ ਦੇ ਕੋਸ਼ ਵਿੱਚ ਕੋਸ਼ਿਕਾ ਭਿੱਤ, ਝਿੱਲੀ, ਕੋਸ਼ਦ੍ਰਵ, ਕੇਂਦਰਕ ਅਤੇ ਆਮ ਤੌਰ ਤੇ ਵੱਡੀ ਰਸਧਾਨੀ ਹੁੰਦੀ ਹੈ।"),
+        ("Animal cell", "ਜਾਨਵਰ ਦਾ ਕੋਸ਼", "Animal cells have a membrane, cytoplasm and nucleus, but no cell wall.", "ਜਾਨਵਰ ਦੇ ਕੋਸ਼ ਵਿੱਚ ਝਿੱਲੀ, ਕੋਸ਼ਦ੍ਰਵ ਅਤੇ ਕੇਂਦਰਕ ਹੁੰਦੇ ਹਨ, ਪਰ ਕੋਸ਼ਿਕਾ ਭਿੱਤ ਨਹੀਂ ਹੁੰਦੀ।"),
+    ],
+    "germination": [
+        ("Dry seed", "ਸੁੱਕਾ ਬੀਜ", "The seed is dormant; growth begins when suitable moisture, air and warmth are available.", "ਬੀਜ ਸੁੱਤੀ ਅਵਸਥਾ ਵਿੱਚ ਹੁੰਦਾ ਹੈ; ਢੁਕਵੀਂ ਨਮੀ, ਹਵਾ ਅਤੇ ਗਰਮੀ ਮਿਲਣ ਤੇ ਵਾਧਾ ਸ਼ੁਰੂ ਹੁੰਦਾ ਹੈ।"),
+        ("Germinating seed", "ਅੰਕੁਰਦਾ ਬੀਜ", "The seed coat opens and the first root emerges.", "ਬੀਜ ਦਾ ਛਿਲਕਾ ਖੁੱਲ੍ਹਦਾ ਹੈ ਅਤੇ ਪਹਿਲੀ ਜੜ੍ਹ ਨਿਕਲਦੀ ਹੈ।"),
+        ("Young seedling", "ਨਵਾਂ ਪੌਦਾ", "Roots absorb water while the shoot grows upward toward light.", "ਜੜ੍ਹਾਂ ਪਾਣੀ ਸੋਖਦੀਆਂ ਹਨ ਅਤੇ ਤਣਾ ਰੋਸ਼ਨੀ ਵੱਲ ਵਧਦਾ ਹੈ।"),
+    ],
+    "plant_needs": [
+        ("Light available", "ਰੋਸ਼ਨੀ ਮੌਜੂਦ", "Light supplies energy for photosynthesis in green leaves.", "ਰੋਸ਼ਨੀ ਹਰੇ ਪੱਤਿਆਂ ਵਿੱਚ ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਲਈ ਊਰਜਾ ਦਿੰਦੀ ਹੈ।"),
+        ("Water shortage", "ਪਾਣੀ ਦੀ ਘਾਟ", "Lack of water causes wilting and limits photosynthesis.", "ਪਾਣੀ ਦੀ ਘਾਟ ਨਾਲ ਪੌਦਾ ਮੁਰਝਾ ਸਕਦਾ ਹੈ ਅਤੇ ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਘਟਦਾ ਹੈ।"),
+        ("Air available", "ਹਵਾ ਮੌਜੂਦ", "Carbon dioxide from air is used to make sugars during photosynthesis.", "ਹਵਾ ਦੀ ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ ਨਾਲ ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਦੌਰਾਨ ਸ਼ੱਕਰ ਬਣਦੀ ਹੈ।"),
+        ("Mineral nutrients", "ਖਣਿਜ ਪੋਸ਼ਕ ਤੱਤ", "Minerals support healthy growth; they are absorbed mainly through roots.", "ਖਣਿਜ ਸਿਹਤਮੰਦ ਵਾਧੇ ਲਈ ਲੋੜੀਂਦੇ ਹਨ ਅਤੇ ਮੁੱਖ ਤੌਰ ਤੇ ਜੜ੍ਹਾਂ ਰਾਹੀਂ ਲਏ ਜਾਂਦੇ ਹਨ।"),
+    ],
+    "food_chain": [
+        ("Grass → grasshopper → frog → snake", "ਘਾਹ → ਟਿੱਡਾ → ਡੱਡੂ → ਸੱਪ", "Energy moves from the producer to consumers; each arrow shows the direction of food energy.", "ਊਰਜਾ ਉਤਪਾਦਕ ਤੋਂ ਖਪਤਕਾਰਾਂ ਵੱਲ ਜਾਂਦੀ ਹੈ; ਤੀਰ ਭੋਜਨ ਊਰਜਾ ਦੀ ਦਿਸ਼ਾ ਦਿਖਾਉਂਦਾ ਹੈ।"),
+        ("Wheat → mouse → owl", "ਕਣਕ → ਚੂਹਾ → ਉੱਲੂ", "Plants are producers; animals obtain energy by eating plants or other animals.", "ਪੌਦੇ ਉਤਪਾਦਕ ਹਨ; ਜਾਨਵਰ ਪੌਦਿਆਂ ਜਾਂ ਹੋਰ ਜਾਨਵਰਾਂ ਨੂੰ ਖਾ ਕੇ ਊਰਜਾ ਲੈਂਦੇ ਹਨ।"),
+        ("Leaves → caterpillar → bird", "ਪੱਤੇ → ਸੁੰਡੀ → ਪੰਛੀ", "A food chain links organisms through feeding relationships.", "ਭੋਜਨ ਲੜੀ ਜੀਵਾਂ ਨੂੰ ਖਾਣ-ਪੀਣ ਦੇ ਸੰਬੰਧਾਂ ਰਾਹੀਂ ਜੋੜਦੀ ਹੈ।"),
+    ],
+    "adaptation": [
+        ("Fish in water", "ਪਾਣੀ ਵਿੱਚ ਮੱਛੀ", "Gills take oxygen from water; fins help movement and a streamlined body reduces drag.", "ਗਲਫੜੇ ਪਾਣੀ ਵਿੱਚੋਂ ਆਕਸੀਜਨ ਲੈਂਦੇ ਹਨ; ਪੱਖ ਤੈਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ।"),
+        ("Cactus in dry habitat", "ਸੁੱਕੇ ਇਲਾਕੇ ਵਿੱਚ ਕੈਕਟਸ", "A thick stem stores water and spines reduce water loss.", "ਮੋਟਾ ਤਣਾ ਪਾਣੀ ਸੰਭਾਲਦਾ ਹੈ ਅਤੇ ਕੰਡੇ ਪਾਣੀ ਦੀ ਹਾਨੀ ਘਟਾਉਂਦੇ ਹਨ।"),
+        ("Duck near wetlands", "ਦਲਦਲੀ ਇਲਾਕੇ ਵਿੱਚ ਬਤਖ਼", "Webbed feet help swimming and feathers provide insulation.", "ਝਿੱਲੀਦਾਰ ਪੈਰ ਤੈਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ ਅਤੇ ਖੰਭ ਗਰਮੀ ਸੰਭਾਲਦੇ ਹਨ।"),
+        ("Camel in desert", "ਰੇਗਿਸਤਾਨ ਵਿੱਚ ਊਠ", "Broad feet help on sand and water-saving features support desert life.", "ਚੌੜੇ ਪੈਰ ਰੇਤ ਉੱਤੇ ਤੁਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ ਅਤੇ ਪਾਣੀ ਬਚਾਉਣ ਵਾਲੀਆਂ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਸਹਾਇਕ ਹਨ।"),
+    ],
+    "photosynthesis": [
+        ("Leaf in sunlight", "ਧੁੱਪ ਵਿੱਚ ਪੱਤਾ", "Light energy, water and carbon dioxide are used to make glucose; oxygen is released.", "ਰੋਸ਼ਨੀ, ਪਾਣੀ ਅਤੇ ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ ਨਾਲ ਗਲੂਕੋਜ਼ ਬਣਦਾ ਹੈ ਅਤੇ ਆਕਸੀਜਨ ਨਿਕਲਦੀ ਹੈ।"),
+        ("Leaf kept in darkness", "ਹਨੇਰੇ ਵਿੱਚ ਰੱਖਿਆ ਪੱਤਾ", "Without light, photosynthesis cannot proceed normally.", "ਰੋਸ਼ਨੀ ਤੋਂ ਬਿਨਾਂ ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਆਮ ਤਰ੍ਹਾਂ ਨਹੀਂ ਹੋ ਸਕਦਾ।"),
+        ("Stomata on a leaf", "ਪੱਤੇ ਦੇ ਰੰਧਰ", "Tiny stomata allow gas exchange and help regulate water loss.", "ਛੋਟੇ ਰੰਧਰ ਗੈਸਾਂ ਦਾ ਆਦਾਨ-ਪ੍ਰਦਾਨ ਅਤੇ ਪਾਣੀ ਦੀ ਹਾਨੀ ਨਿਯੰਤਰਿਤ ਕਰਦੇ ਹਨ।"),
+    ],
+    "digestion": [
+        ("Mouth and saliva", "ਮੂੰਹ ਅਤੇ ਲਾਰ", "Chewing breaks food into smaller pieces; saliva begins starch digestion.", "ਚੱਬਣ ਨਾਲ ਭੋਜਨ ਛੋਟਾ ਹੁੰਦਾ ਹੈ ਅਤੇ ਲਾਰ ਮੰਡ ਦੇ ਪਚਣ ਦੀ ਸ਼ੁਰੂਆਤ ਕਰਦੀ ਹੈ।"),
+        ("Stomach", "ਅਮਾਸ਼ਾ", "Muscular mixing and gastric juice help digest food, especially proteins.", "ਮਾਸਪੇਸ਼ੀਆਂ ਦੀ ਹਿਲਜੁਲ ਅਤੇ ਜਠਰ ਰਸ ਭੋਜਨ, ਖ਼ਾਸ ਕਰਕੇ ਪ੍ਰੋਟੀਨ, ਪਚਾਉਂਦੇ ਹਨ।"),
+        ("Small intestine", "ਛੋਟੀ ਆਂਤ", "Digestion is completed and nutrients are absorbed through the intestinal lining.", "ਪਚਣ ਪੂਰਾ ਹੁੰਦਾ ਹੈ ਅਤੇ ਪੋਸ਼ਕ ਤੱਤ ਆਂਤ ਦੀ ਅੰਦਰਲੀ ਪਰਤ ਰਾਹੀਂ ਸੋਖੇ ਜਾਂਦੇ ਹਨ।"),
+        ("Large intestine", "ਵੱਡੀ ਆਂਤ", "Water is absorbed and waste becomes more solid.", "ਪਾਣੀ ਸੋਖਿਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਚਿਆ ਪਦਾਰਥ ਹੋਰ ਠੋਸ ਬਣਦਾ ਹੈ।"),
+    ],
+    "respiration": [
+        ("Air enters the lungs", "ਹਵਾ ਫੇਫੜਿਆਂ ਵਿੱਚ ਜਾਂਦੀ ਹੈ", "Breathing brings air into the lungs; gas exchange occurs in tiny air sacs.", "ਸਾਹ ਲੈਣ ਨਾਲ ਹਵਾ ਫੇਫੜਿਆਂ ਵਿੱਚ ਜਾਂਦੀ ਹੈ; ਛੋਟੀਆਂ ਹਵਾ ਥੈਲੀਆਂ ਵਿੱਚ ਗੈਸਾਂ ਦਾ ਆਦਾਨ-ਪ੍ਰਦਾਨ ਹੁੰਦਾ ਹੈ।"),
+        ("Aerobic respiration", "ਆਕਸੀਜਨ ਨਾਲ ਸ਼ਵਾਸ ਕਿਰਿਆ", "Cells use oxygen to release energy from food, producing carbon dioxide and water.", "ਕੋਸ਼ ਆਕਸੀਜਨ ਨਾਲ ਭੋਜਨ ਤੋਂ ਊਰਜਾ ਲੈਂਦੇ ਹਨ ਅਤੇ ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ ਤੇ ਪਾਣੀ ਬਣਦੇ ਹਨ।"),
+        ("Oxygen is limited", "ਆਕਸੀਜਨ ਘੱਟ ਹੈ", "Some cells can release energy without oxygen for a short time, less efficiently.", "ਕੁਝ ਕੋਸ਼ ਥੋੜ੍ਹੇ ਸਮੇਂ ਲਈ ਆਕਸੀਜਨ ਤੋਂ ਬਿਨਾਂ ਵੀ ਘੱਟ ਕੁਸ਼ਲਤਾ ਨਾਲ ਊਰਜਾ ਲੈ ਸਕਦੇ ਹਨ।"),
+    ],
+    "transport_plant": [
+        ("Water in roots", "ਜੜ੍ਹਾਂ ਵਿੱਚ ਪਾਣੀ", "Root hairs absorb water and dissolved mineral ions from the soil.", "ਜੜ੍ਹ ਰੋਮ ਮਿੱਟੀ ਵਿੱਚੋਂ ਪਾਣੀ ਅਤੇ ਘੁਲੇ ਖਣਿਜ ਆਇਨ ਸੋਖਦੇ ਹਨ।"),
+        ("Water moving in xylem", "ਜ਼ਾਇਲਮ ਵਿੱਚ ਪਾਣੀ", "Xylem vessels carry water and minerals upward through the plant.", "ਜ਼ਾਇਲਮ ਨਲੀਆਂ ਪਾਣੀ ਅਤੇ ਖਣਿਜਾਂ ਨੂੰ ਪੌਦੇ ਵਿੱਚ ਉੱਪਰ ਲਿਜਾਂਦੀਆਂ ਹਨ।"),
+        ("Water reaches leaves", "ਪਾਣੀ ਪੱਤਿਆਂ ਤੱਕ ਪਹੁੰਚਦਾ ਹੈ", "Water supports photosynthesis and can leave through stomata by transpiration.", "ਪਾਣੀ ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਵਿੱਚ ਸਹਾਇਕ ਹੈ ਅਤੇ ਵਾਸ਼ਪੋਤਸਰਜਨ ਰਾਹੀਂ ਨਿਕਲ ਸਕਦਾ ਹੈ।"),
+    ],
+    "flower": [
+        ("Petal and sepal", "ਪੰਖੁੜੀ ਅਤੇ ਬਾਹਰੀ ਪੱਤੀਆਂ", "Petals often attract pollinators; sepals protect the flower bud.", "ਪੰਖੁੜੀਆਂ ਪਰਾਗਣਕਾਰਾਂ ਨੂੰ ਆਕਰਸ਼ਿਤ ਕਰਦੀਆਂ ਹਨ; ਬਾਹਰੀ ਪੱਤੀਆਂ ਕਲੀ ਦੀ ਰੱਖਿਆ ਕਰਦੀਆਂ ਹਨ।"),
+        ("Stamen", "ਪੁੰਕੇਸਰ", "The anther produces pollen grains; the filament supports the anther.", "ਪਰਾਗਕੋਸ਼ ਪਰਾਗ ਕਣ ਬਣਾਉਂਦਾ ਹੈ ਅਤੇ ਤੰਤੂ ਇਸ ਨੂੰ ਸਹਾਰਾ ਦਿੰਦਾ ਹੈ।"),
+        ("Pistil / carpel", "ਇਸਤਰੀ ਕੇਸਰ", "The stigma receives pollen; the ovary contains ovules.", "ਵਰਤਿਕਾਗ੍ਰ ਪਰਾਗ ਲੈਂਦਾ ਹੈ ਅਤੇ ਅੰਡਾਸ਼ਯ ਵਿੱਚ ਬੀਜਾਂਡ ਹੁੰਦੇ ਹਨ।"),
+    ],
+    "microbes": [
+        ("Yeast in bread making", "ਰੋਟੀ ਬਣਾਉਣ ਵਿੱਚ ਖਮੀਰ", "Yeast releases carbon dioxide during fermentation, helping dough rise.", "ਖਮੀਰ ਕਿਣਵਣ ਦੌਰਾਨ ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ ਛੱਡਦਾ ਹੈ ਜਿਸ ਨਾਲ ਆਟਾ ਫੁੱਲਦਾ ਹੈ।"),
+        ("Lactobacillus in curd", "ਦਹੀਂ ਵਿੱਚ ਲੈਕਟੋਬੈਸਿਲਸ", "Helpful bacteria convert milk sugar into lactic acid and help form curd.", "ਲਾਭਦਾਇਕ ਬੈਕਟੀਰੀਆ ਦੁੱਧ ਦੀ ਸ਼ੱਕਰ ਨੂੰ ਲੈਕਟਿਕ ਐਸਿਡ ਵਿੱਚ ਬਦਲ ਕੇ ਦਹੀਂ ਬਣਾਉਂਦੇ ਹਨ।"),
+        ("Disease-causing microbes", "ਰੋਗ ਪੈਦਾ ਕਰਨ ਵਾਲੇ ਸੂਖਮ ਜੀਵ", "Some microbes cause disease; hygiene, safe food and vaccination help prevent infections.", "ਕੁਝ ਸੂਖਮ ਜੀਵ ਰੋਗ ਕਰਦੇ ਹਨ; ਸਫ਼ਾਈ, ਸੁਰੱਖਿਅਤ ਭੋਜਨ ਅਤੇ ਟੀਕਾਕਰਨ ਬਚਾਅ ਕਰਦੇ ਹਨ।"),
+        ("Decomposer microbes", "ਵਿਘਟਕ ਸੂਖਮ ਜੀਵ", "Microbes break down dead material and recycle nutrients in ecosystems.", "ਸੂਖਮ ਜੀਵ ਮਰੇ ਪਦਾਰਥ ਨੂੰ ਤੋੜ ਕੇ ਪੋਸ਼ਕ ਤੱਤ ਮੁੜ ਪਰਿਸਥਿਤਕੀ ਤੰਤਰ ਵਿੱਚ ਲਿਆਉਂਦੇ ਹਨ।"),
+    ],
+    "crop": [
+        ("Healthy crop with nutrients", "ਪੋਸ਼ਕ ਤੱਤਾਂ ਵਾਲੀ ਸਿਹਤਮੰਦ ਫ਼ਸਲ", "Suitable soil, water, light and nutrients support crop growth.", "ਢੁਕਵੀਂ ਮਿੱਟੀ, ਪਾਣੀ, ਰੋਸ਼ਨੀ ਅਤੇ ਪੋਸ਼ਕ ਤੱਤ ਫ਼ਸਲ ਦਾ ਵਾਧਾ ਕਰਦੇ ਹਨ।"),
+        ("Crop with water stress", "ਪਾਣੀ ਦੀ ਘਾਟ ਵਾਲੀ ਫ਼ਸਲ", "Insufficient water can cause wilting and reduce growth.", "ਪਾਣੀ ਦੀ ਘਾਟ ਨਾਲ ਪੌਦੇ ਮੁਰਝਾ ਸਕਦੇ ਹਨ ਅਤੇ ਵਾਧਾ ਘਟ ਸਕਦਾ ਹੈ।"),
+        ("Crop protection", "ਫ਼ਸਲ ਦੀ ਰੱਖਿਆ", "Crop rotation, healthy seeds and integrated pest management help protect crops.", "ਫ਼ਸਲ ਚੱਕਰ, ਸਿਹਤਮੰਦ ਬੀਜ ਅਤੇ ਸਮੇਕਿਤ ਕੀਟ ਪ੍ਰਬੰਧਨ ਫ਼ਸਲ ਦੀ ਰੱਖਿਆ ਕਰਦੇ ਹਨ।"),
+    ],
+    "organelles": [
+        ("Nucleus", "ਕੇਂਦਰਕ", "The nucleus stores genetic material and helps control cell activities.", "ਕੇਂਦਰਕ ਵੰਸ਼ਾਣੁਕ ਪਦਾਰਥ ਰੱਖਦਾ ਹੈ ਅਤੇ ਕੋਸ਼ ਦੀਆਂ ਕਿਰਿਆਵਾਂ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।"),
+        ("Chloroplast", "ਹਰਿਤ ਲਵਕ", "Chloroplasts contain chlorophyll and carry out photosynthesis in plant cells.", "ਹਰਿਤ ਲਵਕ ਵਿੱਚ ਕਲੋਰੋਫਿਲ ਹੁੰਦਾ ਹੈ ਅਤੇ ਪੌਦੇ ਦੇ ਕੋਸ਼ਾਂ ਵਿੱਚ ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਹੁੰਦਾ ਹੈ।"),
+        ("Mitochondrion", "ਮਾਈਟੋਕੌਂਡਰੀਆ", "Mitochondria release usable energy during cellular respiration.", "ਮਾਈਟੋਕੌਂਡਰੀਆ ਕੋਸ਼ੀ ਸ਼ਵਾਸ ਕਿਰਿਆ ਦੌਰਾਨ ਵਰਤਣਯੋਗ ਊਰਜਾ ਮੁਕਤ ਕਰਦੇ ਹਨ।"),
+        ("Vacuole", "ਰਸਧਾਨੀ", "A large plant-cell vacuole stores cell sap and helps maintain firmness.", "ਪੌਦੇ ਦੀ ਵੱਡੀ ਰਸਧਾਨੀ ਕੋਸ਼ ਰਸ ਸੰਭਾਲਦੀ ਅਤੇ ਤਣਾਅ ਬਣਾਈ ਰੱਖਦੀ ਹੈ।"),
+        ("Cell membrane", "ਕੋਸ਼ ਝਿੱਲੀ", "The membrane regulates what enters and leaves the cell.", "ਕੋਸ਼ ਝਿੱਲੀ ਕੋਸ਼ ਵਿੱਚ ਆਉਣ ਅਤੇ ਬਾਹਰ ਜਾਣ ਵਾਲੇ ਪਦਾਰਥਾਂ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦੀ ਹੈ।"),
+    ],
+    "biodiversity": [
+        ("Protected forest", "ਸੁਰੱਖਿਅਤ ਜੰਗਲ", "Habitat protection provides food, shelter and breeding places for many species.", "ਆਵਾਸ ਦੀ ਰੱਖਿਆ ਕਈ ਪ੍ਰਜਾਤੀਆਂ ਨੂੰ ਭੋਜਨ, ਠਿਕਾਣਾ ਅਤੇ ਪ੍ਰਜਨਨ ਥਾਂ ਦਿੰਦੀ ਹੈ।"),
+        ("Wetland habitat", "ਦਲਦਲੀ ਆਵਾਸ", "Wetlands support birds, fish, amphibians and many plants.", "ਦਲਦਲ ਪੰਛੀਆਂ, ਮੱਛੀਆਂ, ਉਭਯਚਰਾਂ ਅਤੇ ਕਈ ਪੌਦਿਆਂ ਨੂੰ ਸਹਾਰਾ ਦਿੰਦਾ ਹੈ।"),
+        ("Habitat loss", "ਆਵਾਸ ਦਾ ਨਾਸ", "Habitat destruction reduces resources and can threaten species.", "ਆਵਾਸ ਨਸ਼ਟ ਹੋਣ ਨਾਲ ਸਰੋਤ ਘਟਦੇ ਹਨ ਅਤੇ ਪ੍ਰਜਾਤੀਆਂ ਨੂੰ ਖ਼ਤਰਾ ਹੋ ਸਕਦਾ ਹੈ।"),
+        ("Pollution control", "ਪ੍ਰਦੂਸ਼ਣ ਉੱਤੇ ਕਾਬੂ", "Reducing waste and pollution helps keep habitats healthy.", "ਕੂੜਾ ਅਤੇ ਪ੍ਰਦੂਸ਼ਣ ਘਟਾਉਣ ਨਾਲ ਆਵਾਸ ਸਿਹਤਮੰਦ ਰਹਿੰਦੇ ਹਨ।"),
+    ],
+    "ecosystem": [
+        ("Producer: green plant", "ਉਤਪਾਦਕ: ਹਰਾ ਪੌਦਾ", "Producers make food using sunlight and form the base of many food chains.", "ਉਤਪਾਦਕ ਸੂਰਜੀ ਰੋਸ਼ਨੀ ਨਾਲ ਭੋਜਨ ਬਣਾਉਂਦੇ ਹਨ ਅਤੇ ਕਈ ਭੋਜਨ ਲੜੀਆਂ ਦਾ ਆਧਾਰ ਹਨ।"),
+        ("Consumer: herbivore", "ਖਪਤਕਾਰ: ਸ਼ਾਕਾਹਾਰੀ", "Herbivores obtain energy by eating plants.", "ਸ਼ਾਕਾਹਾਰੀ ਪੌਦਿਆਂ ਨੂੰ ਖਾ ਕੇ ਊਰਜਾ ਲੈਂਦੇ ਹਨ।"),
+        ("Consumer: carnivore", "ਖਪਤਕਾਰ: ਮਾਸਾਹਾਰੀ", "Carnivores obtain energy by eating other animals.", "ਮਾਸਾਹਾਰੀ ਹੋਰ ਜਾਨਵਰਾਂ ਨੂੰ ਖਾ ਕੇ ਊਰਜਾ ਲੈਂਦੇ ਹਨ।"),
+        ("Decomposer: fungi", "ਵਿਘਟਕ: ਉੱਲੀ", "Decomposers break down dead organisms and return nutrients to the environment.", "ਵਿਘਟਕ ਮਰੇ ਜੀਵਾਂ ਨੂੰ ਤੋੜ ਕੇ ਪੋਸ਼ਕ ਤੱਤ ਵਾਤਾਵਰਣ ਵਿੱਚ ਵਾਪਸ ਲਿਆਉਂਦੇ ਹਨ।"),
+    ],
+    "tissue": [
+        ("Xylem tissue", "ਜ਼ਾਇਲਮ ਟਿਸ਼ੂ", "Xylem transports water and minerals through plants and also provides support.", "ਜ਼ਾਇਲਮ ਪੌਦਿਆਂ ਵਿੱਚ ਪਾਣੀ ਤੇ ਖਣਿਜ ਲਿਜਾਂਦਾ ਅਤੇ ਸਹਾਰਾ ਵੀ ਦਿੰਦਾ ਹੈ।"),
+        ("Phloem tissue", "ਫਲੋਇਮ ਟਿਸ਼ੂ", "Phloem transports sugars made in leaves to other plant parts.", "ਫਲੋਇਮ ਪੱਤਿਆਂ ਵਿੱਚ ਬਣੀ ਸ਼ੱਕਰ ਪੌਦੇ ਦੇ ਹੋਰ ਭਾਗਾਂ ਤੱਕ ਲਿਜਾਂਦਾ ਹੈ।"),
+        ("Muscle tissue", "ਮਾਸਪੇਸ਼ੀ ਟਿਸ਼ੂ", "Muscle cells contract to produce movement.", "ਮਾਸਪੇਸ਼ੀ ਕੋਸ਼ ਸੁੰਗੜ ਕੇ ਗਤੀ ਪੈਦਾ ਕਰਦੇ ਹਨ।"),
+        ("Nervous tissue", "ਤੰਤਰਿਕਾ ਟਿਸ਼ੂ", "Nerve cells carry electrical signals to coordinate body responses.", "ਤੰਤਰਿਕਾ ਕੋਸ਼ ਸਰੀਰ ਦੀਆਂ ਪ੍ਰਤੀਕਿਰਿਆਵਾਂ ਦੇ ਤਾਲਮੇਲ ਲਈ ਬਿਜਲਈ ਸੰਕੇਤ ਲਿਜਾਂਦੇ ਹਨ।"),
+    ],
+    "osmosis": [
+        ("Water enters a plant cell", "ਪਾਣੀ ਪੌਦੇ ਦੇ ਕੋਸ਼ ਵਿੱਚ ਦਾਖ਼ਲ", "Water moves across a selectively permeable membrane toward the more concentrated solution.", "ਪਾਣੀ ਚੋਣਵੀਂ ਪਾਰਗਮਣ ਝਿੱਲੀ ਰਾਹੀਂ ਵੱਧ ਸੰਘਣੇ ਘੋਲ ਵੱਲ ਜਾਂਦਾ ਹੈ।"),
+        ("Plant cell loses water", "ਪੌਦੇ ਦਾ ਕੋਸ਼ ਪਾਣੀ ਗੁਆਉਂਦਾ ਹੈ", "In a more concentrated surrounding solution, water can leave the cell and it becomes less firm.", "ਬਾਹਰਲੇ ਵੱਧ ਸੰਘਣੇ ਘੋਲ ਵਿੱਚ ਪਾਣੀ ਕੋਸ਼ ਵਿੱਚੋਂ ਨਿਕਲ ਸਕਦਾ ਹੈ ਅਤੇ ਕੋਸ਼ ਦੀ ਤਣਾਅਤਾ ਘਟਦੀ ਹੈ।"),
+        ("Diffusion of scent", "ਖੁਸ਼ਬੂ ਦਾ ਵਿਸਰਣ", "Particles spread from a region of higher concentration to lower concentration.", "ਕਣ ਵੱਧ ਸੰਘਣਤਾ ਵਾਲੇ ਖੇਤਰ ਤੋਂ ਘੱਟ ਸੰਘਣਤਾ ਵਾਲੇ ਖੇਤਰ ਵੱਲ ਫੈਲਦੇ ਹਨ।"),
+    ],
+    "circulation": [
+        ("Heart to lungs", "ਦਿਲ ਤੋਂ ਫੇਫੜਿਆਂ ਤੱਕ", "The right side of the heart sends oxygen-poor blood to the lungs.", "ਦਿਲ ਦਾ ਸੱਜਾ ਪਾਸਾ ਘੱਟ ਆਕਸੀਜਨ ਵਾਲਾ ਖੂਨ ਫੇਫੜਿਆਂ ਵੱਲ ਭੇਜਦਾ ਹੈ।"),
+        ("Lungs to heart", "ਫੇਫੜਿਆਂ ਤੋਂ ਦਿਲ ਤੱਕ", "Blood picks up oxygen in the lungs and returns to the left side of the heart.", "ਫੇਫੜਿਆਂ ਵਿੱਚ ਖੂਨ ਆਕਸੀਜਨ ਲੈ ਕੇ ਦਿਲ ਦੇ ਖੱਬੇ ਪਾਸੇ ਵਾਪਸ ਆਉਂਦਾ ਹੈ।"),
+        ("Heart to body", "ਦਿਲ ਤੋਂ ਸਰੀਰ ਤੱਕ", "The left side of the heart pumps oxygen-rich blood to the body.", "ਦਿਲ ਦਾ ਖੱਬਾ ਪਾਸਾ ਆਕਸੀਜਨ ਭਰਪੂਰ ਖੂਨ ਸਰੀਰ ਵੱਲ ਭੇਜਦਾ ਹੈ।"),
+    ],
+    "excretion": [
+        ("Kidney filters blood", "ਗੁਰਦਾ ਖੂਨ ਛਾਣਦਾ ਹੈ", "Kidneys remove wastes and help balance water and salts in the blood.", "ਗੁਰਦੇ ਕਚਰਾ ਹਟਾਉਂਦੇ ਅਤੇ ਖੂਨ ਵਿੱਚ ਪਾਣੀ ਤੇ ਲੂਣ ਦਾ ਸੰਤੁਲਨ ਬਣਾਈ ਰੱਖਦੇ ਹਨ।"),
+        ("Urine travels to bladder", "ਪਿਸ਼ਾਬ ਮੂਤਰਾਸ਼ੇ ਤੱਕ ਜਾਂਦਾ ਹੈ", "Ureters carry urine from the kidneys to the urinary bladder.", "ਮੂਤਰ-ਨਲੀਆਂ ਗੁਰਦਿਆਂ ਤੋਂ ਪਿਸ਼ਾਬ ਮੂਤਰਾਸ਼ੇ ਤੱਕ ਲਿਜਾਂਦੀਆਂ ਹਨ।"),
+        ("Lungs remove carbon dioxide", "ਫੇਫੜੇ ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ ਕੱਢਦੇ ਹਨ", "The lungs remove carbon dioxide during exhalation.", "ਸਾਹ ਬਾਹਰ ਕੱਢਣ ਵੇਲੇ ਫੇਫੜੇ ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ ਬਾਹਰ ਕੱਢਦੇ ਹਨ।"),
+    ],
+    "reproduction": [
+        ("Pollination", "ਪਰਾਗਣ", "Pollen moves from anther to stigma, often with help from wind or animals.", "ਪਰਾਗਕੋਸ਼ ਤੋਂ ਪਰਾਗ ਵਰਤਿਕਾਗ੍ਰ ਤੱਕ ਜਾਂਦਾ ਹੈ; ਹਵਾ ਜਾਂ ਜਾਨਵਰ ਮਦਦ ਕਰ ਸਕਦੇ ਹਨ।"),
+        ("Fertilisation", "ਨਿਸ਼ੇਚਨ", "A male gamete fuses with the egg cell in the ovule.", "ਨਰ ਯੁਗਮਕ ਬੀਜਾਂਡ ਵਿੱਚ ਅੰਡ ਕੋਸ਼ ਨਾਲ ਮਿਲਦਾ ਹੈ।"),
+        ("Seed and fruit formation", "ਬੀਜ ਅਤੇ ਫਲ ਬਣਨਾ", "After fertilisation, the ovule develops into a seed and the ovary usually develops into a fruit.", "ਨਿਸ਼ੇਚਨ ਤੋਂ ਬਾਅਦ ਬੀਜਾਂਡ ਬੀਜ ਬਣਦਾ ਹੈ ਅਤੇ ਅੰਡਾਸ਼ਯ ਆਮ ਤੌਰ ਤੇ ਫਲ ਬਣਦਾ ਹੈ।"),
+    ],
+    "heredity": [
+        ("Inherited eye-colour trait", "ਵਿਰਾਸਤੀ ਅੱਖਾਂ ਦੇ ਰੰਗ ਦਾ ਲੱਛਣ", "Traits are influenced by genes inherited from parents; this is a simplified illustration.", "ਲੱਛਣ ਮਾਪਿਆਂ ਤੋਂ ਮਿਲੇ ਜੀਨਾਂ ਨਾਲ ਪ੍ਰਭਾਵਿਤ ਹੁੰਦੇ ਹਨ; ਇਹ ਸਰਲ ਉਦਾਹਰਨ ਹੈ।"),
+        ("Variation among siblings", "ਭੈਣ-ਭਰਾਵਾਂ ਵਿੱਚ ਵੱਖਰਾਪਣ", "Siblings may share traits but are not usually genetically identical, except identical twins.", "ਭੈਣ-ਭਰਾ ਕੁਝ ਲੱਛਣ ਸਾਂਝੇ ਕਰ ਸਕਦੇ ਹਨ ਪਰ ਆਮ ਤੌਰ ਤੇ ਜੈਨੇਟਿਕ ਤੌਰ ਤੇ ਇਕੋ ਜਿਹੇ ਨਹੀਂ ਹੁੰਦੇ।"),
+        ("Plant offspring variation", "ਪੌਦਿਆਂ ਦੀ ਸੰਤਾਨ ਵਿੱਚ ਵੱਖਰਾਪਣ", "Offspring may differ in features such as height or leaf shape.", "ਸੰਤਾਨ ਵਿੱਚ ਕੱਦ ਜਾਂ ਪੱਤੇ ਦੀ ਸ਼ਕਲ ਵਰਗੇ ਲੱਛਣ ਵੱਖਰੇ ਹੋ ਸਕਦੇ ਹਨ।"),
+    ],
+}
+
+def biology_visual(kind, choice, pa):
+    """Return a selected-state SVG visual; every observation changes the diagram and label."""
+    opts = {item[0]: item for values in BIOLOGY_OPTIONS.values() for item in values}
+    entry = opts.get(choice)
+    detail = (entry[3] if pa else entry[2]) if entry else ("ਚਿੱਤਰ ਨੂੰ ਵੇਖੋ" if pa else "Observe the diagram")
+    label = entry[1] if entry and pa else (entry[0] if entry else choice)
+    ink = "#25485b"
+    # Shared SVG components, with kind-specific drawings and selection-dependent cues.
+    art = ""
+    if kind == "cell":
+        plant = choice == "Plant cell"
+        wall = '<rect x="88" y="57" width="304" height="112" rx="22" fill="#d9f0c7" stroke="#4e8b53" stroke-width="5"/>' if plant else ""
+        vac = '<rect x="200" y="88" width="94" height="52" rx="18" fill="#9dd8ed" stroke="#4e91ad" stroke-width="2"/><text x="247" y="118" text-anchor="middle" font-size="11" fill="#25485b">VACUOLE</text>' if plant else ""
+        art = f'{wall}<rect x="102" y="67" width="276" height="92" rx="20" fill="#d7eecf" stroke="#5a9c6a" stroke-width="3"/><ellipse cx="151" cy="111" rx="25" ry="22" fill="#b8a1e2" stroke="#7257a5" stroke-width="2"/><circle cx="151" cy="111" r="8" fill="#7257a5"/>{vac}<path d="M120 84 Q140 75 158 88 M318 82 Q340 95 329 112 M310 143 Q330 135 350 148" stroke="#4f9b6a" stroke-width="5" fill="none"/><text x="150" y="145" text-anchor="middle" font-size="10" fill="{ink}">NUCLEUS</text><text x="240" y="185" text-anchor="middle" font-size="12" font-weight="bold" fill="{ink}">{'CELL WALL + LARGE VACUOLE' if plant else 'NO CELL WALL · NO LARGE CENTRAL VACUOLE'}</text>'
+    elif kind == "germination":
+        stage = {"Dry seed":0,"Germinating seed":1,"Young seedling":2}.get(choice,1)
+        seed = '<ellipse cx="240" cy="125" rx="24" ry="15" fill="#a77739" stroke="#6f512c" stroke-width="2"/><path d="M240 125 Q252 145 246 169" stroke="#e8d8a2" stroke-width="4" fill="none"/>' if stage == 0 else ('<ellipse cx="240" cy="115" rx="24" ry="15" fill="#a77739" stroke="#6f512c" stroke-width="2"/><path d="M240 115 Q251 139 241 173 Q232 181 230 186" stroke="#f1e1b1" stroke-width="4" fill="none"/><path d="M240 116 Q222 100 214 108" stroke="#5c9a53" stroke-width="4" fill="none"/>' if stage == 1 else '<path d="M240 170 Q230 185 229 190 M240 170 Q251 182 254 190 M240 170 V102" stroke="#a77739" stroke-width="4" fill="none"/><path d="M240 116 Q208 108 208 88 Q234 87 240 116 M240 105 Q267 73 286 84 Q274 107 240 105" fill="#65ad63" stroke="#397b48" stroke-width="2"/><ellipse cx="240" cy="169" rx="18" ry="11" fill="#a77739"/>')
+        art = f'<rect x="70" y="155" width="340" height="38" rx="6" fill="#9a7046"/><path d="M70 155 H410" stroke="#4f9a55" stroke-width="4"/>{seed}<text x="240" y="48" text-anchor="middle" font-size="14" font-weight="bold" fill="{ink}">{["DORMANT SEED","ROOT EMERGES","ROOT + SHOOT GROW"][stage]}</text>'
+    elif kind in ("plant_needs","photosynthesis"):
+        art = '<rect x="85" y="151" width="310" height="34" rx="5" fill="#9a7046"/><path d="M240 157 V95" stroke="#38864b" stroke-width="7"/><path d="M240 123 Q198 85 171 105 Q184 137 240 123 M240 111 Q279 72 312 91 Q300 121 240 111" fill="#5cab58" stroke="#397b48" stroke-width="2"/><circle cx="102" cy="58" r="23" fill="#f4cf4e" stroke="#e7a72d" stroke-width="3"/><path d="M102 25 V16 M102 91 V100 M69 58 H60 M135 58 H144 M79 35 L71 27 M125 81 L133 89" stroke="#e7a72d" stroke-width="3"/><path d="M145 68 H200 M188 58 L200 68 L188 78" stroke="#e7a72d" stroke-width="3" fill="none"/><path d="M325 58 Q345 44 358 58 Q345 74 325 58Z" fill="#80c6e7"/><path d="M345 74 V91" stroke="#4c9bc4" stroke-width="3"/><text x="240" y="43" text-anchor="middle" font-size="12" font-weight="bold" fill="{ink}">{'FOOD-MAKING IN LEAF' if kind=='photosynthesis' else choice.upper()}</text><text x="240" y="143" text-anchor="middle" font-size="11" fill="{ink}">WATER ↑ · CO₂ IN · O₂ OUT</text>'
+        if choice == "Water shortage":
+            art += '<path d="M240 96 Q220 110 203 106 M240 96 Q263 110 278 105" stroke="#b86d39" stroke-width="5" fill="none"/>'
+        if choice == "Leaf kept in darkness":
+            art += '<rect x="158" y="73" width="165" height="62" rx="8" fill="#24384a" opacity=".86"/><text x="240" y="108" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">NO LIGHT</text>'
+    elif kind == "food_chain":
+        chain = choice.split(" → ")
+        xs = [80, 200, 320, 420]
+        nodes = []
+        for i, word in enumerate(chain):
+            x = xs[min(i,3)]
+            tint = "#65ad63" if i == 0 else "#e7b45a"
+            nodes.append(f'<rect x="{x-40}" y="88" width="80" height="48" rx="10" fill="{tint}" stroke="#53705c" stroke-width="2"/><text x="{x}" y="116" text-anchor="middle" font-size="9" font-weight="bold" fill="{ink}">{word[:15]}</text>')
+            if i < len(chain)-1:
+                nodes.append(f'<path d="M{x+42} 112 H{xs[i+1]-45} M{xs[i+1]-55} 103 L{xs[i+1]-45} 112 L{xs[i+1]-55} 121" stroke="#4b829a" stroke-width="3" fill="none"/>')
+        art = "".join(nodes) + f'<text x="240" y="57" text-anchor="middle" font-size="13" font-weight="bold" fill="{ink}">FOOD ENERGY FLOWS →</text>'
+    elif kind == "adaptation":
+        icon = {"Fish in water":("🐟","GILLS · FINS · STREAMLINED BODY"),"Cactus in dry habitat":("🌵","WATER-STORING STEM · SPINES"),"Duck near wetlands":("🦆","WEBBED FEET · WATER-RESISTANT FEATHERS"),"Camel in desert":("🐪","BROAD FEET · WATER CONSERVATION")}.get(choice,("🌿","ADAPTATION"))
+        art = f'<rect x="65" y="65" width="350" height="100" rx="14" fill="#dceff4" stroke="#82a8b8" stroke-width="2"/><text x="240" y="117" text-anchor="middle" font-size="44">{icon[0]}</text><text x="240" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="{ink}">{icon[1]}</text>'
+    elif kind == "digestion":
+        highlight = {"Mouth and saliva":(105,72),"Stomach":(220,103),"Small intestine":(295,137),"Large intestine":(330,155)}.get(choice,(220,103))
+        art = '<path d="M95 62 Q120 48 138 67 Q146 84 128 94 L130 112 Q153 130 179 110 Q193 100 205 111 Q219 129 203 148 Q183 166 160 148 L142 132 Q125 127 120 112 L116 92 Q94 88 95 62Z" fill="#f3c7a9" stroke="#ad8068" stroke-width="2"/><path d="M208 92 Q250 70 263 101 Q270 127 241 131 Q220 135 226 115 Q240 101 231 95" fill="#e68f89" stroke="#a95555" stroke-width="3"/><path d="M255 135 C290 112 327 118 327 142 C327 163 288 164 284 143 C281 126 317 127 317 146 C317 159 294 158 296 144" fill="none" stroke="#cf8c54" stroke-width="9" stroke-linecap="round"/><path d="M105 75 H165 M155 65 L165 75 L155 85" stroke="#4b829a" stroke-width="3" fill="none"/><circle cx="highlight[0]" cy="highlight[1]" r="12" fill="none" stroke="#e24f43" stroke-width="4"/><text x="240" y="47" text-anchor="middle" font-size="13" font-weight="bold" fill="{ink}">{choice.upper()}</text>'
+    elif kind == "respiration":
+        art = '<path d="M240 52 V90" stroke="#7d8792" stroke-width="9"/><path d="M240 85 L208 108 M240 85 L272 108" stroke="#7d8792" stroke-width="7" fill="none"/><path d="M208 105 C160 78 142 118 151 155 Q170 177 208 150Z" fill="#e88f91" stroke="#b75c65" stroke-width="2"/><path d="M272 105 C320 78 338 118 329 155 Q310 177 272 150Z" fill="#e88f91" stroke="#b75c65" stroke-width="2"/><circle cx="179" cy="135" r="8" fill="#f4d8d5"/><circle cx="301" cy="135" r="8" fill="#f4d8d5"/><path d="M90 80 H150 M138 70 L150 80 L138 90" stroke="#4d9bc5" stroke-width="4" fill="none"/><path d="M330 80 H390 M378 70 L390 80 L378 90" stroke="#c85d5d" stroke-width="4" fill="none"/><text x="240" y="185" text-anchor="middle" font-size="12" font-weight="bold" fill="{ink}">{'O₂ IN · CO₂ OUT' if choice=='Air enters the lungs' else ('O₂ + FOOD → ENERGY' if choice=='Aerobic respiration' else 'LESS O₂ · LESS ENERGY')}</text>'
+    elif kind == "transport_plant":
+        art = '<rect x="80" y="155" width="320" height="28" rx="5" fill="#a27a4f"/><path d="M240 160 V68" stroke="#43884c" stroke-width="10"/><path d="M240 113 Q205 80 180 98 Q191 124 240 113 M240 92 Q273 62 303 81 Q287 106 240 92" fill="#5bad59" stroke="#397b48" stroke-width="2"/><path d="M240 151 V83 M231 94 L240 83 L249 94 M231 121 L240 110 L249 121" stroke="#4d9bc5" stroke-width="4" fill="none"/><path d="M240 160 Q217 176 205 187 M240 160 Q263 176 275 187 M240 160 V190" stroke="#d4ad76" stroke-width="4" fill="none"/><text x="100" y="75" font-size="11" font-weight="bold" fill="{ink}">WATER ↑</text><text x="240" y="47" text-anchor="middle" font-size="12" font-weight="bold" fill="{ink}">{choice.upper()}</text>'
+    elif kind == "flower" or kind == "reproduction":
+        art = '<path d="M240 112 V180" stroke="#41854b" stroke-width="7"/><path d="M240 152 Q207 130 187 148 Q208 172 240 152 M240 165 Q273 141 294 160 Q270 181 240 165" fill="#65ad63" stroke="#397b48" stroke-width="2"/><circle cx="240" cy="91" r="18" fill="#e8b84e" stroke="#b98928" stroke-width="2"/><ellipse cx="240" cy="62" rx="18" ry="28" fill="#efb0c5" stroke="#b96b8b" stroke-width="2"/><ellipse cx="240" cy="120" rx="18" ry="28" fill="#efb0c5" stroke="#b96b8b" stroke-width="2"/><ellipse cx="211" cy="91" rx="28" ry="18" fill="#efb0c5" stroke="#b96b8b" stroke-width="2"/><ellipse cx="269" cy="91" rx="28" ry="18" fill="#efb0c5" stroke="#b96b8b" stroke-width="2"/><path d="M240 42 V25 M230 31 L240 25 L250 31" stroke="#c59b35" stroke-width="3" fill="none"/><text x="240" y="187" text-anchor="middle" font-size="11" font-weight="bold" fill="{ink}">{choice.upper()}</text>'
+        if kind == "reproduction":
+            art += '<circle cx="340" cy="74" r="18" fill="#c9e9f5" stroke="#559ab7" stroke-width="2"/><circle cx="340" cy="74" r="7" fill="#d8a64c"/><path d="M306 74 H320 M313 67 L320 74 L313 81" stroke="#4d829a" stroke-width="3" fill="none"/><text x="340" y="108" text-anchor="middle" font-size="10" fill="{ink}">POLLEN</text>'
+    elif kind == "microbes":
+        if choice == "Yeast in bread making":
+            art = '<path d="M100 130 Q105 80 155 90 Q195 85 205 130Z" fill="#d8aa70" stroke="#a67b43" stroke-width="3"/><circle cx="135" cy="105" r="5" fill="#fff2d5"/><circle cx="165" cy="114" r="5" fill="#fff2d5"/><text x="150" y="153" text-anchor="middle" font-size="11" fill="{ink}">DOUGH RISES</text>'
+        elif choice == "Lactobacillus in curd":
+            art = '<path d="M100 70 H175 L168 150 Q138 165 108 150Z" fill="#f4f1d9" stroke="#a6a08b" stroke-width="3"/><rect x="110" y="104" width="56" height="43" fill="#fff9dc"/><g fill="#b46d8e"><rect x="120" y="112" width="18" height="7" rx="3" transform="rotate(25 129 115)"/><rect x="140" y="130" width="18" height="7" rx="3" transform="rotate(-20 149 133)"/></g><text x="140" y="178" text-anchor="middle" font-size="10" fill="{ink}">HELPFUL BACTERIA</text>'
+        elif choice == "Disease-causing microbes":
+            art = '<g fill="#b95e68" stroke="#813b49" stroke-width="2"><circle cx="130" cy="98" r="18"/><circle cx="190" cy="128" r="14"/><circle cx="164" cy="76" r="12"/></g><path d="M130 73 V62 M130 123 V134 M105 98 H94 M155 98 H166 M112 80 L103 71 M148 116 L157 125" stroke="#813b49" stroke-width="3"/><path d="M250 104 H300 M288 94 L300 104 L288 114" stroke="#4d829a" stroke-width="3" fill="none"/><text x="340" y="98" text-anchor="middle" font-size="12" font-weight="bold" fill="{ink}">HYGIENE</text>'
+        else:
+            art = '<path d="M100 100 Q130 60 160 100 Q130 140 100 100Z" fill="#80ad68" stroke="#4f7d40" stroke-width="3"/><path d="M130 100 L130 75 M130 100 L150 115" stroke="#4f7d40" stroke-width="3"/><circle cx="205" cy="95" r="7" fill="#a68b5c"/><circle cx="225" cy="116" r="5" fill="#a68b5c"/><path d="M255 95 H300 M288 85 L300 95 L288 105" stroke="#4d829a" stroke-width="3" fill="none"/><text x="350" y="100" text-anchor="middle" font-size="11" font-weight="bold" fill="{ink}">NUTRIENTS RETURN</text>'
+        art += f'<text x="240" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="{ink}">{choice.upper()}</text>'
+    elif kind == "crop":
+        wilt = choice == "Crop with water stress"
+        leaf = "#b7a14a" if wilt else "#5bad59"
+        art = f'<rect x="70" y="155" width="340" height="30" rx="5" fill="#a27a4f"/><path d="M240 160 V93" stroke="#43884c" stroke-width="7"/><path d="M240 125 Q205 92 178 112 Q195 139 240 125 M240 110 Q275 78 305 98 Q286 124 240 110" fill="{leaf}" stroke="#397b48" stroke-width="2"/><path d="M240 160 Q218 177 207 188 M240 160 Q262 177 274 188" stroke="#d4ad76" stroke-width="4" fill="none"/><text x="240" y="50" text-anchor="middle" font-size="12" font-weight="bold" fill="{ink}">{choice.upper()}</text><text x="240" y="145" text-anchor="middle" font-size="11" fill="{ink}">{'WILTING' if wilt else 'HEALTHY GROWTH'}</text>'
+    elif kind == "organelles":
+        art = '<rect x="85" y="62" width="310" height="108" rx="24" fill="#d7eecf" stroke="#5a9c6a" stroke-width="3"/><ellipse cx="150" cy="111" rx="25" ry="21" fill="#b8a1e2" stroke="#7257a5" stroke-width="2"/><path d="M260 78 C280 60 304 80 291 94 C280 108 255 96 260 78Z" fill="#f0a17d" stroke="#b96b4b" stroke-width="2"/><path d="M195 137 Q220 115 241 138 Q220 155 195 137Z" fill="#78bb70" stroke="#41854b" stroke-width="2"/><rect x="315" y="95" width="43" height="31" rx="12" fill="#9dd8ed" stroke="#4e91ad" stroke-width="2"/><path d="M{(150 if choice=='Nucleus' else 275 if choice=='Mitochondrion' else 220 if choice=='Chloroplast' else 335 if choice in ('Vacuole','Cell membrane') else 150)} 108 L240 48" stroke="#d34f43" stroke-width="3" fill="none"/><text x="240" y="43" text-anchor="middle" font-size="13" font-weight="bold" fill="{ink}">{choice.upper()}</text><text x="240" y="188" text-anchor="middle" font-size="11" fill="{ink}">CELL STRUCTURE → FUNCTION</text>'
+    elif kind == "biodiversity":
+        art = '<rect x="70" y="65" width="340" height="105" rx="12" fill="#dcefd8" stroke="#8caf84" stroke-width="2"/><path d="M100 150 V95 M145 150 V82 M190 150 V101" stroke="#795e42" stroke-width="7"/><circle cx="100" cy="88" r="25" fill="#4c9c58"/><circle cx="145" cy="77" r="30" fill="#5eae63"/><circle cx="190" cy="92" r="24" fill="#4c9c58"/><path d="M245 142 Q265 105 285 142 M300 145 Q325 115 345 145" stroke="#3f8750" stroke-width="4" fill="none"/><circle cx="278" cy="100" r="9" fill="#e1ad4b"/><path d="M270 100 L248 94 L254 108Z" fill="#e1ad4b"/><text x="240" y="49" text-anchor="middle" font-size="12" font-weight="bold" fill="{ink}">{choice.upper()}</text><text x="240" y="188" text-anchor="middle" font-size="11" fill="{ink}">{'HABITAT SUPPORTS LIFE' if choice!='Habitat loss' else 'LESS SHELTER · FEWER RESOURCES'}</text>'
+        if choice == "Habitat loss":
+            art += '<path d="M80 70 L400 165 M400 70 L80 165" stroke="#c74747" stroke-width="5"/>'
+    elif kind == "ecosystem":
+        art = '<rect x="60" y="150" width="360" height="30" rx="5" fill="#a27a4f"/><path d="M120 150 V100" stroke="#43884c" stroke-width="6"/><path d="M120 120 Q92 93 78 108 Q93 130 120 120 M120 112 Q143 86 160 102 Q145 122 120 112" fill="#5bad59"/><rect x="220" y="92" width="55" height="42" rx="12" fill="#e7c46a" stroke="#9a7730" stroke-width="2"/><circle cx="350" cy="110" r="20" fill="#8a8c9d" stroke="#555a69" stroke-width="2"/><path d="M160 115 H215 M205 105 L215 115 L205 125 M278 115 H320 M310 105 L320 115 L310 125" stroke="#4d829a" stroke-width="3" fill="none"/><text x="120" y="75" text-anchor="middle" font-size="10" fill="{ink}">PRODUCER</text><text x="247" y="80" text-anchor="middle" font-size="10" fill="{ink}">CONSUMER</text><text x="350" y="77" text-anchor="middle" font-size="10" fill="{ink}">DECOMPOSER</text><text x="240" y="45" text-anchor="middle" font-size="12" font-weight="bold" fill="{ink}">{choice.upper()}</text>'
+    elif kind == "tissue":
+        if choice == "Xylem tissue":
+            cells = '<g fill="#d4a16b" stroke="#916d45" stroke-width="2"><rect x="110" y="76" width="42" height="78" rx="10"/><rect x="160" y="76" width="42" height="78" rx="10"/><rect x="210" y="76" width="42" height="78" rx="10"/></g><path d="M131 145 V87 M181 145 V87 M231 145 V87" stroke="#4d9bc5" stroke-width="4"/>'
+        elif choice == "Phloem tissue":
+            cells = '<g fill="#d6e8a9" stroke="#6d9957" stroke-width="2"><rect x="110" y="76" width="42" height="78" rx="10"/><rect x="160" y="76" width="42" height="78" rx="10"/><rect x="210" y="76" width="42" height="78" rx="10"/></g><path d="M131 145 V87 M181 145 V87 M231 145 V87" stroke="#c98c38" stroke-width="4"/><path d="M280 92 V140 M270 102 L280 92 L290 102" stroke="#c98c38" stroke-width="3" fill="none"/>'
+        else:
+            cells = '<g fill="#efc4a7" stroke="#b77b58" stroke-width="2"><ellipse cx="130" cy="105" rx="34" ry="17" transform="rotate(-25 130 105)"/><ellipse cx="185" cy="130" rx="34" ry="17" transform="rotate(25 185 130)"/><ellipse cx="235" cy="100" rx="34" ry="17" transform="rotate(-15 235 100)"/></g><circle cx="130" cy="105" r="5" fill="#8b5aa8"/><circle cx="185" cy="130" r="5" fill="#8b5aa8"/><circle cx="235" cy="100" r="5" fill="#8b5aa8"/>'
+        art = f'{cells}<text x="240" y="48" text-anchor="middle" font-size="13" font-weight="bold" fill="{ink}">{choice.upper()}</text><text x="240" y="183" text-anchor="middle" font-size="11" fill="{ink}">SPECIALISED CELLS · SHARED FUNCTION</text>'
+    elif kind == "osmosis":
+        art = '<rect x="70" y="70" width="145" height="95" rx="10" fill="#d5edf7" stroke="#5a9ab7" stroke-width="3"/><rect x="265" y="70" width="145" height="95" rx="10" fill="#f3e2c2" stroke="#bd9a5c" stroke-width="3"/><path d="M240 70 V165" stroke="#7c8c9a" stroke-width="4" stroke-dasharray="5 4"/><g fill="#4b9bc2"><circle cx="100" cy="100" r="5"/><circle cx="130" cy="135" r="5"/><circle cx="175" cy="110" r="5"/></g><g fill="#bd9250"><circle cx="290" cy="95" r="5"/><circle cx="330" cy="130" r="5"/><circle cx="370" cy="105" r="5"/><circle cx="300" cy="145" r="5"/><circle cx="355" cy="85" r="5"/></g><path d="M185 118 H292 M280 108 L292 118 L280 128" stroke="#d34f43" stroke-width="4" fill="none"/><text x="140" y="58" text-anchor="middle" font-size="11" fill="{ink}">DILUTE</text><text x="335" y="58" text-anchor="middle" font-size="11" fill="{ink}">CONCENTRATED</text><text x="240" y="187" text-anchor="middle" font-size="11" font-weight="bold" fill="{ink}">{choice.upper()}</text>'
+        if choice == "Diffusion of scent":
+            art += '<path d="M85 82 Q55 110 85 138 M105 82 Q75 110 105 138" stroke="#8d80be" stroke-width="3" fill="none"/>'
+    elif kind == "circulation":
+        art = '<circle cx="240" cy="107" r="35" fill="#e9858b" stroke="#b9515a" stroke-width="3"/><path d="M240 77 V137 M210 107 H270" stroke="#fff" stroke-width="3"/><ellipse cx="140" cy="106" rx="33" ry="44" fill="#eaa0a3" stroke="#b9515a" stroke-width="2"/><ellipse cx="340" cy="106" rx="33" ry="44" fill="#eaa0a3" stroke="#b9515a" stroke-width="2"/><path d="M207 96 H178 M188 87 L178 96 L188 105 M273 116 H302 M292 106 L302 116 L292 126" stroke="{('#4d9bc5' if choice=='Heart to lungs' else '#c94c4c')}" stroke-width="4" fill="none"/><text x="140" y="166" text-anchor="middle" font-size="11" fill="{ink}">LUNGS</text><text x="240" y="166" text-anchor="middle" font-size="11" fill="{ink}">HEART</text><text x="340" y="166" text-anchor="middle" font-size="11" fill="{ink}">BODY</text><text x="240" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="{ink}">{choice.upper()}</text>'
+    elif kind == "excretion":
+        art = '<path d="M145 75 C105 55 95 100 115 130 C132 152 158 135 160 111 C163 91 151 82 145 75Z" fill="#b76c73" stroke="#88484e" stroke-width="3"/><path d="M335 75 C375 55 385 100 365 130 C348 152 322 135 320 111 C317 91 329 82 335 75Z" fill="#b76c73" stroke="#88484e" stroke-width="3"/><path d="M145 132 L185 166 M335 132 L295 166" stroke="#d4a45a" stroke-width="5"/><path d="M185 166 Q240 193 295 166" stroke="#d4a45a" stroke-width="5" fill="none"/><path d="M240 70 V105" stroke="#c64f56" stroke-width="5"/><text x="240" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="{ink}">{choice.upper()}</text><text x="240" y="188" text-anchor="middle" font-size="10" fill="{ink}">KIDNEYS → URETERS → BLADDER</text>'
+        if choice == "Lungs remove carbon dioxide":
+            art += '<path d="M240 90 L220 115 M240 90 L260 115" stroke="#4d9bc5" stroke-width="5" fill="none"/>'
+    elif kind == "heredity":
+        art = '<circle cx="130" cy="95" r="28" fill="#d9b0e8" stroke="#8755a6" stroke-width="2"/><circle cx="350" cy="95" r="28" fill="#f0c0a6" stroke="#b77c5d" stroke-width="2"/><path d="M165 95 H205 M195 85 L205 95 L195 105 M275 95 H315 M305 85 L315 95 L305 105" stroke="#4d829a" stroke-width="3" fill="none"/><circle cx="240" cy="95" r="24" fill="#b9d8ee" stroke="#5787a7" stroke-width="2"/><path d="M240 72 C215 92 265 98 240 118 M240 72 C265 92 215 98 240 118" stroke="#fff" stroke-width="3" fill="none"/><text x="130" y="140" text-anchor="middle" font-size="10" fill="{ink}">PARENT A</text><text x="350" y="140" text-anchor="middle" font-size="10" fill="{ink}">PARENT B</text><text x="240" y="140" text-anchor="middle" font-size="10" fill="{ink}">OFFSPRING</text><text x="240" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="{ink}">{choice.upper()}</text>'
+    else:
+        art = '<circle cx="240" cy="105" r="45" fill="#d7eecf" stroke="#5a9c6a" stroke-width="3"/><circle cx="240" cy="105" r="16" fill="#b8a1e2"/><text x="240" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="{ink}">{choice.upper()}</text>'
+    safe_detail = detail.replace("&", "&amp;")
+    return f"""
+    <div style="border:1px solid #9bb6c4;border-radius:16px;padding:10px;margin:10px 0;background:linear-gradient(135deg,rgba(210,235,245,.35),rgba(220,245,220,.30))">
+      <div style="font-weight:800;text-align:center;margin:4px 0 8px">{label}</div>
+      <svg viewBox="0 0 480 205" role="img" aria-label="{label}" style="width:100%;height:auto;max-height:300px;color:inherit">
+        <path d="M22 194 H458" stroke="#9bb6c4" stroke-width="2"/>
+        {art}
+      </svg>
+      <div style="font-weight:700;text-align:center;padding:5px 8px;color:#25485b">{safe_detail}</div>
+    </div>
+    """
+
+def biology_lab():
+    if st.button(tr("back"), key="biology_back"):
+        go("home")
+        st.rerun()
+    pa = st.session_state.language == "pa"
+    st.title("🧬 " + ("ਜੀਵ ਵਿਗਿਆਨ ਲੈਬ" if pa else "Biology Lab"))
+    st.caption("25 interactive, class-wise visual experiments · PSEB/NCERT-aligned school Science topics" if not pa else "ਜਮਾਤ ਅਨੁਸਾਰ 25 ਇੰਟਰਐਕਟਿਵ ਚਿੱਤਰਕ ਪ੍ਰਯੋਗ · PSEB/NCERT ਨਾਲ ਮੇਲ ਖਾਂਦੇ ਵਿਗਿਆਨ ਵਿਸ਼ੇ")
+    classes = [6, 7, 8, 9, 10]
+    c1, c2 = st.columns(2)
+    with c1:
+        cc = st.selectbox("ਜਮਾਤ ਚੁਣੋ" if pa else "Select class", classes, format_func=lambda x: f"{x}ਵੀਂ ਜਮਾਤ" if pa else f"Class {x}", key="bio_class")
+    exp_list = BIOLOGY_EXPERIMENTS[cc]
+    with c2:
+        ei = st.selectbox("ਪ੍ਰਯੋਗ ਚੁਣੋ" if pa else "Select experiment", list(range(5)), format_func=lambda i: f"{i+1}. {exp_list[i][1 if pa else 0]}", key=f"bio_exp_{cc}")
+    en_title, pa_title, en_aim, pa_aim, kind = exp_list[ei]
+    st.markdown("---")
+    st.header(f"{'ਪ੍ਰਯੋਗ' if pa else 'EXPERIMENT'} {ei+1} · {pa_title if pa else en_title}")
+    st.markdown(f"**{'ਉਦੇਸ਼' if pa else 'Aim'}:** {pa_aim if pa else en_aim}")
+    st.markdown(f"**{'ਕਿਵੇਂ ਵੇਖੋ' if pa else 'How to explore'}:** " + ("ਡ੍ਰੌਪਡਾਊਨ ਵਿੱਚ ਉਦਾਹਰਨ ਬਦਲੋ ਅਤੇ ਚਿੱਤਰ ਵਿੱਚ ਬਣਤਰ ਜਾਂ ਪ੍ਰਕਿਰਿਆ ਦਾ ਬਦਲਾਅ ਵੇਖੋ।" if pa else "Change the example in the dropdown and observe how the diagram and explanation update."))
+    options = BIOLOGY_OPTIONS.get(kind, [])
+    if not options:
+        options = [("Observe the model", "ਮਾਡਲ ਵੇਖੋ", "Observe the labelled biological model.", "ਲੇਬਲ ਵਾਲੇ ਜੀਵ ਵਿਗਿਆਨ ਮਾਡਲ ਨੂੰ ਵੇਖੋ।")]
+    labels = [item[1] if pa else item[0] for item in options]
+    choice_label = st.selectbox("ਉਦਾਹਰਨ ਚੁਣੋ" if pa else "Choose an example", labels, key=f"bio_choice_{cc}_{ei}_{st.session_state.language}")
+    choice = options[labels.index(choice_label)][0]
+    st.markdown(biology_visual(kind, choice, pa), unsafe_allow_html=True)
+    explanation = options[labels.index(choice_label)][3 if pa else 2]
+    st.markdown("### " + ("ਨਿਰੀਖਣ ਅਤੇ ਵਿਆਖਿਆ" if pa else "Observation and explanation"))
+    st.success(explanation)
+    st.markdown("**" + ("ਮੁੱਖ ਧਾਰਣਾ" if pa else "Key idea") + ":** " + (pa_aim if pa else en_aim))
+    with st.expander("🧠 " + ("ਸੋਚੋ ਅਤੇ ਜਵਾਬ ਦਿਓ" if pa else "Think and answer")):
+        st.write("ਚਿੱਤਰ ਵਿੱਚ ਕਿਹੜੀ ਬਣਤਰ ਜਾਂ ਪ੍ਰਕਿਰਿਆ ਦਿਖਾਈ ਗਈ ਹੈ ਅਤੇ ਇਸ ਦਾ ਕੰਮ ਕੀ ਹੈ?" if pa else "Which structure or process is shown, and what is its function?")
+        st.text_input("ਤੁਹਾਡਾ ਜਵਾਬ" if pa else "Your explanation", key=f"bio_reflect_{cc}_{ei}_{st.session_state.language}")
+    st.caption("Virtual educational model. For real laboratory work, follow teacher supervision, hygiene and school safety rules." if not pa else "ਇਹ ਵਰਚੁਅਲ ਸਿੱਖਣ ਮਾਡਲ ਹੈ। ਅਸਲ ਲੈਬ ਦੇ ਕੰਮ ਲਈ ਅਧਿਆਪਕ ਦੀ ਦੇਖ-ਰੇਖ, ਸਫ਼ਾਈ ਅਤੇ ਸਕੂਲ ਦੇ ਸੁਰੱਖਿਆ ਨਿਯਮਾਂ ਦੀ ਪਾਲਣਾ ਕਰੋ।")
+
+
 def planned_lab(page):
     if st.button(tr("back")):
         go("home")
@@ -2996,9 +3295,12 @@ elif st.session_state.page == "physics":
 elif st.session_state.page == "chemistry":
     show_header()
     chemistry_lab()
-elif st.session_state.page in ("biology","mentor"):
+elif st.session_state.page == "biology":
     show_header()
-    planned_lab(st.session_state.page)
+    biology_lab()
+elif st.session_state.page == "mentor":
+    show_header()
+    planned_lab("mentor")
 else:
     st.session_state.page = "home"
     st.rerun()
