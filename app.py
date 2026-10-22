@@ -2195,7 +2195,7 @@ def physics_lab():
         if is_pa: result = f"ਕੁੱਲ ਬਲ = {net:.1f} N"
     elif heat_conduction_examples_experiment:
         is_conductor = a in ("Metal rod (iron / steel)", "Copper spoon")
-        result = (("Metals such as iron, steel and copper conduct heat relatively well. Heating one end transfers thermal energy along the material toward the cooler end. Wood and plastic are comparatively poor conductors, so heat travels through them much less readily. This is a qualitative illustration, not a timed measurement." if not is_pa else "ਲੋਹਾ, ਸਟੀਲ ਅਤੇ ਤਾਂਬਾ ਵਰਗੀਆਂ ਧਾਤਾਂ ਤਾਪ ਦੀਆਂ ਚੰਗੀਆਂ ਚਾਲਕ ਹਨ। ਇੱਕ ਸਿਰਾ ਗਰਮ ਕਰਨ ਨਾਲ ਤਾਪੀ ਊਰਜਾ ਠੰਢੇ ਸਿਰੇ ਵੱਲ ਪਹੁੰਚਦੀ ਹੈ। ਲੱਕੜ ਅਤੇ ਪਲਾਸਟਿਕ ਤਾਪ ਦੇ ਮਾੜੇ ਚਾਲਕ ਹਨ, ਇਸ ਲਈ ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਤਾਪ ਘੱਟ ਆਸਾਨੀ ਨਾਲ ਲੰਘਦਾ ਹੈ। ਇਹ ਗੁਣਾਤਮਕ ਚਿੱਤਰ ਹੈ, ਸਮੇਂ ਨਾਲ ਮਾਪ ਨਹੀਂ।")
+        result = "Metals such as iron, steel and copper conduct heat relatively well. Heating one end transfers thermal energy along the material toward the cooler end. Wood and plastic are comparatively poor conductors, so heat travels through them much less readily. This is a qualitative illustration, not a timed measurement." if not is_pa else "ਲੋਹਾ, ਸਟੀਲ ਅਤੇ ਤਾਂਬਾ ਵਰਗੀਆਂ ਧਾਤਾਂ ਤਾਪ ਦੀਆਂ ਚੰਗੀਆਂ ਚਾਲਕ ਹਨ। ਇੱਕ ਸਿਰਾ ਗਰਮ ਕਰਨ ਨਾਲ ਤਾਪੀ ਊਰਜਾ ਠੰਢੇ ਸਿਰੇ ਵੱਲ ਪਹੁੰਚਦੀ ਹੈ। ਲੱਕੜ ਅਤੇ ਪਲਾਸਟਿਕ ਤਾਪ ਦੇ ਮਾੜੇ ਚਾਲਕ ਹਨ, ਇਸ ਲਈ ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਤਾਪ ਘੱਟ ਆਸਾਨੀ ਨਾਲ ਲੰਘਦਾ ਹੈ। ਇਹ ਗੁਣਾਤਮਕ ਚਿੱਤਰ ਹੈ, ਸਮੇਂ ਨਾਲ ਮਾਪ ਨਹੀਂ।"
     elif kind == "heat":
         result = f"{b} is represented qualitatively; actual heat transfer depends on dimensions and conditions." if not is_pa else f"{b} ਦਾ ਤਾਪ ਚਾਲਨ ਗੁਣਾਤਮਕ ਤੌਰ ਤੇ ਦਿਖਾਇਆ ਗਿਆ ਹੈ।"
     elif kind == "shadow" and not shadow_examples_experiment:
