@@ -1820,7 +1820,13 @@ def physics_lab():
     }
     labels = kind_labels.get(kind, ("Control A","Control B","કੰਟਰੋਲ A","ਕੰਟਰੋਲ B"))
     slow_fast_experiment = pc == 6 and ei == 1 and kind == "speed"
-    if slow_fast_experiment:
+    force_examples_experiment = pc == 6 and ei == 2 and kind == "force"
+    if force_examples_experiment:
+        examples = ["Push a shopping cart", "Kick a football", "Pull a wagon", "Open a drawer"]
+        punjabi_examples = ["ਖਰੀਦਦਾਰੀ ਵਾਲੀ ਗੱਡੀ ਨੂੰ ਧੱਕਾ", "ਫੁੱਟਬਾਲ ਨੂੰ ਲੱਤ ਮਾਰਨਾ", "ਗੱਡੇ ਨੂੰ ਖਿੱਚਣਾ", "ਦਰਾਜ਼ ਖੋਲ੍ਹਣਾ"]
+        a = st.selectbox("Choose a force example" if not is_pa else "ਬਲ ਦੀ ਉਦਾਹਰਨ ਚੁਣੋ", examples, format_func=lambda x: (punjabi_examples[examples.index(x)] if is_pa else x), key="physics_class6_force_example")
+        b = a
+    elif slow_fast_experiment:
         a = st.selectbox(
             "Choose an example" if not is_pa else "ਉਦਾਹਰਨ ਚੁਣੋ",
             ["Slow motion", "Fast motion"],
@@ -1864,7 +1870,18 @@ def physics_lab():
         c = b
     # Produce a distinct, responsive schematic for the selected phenomenon.
     visual = ""
-    if slow_fast_experiment:
+    if force_examples_experiment:
+        selected_push = a in ("Push a shopping cart", "Kick a football")
+        action_label = ("PUSH" if selected_push else "PULL") if not is_pa else ("ਧੱਕਾ" if selected_push else "ਖਿੱਚ")
+        if a == "Push a shopping cart":
+            visual = '<circle cx="135" cy="146" r="17" fill="#334155"/><circle cx="190" cy="146" r="17" fill="#334155"/><rect x="115" y="88" width="105" height="45" rx="6" fill="#60a5fa" stroke="#1d4ed8" stroke-width="3"/><path d="M115 92 L95 65 L82 65" stroke="#334155" stroke-width="5" fill="none"/><path d="M55 120 H95 M87 111 L97 120 L87 129" stroke="#f59e0b" stroke-width="4" fill="none"/><text x="170" y="45" text-anchor="middle" fill="currentColor" font-size="18" font-weight="700">PUSH →</text><text x="170" y="190" text-anchor="middle" fill="currentColor" font-size="14">Shopping cart</text>'
+        elif a == "Kick a football":
+            visual = '<circle cx="230" cy="112" r="35" fill="#f8fafc" stroke="#334155" stroke-width="3"/><path d="M230 91 L245 102 L239 120 L220 120 L214 102 Z M230 91 L230 77 M245 102 L260 95 M239 120 L250 135 M220 120 L210 135 M214 102 L200 95" stroke="#334155" stroke-width="3" fill="none"/><path d="M70 165 L100 135 L118 155 L135 165 L150 165" stroke="#2563eb" stroke-width="8" stroke-linecap="round" fill="none"/><path d="M145 110 H188 M180 102 L190 110 L180 118" stroke="#f59e0b" stroke-width="4" fill="none"/><text x="230" y="45" text-anchor="middle" fill="currentColor" font-size="18" font-weight="700">PUSH →</text><text x="230" y="190" text-anchor="middle" fill="currentColor" font-size="14">Kicking a football</text>'
+        elif a == "Pull a wagon":
+            visual = '<circle cx="160" cy="151" r="14" fill="#334155"/><circle cx="225" cy="151" r="14" fill="#334155"/><path d="M140 98 H240 L225 137 H155 Z" fill="#fb923c" stroke="#c2410c" stroke-width="3"/><path d="M140 105 L95 68 L75 68" stroke="#334155" stroke-width="5" fill="none"/><path d="M55 65 H90 M82 57 L92 65 L82 73" stroke="#0ea5e9" stroke-width="4" fill="none"/><text x="215" y="45" text-anchor="middle" fill="currentColor" font-size="18" font-weight="700">PULL ←</text><text x="200" y="190" text-anchor="middle" fill="currentColor" font-size="14">Pulling a wagon</text>'
+        else:
+            visual = '<rect x="165" y="60" width="130" height="100" rx="5" fill="#c08457" stroke="#854d0e" stroke-width="4"/><rect x="180" y="75" width="100" height="70" fill="#f5d0a9" stroke="#854d0e" stroke-width="3"/><circle cx="230" cy="110" r="5" fill="#854d0e"/><path d="M85 110 H145 M137 102 L147 110 L137 118" stroke="#0ea5e9" stroke-width="4" fill="none"/><text x="230" y="35" text-anchor="middle" fill="currentColor" font-size="18" font-weight="700">PULL ←</text><text x="230" y="190" text-anchor="middle" fill="currentColor" font-size="14">Opening a drawer</text>'
+    elif slow_fast_experiment:
         if a == "Slow motion":
             slow_style = 'stroke-width="5" stroke="#0ea5e9"'
             fast_style = 'stroke-width="3" stroke="#94a3b8"'
@@ -1898,7 +1915,16 @@ def physics_lab():
     st.markdown("### " + ("ਦ੍ਰਿਸ਼ ਮਾਡਲ" if is_pa else "Visual model"))
     st.markdown(f'<div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;background:rgba(128,128,128,.035)"><svg viewBox="0 0 460 230" width="100%" role="img" aria-label="{title} interactive physics diagram">{visual}</svg></div>', unsafe_allow_html=True)
     result = ""
-    if slow_fast_experiment:
+    if force_examples_experiment:
+        if a == "Push a shopping cart":
+            result = ("Pushing the cart applies a force that can make it move or change its speed." if not is_pa else "ਗੱਡੀ ਨੂੰ ਧੱਕਣ ਨਾਲ ਲੱਗਿਆ ਬਲ ਇਸ ਨੂੰ ਚਲਾ ਸਕਦਾ ਹੈ ਜਾਂ ਇਸ ਦੀ ਚਾਲ ਬਦਲ ਸਕਦਾ ਹੈ।")
+        elif a == "Kick a football":
+            result = ("A kick is a push that can start the ball moving or change its direction." if not is_pa else "ਲੱਤ ਮਾਰਨਾ ਧੱਕਾ ਹੈ, ਜੋ ਗੇਂਦ ਨੂੰ ਚਲਾ ਸਕਦਾ ਹੈ ਜਾਂ ਇਸ ਦੀ ਦਿਸ਼ਾ ਬਦਲ ਸਕਦਾ ਹੈ।")
+        elif a == "Pull a wagon":
+            result = ("Pulling applies a force toward the person and can move the wagon." if not is_pa else "ਖਿੱਚਣ ਨਾਲ ਵਿਅਕਤੀ ਵੱਲ ਬਲ ਲੱਗਦਾ ਹੈ ਅਤੇ ਗੱਡਾ ਹਿੱਲ ਸਕਦਾ ਹੈ।")
+        else:
+            result = ("Pulling the handle applies a force that opens the drawer." if not is_pa else "ਹੈਂਡਲ ਖਿੱਚਣ ਨਾਲ ਬਲ ਲੱਗਦਾ ਹੈ ਅਤੇ ਦਰਾਜ਼ ਖੁੱਲ੍ਹਦੀ ਹੈ।")
+    elif slow_fast_experiment:
         if a == "Slow motion":
             result = ("Slow motion: a tortoise or a walking person usually covers less distance in the same time." if not is_pa else "ਹੌਲੀ ਗਤੀ: ਕੱਛੂਆ ਜਾਂ ਪੈਦਲ ਚੱਲਦਾ ਵਿਅਕਤੀ ਆਮ ਤੌਰ ਤੇ ਇੱਕੋ ਸਮੇਂ ਵਿੱਚ ਘੱਟ ਦੂਰੀ ਤੈਅ ਕਰਦਾ ਹੈ।")
         else:
