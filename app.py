@@ -2718,7 +2718,6 @@ def chemistry_visual(kind, pa):
         <path d="M25 165 H455" stroke="#9bb6c4" stroke-width="2"/>
         {drawing}
       </svg>
-      <div style="text-align:center;font-size:.82rem;opacity:.8">{'ਚਿੱਤਰ ਧਾਰਣਾਤਮਕ ਹੈ; ਅਸਲ ਰਸਾਇਣ ਨਾ ਮਿਲਾਓ।' if pa else 'Conceptual illustration; do not mix real chemicals.'}</div>
     </div>
     """
 
