@@ -2613,6 +2613,221 @@ def physics_lab():
             st.info(note)
     st.caption("Virtual model for learning. Results are simplified and are not substitutes for measured laboratory data." if not is_pa else "ਇਹ ਸਿੱਖਣ ਲਈ ਵਰਚੁਅਲ ਮਾਡਲ ਹੈ। ਨਤੀਜੇ ਸਰਲ ਕੀਤੇ ਗਏ ਹਨ, ਅਸਲ ਲੈਬ ਮਾਪ ਨਹੀਂ।")
 
+
+CHEMISTRY_EXPERIMENTS = {
+    6: [
+        ("Sorting Materials by Their Properties", "ਗੁਣਾਂ ਅਨੁਸਾਰ ਪਦਾਰਥਾਂ ਦੀ ਛਾਂਟੀ", "Compare materials by appearance, flexibility, transparency and texture.", "ਦਿੱਖ, ਲਚਕ, ਪਾਰਦਰਸ਼ਤਾ ਅਤੇ ਬਣਤਰ ਅਨੁਸਾਰ ਪਦਾਰਥਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।", "materials", "Materials have different observable properties; classify them using evidence.", "ਪਦਾਰਥਾਂ ਦੇ ਦਿੱਖਣ ਵਾਲੇ ਗੁਣ ਵੱਖਰੇ ਹੁੰਦੇ ਹਨ; ਸਬੂਤ ਦੇ ਆਧਾਰ ਤੇ ਵਰਗੀਕਰਨ ਕਰੋ।"),
+        ("Soluble and Insoluble Substances", "ਘੁਲਣਸ਼ੀਲ ਅਤੇ ਅਘੁਲਣਸ਼ੀਲ ਪਦਾਰਥ", "Observe which sample mixes uniformly with water.", "ਵੇਖੋ ਕਿ ਕਿਹੜਾ ਨਮੂਨਾ ਪਾਣੀ ਵਿੱਚ ਇਕਸਾਰ ਮਿਲਦਾ ਹੈ।", "solubility", "Some substances dissolve in water while others remain separate.", "ਕੁਝ ਪਦਾਰਥ ਪਾਣੀ ਵਿੱਚ ਘੁਲ ਜਾਂਦੇ ਹਨ ਅਤੇ ਕੁਝ ਵੱਖਰੇ ਰਹਿੰਦੇ ਹਨ।"),
+        ("Separate Sand from Water", "ਪਾਣੀ ਵਿੱਚੋਂ ਰੇਤ ਵੱਖ ਕਰਨਾ", "Model settling and filtration to separate an insoluble solid.", "ਅਘੁਲਣਸ਼ੀਲ ਠੋਸ ਨੂੰ ਵੱਖ ਕਰਨ ਲਈ ਤਲਛਟ ਅਤੇ ਛਾਣਨ ਦਾ ਮਾਡਲ ਵੇਖੋ।", "filtration", "Settling and filtration separate insoluble particles from water.", "ਤਲਛਟ ਅਤੇ ਛਾਣਨ ਨਾਲ ਪਾਣੀ ਵਿੱਚੋਂ ਅਘੁਲਣਸ਼ੀਲ ਕਣ ਵੱਖ ਕੀਤੇ ਜਾਂਦੇ ਹਨ।"),
+        ("Explore Changes in Materials", "ਪਦਾਰਥਾਂ ਵਿੱਚ ਤਬਦੀਲੀਆਂ", "Compare a change of state with a change that forms a new substance.", "ਅਵਸਥਾ ਬਦਲਣ ਅਤੇ ਨਵਾਂ ਪਦਾਰਥ ਬਣਨ ਵਾਲੀ ਤਬਦੀਲੀ ਦੀ ਤੁਲਨਾ ਕਰੋ।", "changes", "A physical change does not form a new substance; a chemical change does.", "ਭੌਤਿਕ ਤਬਦੀਲੀ ਵਿੱਚ ਨਵਾਂ ਪਦਾਰਥ ਨਹੀਂ ਬਣਦਾ; ਰਸਾਇਣਕ ਤਬਦੀਲੀ ਵਿੱਚ ਬਣ ਸਕਦਾ ਹੈ।"),
+        ("Observe Transparent, Translucent and Opaque Materials", "ਪਾਰਦਰਸ਼ੀ, ਅਰਧ-ਪਾਰਦਰਸ਼ੀ ਅਤੇ ਅਪਾਰਦਰਸ਼ੀ ਪਦਾਰਥ", "Compare how light passes through different materials.", "ਵੱਖ-ਵੱਖ ਪਦਾਰਥਾਂ ਵਿੱਚੋਂ ਰੋਸ਼ਨੀ ਲੰਘਣ ਦੀ ਤੁਲਨਾ ਕਰੋ।", "transparency", "Transparent materials transmit most light; opaque materials block it.", "ਪਾਰਦਰਸ਼ੀ ਪਦਾਰਥ ਵੱਧ ਰੋਸ਼ਨੀ ਲੰਘਾਉਂਦੇ ਹਨ; ਅਪਾਰਦਰਸ਼ੀ ਪਦਾਰਥ ਰੋਕਦੇ ਹਨ।")
+    ],
+    7: [
+        ("Acidic and Basic Substances with Indicators", "ਸੂਚਕਾਂ ਨਾਲ ਤੇਜ਼ਾਬੀ ਅਤੇ ਖਾਰੀ ਪਦਾਰਥ", "Use a virtual indicator to compare familiar household samples.", "ਘਰੇਲੂ ਨਮੂਨਿਆਂ ਦੀ ਤੁਲਨਾ ਵਰਚੁਅਲ ਸੂਚਕ ਨਾਲ ਕਰੋ।", "indicators", "Indicators change colour in acidic or basic conditions; never taste lab samples.", "ਸੂਚਕ ਤੇਜ਼ਾਬੀ ਜਾਂ ਖਾਰੀ ਹਾਲਤ ਵਿੱਚ ਰੰਗ ਬਦਲਦੇ ਹਨ; ਲੈਬ ਨਮੂਨੇ ਕਦੇ ਨਾ ਚੱਖੋ।"),
+        ("Reversible and Irreversible Changes", "ਉਲਟਣਯੋਗ ਅਤੇ ਅਣਉਲਟਣਯੋਗ ਤਬਦੀਲੀਆਂ", "Compare examples of reversible and irreversible changes.", "ਉਲਟਣਯੋਗ ਅਤੇ ਅਣਉਲਟਣਯੋਗ ਤਬਦੀਲੀਆਂ ਦੀਆਂ ਉਦਾਹਰਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।", "reversible", "Melting and freezing can be reversed; burning usually cannot be reversed easily.", "ਪਿਘਲਣਾ ਅਤੇ ਜੰਮਣਾ ਉਲਟ ਸਕਦੇ ਹਨ; ਸਾੜਨ ਨੂੰ ਆਮ ਤੌਰ ਤੇ ਆਸਾਨੀ ਨਾਲ ਉਲਟਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ।"),
+        ("Physical and Chemical Changes", "ਭੌਤਿਕ ਅਤੇ ਰਸਾਇਣਕ ਤਬਦੀਲੀਆਂ", "Distinguish state or shape changes from chemical reactions.", "ਅਵਸਥਾ ਜਾਂ ਆਕਾਰ ਦੀ ਤਬਦੀਲੀ ਨੂੰ ਰਸਾਇਣਕ ਕਿਰਿਆ ਤੋਂ ਵੱਖ ਪਛਾਣੋ।", "physical_chemical", "Evidence such as gas, colour change or a new solid may indicate a chemical change.", "ਗੈਸ, ਰੰਗ ਬਦਲਣਾ ਜਾਂ ਨਵਾਂ ਠੋਸ ਬਣਨਾ ਰਸਾਇਣਕ ਤਬਦੀਲੀ ਦਾ ਸੰਕੇਤ ਹੋ ਸਕਦਾ ਹੈ।"),
+        ("Rusting of Iron", "ਲੋਹੇ ਨੂੰ ਜੰਗ ਲੱਗਣਾ", "Explore why iron rusts in the presence of air and moisture.", "ਹਵਾ ਅਤੇ ਨਮੀ ਦੀ ਮੌਜੂਦਗੀ ਵਿੱਚ ਲੋਹੇ ਨੂੰ ਜੰਗ ਕਿਉਂ ਲੱਗਦੀ ਹੈ, ਸਮਝੋ।", "rusting", "Rusting needs iron, oxygen and moisture; protective coatings slow it.", "ਜੰਗ ਲਈ ਲੋਹਾ, ਆਕਸੀਜਨ ਅਤੇ ਨਮੀ ਲੋੜੀਂਦੇ ਹਨ; ਸੁਰੱਖਿਆ ਪਰਤ ਇਸ ਨੂੰ ਹੌਲੀ ਕਰਦੀ ਹੈ।"),
+        ("Separation of Mixtures", "ਮਿਸ਼ਰਣਾਂ ਨੂੰ ਵੱਖ ਕਰਨਾ", "Choose a suitable method for a mixture's properties.", "ਮਿਸ਼ਰਣ ਦੇ ਗੁਣਾਂ ਅਨੁਸਾਰ ਢੁਕਵਾਂ ਵੱਖ ਕਰਨ ਦਾ ਤਰੀਕਾ ਚੁਣੋ।", "separation", "Filtration, evaporation and magnetic separation work for different mixtures.", "ਛਾਣਨ, ਵਾਸ਼ਪੀਕਰਨ ਅਤੇ ਚੁੰਬਕੀ ਵੱਖਰਾ ਕਰਨਾ ਵੱਖ-ਵੱਖ ਮਿਸ਼ਰਣਾਂ ਲਈ ਢੁਕਵੇਂ ਹਨ।")
+    ],
+    8: [
+        ("Combustion and Conditions for Burning", "ਦਹਿਨ ਅਤੇ ਸੜਨ ਦੀਆਂ ਸ਼ਰਤਾਂ", "Explore the fire triangle using a safe visual model.", "ਸੁਰੱਖਿਅਤ ਚਿੱਤਰਕ ਮਾਡਲ ਨਾਲ ਅੱਗ ਦੇ ਤਿਕੋਣ ਨੂੰ ਸਮਝੋ।", "combustion", "Combustion needs fuel, oxygen and sufficient heat.", "ਦਹਿਨ ਲਈ ਇੰਧਨ, ਆਕਸੀਜਨ ਅਤੇ ਕਾਫ਼ੀ ਤਾਪ ਲੋੜੀਂਦੇ ਹਨ।"),
+        ("Flame Zones", "ਲਾਟ ਦੇ ਖੇਤਰ", "Identify the zones of a candle flame in a diagram.", "ਮੋਮਬੱਤੀ ਦੀ ਲਾਟ ਦੇ ਖੇਤਰ ਚਿੱਤਰ ਵਿੱਚ ਪਛਾਣੋ।", "flame", "A flame has zones with different temperatures and combustion conditions.", "ਲਾਟ ਦੇ ਵੱਖ-ਵੱਖ ਖੇਤਰਾਂ ਵਿੱਚ ਤਾਪਮਾਨ ਅਤੇ ਦਹਿਨ ਦੀਆਂ ਹਾਲਤਾਂ ਵੱਖਰੀਆਂ ਹੁੰਦੀਆਂ ਹਨ।"),
+        ("Metals and Non-metals", "ਧਾਤਾਂ ਅਤੇ ਅਧਾਤਾਂ", "Compare typical physical properties of metals and non-metals.", "ਧਾਤਾਂ ਅਤੇ ਅਧਾਤਾਂ ਦੇ ਆਮ ਭੌਤਿਕ ਗੁਣਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।", "metals", "Metals are often lustrous and good conductors; exceptions exist.", "ਧਾਤਾਂ ਆਮ ਤੌਰ ਤੇ ਚਮਕਦਾਰ ਅਤੇ ਚੰਗੀਆਂ ਚਾਲਕ ਹੁੰਦੀਆਂ ਹਨ; ਅਪਵਾਦ ਵੀ ਹਨ।"),
+        ("Chemical Effects of Air and Water", "ਹਵਾ ਅਤੇ ਪਾਣੀ ਦੇ ਰਸਾਇਣਕ ਪ੍ਰਭਾਵ", "Model corrosion and protective methods.", "ਖੋਰ ਅਤੇ ਇਸ ਤੋਂ ਬਚਾਅ ਦੇ ਤਰੀਕਿਆਂ ਦਾ ਮਾਡਲ ਵੇਖੋ।", "corrosion", "Air and moisture can cause corrosion in susceptible materials.", "ਹਵਾ ਅਤੇ ਨਮੀ ਸੰਵੇਦਨਸ਼ੀਲ ਪਦਾਰਥਾਂ ਵਿੱਚ ਖੋਰ ਪੈਦਾ ਕਰ ਸਕਦੇ ਹਨ।"),
+        ("Crystallisation", "ਕ੍ਰਿਸਟਲੀਕਰਨ", "Visualise crystals forming as a solution cools or solvent evaporates.", "ਘੋਲ ਠੰਢਾ ਹੋਣ ਜਾਂ ਘੋਲਕ ਉੱਡਣ ਨਾਲ ਕ੍ਰਿਸਟਲ ਬਣਨ ਦਾ ਚਿੱਤਰ ਵੇਖੋ।", "crystals", "Crystallisation can obtain purer solid crystals from a suitable solution.", "ਕ੍ਰਿਸਟਲੀਕਰਨ ਨਾਲ ਢੁਕਵੇਂ ਘੋਲ ਵਿੱਚੋਂ ਵਧੇਰੇ ਸ਼ੁੱਧ ਠੋਸ ਕ੍ਰਿਸਟਲ ਮਿਲ ਸਕਦੇ ਹਨ।")
+    ],
+    9: [
+        ("Prepare and Observe a Mixture and a Compound", "ਮਿਸ਼ਰਣ ਅਤੇ ਯੋਗਿਕ ਦੀ ਤਿਆਰੀ ਤੇ ਨਿਰੀਖਣ", "Compare a physical mixture with a substance formed by chemical combination.", "ਭੌਤਿਕ ਮਿਸ਼ਰਣ ਅਤੇ ਰਸਾਇਣਕ ਮਿਲਾਪ ਨਾਲ ਬਣੇ ਪਦਾਰਥ ਦੀ ਤੁਲਨਾ ਕਰੋ।", "mixture_compound", "Mixture components retain their identity and may be separated physically; compounds have a fixed composition.", "ਮਿਸ਼ਰਣ ਦੇ ਅੰਸ਼ ਆਪਣੀ ਪਛਾਣ ਰੱਖਦੇ ਹਨ ਅਤੇ ਭੌਤਿਕ ਤਰੀਕੇ ਨਾਲ ਵੱਖ ਹੋ ਸਕਦੇ ਹਨ; ਯੋਗਿਕ ਦੀ ਬਣਤਰ ਨਿਰਧਾਰਤ ਹੁੰਦੀ ਹੈ।"),
+        ("Atoms, Molecules and Particle Models", "ਪਰਮਾਣੂ, ਅਣੂ ਅਤੇ ਕਣ ਮਾਡਲ", "Explore how atoms combine into molecules using particle diagrams.", "ਕਣ ਚਿੱਤਰਾਂ ਨਾਲ ਸਮਝੋ ਕਿ ਪਰਮਾਣੂ ਮਿਲ ਕੇ ਅਣੂ ਕਿਵੇਂ ਬਣਾਉਂਦੇ ਹਨ।", "particles", "Particle models help represent atoms and molecules; they are not to scale.", "ਕਣ ਮਾਡਲ ਪਰਮਾਣੂਆਂ ਅਤੇ ਅਣੂਆਂ ਨੂੰ ਦਰਸਾਉਂਦੇ ਹਨ; ਇਹ ਅਸਲ ਮਾਪ ਅਨੁਸਾਰ ਨਹੀਂ ਹਨ।"),
+        ("Law of Conservation of Mass", "ਪੁੰਜ ਸੰਰੱਖਣ ਦਾ ਨਿਯਮ", "Compare particle counts before and after a model reaction.", "ਮਾਡਲ ਕਿਰਿਆ ਤੋਂ ਪਹਿਲਾਂ ਅਤੇ ਬਾਅਦ ਕਣਾਂ ਦੀ ਗਿਣਤੀ ਦੀ ਤੁਲਨਾ ਕਰੋ।", "conservation", "In a closed system, atoms are rearranged rather than created or destroyed in a chemical reaction.", "ਬੰਦ ਪ੍ਰਣਾਲੀ ਵਿੱਚ ਰਸਾਇਣਕ ਕਿਰਿਆ ਦੌਰਾਨ ਪਰਮਾਣੂ ਮੁੜ-ਵਿਉਂਤ ਹੁੰਦੇ ਹਨ, ਬਣਦੇ ਜਾਂ ਨਸ਼ਟ ਨਹੀਂ ਹੁੰਦੇ।"),
+        ("Solutions, Suspensions and Colloids", "ਘੋਲ, ਨਿਲੰਬਨ ਅਤੇ ਕੋਲਾਇਡ", "Compare how particles behave in different kinds of mixtures.", "ਵੱਖ-ਵੱਖ ਕਿਸਮਾਂ ਦੇ ਮਿਸ਼ਰਣਾਂ ਵਿੱਚ ਕਣਾਂ ਦੇ ਵਰਤਾਅ ਦੀ ਤੁਲਨਾ ਕਰੋ।", "mixture_types", "Solutions are uniform; suspensions can settle; colloids have intermediate dispersed particles.", "ਘੋਲ ਇਕਸਾਰ ਹੁੰਦੇ ਹਨ; ਨਿਲੰਬਨ ਦੇ ਕਣ ਬੈਠ ਸਕਦੇ ਹਨ; ਕੋਲਾਇਡ ਵਿੱਚ ਦਰਮਿਆਨੇ ਆਕਾਰ ਦੇ ਫੈਲੇ ਕਣ ਹੁੰਦੇ ਹਨ।"),
+        ("Separation by Evaporation and Distillation", "ਵਾਸ਼ਪੀਕਰਨ ਅਤੇ ਆਸਵਨ ਨਾਲ ਵੱਖਰਾ ਕਰਨਾ", "Compare evaporation with condensation-based distillation.", "ਵਾਸ਼ਪੀਕਰਨ ਦੀ ਸੰਘਣਨ ਵਾਲੇ ਆਸਵਨ ਨਾਲ ਤੁਲਨਾ ਕਰੋ।", "distillation", "Evaporation leaves dissolved solids behind; distillation also collects condensed vapour.", "ਵਾਸ਼ਪੀਕਰਨ ਨਾਲ ਘੁਲਿਆ ਠੋਸ ਪਿੱਛੇ ਰਹਿੰਦਾ ਹੈ; ਆਸਵਨ ਵਿੱਚ ਭਾਫ਼ ਨੂੰ ਸੰਘਣਾ ਕਰਕੇ ਇਕੱਠਾ ਵੀ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।")
+    ],
+    10: [
+        ("Test Acids and Bases with Indicators", "ਸੂਚਕਾਂ ਨਾਲ ਤੇਜ਼ਾਬ ਅਤੇ ਖਾਰ ਦੀ ਜਾਂਚ", "Compare indicator colours for acidic, neutral and basic samples.", "ਤੇਜ਼ਾਬੀ, ਉਦਾਸੀਨ ਅਤੇ ਖਾਰੀ ਨਮੂਨਿਆਂ ਦੇ ਸੂਚਕ ਰੰਗਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।", "ph", "Indicator colours help classify a solution; pH values are included only as a chemistry concept.", "ਸੂਚਕਾਂ ਦੇ ਰੰਗ ਘੋਲ ਦੀ ਕਿਸਮ ਪਛਾਣਨ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ; pH ਮੁੱਲ ਰਸਾਇਣਕ ਧਾਰਨਾ ਵਜੋਂ ਵਰਤੇ ਜਾਂਦੇ ਹਨ।"),
+        ("Observe a Chemical Reaction", "ਰਸਾਇਣਕ ਕਿਰਿਆ ਦਾ ਨਿਰੀਖਣ", "Identify evidence such as gas formation, colour change or precipitate in a reaction model.", "ਕਿਰਿਆ ਦੇ ਮਾਡਲ ਵਿੱਚ ਗੈਸ ਬਣਨਾ, ਰੰਗ ਬਦਲਣਾ ਜਾਂ ਅਵਖੇਪ ਬਣਨਾ ਪਛਾਣੋ।", "reaction", "Chemical reactions rearrange particles and may release or absorb energy.", "ਰਸਾਇਣਕ ਕਿਰਿਆਵਾਂ ਕਣਾਂ ਦੀ ਮੁੜ-ਵਿਉਂਤ ਕਰਦੀਆਂ ਹਨ ਅਤੇ ਊਰਜਾ ਛੱਡ ਜਾਂ ਸੋਖ ਸਕਦੀਆਂ ਹਨ।"),
+        ("Neutralisation", "ਉਦਾਸੀਨੀਕਰਨ", "Model an acid reacting with a base to form salt and water.", "ਤੇਜ਼ਾਬ ਅਤੇ ਖਾਰ ਦੀ ਕਿਰਿਆ ਨਾਲ ਲੂਣ ਅਤੇ ਪਾਣੀ ਬਣਨ ਦਾ ਮਾਡਲ ਵੇਖੋ।", "neutralisation", "Acid + base can form salt and water; the model is conceptual.", "ਤੇਜ਼ਾਬ ਅਤੇ ਖਾਰ ਦੀ ਕਿਰਿਆ ਨਾਲ ਲੂਣ ਅਤੇ ਪਾਣੀ ਬਣ ਸਕਦੇ ਹਨ; ਇਹ ਧਾਰਣਾਤਮਕ ਮਾਡਲ ਹੈ।"),
+        ("Reactivity of Metals", "ਧਾਤਾਂ ਦੀ ਕਿਰਿਆਸ਼ੀਲਤਾ", "Compare how selected metals behave in a conceptual reactivity series.", "ਧਾਰਣਾਤਮਕ ਕਿਰਿਆਸ਼ੀਲਤਾ ਲੜੀ ਵਿੱਚ ਚੁਣੀਆਂ ਧਾਤਾਂ ਦਾ ਵਰਤਾਅ ਸਮਝੋ।", "reactivity", "More reactive metals can displace less reactive metals from suitable salt solutions.", "ਵੱਧ ਕਿਰਿਆਸ਼ੀਲ ਧਾਤਾਂ ਢੁਕਵੇਂ ਲੂਣ ਦੇ ਘੋਲ ਵਿੱਚੋਂ ਘੱਟ ਕਿਰਿਆਸ਼ੀਲ ਧਾਤ ਨੂੰ ਹਟਾ ਸਕਦੀਆਂ ਹਨ।"),
+        ("Electrolysis and Electroplating", "ਇਲੈਕਟ੍ਰੋਲਾਈਸਿਸ ਅਤੇ ਇਲੈਕਟ੍ਰੋਪਲੇਟਿੰਗ", "Visualise electrodes, ion movement and a thin metal coating.", "ਇਲੈਕਟ੍ਰੋਡ, ਆਇਨਾਂ ਦੀ ਗਤੀ ਅਤੇ ਧਾਤ ਦੀ ਪਤਲੀ ਪਰਤ ਦਾ ਚਿੱਤਰ ਵੇਖੋ।", "electrochemistry", "Electric current can drive chemical change and deposit metal on a suitable object.", "ਬਿਜਲੀ ਕਰੰਟ ਰਸਾਇਣਕ ਤਬਦੀਲੀ ਕਰ ਸਕਦਾ ਹੈ ਅਤੇ ਢੁਕਵੀਂ ਵਸਤੂ ਉੱਤੇ ਧਾਤ ਜਮਾ ਸਕਦਾ ਹੈ।")
+    ]
+}
+
+def chemistry_visual(kind, pa):
+    """Return a class-appropriate SVG illustration for a chemistry concept."""
+    titles = {
+        "materials": ("MATERIAL PROPERTY SORT", "ਗੁਣਾਂ ਅਨੁਸਾਰ ਛਾਂਟੀ"),
+        "solubility": ("DISSOLVE OR STAY SEPARATE?", "ਘੁਲੇ ਜਾਂ ਵੱਖਰੇ ਰਹਿਣ?"),
+        "filtration": ("SETTLING AND FILTRATION", "ਤਲਛਟ ਅਤੇ ਛਾਣਨ"),
+        "changes": ("PHYSICAL OR CHEMICAL CHANGE", "ਭੌਤਿਕ ਜਾਂ ਰਸਾਇਣਕ ਤਬਦੀਲੀ"),
+        "transparency": ("HOW LIGHT PASSES", "ਰੋਸ਼ਨੀ ਕਿਵੇਂ ਲੰਘਦੀ ਹੈ"),
+        "indicators": ("INDICATOR COLOUR TEST", "ਸੂਚਕ ਰੰਗ ਜਾਂਚ"),
+        "reversible": ("REVERSIBLE / IRREVERSIBLE", "ਉਲਟਣਯੋਗ / ਅਣਉਲਟਣਯੋਗ"),
+        "physical_chemical": ("COMPARE THE CHANGES", "ਤਬਦੀਲੀਆਂ ਦੀ ਤੁਲਨਾ"),
+        "rusting": ("IRON + AIR + MOISTURE", "ਲੋਹਾ + ਹਵਾ + ਨਮੀ"),
+        "separation": ("SEPARATION METHODS", "ਵੱਖ ਕਰਨ ਦੇ ਤਰੀਕੇ"),
+        "combustion": ("THE FIRE TRIANGLE", "ਅੱਗ ਦਾ ਤਿਕੋਣ"),
+        "flame": ("CANDLE FLAME ZONES", "ਮੋਮਬੱਤੀ ਦੀ ਲਾਟ ਦੇ ਖੇਤਰ"),
+        "metals": ("METALS AND NON-METALS", "ਧਾਤਾਂ ਅਤੇ ਅਧਾਤਾਂ"),
+        "corrosion": ("PROTECT AGAINST CORROSION", "ਖੋਰ ਤੋਂ ਬਚਾਅ"),
+        "crystals": ("CRYSTAL FORMATION", "ਕ੍ਰਿਸਟਲ ਬਣਨਾ"),
+        "mixture_compound": ("MIXTURE VS COMPOUND", "ਮਿਸ਼ਰਣ ਬਨਾਮ ਯੋਗਿਕ"),
+        "particles": ("ATOMS FORM MOLECULES", "ਪਰਮਾਣੂਆਂ ਤੋਂ ਅਣੂ"),
+        "conservation": ("ATOMS ARE REARRANGED", "ਪਰਮਾਣੂ ਮੁੜ-ਵਿਉਂਤ ਹੁੰਦੇ ਹਨ"),
+        "mixture_types": ("THREE MIXTURE TYPES", "ਮਿਸ਼ਰਣਾਂ ਦੀਆਂ ਤਿੰਨ ਕਿਸਮਾਂ"),
+        "distillation": ("EVAPORATION AND DISTILLATION", "ਵਾਸ਼ਪੀਕਰਨ ਅਤੇ ਆਸਵਨ"),
+        "ph": ("INDICATORS AND pH", "ਸੂਚਕ ਅਤੇ pH"),
+        "reaction": ("SIGNS OF A REACTION", "ਕਿਰਿਆ ਦੇ ਸੰਕੇਤ"),
+        "neutralisation": ("ACID + BASE", "ਤੇਜ਼ਾਬ + ਖਾਰ"),
+        "reactivity": ("METAL DISPLACEMENT", "ਧਾਤ ਦਾ ਵਿਸਥਾਪਨ"),
+        "electrochemistry": ("ELECTROLYSIS / COATING", "ਇਲੈਕਟ੍ਰੋਲਾਈਸਿਸ / ਪਰਤ")
+    }
+    title = titles.get(kind, ("CHEMISTRY MODEL", "ਰਸਾਇਣਕ ਮਾਡਲ"))[1 if pa else 0]
+    # SVG is deliberately schematic and qualitative, not a measurement.
+    common = {
+        "materials": '<rect x="75" y="92" width="90" height="48" rx="8" fill="#b8c8d8"/><rect x="205" y="92" width="90" height="48" rx="8" fill="#f4d06f"/><rect x="335" y="92" width="90" height="48" rx="8" fill="#80c9b0"/><text x="120" y="166" text-anchor="middle" fill="currentColor">METAL</text><text x="250" y="166" text-anchor="middle" fill="currentColor">WOOD</text><text x="380" y="166" text-anchor="middle" fill="currentColor">PLASTIC</text>',
+        "solubility": '<path d="M95 70 L115 70 L110 145 Q145 158 180 145 L175 70" fill="#bde7f4" stroke="#397b98" stroke-width="3"/><circle cx="135" cy="120" r="4" fill="#fff"/><circle cx="150" cy="105" r="4" fill="#fff"/><path d="M260 70 L280 70 L275 145 Q310 158 345 145 L340 70" fill="#d8e8f2" stroke="#397b98" stroke-width="3"/><circle cx="290" cy="137" r="5" fill="#9a6b45"/><circle cx="320" cy="137" r="5" fill="#9a6b45"/><circle cx="305" cy="132" r="5" fill="#9a6b45"/>',
+        "filtration": '<path d="M110 62 L205 62 L168 110 L168 142" fill="#d5e7f0" stroke="#397b98" stroke-width="3"/><path d="M128 80 L190 80 L168 108 Z" fill="#c4a484"/><path d="M150 140 L150 158 L185 158 L185 140" fill="#c5e7f7" stroke="#397b98" stroke-width="3"/><path d="M280 62 L375 62 L338 110 L338 142" fill="#d5e7f0" stroke="#397b98" stroke-width="3"/><path d="M298 80 L360 80 L338 108 Z" fill="#f4f5f6"/>',
+        "changes": '<circle cx="120" cy="112" r="32" fill="#d7eaf5" stroke="#4c8198" stroke-width="3"/><path d="M120 78 V146 M86 112 H154" stroke="#4c8198" stroke-width="2"/><path d="M230 112 H280" stroke="#4c8198" stroke-width="4"/><path d="M268 101 L280 112 L268 123" fill="none" stroke="#4c8198" stroke-width="4"/><path d="M325 130 Q350 95 375 130 Q350 153 325 130" fill="#ef9c4b" stroke="#b86a28" stroke-width="3"/>',
+        "transparency": '<circle cx="85" cy="112" r="19" fill="#ffd76a"/><path d="M105 112 H185 M175 102 L185 112 L175 122" stroke="#e4a72e" stroke-width="4" fill="none"/><rect x="195" y="75" width="24" height="74" fill="#8ad8e8" fill-opacity=".55" stroke="#3988a0" stroke-width="2"/><path d="M225 112 H300" stroke="#e4a72e" stroke-width="4"/><rect x="310" y="75" width="24" height="74" fill="#8d96a1" stroke="#58616b" stroke-width="2"/><path d="M340 112 H365" stroke="#e4a72e" stroke-width="4" stroke-dasharray="5 7"/>',
+        "indicators": '<path d="M80 75 L100 75 L96 138 Q125 151 154 138 L150 75" fill="#ef8ea8" stroke="#8e5369" stroke-width="3"/><path d="M210 75 L230 75 L226 138 Q255 151 284 138 L280 75" fill="#a6d9f3" stroke="#397b98" stroke-width="3"/><path d="M340 75 L360 75 L356 138 Q385 151 414 138 L410 75" fill="#9bcf9d" stroke="#4c8b55" stroke-width="3"/>',
+        "reversible": '<path d="M90 95 H185 M175 85 L185 95 L175 105" stroke="#4c8198" stroke-width="4" fill="none"/><path d="M185 125 H90 M100 115 L90 125 L100 135" stroke="#4c8198" stroke-width="4" fill="none"/><path d="M300 95 H395" stroke="#b45d45" stroke-width="4"/><path d="M385 85 L395 95 L385 105" stroke="#b45d45" stroke-width="4" fill="none"/><path d="M325 115 L365 145 M365 115 L325 145" stroke="#b45d45" stroke-width="4"/>',
+        "physical_chemical": '<circle cx="105" cy="105" r="23" fill="#8bc5df"/><circle cx="145" cy="105" r="23" fill="#efbd66"/><path d="M190 105 H240" stroke="#4c8198" stroke-width="4"/><path d="M228 94 L240 105 L228 116" stroke="#4c8198" stroke-width="4" fill="none"/><circle cx="300" cy="105" r="23" fill="#a6d7a8"/><circle cx="340" cy="105" r="23" fill="#a6d7a8"/><circle cx="320" cy="135" r="10" fill="#a6d7a8"/>',
+        "rusting": '<rect x="95" y="70" width="18" height="95" rx="6" fill="#a4adb4"/><rect x="95" y="110" width="18" height="55" rx="6" fill="#b9683e"/><path d="M220 78 Q240 58 260 78 Q280 58 300 78" stroke="#65a7d3" stroke-width="4" fill="none"/><path d="M240 95 Q230 110 240 119 Q250 110 240 95" fill="#65a7d3"/><path d="M355 72 Q370 90 355 108 Q340 90 355 72" fill="#65a7d3"/>',
+        "separation": '<circle cx="105" cy="110" r="26" fill="#b7dff0"/><circle cx="95" cy="105" r="5" fill="#b18b5e"/><circle cx="115" cy="117" r="5" fill="#b18b5e"/><path d="M155 110 H205" stroke="#4c8198" stroke-width="4"/><path d="M193 99 L205 110 L193 121" stroke="#4c8198" stroke-width="4" fill="none"/><path d="M240 70 L300 70 L280 110 L280 140" fill="#d7edf5" stroke="#4c8198" stroke-width="3"/><path d="M340 70 L400 70 L380 110 L380 140" fill="#d7edf5" stroke="#4c8198" stroke-width="3"/>',
+        "combustion": '<path d="M145 140 L185 65 L225 140 Z" fill="#ffd66f" stroke="#b87a28" stroke-width="3"/><path d="M265 140 L305 65 L345 140 Z" fill="#f18b57" stroke="#b95332" stroke-width="3"/><text x="185" y="120" text-anchor="middle" fill="#6b4715">HEAT</text><text x="305" y="120" text-anchor="middle" fill="#6b2416">FUEL</text>',
+        "flame": '<path d="M250 55 C205 100 225 115 250 145 C280 115 295 95 250 55Z" fill="#f6a34b" stroke="#bd5d29" stroke-width="3"/><path d="M250 95 C235 116 243 128 250 135 C263 119 263 110 250 95Z" fill="#ffe48b"/><rect x="225" y="145" width="50" height="14" rx="3" fill="#8e8f92"/><path d="M250 145 V134" stroke="#333" stroke-width="4"/>',
+        "metals": '<rect x="95" y="82" width="100" height="55" rx="8" fill="#b9c4ce" stroke="#71808e" stroke-width="2"/><path d="M105 95 L180 95 M105 108 L180 108 M105 121 L180 121" stroke="#edf2f5" stroke-width="3"/><rect x="285" y="82" width="100" height="55" rx="8" fill="#7f8b94"/><circle cx="310" cy="100" r="4" fill="#d1d6da"/><circle cx="350" cy="120" r="4" fill="#d1d6da"/>',
+        "corrosion": '<rect x="105" y="75" width="18" height="80" rx="5" fill="#a3aeb5"/><rect x="105" y="115" width="18" height="40" rx="5" fill="#b86b42"/><rect x="240" y="75" width="18" height="80" rx="5" fill="#d5c7a1"/><rect x="375" y="75" width="18" height="80" rx="5" fill="#a7b2ba"/><path d="M95 65 H135 M230 65 H270 M365 65 H405" stroke="#4c8198" stroke-width="4"/>',
+        "crystals": '<path d="M120 140 L135 100 L150 140 L170 88 L190 140 Z" fill="#8dc9ed" stroke="#397b98" stroke-width="2"/><path d="M270 140 L290 85 L310 140 L330 100 L350 140 Z" fill="#b2def4" stroke="#397b98" stroke-width="2"/><path d="M90 145 H380" stroke="#4c8198" stroke-width="3"/>',
+        "mixture_compound": '<circle cx="100" cy="95" r="15" fill="#69a8df"/><circle cx="140" cy="120" r="15" fill="#e5b45d"/><circle cx="180" cy="92" r="15" fill="#69a8df"/><path d="M260 95 L285 120 L310 95" stroke="#4c8198" stroke-width="4" fill="none"/><circle cx="260" cy="95" r="14" fill="#69a8df"/><circle cx="285" cy="120" r="14" fill="#e5b45d"/><circle cx="310" cy="95" r="14" fill="#69a8df"/>',
+        "particles": '<circle cx="125" cy="95" r="17" fill="#69a8df"/><circle cx="180" cy="95" r="17" fill="#e5b45d"/><path d="M215 95 H270" stroke="#4c8198" stroke-width="4"/><path d="M258 84 L270 95 L258 106" stroke="#4c8198" stroke-width="4" fill="none"/><circle cx="300" cy="95" r="17" fill="#69a8df"/><circle cx="333" cy="116" r="17" fill="#e5b45d"/><circle cx="366" cy="95" r="17" fill="#69a8df"/>',
+        "conservation": '<circle cx="95" cy="95" r="13" fill="#69a8df"/><circle cx="125" cy="120" r="13" fill="#e5b45d"/><circle cx="155" cy="95" r="13" fill="#69a8df"/><path d="M190 105 H245" stroke="#4c8198" stroke-width="4"/><path d="M233 94 L245 105 L233 116" stroke="#4c8198" stroke-width="4" fill="none"/><circle cx="290" cy="95" r="13" fill="#69a8df"/><circle cx="320" cy="120" r="13" fill="#e5b45d"/><circle cx="350" cy="95" r="13" fill="#69a8df"/>',
+        "mixture_types": '<path d="M65 70 L80 70 L78 140 Q105 150 132 140 L130 70" fill="#8ac6e8" stroke="#397b98" stroke-width="3"/><path d="M190 70 L205 70 L203 140 Q230 150 257 140 L255 70" fill="#b7dff0" stroke="#397b98" stroke-width="3"/><circle cx="210" cy="128" r="4" fill="#a07852"/><circle cx="235" cy="128" r="4" fill="#a07852"/><path d="M315 70 L330 70 L328 140 Q355 150 382 140 L380 70" fill="#b7dff0" stroke="#397b98" stroke-width="3"/><circle cx="338" cy="100" r="5" fill="#fff"/><circle cx="360" cy="118" r="5" fill="#fff"/>',
+        "distillation": '<path d="M85 70 L105 70 L100 120 Q130 150 160 120 L155 70" fill="#b8e0ef" stroke="#397b98" stroke-width="3"/><path d="M120 145 V160" stroke="#397b98" stroke-width="3"/><path d="M155 85 L215 85 L250 65 L285 65" stroke="#397b98" stroke-width="5" fill="none"/><path d="M215 75 L235 95 M235 75 L255 95" stroke="#8bc9e7" stroke-width="5"/><path d="M315 70 L335 70 L330 135 Q355 148 380 135 L375 70" fill="#b8e0ef" stroke="#397b98" stroke-width="3"/>',
+        "ph": '<rect x="85" y="75" width="90" height="22" rx="5" fill="#e87f85"/><rect x="175" y="75" width="90" height="22" fill="#f1c75b"/><rect x="265" y="75" width="90" height="22" fill="#82c89a"/><path d="M110 120 L150 120 M200 120 L240 120 M290 120 L330 120" stroke="#4c8198" stroke-width="4"/>',
+        "reaction": '<path d="M90 70 L110 70 L106 135 Q130 148 154 135 L150 70" fill="#b8e0ef" stroke="#397b98" stroke-width="3"/><circle cx="125" cy="115" r="6" fill="#fff"/><circle cx="135" cy="95" r="5" fill="#fff"/><path d="M185 105 H240" stroke="#4c8198" stroke-width="4"/><path d="M228 94 L240 105 L228 116" stroke="#4c8198" stroke-width="4" fill="none"/><path d="M285 70 L305 70 L301 135 Q325 148 349 135 L345 70" fill="#a5d4b0" stroke="#4c8b55" stroke-width="3"/><circle cx="313" cy="120" r="5" fill="#f7f2d7"/><circle cx="329" cy="100" r="5" fill="#f7f2d7"/>',
+        "neutralisation": '<path d="M85 70 L105 70 L101 135 Q125 148 149 135 L145 70" fill="#e994a5" stroke="#9d596b" stroke-width="3"/><path d="M190 70 L210 70 L206 135 Q230 148 254 135 L250 70" fill="#85c4e4" stroke="#397b98" stroke-width="3"/><path d="M275 105 H310" stroke="#4c8198" stroke-width="4"/><path d="M298 94 L310 105 L298 116" stroke="#4c8198" stroke-width="4" fill="none"/><path d="M335 70 L355 70 L351 135 Q375 148 399 135 L395 70" fill="#b9d9a6" stroke="#608c4e" stroke-width="3"/>',
+        "reactivity": '<rect x="95" y="75" width="65" height="70" rx="6" fill="#d5e5ee" stroke="#397b98" stroke-width="2"/><rect x="105" y="100" width="45" height="38" fill="#77b8d8"/><rect x="215" y="75" width="65" height="70" rx="6" fill="#d5e5ee" stroke="#397b98" stroke-width="2"/><rect x="225" y="100" width="45" height="38" fill="#77b8d8"/><path d="M165 110 H205" stroke="#4c8198" stroke-width="4"/><path d="M193 99 L205 110 L193 121" stroke="#4c8198" stroke-width="4" fill="none"/><rect x="325" y="75" width="65" height="70" rx="6" fill="#d5e5ee" stroke="#397b98" stroke-width="2"/><rect x="335" y="100" width="45" height="38" fill="#77b8d8"/><rect x="347" y="108" width="20" height="25" fill="#b7c1c9"/>',
+        "electrochemistry": '<path d="M95 70 L115 70 L110 140 Q140 150 170 140 L165 70" fill="#b8e0ef" stroke="#397b98" stroke-width="3"/><rect x="118" y="70" width="9" height="45" fill="#c1c7ce"/><rect x="150" y="70" width="9" height="45" fill="#d7a85d"/><circle cx="130" cy="120" r="4" fill="#d7a85d"/><circle cx="145" cy="128" r="4" fill="#d7a85d"/><path d="M210 105 H260" stroke="#4c8198" stroke-width="4"/><path d="M248 94 L260 105 L248 116" stroke="#4c8198" stroke-width="4" fill="none"/><rect x="310" y="70" width="80" height="70" rx="8" fill="#b9c4ce" stroke="#71808e" stroke-width="2"/><rect x="310" y="70" width="80" height="12" rx="4" fill="#d9a84e"/>'
+    }
+    drawing = common.get(kind, common["reaction"])
+    return f"""
+    <div style="border:1px solid #9bb6c4;border-radius:16px;padding:10px;margin:10px 0;background:linear-gradient(135deg,rgba(200,230,240,.25),rgba(210,245,225,.25))">
+      <div style="font-weight:800;letter-spacing:.04em;text-align:center;margin-bottom:4px">{title}</div>
+      <svg viewBox="0 0 480 190" role="img" aria-label="{title}" style="width:100%;height:auto;max-height:260px;color:inherit">
+        <path d="M25 165 H455" stroke="#9bb6c4" stroke-width="2"/>
+        {drawing}
+      </svg>
+      <div style="text-align:center;font-size:.82rem;opacity:.8">{'ਚਿੱਤਰ ਧਾਰਣਾਤਮਕ ਹੈ; ਅਸਲ ਰਸਾਇਣ ਨਾ ਮਿਲਾਓ।' if pa else 'Conceptual illustration; do not mix real chemicals.'}</div>
+    </div>
+    """
+
+def chemistry_lab():
+    if st.button(tr("back"), key="chemistry_back"):
+        go("home")
+        st.rerun()
+    pa = st.session_state.language == "pa"
+    st.title("🧪 " + ("ਰਸਾਇਣ ਵਿਗਿਆਨ ਲੈਬ" if pa else "Chemistry Lab"))
+    st.caption("PSEB-aligned learning topics · 25 visual experiments" if not pa else "PSEB ਨਾਲ ਮੇਲ ਖਾਂਦੇ ਸਿੱਖਣ ਵਿਸ਼ੇ · 25 ਚਿੱਤਰਕ ਪ੍ਰਯੋਗ")
+    classes = [6, 7, 8, 9, 10]
+    c1, c2 = st.columns(2)
+    with c1:
+        cc = st.selectbox("ਜਮਾਤ ਚੁਣੋ" if pa else "Select class", classes, format_func=lambda x: f"{x}ਵੀਂ ਜਮਾਤ" if pa else f"Class {x}", key="chem_class")
+    exp_list = CHEMISTRY_EXPERIMENTS[cc]
+    with c2:
+        ei = st.selectbox("ਪ੍ਰਯੋਗ ਚੁਣੋ" if pa else "Select experiment", list(range(5)), format_func=lambda i: f"{i+1}. {exp_list[i][1 if pa else 0]}", key=f"chem_exp_{cc}")
+    en_title, pa_title, en_aim, pa_aim, kind, en_note, pa_note = exp_list[ei]
+    title = pa_title if pa else en_title
+    aim = pa_aim if pa else en_aim
+    note = pa_note if pa else en_note
+    st.markdown("---")
+    st.header(f"{'ਪ੍ਰਯੋਗ' if pa else 'EXPERIMENT'} {ei+1} · {title}")
+    st.markdown(f"**{'ਉਦੇਸ਼' if pa else 'Aim'}:** {aim}")
+    st.markdown(f"**{'ਸਮੱਗਰੀ' if pa else 'Materials'}:** " + {
+        "materials": "metal spoon, wood, plastic, clear sheet" if not pa else "ਧਾਤ ਦਾ ਚਮਚਾ, ਲੱਕੜ, ਪਲਾਸਟਿਕ, ਪਾਰਦਰਸ਼ੀ ਚਾਦਰ",
+        "solubility": "water, salt, sand, transparent cups (virtual)" if not pa else "ਪਾਣੀ, ਨਮਕ, ਰੇਤ, ਪਾਰਦਰਸ਼ੀ ਕੱਪ (ਵਰਚੁਅਲ)",
+        "filtration": "sand-water mixture, funnel, filter paper, beaker (virtual)" if not pa else "ਰੇਤ-ਪਾਣੀ ਮਿਸ਼ਰਣ, ਫਨਲ, ਫਿਲਟਰ ਪੇਪਰ, ਬੀਕਰ (ਵਰਚੁਅਲ)",
+        "indicators": "indicator strips and labelled sample cups (virtual)" if not pa else "ਸੂਚਕ ਪੱਟੀਆਂ ਅਤੇ ਨਮੂਨਾ ਕੱਪ (ਵਰਚੁਅਲ)",
+        "rusting": "iron sample, air and moisture (conceptual)" if not pa else "ਲੋਹੇ ਦਾ ਨਮੂਨਾ, ਹਵਾ ਅਤੇ ਨਮੀ (ਧਾਰਣਾਤਮਕ)",
+        "combustion": "fuel, oxygen and heat icons (virtual)" if not pa else "ਇੰਧਨ, ਆਕਸੀਜਨ ਅਤੇ ਤਾਪ ਦੇ ਚਿੰਨ੍ਹ (ਵਰਚੁਅਲ)",
+        "electrochemistry": "electrodes, electrolyte and coated object (virtual)" if not pa else "ਇਲੈਕਟ੍ਰੋਡ, ਇਲੈਕਟ੍ਰੋਲਾਈਟ ਅਤੇ ਪਰਤ ਵਾਲੀ ਵਸਤੂ (ਵਰਚੁਅਲ)"
+    }.get(kind, "labelled sample vessels and concept diagram" if not pa else "ਨਮੂਨਾ ਭਾਂਡੇ ਅਤੇ ਧਾਰਣਾ ਚਿੱਤਰ"))
+    st.markdown(f"**{'ਕਿਵੇਂ ਵੇਖੋ' if pa else 'How to explore'}:** " + ("ਚਿੱਤਰ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ ਅਤੇ ਨਿਰੀਖਣ ਨੂੰ ਹੇਠਾਂ ਦਿੱਤੇ ਵਿਕਲਪਾਂ ਨਾਲ ਮਿਲਾਓ। ਅਸਲ ਰਸਾਇਣ ਨਾ ਮਿਲਾਓ।" if pa else "Study the visual, then compare the observation using the controls below. Do not mix real chemicals."))
+    st.markdown(chemistry_visual(kind, pa), unsafe_allow_html=True)
+
+    options = {
+        "materials": [("Metal", "ਧਾਤ"), ("Wood", "ਲੱਕੜ"), ("Plastic", "ਪਲਾਸਟਿਕ")],
+        "solubility": [("Salt in water", "ਪਾਣੀ ਵਿੱਚ ਨਮਕ"), ("Sand in water", "ਪਾਣੀ ਵਿੱਚ ਰੇਤ"), ("Oil and water", "ਤੇਲ ਅਤੇ ਪਾਣੀ")],
+        "filtration": [("Sand and water", "ਰੇਤ ਅਤੇ ਪਾਣੀ"), ("Salt and water", "ਨਮਕ ਅਤੇ ਪਾਣੀ")],
+        "changes": [("Ice melting", "ਬਰਫ਼ ਪਿਘਲਣਾ"), ("Paper burning (diagram only)", "ਕਾਗਜ਼ ਸੜਨਾ (ਸਿਰਫ਼ ਚਿੱਤਰ)")],
+        "transparency": [("Clear glass", "ਸਾਫ਼ ਕੱਚ"), ("Tracing sheet", "ਟ੍ਰੇਸਿੰਗ ਸ਼ੀਟ"), ("Cardboard", "ਗੱਤਾ")],
+        "indicators": [("Lemon juice", "ਨਿੰਬੂ ਦਾ ਰਸ"), ("Water", "ਪਾਣੀ"), ("Soap solution", "ਸਾਬਣ ਦਾ ਘੋਲ")],
+        "reversible": [("Melting wax", "ਮੋਮ ਪਿਘਲਣਾ"), ("Burning paper (diagram only)", "ਕਾਗਜ਼ ਸੜਨਾ (ਸਿਰਫ਼ ਚਿੱਤਰ)")],
+        "physical_chemical": [("Ice melting", "ਬਰਫ਼ ਪਿਘਲਣਾ"), ("Iron rusting", "ਲੋਹੇ ਨੂੰ ਜੰਗ ਲੱਗਣਾ")],
+        "rusting": [("Iron with air and moisture", "ਹਵਾ ਅਤੇ ਨਮੀ ਵਾਲਾ ਲੋਹਾ"), ("Protected iron", "ਸੁਰੱਖਿਆ ਪਰਤ ਵਾਲਾ ਲੋਹਾ")],
+        "separation": [("Sand and water", "ਰੇਤ ਅਤੇ ਪਾਣੀ"), ("Iron filings and sand", "ਲੋਹੇ ਦਾ ਬੁਰਾਦਾ ਅਤੇ ਰੇਤ"), ("Salt solution", "ਨਮਕ ਦਾ ਘੋਲ")],
+        "combustion": [("All three present", "ਤਿੰਨੇ ਮੌਜੂਦ"), ("Remove oxygen", "ਆਕਸੀਜਨ ਹਟਾਓ"), ("Remove heat", "ਤਾਪ ਹਟਾਓ")],
+        "flame": [("Inner dark zone", "ਅੰਦਰਲਾ ਗੂੜ੍ਹਾ ਖੇਤਰ"), ("Luminous yellow zone", "ਪੀਲਾ ਚਮਕਦਾਰ ਖੇਤਰ"), ("Outer zone", "ਬਾਹਰੀ ਖੇਤਰ")],
+        "metals": [("Copper", "ਤਾਂਬਾ"), ("Sulphur (conceptual)", "ਗੰਧਕ (ਧਾਰਣਾਤਮਕ)")],
+        "corrosion": [("Unprotected iron", "ਬਿਨਾਂ ਸੁਰੱਖਿਆ ਵਾਲਾ ਲੋਹਾ"), ("Painted iron", "ਰੰਗ ਕੀਤਾ ਲੋਹਾ"), ("Oiled iron", "ਤੇਲ ਲੱਗਾ ਲੋਹਾ")],
+        "crystals": [("Cooling a suitable solution", "ਢੁਕਵਾਂ ਘੋਲ ਠੰਢਾ ਕਰਨਾ"), ("Evaporating solvent", "ਘੋਲਕ ਦਾ ਵਾਸ਼ਪੀਕਰਨ")],
+        "mixture_compound": [("Iron and sulphur mixed", "ਲੋਹਾ ਅਤੇ ਗੰਧਕ ਮਿਲਾਏ"), ("A compound (particle model)", "ਯੋਗਿਕ (ਕਣ ਮਾਡਲ)")],
+        "particles": [("Separate atoms", "ਵੱਖਰੇ ਪਰਮਾਣੂ"), ("Combined molecule", "ਜੁੜਿਆ ਅਣੂ")],
+        "conservation": [("Before and after: same atoms", "ਪਹਿਲਾਂ ਅਤੇ ਬਾਅਦ: ਉਹੀ ਪਰਮਾਣੂ"), ("Open system loses some gas", "ਖੁੱਲ੍ਹੀ ਪ੍ਰਣਾਲੀ ਵਿੱਚ ਕੁਝ ਗੈਸ ਨਿਕਲਦੀ ਹੈ")],
+        "mixture_types": [("Solution", "ਘੋਲ"), ("Suspension", "ਨਿਲੰਬਨ"), ("Colloid", "ਕੋਲਾਇਡ")],
+        "distillation": [("Evaporation only", "ਸਿਰਫ਼ ਵਾਸ਼ਪੀਕਰਨ"), ("Distillation and collection", "ਆਸਵਨ ਅਤੇ ਇਕੱਠਾ ਕਰਨਾ")],
+        "ph": [("Acidic sample", "ਤੇਜ਼ਾਬੀ ਨਮੂਨਾ"), ("Neutral sample", "ਉਦਾਸੀਨ ਨਮੂਨਾ"), ("Basic sample", "ਖਾਰੀ ਨਮੂਨਾ")],
+        "reaction": [("Gas bubbles appear", "ਗੈਸ ਦੇ ਬੁਲਬੁਲੇ ਬਣਦੇ ਹਨ"), ("A new solid appears", "ਨਵਾਂ ਠੋਸ ਬਣਦਾ ਹੈ"), ("Only shape changes", "ਸਿਰਫ਼ ਆਕਾਰ ਬਦਲਦਾ ਹੈ")],
+        "neutralisation": [("Acid and base react", "ਤੇਜ਼ਾਬ ਅਤੇ ਖਾਰ ਕਿਰਿਆ ਕਰਦੇ ਹਨ"), ("Acid only", "ਸਿਰਫ਼ ਤੇਜ਼ਾਬ"), ("Base only", "ਸਿਰਫ਼ ਖਾਰ")],
+        "reactivity": [("More reactive metal", "ਵੱਧ ਕਿਰਿਆਸ਼ੀਲ ਧਾਤ"), ("Less reactive metal", "ਘੱਟ ਕਿਰਿਆਸ਼ੀਲ ਧਾਤ")],
+        "electrochemistry": [("Metal coating model", "ਧਾਤ ਦੀ ਪਰਤ ਦਾ ਮਾਡਲ"), ("Current switched off", "ਕਰੰਟ ਬੰਦ")
+        ]
+    }
+    selected_options = options.get(kind, [("Observe the model", "ਮਾਡਲ ਦਾ ਨਿਰੀਖਣ ਕਰੋ")])
+    labels = [x[1] if pa else x[0] for x in selected_options]
+    choice = st.selectbox("ਨਿਰੀਖਣ ਚੁਣੋ" if pa else "Choose an observation", labels, key=f"chem_observe_{cc}_{ei}_{st.session_state.language}")
+    idx = labels.index(choice)
+    chosen_en = selected_options[idx][0]
+    outcomes = {
+        "materials": {"Metal": ("Metal is usually lustrous and conducts heat and electricity well.", "ਧਾਤ ਆਮ ਤੌਰ ਤੇ ਚਮਕਦਾਰ ਹੁੰਦੀ ਹੈ ਅਤੇ ਤਾਪ ਤੇ ਬਿਜਲੀ ਦੀ ਚੰਗੀ ਚਾਲਕ ਹੁੰਦੀ ਹੈ।"), "Wood": ("Wood is generally opaque and a poor electrical conductor.", "ਲੱਕੜ ਆਮ ਤੌਰ ਤੇ ਅਪਾਰਦਰਸ਼ੀ ਅਤੇ ਬਿਜਲੀ ਦੀ ਮਾੜੀ ਚਾਲਕ ਹੁੰਦੀ ਹੈ।"), "Plastic": ("Plastic is usually lightweight and an electrical insulator.", "ਪਲਾਸਟਿਕ ਆਮ ਤੌਰ ਤੇ ਹਲਕਾ ਅਤੇ ਬਿਜਲੀ ਦਾ ਕੁਚਾਲਕ ਹੁੰਦਾ ਹੈ।")},
+        "solubility": {"Salt in water": ("Salt dissolves and forms a uniform solution.", "ਨਮਕ ਘੁਲ ਕੇ ਇਕਸਾਰ ਘੋਲ ਬਣਾਉਂਦਾ ਹੈ।"), "Sand in water": ("Sand remains insoluble and may settle.", "ਰੇਤ ਨਹੀਂ ਘੁਲਦੀ ਅਤੇ ਹੇਠਾਂ ਬੈਠ ਸਕਦੀ ਹੈ।"), "Oil and water": ("Oil and water form separate layers when left undisturbed.", "ਤੇਲ ਅਤੇ ਪਾਣੀ ਅਡੋਲ ਛੱਡਣ ਤੇ ਵੱਖਰੀਆਂ ਪਰਤਾਂ ਬਣਾਉਂਦੇ ਹਨ।")},
+        "filtration": {"Sand and water": ("Filtration can retain sand while water passes through the filter.", "ਛਾਣਨ ਨਾਲ ਰੇਤ ਫਿਲਟਰ ਵਿੱਚ ਰਹਿ ਸਕਦੀ ਹੈ ਅਤੇ ਪਾਣੀ ਲੰਘ ਜਾਂਦਾ ਹੈ।"), "Salt and water": ("Dissolved salt passes through ordinary filter paper with the water; evaporation is more suitable.", "ਘੁਲਿਆ ਨਮਕ ਆਮ ਫਿਲਟਰ ਪੇਪਰ ਵਿੱਚੋਂ ਪਾਣੀ ਨਾਲ ਲੰਘ ਜਾਂਦਾ ਹੈ; ਵਾਸ਼ਪੀਕਰਨ ਵਧੇਰੇ ਢੁਕਵਾਂ ਹੈ।")},
+        "changes": {"Ice melting": ("Melting is a physical change; the substance remains water.", "ਪਿਘਲਣਾ ਭੌਤਿਕ ਤਬਦੀਲੀ ਹੈ; ਪਦਾਰਥ ਪਾਣੀ ਹੀ ਰਹਿੰਦਾ ਹੈ।"), "Paper burning (diagram only)": ("Burning is a chemical change that produces new substances.", "ਸੜਨਾ ਰਸਾਇਣਕ ਤਬਦੀਲੀ ਹੈ ਜਿਸ ਨਾਲ ਨਵੇਂ ਪਦਾਰਥ ਬਣਦੇ ਹਨ।")},
+        "transparency": {"Clear glass": ("Clear glass transmits most visible light.", "ਸਾਫ਼ ਕੱਚ ਵੱਧ ਦਿੱਖਣਯੋਗ ਰੋਸ਼ਨੀ ਲੰਘਾਉਂਦਾ ਹੈ।"), "Tracing sheet": ("A tracing sheet transmits and scatters some light.", "ਟ੍ਰੇਸਿੰਗ ਸ਼ੀਟ ਕੁਝ ਰੋਸ਼ਨੀ ਲੰਘਾਉਂਦੀ ਅਤੇ ਖਿਲਾਰਦੀ ਹੈ।"), "Cardboard": ("Cardboard blocks most light.", "ਗੱਤਾ ਵੱਧਤਰ ਰੋਸ਼ਨੀ ਰੋਕਦਾ ਹੈ।")},
+        "indicators": {"Lemon juice": ("Lemon juice is acidic; an appropriate indicator shows an acidic colour.", "ਨਿੰਬੂ ਦਾ ਰਸ ਤੇਜ਼ਾਬੀ ਹੈ; ਢੁਕਵਾਂ ਸੂਚਕ ਤੇਜ਼ਾਬੀ ਰੰਗ ਦਿਖਾਉਂਦਾ ਹੈ।"), "Water": ("Pure water is approximately neutral under ordinary conditions.", "ਸ਼ੁੱਧ ਪਾਣੀ ਆਮ ਹਾਲਤਾਂ ਵਿੱਚ ਲਗਭਗ ਉਦਾਸੀਨ ਹੁੰਦਾ ਹੈ।"), "Soap solution": ("Many soap solutions are basic and change indicators accordingly.", "ਕਈ ਸਾਬਣ ਦੇ ਘੋਲ ਖਾਰੀ ਹੁੰਦੇ ਹਨ ਅਤੇ ਸੂਚਕ ਦਾ ਰੰਗ ਬਦਲਦੇ ਹਨ।")},
+        "reversible": {"Melting wax": ("Melting and cooling wax is generally reversible as a physical change.", "ਮੋਮ ਦਾ ਪਿਘਲਣਾ ਅਤੇ ਠੰਢਾ ਹੋ ਕੇ ਜੰਮਣਾ ਆਮ ਤੌਰ ਤੇ ਉਲਟਣਯੋਗ ਭੌਤਿਕ ਤਬਦੀਲੀ ਹੈ।"), "Burning paper (diagram only)": ("Burning paper forms ash and gases; it is not readily reversible.", "ਕਾਗਜ਼ ਸੜਨ ਨਾਲ ਰਾਖ ਅਤੇ ਗੈਸਾਂ ਬਣਦੀਆਂ ਹਨ; ਇਸ ਨੂੰ ਆਸਾਨੀ ਨਾਲ ਉਲਟਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ।")},
+        "physical_chemical": {"Ice melting": ("No new substance forms during melting; it is a physical change.", "ਪਿਘਲਣ ਦੌਰਾਨ ਨਵਾਂ ਪਦਾਰਥ ਨਹੀਂ ਬਣਦਾ; ਇਹ ਭੌਤਿਕ ਤਬਦੀਲੀ ਹੈ।"), "Iron rusting": ("Rusting forms new substances and is a chemical change.", "ਜੰਗ ਲੱਗਣ ਨਾਲ ਨਵੇਂ ਪਦਾਰਥ ਬਣਦੇ ਹਨ; ਇਹ ਰਸਾਇਣਕ ਤਬਦੀਲੀ ਹੈ।")},
+        "rusting": {"Iron with air and moisture": ("Iron rusts more readily when both oxygen and moisture are available.", "ਆਕਸੀਜਨ ਅਤੇ ਨਮੀ ਦੋਵੇਂ ਹੋਣ ਤੇ ਲੋਹੇ ਨੂੰ ਵਧੇਰੇ ਆਸਾਨੀ ਨਾਲ ਜੰਗ ਲੱਗਦੀ ਹੈ।"), "Protected iron": ("A suitable protective coating limits contact with air and moisture.", "ਢੁਕਵੀਂ ਸੁਰੱਖਿਆ ਪਰਤ ਹਵਾ ਅਤੇ ਨਮੀ ਨਾਲ ਸੰਪਰਕ ਘਟਾਉਂਦੀ ਹੈ।")},
+        "separation": {"Sand and water": ("Filtration separates insoluble sand from water.", "ਛਾਣਨ ਨਾਲ ਅਘੁਲਣਸ਼ੀਲ ਰੇਤ ਪਾਣੀ ਤੋਂ ਵੱਖ ਹੁੰਦੀ ਹੈ।"), "Iron filings and sand": ("A magnet can separate iron filings from sand.", "ਚੁੰਬਕ ਲੋਹੇ ਦੇ ਬੁਰਾਦੇ ਨੂੰ ਰੇਤ ਤੋਂ ਵੱਖ ਕਰ ਸਕਦਾ ਹੈ।"), "Salt solution": ("Evaporation can recover dissolved salt, though the water is not collected in this method.", "ਵਾਸ਼ਪੀਕਰਨ ਨਾਲ ਘੁਲਿਆ ਨਮਕ ਮਿਲ ਸਕਦਾ ਹੈ, ਪਰ ਇਸ ਤਰੀਕੇ ਵਿੱਚ ਪਾਣੀ ਇਕੱਠਾ ਨਹੀਂ ਹੁੰਦਾ।")},
+        "combustion": {"All three present": ("Fuel, oxygen and sufficient heat together allow combustion.", "ਇੰਧਨ, ਆਕਸੀਜਨ ਅਤੇ ਕਾਫ਼ੀ ਤਾਪ ਇਕੱਠੇ ਹੋਣ ਤੇ ਦਹਿਨ ਹੁੰਦਾ ਹੈ।"), "Remove oxygen": ("Without oxygen, ordinary combustion cannot continue.", "ਆਕਸੀਜਨ ਤੋਂ ਬਿਨਾਂ ਆਮ ਦਹਿਨ ਜਾਰੀ ਨਹੀਂ ਰਹਿ ਸਕਦਾ।"), "Remove heat": ("If the fuel is cooled below its ignition condition, combustion stops.", "ਇੰਧਨ ਨੂੰ ਜਲਣ ਲਈ ਲੋੜੀਂਦੀ ਹਾਲਤ ਤੋਂ ਠੰਢਾ ਕਰਨ ਨਾਲ ਦਹਿਨ ਰੁਕ ਜਾਂਦਾ ਹੈ।")},
+        "flame": {"Inner dark zone": ("The inner zone contains unburnt vapours and is relatively cooler.", "ਅੰਦਰਲੇ ਖੇਤਰ ਵਿੱਚ ਨਾ ਸੜੇ ਵਾਸ਼ਪ ਹੁੰਦੇ ਹਨ ਅਤੇ ਇਹ ਤੁਲਨਾਤਮਕ ਤੌਰ ਤੇ ਠੰਢਾ ਹੁੰਦਾ ਹੈ।"), "Luminous yellow zone": ("The yellow luminous zone contains glowing soot particles and incomplete combustion.", "ਪੀਲੇ ਚਮਕਦਾਰ ਖੇਤਰ ਵਿੱਚ ਚਮਕਦੇ ਕਾਰਬਨ ਕਣ ਅਤੇ ਅਧੂਰਾ ਦਹਿਨ ਹੋ ਸਕਦਾ ਹੈ।"), "Outer zone": ("The outer zone generally has more complete combustion and is the hottest region.", "ਬਾਹਰੀ ਖੇਤਰ ਵਿੱਚ ਆਮ ਤੌਰ ਤੇ ਵਧੇਰੇ ਪੂਰਾ ਦਹਿਨ ਹੁੰਦਾ ਹੈ ਅਤੇ ਇਹ ਸਭ ਤੋਂ ਗਰਮ ਖੇਤਰ ਹੁੰਦਾ ਹੈ।")},
+        "metals": {"Copper": ("Copper is a metal and conducts heat and electricity well.", "ਤਾਂਬਾ ਧਾਤ ਹੈ ਅਤੇ ਤਾਪ ਤੇ ਬਿਜਲੀ ਦਾ ਚੰਗਾ ਚਾਲਕ ਹੈ।"), "Sulphur (conceptual)": ("Sulphur is a non-metal; it is generally a poor electrical conductor.", "ਗੰਧਕ ਅਧਾਤ ਹੈ; ਇਹ ਆਮ ਤੌਰ ਤੇ ਬਿਜਲੀ ਦੀ ਮਾੜੀ ਚਾਲਕ ਹੈ।")},
+        "corrosion": {"Unprotected iron": ("Exposed iron can corrode when air and moisture are present.", "ਖੁੱਲ੍ਹਾ ਲੋਹਾ ਹਵਾ ਅਤੇ ਨਮੀ ਵਿੱਚ ਖਰ ਸਕਦਾ ਹੈ।"), "Painted iron": ("Paint forms a barrier that can reduce contact with air and moisture.", "ਰੰਗ ਦੀ ਪਰਤ ਹਵਾ ਅਤੇ ਨਮੀ ਨਾਲ ਸੰਪਰਕ ਘਟਾ ਸਕਦੀ ਹੈ।"), "Oiled iron": ("Oil can provide a temporary barrier against moisture.", "ਤੇਲ ਨਮੀ ਤੋਂ ਅਸਥਾਈ ਸੁਰੱਖਿਆ ਦੇ ਸਕਦਾ ਹੈ।")},
+        "crystals": {"Cooling a suitable solution": ("Cooling may reduce solubility and allow crystals to form.", "ਠੰਢਾ ਕਰਨ ਨਾਲ ਘੁਲਣਸ਼ੀਲਤਾ ਘਟ ਸਕਦੀ ਹੈ ਅਤੇ ਕ੍ਰਿਸਟਲ ਬਣ ਸਕਦੇ ਹਨ।"), "Evaporating solvent": ("As solvent evaporates, dissolved material can crystallise.", "ਘੋਲਕ ਉੱਡਣ ਨਾਲ ਘੁਲਿਆ ਪਦਾਰਥ ਕ੍ਰਿਸਟਲ ਬਣਾ ਸਕਦਾ ਹੈ।")},
+        "mixture_compound": {"Iron and sulphur mixed": ("A physical mixture contains the components together without chemically bonding every particle.", "ਭੌਤਿਕ ਮਿਸ਼ਰਣ ਵਿੱਚ ਅੰਸ਼ ਇਕੱਠੇ ਹੁੰਦੇ ਹਨ ਪਰ ਹਰ ਕਣ ਰਸਾਇਣਕ ਤੌਰ ਤੇ ਨਹੀਂ ਜੁੜਦਾ।"), "A compound (particle model)": ("In a compound, elements are chemically combined in a definite proportion.", "ਯੋਗਿਕ ਵਿੱਚ ਤੱਤ ਨਿਰਧਾਰਤ ਅਨੁਪਾਤ ਵਿੱਚ ਰਸਾਇਣਕ ਤੌਰ ਤੇ ਜੁੜੇ ਹੁੰਦੇ ਹਨ।")},
+        "particles": {"Separate atoms": ("Separate circles represent individual atoms in this simplified model.", "ਵੱਖਰੇ ਗੋਲ ਇਸ ਸਰਲ ਮਾਡਲ ਵਿੱਚ ਅਲੱਗ ਪਰਮਾਣੂ ਦਰਸਾਉਂਦੇ ਹਨ।"), "Combined molecule": ("A group of bonded atoms represents a molecule.", "ਜੁੜੇ ਪਰਮਾਣੂਆਂ ਦਾ ਸਮੂਹ ਅਣੂ ਦਰਸਾਉਂਦਾ ਹੈ।")},
+        "conservation": {"Before and after: same atoms": ("The same kinds and numbers of atoms are rearranged in a balanced reaction model.", "ਸੰਤੁਲਿਤ ਕਿਰਿਆ ਮਾਡਲ ਵਿੱਚ ਉਹੀ ਕਿਸਮਾਂ ਅਤੇ ਗਿਣਤੀ ਦੇ ਪਰਮਾਣੂ ਮੁੜ-ਵਿਉਂਤ ਹੁੰਦੇ ਹਨ।"), "Open system loses some gas": ("Gas escaping an open vessel can make the measured mass appear to decrease; the gas still has mass.", "ਖੁੱਲ੍ਹੇ ਭਾਂਡੇ ਵਿੱਚੋਂ ਗੈਸ ਨਿਕਲਣ ਨਾਲ ਮਾਪਿਆ ਪੁੰਜ ਘੱਟ ਲੱਗ ਸਕਦਾ ਹੈ; ਗੈਸ ਦਾ ਵੀ ਪੁੰਜ ਹੁੰਦਾ ਹੈ।")},
+        "mixture_types": {"Solution": ("A solution is uniform at the particle scale.", "ਘੋਲ ਕਣ ਪੱਧਰ ਤੇ ਇਕਸਾਰ ਹੁੰਦਾ ਹੈ।"), "Suspension": ("Suspended particles may settle if the mixture is left undisturbed.", "ਨਿਲੰਬਿਤ ਕਣ ਮਿਸ਼ਰਣ ਅਡੋਲ ਛੱਡਣ ਤੇ ਹੇਠਾਂ ਬੈਠ ਸਕਦੇ ਹਨ।"), "Colloid": ("Colloidal particles remain dispersed and scatter light in many cases.", "ਕੋਲਾਇਡੀ ਕਣ ਫੈਲੇ ਰਹਿੰਦੇ ਹਨ ਅਤੇ ਕਈ ਹਾਲਤਾਂ ਵਿੱਚ ਰੋਸ਼ਨੀ ਖਿਲਾਰਦੇ ਹਨ।")},
+        "distillation": {"Evaporation only": ("Evaporation leaves non-volatile dissolved solids behind.", "ਵਾਸ਼ਪੀਕਰਨ ਨਾਲ ਨਾ ਉੱਡਣ ਵਾਲੇ ਘੁਲਣਸ਼ੀਲ ਠੋਸ ਪਿੱਛੇ ਰਹਿ ਜਾਂਦੇ ਹਨ।"), "Distillation and collection": ("Distillation cools vapour to collect the condensed liquid.", "ਆਸਵਨ ਵਿੱਚ ਭਾਫ਼ ਠੰਢੀ ਕਰਕੇ ਸੰਘਣੇ ਤਰਲ ਨੂੰ ਇਕੱਠਾ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।")},
+        "ph": {"Acidic sample": ("An acidic solution changes a suitable indicator to its acidic colour; pH is below neutral.", "ਤੇਜ਼ਾਬੀ ਘੋਲ ਢੁਕਵੇਂ ਸੂਚਕ ਨੂੰ ਤੇਜ਼ਾਬੀ ਰੰਗ ਵਿੱਚ ਬਦਲਦਾ ਹੈ; pH ਉਦਾਸੀਨ ਤੋਂ ਘੱਟ ਹੁੰਦਾ ਹੈ।"), "Neutral sample": ("A neutral sample shows the neutral indicator colour; at room conditions, pure water is near pH 7.", "ਉਦਾਸੀਨ ਨਮੂਨਾ ਉਦਾਸੀਨ ਰੰਗ ਦਿਖਾਉਂਦਾ ਹੈ; ਕਮਰੇ ਦੀ ਹਾਲਤ ਵਿੱਚ ਸ਼ੁੱਧ ਪਾਣੀ ਦਾ pH ਲਗਭਗ 7 ਹੁੰਦਾ ਹੈ।"), "Basic sample": ("A basic solution changes a suitable indicator to its basic colour; pH is above neutral.", "ਖਾਰੀ ਘੋਲ ਢੁਕਵੇਂ ਸੂਚਕ ਨੂੰ ਖਾਰੀ ਰੰਗ ਵਿੱਚ ਬਦਲਦਾ ਹੈ; pH ਉਦਾਸੀਨ ਤੋਂ ਵੱਧ ਹੁੰਦਾ ਹੈ।")},
+        "reaction": {"Gas bubbles appear": ("Gas formation can be evidence of a chemical reaction.", "ਗੈਸ ਬਣਨਾ ਰਸਾਇਣਕ ਕਿਰਿਆ ਦਾ ਸਬੂਤ ਹੋ ਸਕਦਾ ਹੈ।"), "A new solid appears": ("A newly formed insoluble solid is called a precipitate.", "ਨਵਾਂ ਬਣਿਆ ਅਘੁਲਣਸ਼ੀਲ ਠੋਸ ਅਵਖੇਪ ਕਹਾਉਂਦਾ ਹੈ।"), "Only shape changes": ("A change in shape alone is usually a physical change.", "ਸਿਰਫ਼ ਆਕਾਰ ਬਦਲਣਾ ਆਮ ਤੌਰ ਤੇ ਭੌਤਿਕ ਤਬਦੀਲੀ ਹੈ।")},
+        "neutralisation": {"Acid and base react": ("Neutralisation can form salt and water; the exact outcome depends on the substances used.", "ਉਦਾਸੀਨੀਕਰਨ ਨਾਲ ਲੂਣ ਅਤੇ ਪਾਣੀ ਬਣ ਸਕਦੇ ਹਨ; ਅਸਲ ਨਤੀਜਾ ਵਰਤੇ ਪਦਾਰਥਾਂ ਤੇ ਨਿਰਭਰ ਕਰਦਾ ਹੈ।"), "Acid only": ("An acid alone does not demonstrate neutralisation; a suitable base is also needed.", "ਸਿਰਫ਼ ਤੇਜ਼ਾਬ ਨਾਲ ਉਦਾਸੀਨੀਕਰਨ ਨਹੀਂ ਦਿਖਾਇਆ ਜਾਂਦਾ; ਢੁਕਵੀਂ ਖਾਰ ਵੀ ਲੋੜੀਂਦੀ ਹੈ।"), "Base only": ("A base alone does not demonstrate neutralisation; a suitable acid is also needed.", "ਸਿਰਫ਼ ਖਾਰ ਨਾਲ ਉਦਾਸੀਨੀਕਰਨ ਨਹੀਂ ਦਿਖਾਇਆ ਜਾਂਦਾ; ਢੁਕਵਾਂ ਤੇਜ਼ਾਬ ਵੀ ਲੋੜੀਂਦਾ ਹੈ।")},
+        "reactivity": {"More reactive metal": ("A more reactive metal can displace a less reactive metal from a suitable salt solution.", "ਵੱਧ ਕਿਰਿਆਸ਼ੀਲ ਧਾਤ ਢੁਕਵੇਂ ਲੂਣ ਦੇ ਘੋਲ ਵਿੱਚੋਂ ਘੱਟ ਕਿਰਿਆਸ਼ੀਲ ਧਾਤ ਨੂੰ ਹਟਾ ਸਕਦੀ ਹੈ।"), "Less reactive metal": ("A less reactive metal cannot normally displace a more reactive metal from its salt solution.", "ਘੱਟ ਕਿਰਿਆਸ਼ੀਲ ਧਾਤ ਆਮ ਤੌਰ ਤੇ ਵੱਧ ਕਿਰਿਆਸ਼ੀਲ ਧਾਤ ਨੂੰ ਉਸ ਦੇ ਲੂਣ ਦੇ ਘੋਲ ਵਿੱਚੋਂ ਨਹੀਂ ਹਟਾ ਸਕਦੀ।")},
+        "electrochemistry": {"Metal coating model": ("In electroplating, metal ions can deposit as a thin layer on the object connected as the cathode.", "ਇਲੈਕਟ੍ਰੋਪਲੇਟਿੰਗ ਵਿੱਚ ਕੈਥੋਡ ਨਾਲ ਜੁੜੀ ਵਸਤੂ ਉੱਤੇ ਧਾਤ ਦੇ ਆਇਨ ਪਤਲੀ ਪਰਤ ਵਜੋਂ ਜਮ ਸਕਦੇ ਹਨ।"), "Current switched off": ("Without current, electroplating deposition stops in this simple model.", "ਕਰੰਟ ਬੰਦ ਹੋਣ ਤੇ ਇਸ ਸਰਲ ਮਾਡਲ ਵਿੱਚ ਇਲੈਕਟ੍ਰੋਪਲੇਟਿੰਗ ਰੁਕ ਜਾਂਦੀ ਹੈ।")}
+    }
+    pair = outcomes.get(kind, {}).get(chosen_en)
+    if pair:
+        result = pair[1] if pa else pair[0]
+    else:
+        result = note
+    st.markdown("### " + ("ਨਿਰੀਖਣ" if pa else "Observation"))
+    st.success(result)
+    st.markdown("**" + ("ਵਿਗਿਆਨਕ ਵਿਆਖਿਆ" if pa else "Scientific explanation") + ":** " + note)
+    with st.expander("🧠 " + ("ਸੋਚੋ ਅਤੇ ਜਵਾਬ ਦਿਓ" if pa else "Think and answer")):
+        st.write("ਇਹ ਨਿਰੀਖਣ ਕਿਹੜੇ ਵਿਗਿਆਨਕ ਸਿਧਾਂਤ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ?" if pa else "Which scientific principle does this observation demonstrate?")
+        st.text_input("ਤੁਹਾਡਾ ਜਵਾਬ" if pa else "Your explanation", key=f"chem_reflect_{cc}_{ei}_{st.session_state.language}")
+    st.caption("Virtual educational model only. Follow teacher supervision and school laboratory safety rules for any real practical work." if not pa else "ਇਹ ਸਿਰਫ਼ ਵਰਚੁਅਲ ਸਿੱਖਣ ਮਾਡਲ ਹੈ। ਅਸਲ ਪ੍ਰਯੋਗ ਅਧਿਆਪਕ ਦੀ ਦੇਖ-ਰੇਖ ਅਤੇ ਸਕੂਲ ਦੀ ਲੈਬ ਸੁਰੱਖਿਆ ਦੇ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਹੀ ਕਰੋ।")
+
 def planned_lab(page):
     if st.button(tr("back")):
         go("home")
@@ -2655,7 +2870,10 @@ elif st.session_state.page == "electricity":
 elif st.session_state.page == "physics":
     show_header()
     physics_lab()
-elif st.session_state.page in ("chemistry","biology","mentor"):
+elif st.session_state.page == "chemistry":
+    show_header()
+    chemistry_lab()
+elif st.session_state.page in ("biology","mentor"):
     show_header()
     planned_lab(st.session_state.page)
 else:
