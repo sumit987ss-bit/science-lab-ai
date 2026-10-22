@@ -2076,13 +2076,6 @@ def physics_lab():
             scene_label = "GRAVITY PULLS THE BALL DOWNWARD" if not is_pa else "ਗੁਰੁਤਵਾਕਰਸ਼ਣ ਗੇਂਦ ਨੂੰ ਹੇਠਾਂ ਖਿੱਚਦਾ ਹੈ"
             object_motion = '<path d="M118 111 V163 M108 151 L118 165 L128 151" stroke="#dc2626" stroke-width="4" fill="none" stroke-linecap="round"/>'
         visual = f'<rect x="12" y="12" width="436" height="206" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="31" text-anchor="middle" font-size="14" font-weight="700" fill="#334155">{("GRAVITY AND GRAVITATIONAL POTENTIAL ENERGY" if not is_pa else "ਗੁਰੁਤਵਾਕਰਸ਼ਣ ਅਤੇ ਸਥਿਤਿਜ ਊਰਜਾ")}</text><path d="M45 190 H420" stroke="#64748b" stroke-width="4"/><path d="M45 116 H168 V190" stroke="#94a3b8" stroke-width="3" fill="none"/><path d="M45 116 H168" stroke="#64748b" stroke-width="5"/><circle cx="118" cy="{ball_y}" r="17" fill="{ball_color}" stroke="#9a3412" stroke-width="3"/><path d="M112 {ball_y-5} Q118 {ball_y-14} 125 {ball_y-4}" stroke="#fed7aa" stroke-width="3" fill="none"/>{object_motion}<path d="M235 61 V140 M225 128 L235 142 L245 128" stroke="#7c3aed" stroke-width="4" fill="none" stroke-linecap="round"/><text x="270" y="82" font-size="12" font-weight="700" fill="#6d28d9">{("GRAVITY" if not is_pa else "ਗੁਰੁਤਵਾਕਰਸ਼ਣ")}</text><text x="280" y="101" font-size="11" fill="#334155">{("Pulls objects toward Earth" if not is_pa else "ਵਸਤੂਆਂ ਨੂੰ ਧਰਤੀ ਵੱਲ ਖਿੱਚਦਾ ਹੈ")}</text><text x="235" y="207" text-anchor="middle" font-size="11" font-weight="700" fill="#0f766e">{scene_label}</text>'
-    elif class9_gravity_experiment:
-        if a == "Ball at a high position":
-            result = ("The ball is higher above the ground, so it has more gravitational potential energy. If released, gravity pulls it downward." if not is_pa else "ਗੇਂਦ ਜ਼ਮੀਨ ਤੋਂ ਵੱਧ ਉਚਾਈ ਉੱਤੇ ਹੈ, ਇਸ ਲਈ ਇਸ ਦੀ ਗੁਰੁਤਵਾਕਰਸ਼ੀ ਸਥਿਤਿਜ ਊਰਜਾ ਵੱਧ ਹੈ। ਛੱਡਣ ਉੱਤੇ ਗੁਰੁਤਵਾਕਰਸ਼ਣ ਇਸ ਨੂੰ ਹੇਠਾਂ ਖਿੱਚੇਗਾ।")
-        elif a == "Ball at a low position":
-            result = ("Near the ground, the ball has less gravitational potential energy than it would at a higher position." if not is_pa else "ਜ਼ਮੀਨ ਦੇ ਨੇੜੇ ਗੇਂਦ ਦੀ ਗੁਰੁਤਵਾਕਰਸ਼ੀ ਸਥਿਤਿਜ ਊਰਜਾ ਉੱਚੀ ਥਾਂ ਨਾਲੋਂ ਘੱਟ ਹੁੰਦੀ ਹੈ।")
-        else:
-            result = ("Gravity pulls the ball downward. As it falls, gravitational potential energy is transferred mainly into kinetic energy." if not is_pa else "ਗੁਰੁਤਵਾਕਰਸ਼ਣ ਗੇਂਦ ਨੂੰ ਹੇਠਾਂ ਖਿੱਚਦਾ ਹੈ। ਡਿੱਗਣ ਸਮੇਂ ਸਥਿਤਿਜ ਊਰਜਾ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਗਤੀ ਊਰਜਾ ਵਿੱਚ ਬਦਲਦੀ ਹੈ।")
     elif class9_refraction_experiment:
         if a == "Air to glass block":
             ray_label = "AIR → GLASS: BENDS TOWARD NORMAL" if not is_pa else "ਹਵਾ → ਕੱਚ: ਲੰਬ ਵੱਲ ਮੁੜਦੀ ਹੈ"
@@ -2098,6 +2091,13 @@ def physics_lab():
             arrow_head = '<path d="M342 67 L362 64 L352 82" stroke="#0ea5e9" stroke-width="4" fill="none"/>'
         incident_path = '<path d="M65 58 L220 135" stroke="#f59e0b" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M207 126 L221 136 L216 119" stroke="#f59e0b" stroke-width="4" fill="none"/>' if a == "Air to glass block" else '<path d="M65 205 L220 135" stroke="#f59e0b" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M205 143 L221 135 L203 131" stroke="#f59e0b" stroke-width="4" fill="none"/>'
         visual = f'<rect x="12" y="12" width="436" height="206" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="31" text-anchor="middle" font-size="14" font-weight="700" fill="#334155">{("REFRACTION OF LIGHT THROUGH A GLASS BLOCK" if not is_pa else "ਕੱਚ ਦੇ ਬਲਾਕ ਵਿੱਚ ਰੋਸ਼ਨੀ ਦਾ ਅਪਵਰਤਨ")}</text><rect x="70" y="82" width="320" height="112" rx="4" fill="#bae6fd" fill-opacity=".55" stroke="#0284c7" stroke-width="2"/><text x="92" y="101" font-size="11" fill="#075985">{("GLASS BLOCK" if not is_pa else "ਕੱਚ ਦਾ ਬਲਾਕ")}</text><path d="M220 45 V207" stroke="#64748b" stroke-width="2" stroke-dasharray="6 5"/><text x="229" y="53" font-size="11" fill="#475569">{("NORMAL" if not is_pa else "ਲੰਬ")}</text>{incident_path}{refracted_path}{arrow_head}<circle cx="220" cy="135" r="5" fill="#dc2626"/><text x="62" y="47" font-size="11" font-weight="700" fill="#b45309">{("INCIDENT RAY" if not is_pa else "ਆਗਮਨ ਕਿਰਨ")}</text><text x="230" y="211" text-anchor="middle" font-size="11" font-weight="700" fill="#0f766e">{ray_label}</text>'
+    elif class9_gravity_experiment:
+        if a == "Ball at a high position":
+            result = ("The ball is higher above the ground, so it has more gravitational potential energy. If released, gravity pulls it downward." if not is_pa else "ਗੇਂਦ ਜ਼ਮੀਨ ਤੋਂ ਵੱਧ ਉਚਾਈ ਉੱਤੇ ਹੈ, ਇਸ ਲਈ ਇਸ ਦੀ ਗੁਰੁਤਵਾਕਰਸ਼ੀ ਸਥਿਤਿਜ ਊਰਜਾ ਵੱਧ ਹੈ। ਛੱਡਣ ਉੱਤੇ ਗੁਰੁਤਵਾਕਰਸ਼ਣ ਇਸ ਨੂੰ ਹੇਠਾਂ ਖਿੱਚੇਗਾ।")
+        elif a == "Ball at a low position":
+            result = ("Near the ground, the ball has less gravitational potential energy than it would at a higher position." if not is_pa else "ਜ਼ਮੀਨ ਦੇ ਨੇੜੇ ਗੇਂਦ ਦੀ ਗੁਰੁਤਵਾਕਰਸ਼ੀ ਸਥਿਤਿਜ ਊਰਜਾ ਉੱਚੀ ਥਾਂ ਨਾਲੋਂ ਘੱਟ ਹੁੰਦੀ ਹੈ।")
+        else:
+            result = ("Gravity pulls the ball downward. As it falls, gravitational potential energy is transferred mainly into kinetic energy." if not is_pa else "ਗੁਰੁਤਵਾਕਰਸ਼ਣ ਗੇਂਦ ਨੂੰ ਹੇਠਾਂ ਖਿੱਚਦਾ ਹੈ। ਡਿੱਗਣ ਸਮੇਂ ਸਥਿਤਿਜ ਊਰਜਾ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਗਤੀ ਊਰਜਾ ਵਿੱਚ ਬਦਲਦੀ ਹੈ।")
     elif class9_refraction_experiment:
         if a == "Air to glass block":
             result = ("As light enters glass from air at an angle, it slows down and bends towards the normal. The ray changes direction at the boundary." if not is_pa else "ਜਦੋਂ ਰੋਸ਼ਨੀ ਕੋਣ ਨਾਲ ਹਵਾ ਤੋਂ ਕੱਚ ਵਿੱਚ ਜਾਂਦੀ ਹੈ, ਇਸ ਦੀ ਗਤੀ ਘਟਦੀ ਹੈ ਅਤੇ ਕਿਰਨ ਲੰਬ ਵੱਲ ਮੁੜਦੀ ਹੈ। ਸੀਮਾ ਉੱਤੇ ਦਿਸ਼ਾ ਬਦਲਦੀ ਹੈ।")
