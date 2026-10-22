@@ -781,19 +781,25 @@ def electricity_lab():
             st.write("💡 " + note)
             st.caption("Qualitative visual only — no numerical values, units, calculated readings or graph." if not is_pa_ohms else "ਸਿਰਫ਼ ਗੁਣਾਤਮਕ ਦ੍ਰਿਸ਼ — ਕੋਈ ਸੰਖਿਆਤਮਕ ਮੁੱਲ, ਇਕਾਈਆਂ, ਗਣਨਾ ਜਾਂ ਗ੍ਰਾਫ ਨਹੀਂ।")
         elif kind == "series_parallel" and selected_class == 9 and exp_index == 2:
-            # Class 9 Experiment 3: independent switch controls for series and parallel circuits.
+            # Class 9 Experiment 3: visual, qualitative comparison of series and parallel circuits.
             is_pa_series = st.session_state.language != "en"
-            series_switch = st.checkbox("ਲੜੀਵਾਰ ਸਰਕਟ ਦਾ ਸਵਿੱਚ" if is_pa_series else "Series circuit main switch", value=True, key="c9_exp3_series_switch")
-            st.markdown("**" + ("ਸਮਾਂਤਰ ਸ਼ਾਖਾਂ ਦੇ ਸਵਿੱਚ" if is_pa_series else "Parallel branch switches") + "**")
+            series_switch = st.checkbox(
+                "ਲੜੀਵਾਰ ਸਰਕਟ ਦਾ ਮੁੱਖ ਸਵਿੱਚ" if is_pa_series else "Series circuit main switch",
+                value=True, key="c9_exp3_series_switch"
+            )
+            st.markdown("**" + ("ਸਮਾਂਤਰ ਸ਼ਾਖਾਵਾਂ ਦੇ ਵੱਖਰੇ ਸਵਿੱਚ" if is_pa_series else "Independent parallel-branch switches") + "**")
             pcol1, pcol2 = st.columns(2)
             with pcol1:
-                parallel_switch_1 = st.checkbox("ਸ਼ਾਖਾ 1" if is_pa_series else "Branch 1", value=True, key="c9_exp3_parallel_switch_1")
+                parallel_switch_1 = st.checkbox(
+                    "ਸ਼ਾਖਾ 1" if is_pa_series else "Branch 1",
+                    value=True, key="c9_exp3_parallel_switch_1"
+                )
             with pcol2:
-                parallel_switch_2 = st.checkbox("ਸ਼ਾਖਾ 2" if is_pa_series else "Branch 2", value=True, key="c9_exp3_parallel_switch_2")
-            series_title = "ਲੜੀਵਾਰ ਜੋੜ" if is_pa_series else "SERIES CONNECTION"
-            parallel_title = "ਸਮਾਂਤਰ ਜੋੜ" if is_pa_series else "PARALLEL CONNECTION"
-            series_note = ("ਇੱਕੋ ਸਵਿੱਚ ਪੂਰੇ ਲੜੀਵਾਰ ਸਰਕਟ ਨੂੰ ਚਾਲੂ ਜਾਂ ਬੰਦ ਕਰਦਾ ਹੈ।" if is_pa_series else "One switch controls the entire series circuit; opening it turns both bulbs off.")
-            parallel_note = ("ਹਰ ਸ਼ਾਖਾ ਦਾ ਆਪਣਾ ਸਵਿੱਚ ਹੈ; ਇੱਕ ਸ਼ਾਖਾ ਬੰਦ ਹੋਣ ਤੇ ਦੂਜੀ ਚੱਲ ਸਕਦੀ ਹੈ।" if is_pa_series else "Each branch has its own switch; one bulb can stay on when the other branch is off.")
+                parallel_switch_2 = st.checkbox(
+                    "ਸ਼ਾਖਾ 2" if is_pa_series else "Branch 2",
+                    value=True, key="c9_exp3_parallel_switch_2"
+                )
+
             series_wire = "#16a34a" if series_switch else "#94a3b8"
             series_bulb = "#fde047" if series_switch else "#e2e8f0"
             series_glow = "filter:drop-shadow(0 0 8px #facc15);" if series_switch else ""
@@ -803,50 +809,69 @@ def electricity_lab():
             p2_bulb = "#fde047" if parallel_switch_2 else "#e2e8f0"
             p1_glow = "filter:drop-shadow(0 0 8px #facc15);" if parallel_switch_1 else ""
             p2_glow = "filter:drop-shadow(0 0 8px #facc15);" if parallel_switch_2 else ""
-            series_status = ("ਸਵਿੱਚ ਬੰਦ — ਦੋਵੇਂ ਬਲਬ ਬੰਦ" if is_pa_series else "Main switch open — both bulbs off") if not series_switch else ("ਸਰਕਟ ਪੂਰਾ — ਦੋਵੇਂ ਬਲਬ ਚਾਲੂ" if is_pa_series else "Circuit complete — both bulbs on")
+            series_status = (
+                ("ਸਰਕਟ ਪੂਰਾ — ਦੋਵੇਂ ਬਲਬ ਜਗਦੇ ਹਨ" if is_pa_series else "Complete path — both bulbs glow")
+                if series_switch else
+                ("ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ — ਦੋਵੇਂ ਬਲਬ ਬੰਦ" if is_pa_series else "Open switch — both bulbs are off")
+            )
             if is_pa_series:
                 parallel_status = f"ਸ਼ਾਖਾ 1: {'ਚਾਲੂ' if parallel_switch_1 else 'ਬੰਦ'} | ਸ਼ਾਖਾ 2: {'ਚਾਲੂ' if parallel_switch_2 else 'ਬੰਦ'}"
             else:
                 parallel_status = f"Branch 1: {'ON' if parallel_switch_1 else 'OFF'} | Branch 2: {'ON' if parallel_switch_2 else 'OFF'}"
+
+            series_title = "ਲੜੀਵਾਰ ਜੋੜ" if is_pa_series else "SERIES CONNECTION"
+            parallel_title = "ਸਮਾਂਤਰ ਜੋੜ" if is_pa_series else "PARALLEL CONNECTION"
             series_svg = f"""<div style="border:1px solid rgba(120,140,160,.35);border-radius:14px;padding:8px;background:rgba(128,128,128,.035)">
-            <svg viewBox="0 0 340 220" width="100%" role="img" aria-label="Series circuit with one main switch controlling two bulbs">
+            <svg viewBox="0 0 340 235" width="100%" role="img" aria-label="Series circuit: one main switch controls both bulbs">
               <g fill="none" stroke="{series_wire}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M52 48 H95 M139 48 H201 M245 48 H288 V174 H210 M155 174 H52 V118 M52 48 V82"/>
-                <path d="M155 174 L174 162 L193 174" stroke="#64748b" stroke-width="3"/>
+                <path d="M48 58 H92 M136 58 H204 M248 58 H292 V177 H48 V119 M48 58 V82"/>
               </g>
-              <g stroke="#334155" stroke-width="3"><line x1="34" y1="82" x2="70" y2="82"/><line x1="41" y1="101" x2="63" y2="101"/></g>
-              <circle cx="117" cy="48" r="22" fill="{series_bulb}" stroke="#475569" stroke-width="3" style="{series_glow}"/><path d="M107 38 l20 20 M127 38 l-20 20" stroke="#475569" stroke-width="3"/>
-              <circle cx="223" cy="48" r="22" fill="{series_bulb}" stroke="#475569" stroke-width="3" style="{series_glow}"/><path d="M213 38 l20 20 M233 38 l-20 20" stroke="#475569" stroke-width="3"/>
-              <text x="52" y="137" fill="currentColor" font-size="11" text-anchor="middle">{"ਸੈੱਲ" if is_pa_series else "CELL"}</text>
-              <text x="174" y="151" fill="currentColor" font-size="10" text-anchor="middle">{"ਮੁੱਖ ਸਵਿੱਚ" if is_pa_series else "MAIN SWITCH"}</text>
-              <text x="170" y="202" fill="currentColor" font-size="12" font-weight="700" text-anchor="middle">{("ਇੱਕ ਸਵਿੱਚ — ਦੋਵੇਂ ਬਲਬ" if is_pa_series else "ONE SWITCH CONTROLS BOTH")}</text>
+              <g stroke="#334155" stroke-width="3"><line x1="31" y1="82" x2="65" y2="82"/><line x1="38" y1="101" x2="58" y2="101"/></g>
+              <circle cx="114" cy="58" r="22" fill="{series_bulb}" stroke="#475569" stroke-width="3" style="{series_glow}"/>
+              <path d="M104 48 l20 20 M124 48 l-20 20" stroke="#475569" stroke-width="3"/>
+              <circle cx="226" cy="58" r="22" fill="{series_bulb}" stroke="#475569" stroke-width="3" style="{series_glow}"/>
+              <path d="M216 48 l20 20 M236 48 l-20 20" stroke="#475569" stroke-width="3"/>
+              <path d="M150 177 l15 -10 l15 10" fill="none" stroke="#64748b" stroke-width="3"/>
+              <text x="48" y="139" fill="currentColor" font-size="11" text-anchor="middle">{"ਸੈੱਲ" if is_pa_series else "CELL"}</text>
+              <text x="180" y="158" fill="currentColor" font-size="10" text-anchor="middle">{"ਮੁੱਖ ਸਵਿੱਚ" if is_pa_series else "MAIN SWITCH"}</text>
+              <text x="170" y="211" fill="currentColor" font-size="12" font-weight="700" text-anchor="middle">{"ਇੱਕ ਰਸਤਾ • ਦੋਵੇਂ ਬਲਬ ਇਕੱਠੇ" if is_pa_series else "ONE PATH • BOTH BULBS TOGETHER"}</text>
             </svg></div>"""
+
             parallel_svg = f"""<div style="border:1px solid rgba(120,140,160,.35);border-radius:14px;padding:8px;background:rgba(128,128,128,.035)">
-            <svg viewBox="0 0 340 220" width="100%" role="img" aria-label="Parallel circuit with independent switch in each bulb branch">
-              <g fill="none" stroke="#16a34a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M52 48 H288 V174 H52 V118 M52 48 V82"/>
+            <svg viewBox="0 0 340 235" width="100%" role="img" aria-label="Parallel circuit: each bulb branch has its own switch">
+              <g fill="none" stroke="#64748b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M48 58 H292 V177 H48 V119 M48 58 V82"/>
               </g>
-              <path d="M105 48 V67 M105 85 V91 M105 131 V174" fill="none" stroke="{p1_wire}" stroke-width="4" stroke-linecap="round"/>
-              <path d="M235 48 V67 M235 85 V91 M235 131 V174" fill="none" stroke="{p2_wire}" stroke-width="4" stroke-linecap="round"/>
-              <g stroke="#64748b" stroke-width="3" stroke-linecap="round"><circle cx="105" cy="68" r="2" fill="#64748b"/><circle cx="105" cy="84" r="2" fill="#64748b"/><line x1="105" y1="68" x2="105" y2="{84 if parallel_switch_1 else 58}"/><circle cx="235" cy="68" r="2" fill="#64748b"/><circle cx="235" cy="84" r="2" fill="#64748b"/><line x1="235" y1="68" x2="235" y2="{84 if parallel_switch_2 else 58}"/></g>
-              <circle cx="105" cy="111" r="20" fill="{p1_bulb}" stroke="#475569" stroke-width="3" style="{p1_glow}"/><path d="M96 102 l18 18 M114 102 l-18 18" stroke="#475569" stroke-width="3"/>
-              <circle cx="235" cy="111" r="20" fill="{p2_bulb}" stroke="#475569" stroke-width="3" style="{p2_glow}"/><path d="M226 102 l18 18 M244 102 l-18 18" stroke="#475569" stroke-width="3"/>
-              <g stroke="#334155" stroke-width="3"><line x1="34" y1="82" x2="70" y2="82"/><line x1="41" y1="101" x2="63" y2="101"/></g>
-              <text x="52" y="137" fill="currentColor" font-size="11" text-anchor="middle">{"ਸੈੱਲ" if is_pa_series else "CELL"}</text>
-              <text x="105" y="151" fill="currentColor" font-size="10" text-anchor="middle">{"ਸਵਿੱਚ 1" if is_pa_series else "SWITCH 1"}</text><text x="235" y="151" fill="currentColor" font-size="10" text-anchor="middle">{"ਸਵਿੱਚ 2" if is_pa_series else "SWITCH 2"}</text>
-              <text x="170" y="202" fill="currentColor" font-size="12" font-weight="700" text-anchor="middle">{("ਹਰ ਸ਼ਾਖਾ ਦਾ ਵੱਖਰਾ ਸਵਿੱਚ" if is_pa_series else "INDEPENDENT BRANCH SWITCHES")}</text>
+              <path d="M112 58 V76 M112 94 V119 M112 157 V177" fill="none" stroke="{p1_wire}" stroke-width="4" stroke-linecap="round"/>
+              <path d="M228 58 V76 M228 94 V119 M228 157 V177" fill="none" stroke="{p2_wire}" stroke-width="4" stroke-linecap="round"/>
+              <g stroke="#475569" stroke-width="3" stroke-linecap="round">
+                <circle cx="112" cy="76" r="2.5" fill="#475569"/><circle cx="112" cy="94" r="2.5" fill="#475569"/>
+                <line x1="112" y1="76" x2="112" y2="{94 if parallel_switch_1 else 66}"/>
+                <circle cx="228" cy="76" r="2.5" fill="#475569"/><circle cx="228" cy="94" r="2.5" fill="#475569"/>
+                <line x1="228" y1="76" x2="228" y2="{94 if parallel_switch_2 else 66}"/>
+              </g>
+              <circle cx="112" cy="138" r="19" fill="{p1_bulb}" stroke="#475569" stroke-width="3" style="{p1_glow}"/>
+              <path d="M103 129 l18 18 M121 129 l-18 18" stroke="#475569" stroke-width="3"/>
+              <circle cx="228" cy="138" r="19" fill="{p2_bulb}" stroke="#475569" stroke-width="3" style="{p2_glow}"/>
+              <path d="M219 129 l18 18 M237 129 l-18 18" stroke="#475569" stroke-width="3"/>
+              <g stroke="#334155" stroke-width="3"><line x1="31" y1="82" x2="65" y2="82"/><line x1="38" y1="101" x2="58" y2="101"/></g>
+              <text x="48" y="139" fill="currentColor" font-size="11" text-anchor="middle">{"ਸੈੱਲ" if is_pa_series else "CELL"}</text>
+              <text x="112" y="201" fill="currentColor" font-size="10" text-anchor="middle">{"ਸਵਿੱਚ 1" if is_pa_series else "SWITCH 1"}</text>
+              <text x="228" y="201" fill="currentColor" font-size="10" text-anchor="middle">{"ਸਵਿੱਚ 2" if is_pa_series else "SWITCH 2"}</text>
+              <text x="170" y="222" fill="currentColor" font-size="11" font-weight="700" text-anchor="middle">{"ਵੱਖਰੀਆਂ ਸ਼ਾਖਾਵਾਂ" if is_pa_series else "INDEPENDENT BRANCHES"}</text>
             </svg></div>"""
+
             st.markdown("#### " + ("ਲੜੀਵਾਰ ਅਤੇ ਸਮਾਂਤਰ ਸਰਕਟਾਂ ਦੀ ਤੁਲਨਾ" if is_pa_series else "Compare Series and Parallel Circuits"))
             col_series, col_parallel = st.columns(2)
             with col_series:
                 st.markdown("**" + series_title + "**")
                 st.markdown(series_svg, unsafe_allow_html=True)
-                st.caption(series_note)
+                st.caption("ਇੱਕ ਸਵਿੱਚ ਖੋਲ੍ਹਣ ਨਾਲ ਦੋਵੇਂ ਬਲਬ ਬੰਦ ਹੋ ਜਾਂਦੇ ਹਨ।" if is_pa_series else "Opening the main switch turns both bulbs off.")
                 st.info(series_status)
             with col_parallel:
                 st.markdown("**" + parallel_title + "**")
                 st.markdown(parallel_svg, unsafe_allow_html=True)
-                st.caption(parallel_note)
+                st.caption("ਇੱਕ ਸ਼ਾਖਾ ਬੰਦ ਹੋਵੇ ਤਾਂ ਦੂਜੀ ਚੱਲ ਸਕਦੀ ਹੈ।" if is_pa_series else "One branch can be off while the other remains on.")
                 st.info(parallel_status)
             st.write("💡 " + note)
             st.caption("Qualitative visuals only — no numerical readings, calculations, units or graphs." if not is_pa_series else "ਸਿਰਫ਼ ਗੁਣਾਤਮਕ ਦ੍ਰਿਸ਼ — ਕੋਈ ਸੰਖਿਆਤਮਕ ਰੀਡਿੰਗ, ਗਣਨਾ, ਇਕਾਈ ਜਾਂ ਗ੍ਰਾਫ ਨਹੀਂ।")
