@@ -1831,7 +1831,13 @@ def physics_lab():
     pressure_area_examples_experiment = pc == 8 and ei == 0 and kind == "pressure_area"
     balanced_forces_examples_experiment = pc == 8 and ei == 1 and kind == "balanced"
     heat_conduction_examples_experiment = pc == 8 and ei == 2 and kind == "heat"
+    class8_sound_wave_examples_experiment = pc == 8 and ei == 4 and kind == "wave"
     if balanced_forces_examples_experiment:
+    if class8_sound_wave_examples_experiment:
+        sound_examples = ["Soft, low-pitched sound", "Loud, low-pitched sound", "Soft, high-pitched sound", "Loud, high-pitched sound"]
+        sound_examples_pa = ["ਹੌਲੀ, ਨੀਵੀਂ ਸੁਰ ਵਾਲੀ ਧੁਨੀ", "ਉੱਚੀ ਆਵਾਜ਼, ਨੀਵੀਂ ਸੁਰ", "ਹੌਲੀ, ਉੱਚੀ ਸੁਰ ਵਾਲੀ ਧੁਨੀ", "ਉੱਚੀ ਆਵਾਜ਼, ਉੱਚੀ ਸੁਰ"]
+        a = st.selectbox("Choose a sound to compare" if not is_pa else "ਤੁਲਨਾ ਲਈ ਧੁਨੀ ਚੁਣੋ", sound_examples, format_func=lambda x: sound_examples_pa[sound_examples.index(x)] if is_pa else x, key="physics_class8_sound_example")
+        b = a
         balanced_force_examples = ["Both people push the table to the right", "People push equally in opposite directions", "People push in opposite directions, one harder"]
         balanced_force_examples_pa = ["ਦੋਵੇਂ ਵਿਅਕਤੀ ਮੇਜ਼ ਨੂੰ ਸੱਜੇ ਧੱਕਦੇ ਹਨ", "ਦੋਵੇਂ ਬਰਾਬਰ ਬਲ ਨਾਲ ਉਲਟ ਧੱਕਦੇ ਹਨ", "ਉਲਟ ਦਿਸ਼ਾਵਾਂ ਵਿੱਚ ਧੱਕਾ, ਇੱਕ ਵੱਧ ਤਾਕਤ ਨਾਲ"]
         a = st.selectbox("Choose how the people push the table" if not is_pa else "ਚੁਣੋ ਕਿ ਵਿਅਕਤੀ ਮੇਜ਼ ਨੂੰ ਕਿਵੇਂ ਧੱਕਦੇ ਹਨ", balanced_force_examples, format_func=lambda x: balanced_force_examples_pa[balanced_force_examples.index(x)] if is_pa else x, key="physics_class8_balanced_force_example")
@@ -2066,6 +2072,15 @@ def physics_lab():
         visual = f'<path d="M40 180 L420 180" stroke="#64748b" stroke-width="5"/><path d="M220 180 L{220-int(ang*1.5)} {180-int(ang*1.5)}" stroke="#f59e0b" stroke-width="4"/><path d="M220 180 L{220+int(ang*1.5)} {180-int(ang*1.5)}" stroke="#0ea5e9" stroke-width="4"/><circle cx="220" cy="180" r="5" fill="#e11d48"/><text x="70" y="35" fill="currentColor" font-size="16">Incident ray</text><text x="270" y="35" fill="currentColor" font-size="16">Outgoing ray</text>'
     elif kind in ("sound","wave"):
         pts = " ".join(f"{x},{105-int(c*5)*__import__('math').sin((x-20)*int(a)/300)}" for x in range(20,441,8))
+    elif class8_sound_wave_examples_experiment:
+        loud_sound = a.startswith("Loud")
+        high_pitch = "high-pitched" in a
+        amp = 36 if loud_sound else 13
+        cycles = 9 if high_pitch else 3
+        points = " ".join(f"{x},{112-amp*__import__('math').sin((x-22)*cycles*2*3.14159/400):.1f}" for x in range(22,439,4))
+        pitch_label = ("HIGHER PITCH" if high_pitch else "LOWER PITCH") if not is_pa else ("ਉੱਚੀ ਸੁਰ" if high_pitch else "ਨੀਵੀਂ ਸੁਰ")
+        loud_label = ("LOUDER SOUND · LARGER AMPLITUDE" if loud_sound else "SOFTER SOUND · SMALLER AMPLITUDE") if not is_pa else ("ਉੱਚੀ ਆਵਾਜ਼ · ਵੱਡੀ ਐਂਪਲੀਟਿਊਡ" if loud_sound else "ਹੌਲੀ ਆਵਾਜ਼ · ਛੋਟੀ ਐਂਪਲੀਟਿਊਡ")
+        visual = f'<rect x="12" y="12" width="436" height="206" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="31" text-anchor="middle" fill="#334155" font-size="14" font-weight="700">{("SOUND WAVE COMPARISON" if not is_pa else "ਧੁਨੀ ਤਰੰਗ ਦੀ ਤੁਲਨਾ")}</text><path d="M25 112 H435" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5 5"/><polyline points="{points}" fill="none" stroke="#0ea5e9" stroke-width="3.5" stroke-linejoin="round"/><text x="230" y="166" text-anchor="middle" fill="#0369a1" font-size="13" font-weight="700">{pitch_label}</text><text x="230" y="190" text-anchor="middle" fill="#334155" font-size="12" font-weight="700">{loud_label}</text><text x="230" y="209" text-anchor="middle" fill="#475569" font-size="11">{("More cycles = higher pitch; taller wave = louder sound" if not is_pa else "ਵੱਧ ਚੱਕਰ = ਉੱਚੀ ਸੁਰ; ਉੱਚੀ ਤਰੰਗ = ਉੱਚੀ ਆਵਾਜ਼")}</text>'
         visual = f'<polyline points="{pts}" fill="none" stroke="#0ea5e9" stroke-width="3"/><path d="M20 105 H440" stroke="#94a3b8" stroke-dasharray="4 5"/><text x="20" y="30" fill="currentColor" font-size="15">Frequency: {a} Hz</text>'
     elif kind == "magnet":
         visual = f'<rect x="75" y="80" width="125" height="55" rx="8" fill="#fecaca" stroke="#b91c1c" stroke-width="2"/><rect x="260" y="80" width="125" height="55" rx="8" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="2"/><text x="137" y="113" font-size="22" text-anchor="middle" fill="#991b1b">N</text><text x="322" y="113" font-size="22" text-anchor="middle" fill="#1e40af">{"S" if a=="Unlike poles" else "N"}</text><path d="M200 90 Q230 45 260 90 M200 125 Q230 170 260 125" stroke="#0ea5e9" fill="none" stroke-width="3"/>'
@@ -2189,6 +2204,8 @@ def physics_lab():
         if is_pa: result = "ਖਿੱਚ" if a == "Unlike poles" else "ਵਿਕਰਸ਼ਣ"
     elif kind in ("sound","wave"):
         result = f"Frequency = {a} Hz; period ≈ {1/float(a):.4f} s; amplitude setting = {c}/10." if not is_pa else f"ਆਵ੍ਰਿਤੀ = {a} Hz; ਆਵਰਤ ਕਾਲ ≈ {1/float(a):.4f} s।"
+    elif class8_sound_wave_examples_experiment:
+        result = ("A louder sound is shown with a taller wave (greater amplitude), while a softer sound has a smaller wave. A high-pitched sound has more wave cycles in the same space than a low-pitched sound. This is a qualitative visual; no measurements are calculated." if not is_pa else "ਉੱਚੀ ਆਵਾਜ਼ ਨੂੰ ਵੱਡੀ ਐਂਪਲੀਟਿਊਡ ਵਾਲੀ ਤਰੰਗ ਅਤੇ ਹੌਲੀ ਆਵਾਜ਼ ਨੂੰ ਛੋਟੀ ਤਰੰਗ ਨਾਲ ਦਿਖਾਇਆ ਗਿਆ ਹੈ। ਉੱਚੀ ਸੁਰ ਵਿੱਚ ਇੱਕੋ ਥਾਂ ਅੰਦਰ ਨੀਵੀਂ ਸੁਰ ਨਾਲੋਂ ਵੱਧ ਤਰੰਗ-ਚੱਕਰ ਹੁੰਦੇ ਹਨ। ਇਹ ਗੁਣਾਤਮਕ ਦ੍ਰਿਸ਼ ਹੈ; ਕੋਈ ਗਣਨਾ ਨਹੀਂ ਕੀਤੀ ਜਾਂਦੀ।")
     elif kind == "friction" and not friction_types_experiment:
         result = f"Illustrative friction tendency rises with roughness and normal force (mass setting {b} kg)." if not is_pa else f"ਖੁਰਦਰਾਪਣ ਅਤੇ ਲੰਬਕਾਰੀ ਬਲ ਵਧਣ ਨਾਲ ਘਰਸ਼ਣ ਦੀ ਰੁਝਾਨੀ ਮਾਤਰਾ ਵਧਦੀ ਹੈ।"
     elif kind == "balanced":
