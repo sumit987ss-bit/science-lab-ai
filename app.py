@@ -1887,6 +1887,7 @@ def physics_lab():
     class10_refraction_experiment = pc == 10 and ei == 1 and kind == "refraction"
     class10_convex_lens_experiment = pc == 10 and ei == 2 and kind == "lens"
     class10_work_power_energy_experiment = pc == 10 and ei == 3 and kind == "work"
+    class10_wave_sound_experiment = pc == 10 and ei == 4 and kind == "wave"
     # Class 8 sound uses a qualitative dropdown, not numeric frequency/amplitude sliders.
     if class8_sound_wave_examples_experiment:
         sound_examples = ["Soft, low-pitched sound", "Loud, low-pitched sound", "Soft, high-pitched sound", "Loud, high-pitched sound"]
@@ -1982,6 +1983,11 @@ def physics_lab():
             key="physics_class6_slow_fast_choice"
         )
         b = a
+    elif class10_wave_sound_experiment:
+        wave_sound_cases = ["Low pitch — long wavelength", "High pitch — short wavelength", "Soft sound — small amplitude", "Loud sound — large amplitude"]
+        wave_sound_cases_pa = ["ਨੀਵੀਂ ਸੁਰ — ਲੰਮੀ ਤਰੰਗ-ਲੰਬਾਈ", "ਉੱਚੀ ਸੁਰ — ਛੋਟੀ ਤਰੰਗ-ਲੰਬਾਈ", "ਹੌਲੀ ਧੁਨੀ — ਛੋਟੀ ਐਂਪਲੀਟਿਊਡ", "ਉੱਚੀ ਧੁਨੀ — ਵੱਡੀ ਐਂਪਲੀਟਿਊਡ"]
+        a = st.selectbox("Choose a wave property to explore" if not is_pa else "ਤਰੰਗ ਦੀ ਵਿਸ਼ੇਸ਼ਤਾ ਚੁਣੋ", wave_sound_cases, format_func=lambda x: wave_sound_cases_pa[wave_sound_cases.index(x)] if is_pa else x, key="physics_class10_wave_sound_case_" + st.session_state.language)
+        b = a
     elif class10_work_power_energy_experiment:
         work_power_cases = ["Pushing a box and it moves", "Lifting a load", "Holding a box still", "Doing the same task quickly", "Doing the same task slowly"]
         work_power_cases_pa = ["ਡੱਬੇ ਨੂੰ ਧੱਕਣਾ ਅਤੇ ਇਸ ਦਾ ਚੱਲਣਾ", "ਭਾਰ ਨੂੰ ਉੱਪਰ ਚੁੱਕਣਾ", "ਡੱਬੇ ਨੂੰ ਸਥਿਰ ਫੜਨਾ", "ਉਹੀ ਕੰਮ ਜਲਦੀ ਕਰਨਾ", "ਉਹੀ ਕੰਮ ਹੌਲੀ ਕਰਨਾ"]
@@ -2055,7 +2061,7 @@ def physics_lab():
                 b = st.slider(labels[1] if not is_pa else labels[3], 1, 2, 1, key=f"ph_b_{pc}_{ei}") if kind == "reflection" else st.slider(labels[1] if not is_pa else labels[3], 1.0, 2.0, 1.5, 0.1, key=f"ph_b_{pc}_{ei}")
             else:
                 b = st.slider(labels[1] if not is_pa else labels[3], 1, 10, 5, key=f"ph_b_{pc}_{ei}")
-    if kind in ("sound","wave"):
+    if kind in ("sound","wave") and not class10_wave_sound_experiment:
         c = st.slider("Amplitude (relative)" if not is_pa else "ਐਂਪਲੀਟਿਊਡ (ਸਾਪੇਖ)", 1, 10, 5, key=f"ph_c_{pc}_{ei}")
     elif kind in ("reflection","refraction"):
         c = 0
@@ -2064,7 +2070,30 @@ def physics_lab():
     # Produce a distinct, responsive schematic for the selected phenomenon.
     # Class 10 lens case is an independent if branch, not an elif without a parent.
     visual = ""
-    if class10_work_power_energy_experiment:
+    if class10_wave_sound_experiment:
+        wave_heading = "WAVE FREQUENCY AND SOUND" if not is_pa else "ਤਰੰਗ ਆਵ੍ਰਿਤੀ ਅਤੇ ਧੁਨੀ"
+        if a.startswith("Low pitch"):
+            cycles, amp = 3, 20
+            property_label = "LOW PITCH · LONG WAVELENGTH" if not is_pa else "ਨੀਵੀਂ ਸੁਰ · ਲੰਮੀ ਤਰੰਗ-ਲੰਬਾਈ"
+            compressions = [65, 150, 235, 320, 405]
+        elif a.startswith("High pitch"):
+            cycles, amp = 8, 20
+            property_label = "HIGH PITCH · SHORT WAVELENGTH" if not is_pa else "ਉੱਚੀ ਸੁਰ · ਛੋਟੀ ਤਰੰਗ-ਲੰਬਾਈ"
+            compressions = [55, 95, 135, 175, 215, 255, 295, 335, 375, 415]
+        elif a.startswith("Soft sound"):
+            cycles, amp = 5, 8
+            property_label = "SOFT SOUND · SMALL AMPLITUDE" if not is_pa else "ਹੌਲੀ ਧੁਨੀ · ਛੋਟੀ ਐਂਪਲੀਟਿਊਡ"
+            compressions = [65, 115, 165, 215, 265, 315, 365, 415]
+        else:
+            cycles, amp = 5, 29
+            property_label = "LOUD SOUND · LARGE AMPLITUDE" if not is_pa else "ਉੱਚੀ ਧੁਨੀ · ਵੱਡੀ ਐਂਪਲੀਟਿਊਡ"
+            compressions = [65, 115, 165, 215, 265, 315, 365, 415]
+        wave_points = " ".join(f"{x},{105-amp*__import__('math').sin((x-25)*cycles*2*3.14159/390):.1f}" for x in range(25, 436, 3))
+        compression_marks = "".join(f'<path d="M{x} 151 V188 M{x+5} 151 V188 M{x+10} 151 V188" stroke="#0ea5e9" stroke-width="2.5" stroke-linecap="round"/>' for x in compressions)
+        wave_caption = "TRANSVERSE WAVE: FREQUENCY / AMPLITUDE" if not is_pa else "ਅਨੁਪ੍ਰਸਥ ਤਰੰਗ: ਆਵ੍ਰਿਤੀ / ਐਂਪਲੀਟਿਊਡ"
+        sound_caption = "SOUND IN AIR: COMPRESSIONS AND RAREFACTIONS" if not is_pa else "ਹਵਾ ਵਿੱਚ ਧੁਨੀ: ਸੰਘਣਨ ਅਤੇ ਵਿਰਲਨ"
+        visual = f'<rect x="12" y="12" width="436" height="206" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/><text x="230" y="29" text-anchor="middle" font-size="13" font-weight="700" fill="#334155">{wave_heading}</text><text x="28" y="49" font-size="10" font-weight="700" fill="#0369a1">{wave_caption}</text><path d="M25 82 H435" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4"/><polyline points="{wave_points}" fill="none" stroke="#0ea5e9" stroke-width="3" stroke-linejoin="round"/><text x="28" y="132" font-size="10" font-weight="700" fill="#0369a1">{sound_caption}</text><path d="M25 170 H435" stroke="#94a3b8" stroke-width="1.5"/>{compression_marks}<text x="230" y="205" text-anchor="middle" font-size="11" font-weight="700" fill="#0f766e">{property_label}</text>'
+    elif class10_work_power_energy_experiment:
         work_heading = "WORK, POWER AND ENERGY" if not is_pa else "ਕੰਮ, ਸ਼ਕਤੀ ਅਤੇ ਊਰਜਾ"
         person = '<circle cx="65" cy="105" r="13" fill="#f1c27d" stroke="#92400e" stroke-width="2"/><path d="M65 118 V153 M65 128 L88 143 L105 143 M65 153 L51 176 M65 153 L80 176" stroke="#2563eb" stroke-width="7" stroke-linecap="round" fill="none"/>'
         box_shape = '<rect x="108" y="121" width="58" height="43" rx="4" fill="#c08457" stroke="#854d0e" stroke-width="3"/><path d="M116 129 L158 156 M158 129 L116 156" stroke="#a16207" stroke-width="2"/>'
@@ -2545,6 +2574,14 @@ def physics_lab():
         result = f"{b} is represented qualitatively; actual heat transfer depends on dimensions and conditions." if not is_pa else f"{b} ਦਾ ਤਾਪ ਚਾਲਨ ਗੁਣਾਤਮਕ ਤੌਰ ਤੇ ਦਿਖਾਇਆ ਗਿਆ ਹੈ।"
     elif kind == "shadow" and not shadow_examples_experiment:
         result = "A larger object or a closer light source can produce a larger shadow in this simplified setup." if not is_pa else "ਇਸ ਸਧਾਰਨ ਮਾਡਲ ਵਿੱਚ ਵੱਡੀ ਵਸਤੂ ਜਾਂ ਨੇੜੇ ਰੋਸ਼ਨੀ ਨਾਲ ਵੱਡਾ ਪਰਛਾਵਾਂ ਬਣ ਸਕਦਾ ਹੈ।"
+    elif class10_wave_sound_experiment:
+        wave_sound_results = {
+            "Low pitch — long wavelength": ("A lower-frequency sound has a lower pitch and a longer wavelength in the same medium. The sound-wave model shows more widely spaced compressions.", "ਘੱਟ ਆਵ੍ਰਿਤੀ ਵਾਲੀ ਧੁਨੀ ਦੀ ਸੁਰ ਨੀਵੀਂ ਅਤੇ ਉਸੇ ਮਾਧਿਅਮ ਵਿੱਚ ਤਰੰਗ-ਲੰਬਾਈ ਲੰਮੀ ਹੁੰਦੀ ਹੈ। ਮਾਡਲ ਵਿੱਚ ਸੰਘਣਨ ਵਧੇਰੇ ਦੂਰ-ਦੂਰ ਦਿਖਾਏ ਗਏ ਹਨ।"),
+            "High pitch — short wavelength": ("A higher-frequency sound has a higher pitch and a shorter wavelength in the same medium. The model shows compressions closer together.", "ਵੱਧ ਆਵ੍ਰਿਤੀ ਵਾਲੀ ਧੁਨੀ ਦੀ ਸੁਰ ਉੱਚੀ ਅਤੇ ਉਸੇ ਮਾਧਿਅਮ ਵਿੱਚ ਤਰੰਗ-ਲੰਬਾਈ ਛੋਟੀ ਹੁੰਦੀ ਹੈ। ਮਾਡਲ ਵਿੱਚ ਸੰਘਣਨ ਨੇੜੇ-ਨੇੜੇ ਦਿਖਾਏ ਗਏ ਹਨ।"),
+            "Soft sound — small amplitude": ("A softer sound is represented with smaller wave amplitude. In this simplified model, the spacing is kept similar so that amplitude is the feature being compared.", "ਹੌਲੀ ਧੁਨੀ ਨੂੰ ਛੋਟੀ ਐਂਪਲੀਟਿਊਡ ਨਾਲ ਦਰਸਾਇਆ ਗਿਆ ਹੈ। ਇਸ ਸਰਲ ਮਾਡਲ ਵਿੱਚ ਦੂਰੀ ਲਗਭਗ ਇੱਕੋ ਰੱਖੀ ਗਈ ਹੈ ਤਾਂ ਜੋ ਐਂਪਲੀਟਿਊਡ ਦੀ ਤੁਲਨਾ ਹੋ ਸਕੇ।"),
+            "Loud sound — large amplitude": ("A louder sound is represented with larger wave amplitude. Loudness relates mainly to amplitude, while pitch relates to frequency.", "ਉੱਚੀ ਆਵਾਜ਼ ਵਾਲੀ ਧੁਨੀ ਨੂੰ ਵੱਡੀ ਐਂਪਲੀਟਿਊਡ ਨਾਲ ਦਰਸਾਇਆ ਗਿਆ ਹੈ। ਉੱਚੀ ਆਵਾਜ਼ ਮੁੱਖ ਤੌਰ ਤੇ ਐਂਪਲੀਟਿਊਡ ਨਾਲ ਅਤੇ ਸੁਰ ਆਵ੍ਰਿਤੀ ਨਾਲ ਸੰਬੰਧਿਤ ਹੈ।")
+        }
+        result = wave_sound_results[a][1] if is_pa else wave_sound_results[a][0]
     elif class10_work_power_energy_experiment:
         work_power_results = {
             "Pushing a box and it moves": ("Work is done when a force causes displacement in its direction. The moving box shows force and displacement together.", "ਜਦੋਂ ਬਲ ਵਸਤੂ ਦਾ ਆਪਣੀ ਦਿਸ਼ਾ ਵਿੱਚ ਵਿਸਥਾਪਨ ਕਰਦਾ ਹੈ ਤਾਂ ਕੰਮ ਹੁੰਦਾ ਹੈ। ਚੱਲਦਾ ਡੱਬਾ ਬਲ ਅਤੇ ਵਿਸਥਾਪਨ ਦੋਵੇਂ ਦਿਖਾਉਂਦਾ ਹੈ।"),
