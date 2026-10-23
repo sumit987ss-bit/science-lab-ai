@@ -3426,7 +3426,7 @@ def mentor_lab():
             else:
                 st.warning("ਇਸ ਸਵਾਲ ਲਈ ਪੱਕਾ ਮੇਲ ਨਹੀਂ ਮਿਲਿਆ। ਹੇਠਾਂ ਚੁਣੇ ਵਿਸ਼ੇ ਦੀ ਵਿਆਖਿਆ ਦਿੱਤੀ ਹੈ; ਸਵਾਲ ਵਿੱਚ ਮੁੱਖ ਵਿਗਿਆਨਕ ਸ਼ਬਦ ਵਰਤੋ ਜਾਂ ਵਿਸ਼ਾ-ਬਿੰਦੂ ਬਦਲੋ।" if pa else "I couldn't confidently match that question. The selected topic is shown as a starting point; try a key science term or choose a different topic.")
                 st.caption(("ਮਦਦਗਾਰ ਸ਼ਬਦ: " if pa else "Helpful keywords: ") + ", ".join(selected[5][:5]))
-        elif not q:
+        elif not st.session_state.get("mentor_last_question"):
             st.info("ਉੱਪਰ ਸਵਾਲ ਲਿਖੋ ਜਾਂ ਚੁਣੇ ਵਿਸ਼ੇ ਦੀ ਵਿਆਖਿਆ ਅਤੇ ਕਵਿਜ਼ ਨਾਲ ਸ਼ੁਰੂ ਕਰੋ।" if pa else "Type a question above, or start with the selected topic explanation and quiz.")
     st.markdown("---")
     st.subheader(("ਸੌਖੀ ਵਿਆਖਿਆ" if pa else "Simple explanation") + " · " + (selected[4] if pa else selected[3]))
