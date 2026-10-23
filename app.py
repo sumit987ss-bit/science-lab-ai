@@ -1,5 +1,8 @@
 import streamlit as st
 import pandas as pd
+import json
+import urllib.request
+import urllib.error
 
 st.set_page_config(page_title="SCIENCE-LAB AI", page_icon="🔬", layout="wide", initial_sidebar_state="collapsed")
 
@@ -3344,14 +3347,68 @@ MENTOR_QUIZZES = {
         "Heredity is the transmission of genetic information between generations.", "ਵਿਰਾਸਤ ਪੀੜ੍ਹੀਆਂ ਵਿਚਕਾਰ ਵਿਰਾਸਤੀ ਜਾਣਕਾਰੀ ਦਾ ਸੰਚਾਰ ਹੈ।"),
 }
 
+def mentor_call_groq(question, grade, subject, language, topic, api_key):
+    """Generate a fresh answer with Groq's free-tier API; no SDK dependency."""
+    language_instruction = "Answer in Punjabi (Gurmukhi script)." if language == "pa" else "Answer in clear, age-appropriate English."
+    prompt = (
+        "You are a careful school science mentor for Indian students in Classes 6-10. "
+        "Teach accurately and simply; use headings: Short answer, Explanation, Everyday example, Check your understanding. "
+        "Match the learner's class level. Do not invent facts. For unsafe experiments, give a safety warning and do not encourage unsupervised handling. "
+        "If the question is outside Physics, Chemistry or Biology, politely redirect to school science. "
+        + language_instruction
+        + f" Student class: {grade}. Subject selected: {subject}. Topic selected: {topic}. Student question: {question}"
+    )
+    payload = {
+        "model": "llama-3.3-70b-versatile",
+        "messages": [
+            {"role": "system", "content": "You are a reliable bilingual school science tutor. Keep answers structured and suitable for ages 11-16."},
+            {"role": "user", "content": prompt},
+        ],
+        "temperature": 0.3,
+        "max_tokens": 900,
+    }
+    request = urllib.request.Request(
+        "https://api.groq.com/openai/v1/chat/completions",
+        data=json.dumps(payload).encode("utf-8"),
+        headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=35) as response:
+            result = json.loads(response.read().decode("utf-8"))
+        return result["choices"][0]["message"]["content"].strip(), None
+    except urllib.error.HTTPError as exc:
+        try:
+            detail = json.loads(exc.read().decode("utf-8")).get("error", {}).get("message", "")
+        except Exception:
+            detail = ""
+        if exc.code == 401:
+            return None, "The API key was rejected. Check the key and try again." if language != "pa" else "API ਕੁੰਜੀ ਸਵੀਕਾਰ ਨਹੀਂ ਹੋਈ। ਕੁੰਜੀ ਜਾਂਚ ਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
+        if exc.code == 429:
+            return None, "The free-tier rate limit or quota may have been reached. Wait and retry." if language != "pa" else "ਮੁਫ਼ਤ ਵਰਤੋਂ ਦੀ ਸੀਮਾ ਪੂਰੀ ਹੋ ਸਕਦੀ ਹੈ। ਕੁਝ ਸਮੇਂ ਬਾਅਦ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
+        return None, (("AI service error: " if language != "pa" else "AI ਸੇਵਾ ਵਿੱਚ ਸਮੱਸਿਆ: ") + (detail[:220] or str(exc)))
+    except Exception as exc:
+        return None, ("Could not reach the AI service. Check your internet connection and try again. " if language != "pa" else "AI ਸੇਵਾ ਨਾਲ ਸੰਪਰਕ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਇੰਟਰਨੈੱਟ ਜਾਂਚ ਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।") + str(exc)[:120]
+
+
 def mentor_lab():
     pa = st.session_state.language == "pa"
     if st.button(tr("back"), key="mentor_back"):
         go("home")
         st.rerun()
     st.title("🤖 " + ("AI ਵਿਗਿਆਨ ਮਾਰਗਦਰਸ਼ਕ" if pa else "AI Science Mentor"))
-    st.caption("ਮੁਫ਼ਤ, ਬਿਨਾਂ API ਕੁੰਜੀ ਦੇ · ਪੜਾਅ 1: ਪਾਠ-ਅਧਾਰਿਤ ਮਾਰਗਦਰਸ਼ਨ" if pa else "Free, no API key · Stage 1: curriculum-based guidance")
-    st.info("ਇਹ ਪਹਿਲਾ ਸੰਸਕਰਣ ਤੁਹਾਡੇ ਸਵਾਲ ਨੂੰ ਵਿਗਿਆਨ ਦੇ ਤਿਆਰ ਕੀਤੇ ਪਾਠ-ਵਿਸ਼ਿਆਂ ਨਾਲ ਮਿਲਾ ਕੇ ਜਵਾਬ ਦਿੰਦਾ ਹੈ। ਇਹ paid API ਜਾਂ internet service ਨਹੀਂ ਵਰਤਦਾ।" if pa else "Stage 1 matches your question to a curated science knowledge bank. It uses no paid API or external AI service.")
+    st.caption("ਮੁਫ਼ਤ AI ਮੋਡ + ਸਥਾਨਕ ਪਾਠ-ਸਹਾਇਤਾ" if pa else "Free AI mode + built-in curriculum support")
+    st.info("ਅਸਲ AI ਜਵਾਬ ਲਈ Groq ਦੀ ਮੁਫ਼ਤ API ਕੁੰਜੀ ਵਰਤੋ। ਕੁੰਜੀ ਨਾ ਹੋਣ ਤੇ ਹੇਠਾਂ ਦਿੱਤੀ ਪਾਠ-ਅਧਾਰਿਤ ਸਹਾਇਤਾ ਕੰਮ ਕਰੇਗੀ।" if pa else "For generated answers from a real AI model, use a free Groq API key. Without a key, the built-in curriculum support still works.")
+    configured_key = ""
+    try:
+        configured_key = st.secrets.get("GROQ_API_KEY", "")
+    except Exception:
+        configured_key = ""
+    use_real_ai = st.checkbox("ਅਸਲ AI ਨਾਲ ਜਵਾਬ ਬਣਾਓ" if pa else "Generate an answer with real AI", value=bool(configured_key), key="mentor_use_real_ai")
+    api_key = configured_key
+    if use_real_ai and not configured_key:
+        api_key = st.text_input("Groq API key (session only)" if not pa else "Groq API ਕੁੰਜੀ (ਸਿਰਫ਼ ਇਸ ਸੈਸ਼ਨ ਲਈ)", type="password", key="mentor_groq_key", help="Create a free key at console.groq.com. Do not paste it into chat or commit it to GitHub.")
+        st.caption("Get a key: https://console.groq.com/keys · Never put your key in app.py or GitHub." if not pa else "ਮੁਫ਼ਤ ਕੁੰਜੀ: https://console.groq.com/keys · ਆਪਣੀ ਕੁੰਜੀ app.py ਜਾਂ GitHub ਵਿੱਚ ਨਾ ਪਾਓ।")
     st.markdown("### " + ("ਆਪਣਾ ਸਵਾਲ ਪੁੱਛੋ" if pa else "Ask a science question"))
     c1, c2 = st.columns(2)
     with c1:
@@ -3397,6 +3454,18 @@ def mentor_lab():
     context_key = f"{grade}_{subject}_{st.session_state.language}"
     if submitted:
         q = question.strip()
+        st.session_state["mentor_ai_response"] = None
+        st.session_state["mentor_ai_error"] = None
+        if use_real_ai:
+            if not api_key:
+                st.session_state["mentor_ai_error"] = "Enter a Groq API key or add GROQ_API_KEY in Streamlit Secrets." if not pa else "Groq API ਕੁੰਜੀ ਦਿਓ ਜਾਂ Streamlit Secrets ਵਿੱਚ GROQ_API_KEY ਜੋੜੋ।"
+            elif not q:
+                st.session_state["mentor_ai_error"] = "Type a question before asking the AI." if not pa else "AI ਨੂੰ ਪੁੱਛਣ ਤੋਂ ਪਹਿਲਾਂ ਸਵਾਲ ਲਿਖੋ।"
+            else:
+                with st.spinner("AI ਜਵਾਬ ਤਿਆਰ ਕਰ ਰਿਹਾ ਹੈ…" if pa else "Generating an AI answer…"):
+                    answer, error = mentor_call_groq(q, grade, subject, st.session_state.language, selected[4] if pa else selected[3], api_key)
+                st.session_state["mentor_ai_response"] = answer
+                st.session_state["mentor_ai_error"] = error
 
         def mentor_normalize(value):
             # Normalize punctuation while preserving Punjabi Unicode letters.
@@ -3454,6 +3523,13 @@ def mentor_lab():
                 st.caption(("ਮਦਦਗਾਰ ਸ਼ਬਦ: " if pa else "Helpful keywords: ") + ", ".join(selected[5][:5]))
         elif not st.session_state.get("mentor_last_question"):
             st.info("ਉੱਪਰ ਸਵਾਲ ਲਿਖੋ ਜਾਂ ਚੁਣੇ ਵਿਸ਼ੇ ਦੀ ਵਿਆਖਿਆ ਅਤੇ ਕਵਿਜ਼ ਨਾਲ ਸ਼ੁਰੂ ਕਰੋ।" if pa else "Type a question above, or start with the selected topic explanation and quiz.")
+    if st.session_state.get("mentor_ai_response"):
+        st.markdown("---")
+        st.subheader("🤖 " + ("AI ਦਾ ਤਿਆਰ ਕੀਤਾ ਜਵਾਬ" if pa else "Generated AI answer"))
+        st.markdown(st.session_state["mentor_ai_response"])
+        st.caption("AI-generated content can make mistakes. Check important facts with your teacher or textbook." if not pa else "AI ਤੋਂ ਮਿਲੇ ਜਵਾਬ ਵਿੱਚ ਗਲਤੀ ਹੋ ਸਕਦੀ ਹੈ। ਮਹੱਤਵਪੂਰਨ ਤੱਥ ਅਧਿਆਪਕ ਜਾਂ ਪਾਠ-ਪੁਸਤਕ ਨਾਲ ਜਾਂਚੋ।")
+    if st.session_state.get("mentor_ai_error"):
+        st.warning(st.session_state["mentor_ai_error"])
     st.markdown("---")
     st.subheader(("ਸੌਖੀ ਵਿਆਖਿਆ" if pa else "Simple explanation") + " · " + (selected[4] if pa else selected[3]))
     st.write(selected[7] if pa else selected[6])
@@ -3461,7 +3537,7 @@ def mentor_lab():
     st.write(selected[9] if pa else selected[8])
     st.markdown("**" + ("ਆਪਣੇ ਆਪ ਨੂੰ ਪਰਖੋ" if pa else "Check your understanding") + "**")
     st.write(selected[11] if pa else selected[10])
-    st.caption("ਪੜਾਅ 1 ਵਿੱਚ ਜਵਾਬ ਚੁਣੇ ਹੋਏ ਗਿਆਨ-ਸੰਗ੍ਰਹਿ ਤੋਂ ਮਿਲਦੇ ਹਨ; ਇਹ ਖੁੱਲ੍ਹੇ-ਅੰਤ ਵਾਲਾ ਜਨਰੇਟਿਵ AI ਨਹੀਂ ਹੈ। ਅਗਲੇ ਪੜਾਅ ਵਿੱਚ ਪਾਠ-ਅਧਾਰਿਤ ਕਵਿਜ਼, ਵਿਦਿਆਰਥੀ ਦੀ ਤਰੱਕੀ ਅਤੇ ਹੋਰ ਵਿਸ਼ਿਆਂ ਦੀ ਕਵਰੇਜ ਜੋੜੀ ਜਾ ਸਕਦੀ ਹੈ।" if pa else "Stage 1 retrieves explanations from a curated knowledge bank; it is not unrestricted generative AI. Later stages can add curriculum quizzes, progress tracking and broader topic coverage.")
+    st.caption("ਇਸ ਵਿੱਚ ਮੁਫ਼ਤ Groq AI ਮੋਡ ਅਤੇ ਸਥਾਨਕ ਪਾਠ-ਸਹਾਇਤਾ ਦੋਵੇਂ ਹਨ।" if pa else "This mentor includes both free Groq AI mode and built-in curriculum support.")
     st.markdown("---")
     st.subheader("ਆਪਣੀ ਸਮਝ ਪਰਖੋ" if pa else "Quick understanding check")
     quiz = MENTOR_QUIZZES.get(selected[3])
@@ -3478,7 +3554,7 @@ def mentor_lab():
             st.write(quiz[5] if pa else quiz[4])
     else:
         st.info("ਇਸ ਵਿਸ਼ੇ ਲਈ ਕਵਿਜ਼ ਜਲਦੀ ਜੋੜਿਆ ਜਾਵੇਗਾ।" if pa else "A topic-specific quick check will be added for this topic in a later update.")
-    st.caption("ਇਹ ਕਵਿਜ਼ ਸਥਾਨਕ ਤੌਰ ਤੇ ਚਲਦਾ ਹੈ; ਕੋਈ paid API ਜਾਂ external AI service ਨਹੀਂ ਵਰਤੀ ਜਾਂਦੀ।" if pa else "This quiz runs locally; no paid API or external AI service is used.")
+    st.caption("ਕਵਿਜ਼ ਸਥਾਨਕ ਤੌਰ ਤੇ ਚਲਦਾ ਹੈ। AI ਜਵਾਬ ਲਈ ਮੁਫ਼ਤ Groq API ਅਤੇ ਇੰਟਰਨੈੱਟ ਲੋੜੀਂਦੇ ਹਨ।" if pa else "The quiz runs locally. Generated AI answers require the free Groq API and an internet connection.")
     st.info("ਸੁਰੱਖਿਆ: ਅਸਲ ਰਸਾਇਣ, ਬਿਜਲੀ ਜਾਂ ਜੀਵ-ਵਿਗਿਆਨਕ ਨਮੂਨਿਆਂ ਵਾਲੇ ਪ੍ਰਯੋਗ ਅਧਿਆਪਕ ਦੀ ਦੇਖ-ਰੇਖ ਹੇਠ ਹੀ ਕਰੋ।" if pa else "Safety: perform real experiments involving chemicals, electricity or biological samples only with teacher supervision.")
 
 def planned_lab(page):
