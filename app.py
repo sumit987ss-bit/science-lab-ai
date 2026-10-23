@@ -3364,9 +3364,35 @@ def mentor_lab():
     topic_labels = [item[4] if pa else item[3] for item in eligible]
     selected_topic = st.selectbox("ਵਿਸ਼ਾ-ਬਿੰਦੂ" if pa else "Topic", topic_labels, key=f"mentor_topic_{grade}_{subject}_{st.session_state.language}")
     selected = eligible[topic_labels.index(selected_topic)]
+
+    # Starter questions help learners who are unsure how to phrase a science question.
+    starter_questions = {
+        "Physics": [
+            ("Why does a moving object slow down?", "ਚੱਲਦੀ ਵਸਤੂ ਹੌਲੀ ਕਿਉਂ ਹੋ ਜਾਂਦੀ ਹੈ?"),
+            ("How does light form a shadow?", "ਰੋਸ਼ਨੀ ਨਾਲ ਪਰਛਾਵਾਂ ਕਿਵੇਂ ਬਣਦਾ ਹੈ?"),
+            ("Why does resistance affect electric current?", "ਰੋਧ ਬਿਜਲੀ ਕਰੰਟ ਨੂੰ ਕਿਉਂ ਪ੍ਰਭਾਵਿਤ ਕਰਦਾ ਹੈ?"),
+        ],
+        "Chemistry": [
+            ("What is the difference between a physical and chemical change?", "ਭੌਤਿਕ ਅਤੇ ਰਸਾਇਣਕ ਤਬਦੀਲੀ ਵਿੱਚ ਕੀ ਫ਼ਰਕ ਹੈ?"),
+            ("How can an indicator identify an acid or a base?", "ਸੂਚਕ ਤੇਜ਼ਾਬ ਜਾਂ ਖਾਰ ਦੀ ਪਛਾਣ ਕਿਵੇਂ ਕਰਦਾ ਹੈ?"),
+            ("Why must a chemical equation be balanced?", "ਰਸਾਇਣਕ ਸਮੀਕਰਨ ਸੰਤੁਲਿਤ ਕਿਉਂ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ?"),
+        ],
+        "Biology": [
+            ("How are plant cells different from animal cells?", "ਪੌਦੇ ਦੇ ਕੋਸ਼ ਜਾਨਵਰ ਦੇ ਕੋਸ਼ਾਂ ਤੋਂ ਕਿਵੇਂ ਵੱਖਰੇ ਹਨ?"),
+            ("How do green plants make food?", "ਹਰੇ ਪੌਦੇ ਆਪਣਾ ਭੋਜਨ ਕਿਵੇਂ ਬਣਾਉਂਦੇ ਹਨ?"),
+            ("How does blood carry oxygen around the body?", "ਖੂਨ ਸਰੀਰ ਵਿੱਚ ਆਕਸੀਜਨ ਕਿਵੇਂ ਪਹੁੰਚਾਉਂਦਾ ਹੈ?"),
+        ],
+    }
+    question_key = f"mentor_question_{grade}_{subject}_{st.session_state.language}"
+    sample_labels = [pair[1] if pa else pair[0] for pair in starter_questions[subject]]
+    sample_choice = st.selectbox("ਸਵਾਲ ਦੇ ਉਦਾਹਰਨ" if pa else "Question starters", sample_labels, key=f"mentor_sample_{grade}_{subject}_{st.session_state.language}")
+    if st.button("ਇਹ ਸਵਾਲ ਵਰਤੋ" if pa else "Use this question", key=f"mentor_use_sample_{grade}_{subject}_{st.session_state.language}"):
+        st.session_state[question_key] = sample_choice
+        st.rerun()
+
     search_all = st.checkbox("ਹੋਰ ਵਿਸ਼ਿਆਂ ਵਿੱਚ ਵੀ ਸੰਬੰਧਿਤ ਜਵਾਬ ਲੱਭੋ" if pa else "Search other subjects too if they better match my question", value=True, key=f"mentor_all_subjects_{grade}_{st.session_state.language}")
     with st.form(f"mentor_ask_form_{grade}_{subject}_{st.session_state.language}"):
-        question = st.text_area("ਆਪਣਾ ਸਵਾਲ ਲਿਖੋ (ਵਿਕਲਪਿਕ)" if pa else "Type your question (optional)", placeholder=("ਉਦਾਹਰਨ: ਲੋਹੇ ਨੂੰ ਜੰਗ ਕਿਉਂ ਲੱਗਦੀ ਹੈ?" if pa else "Example: Why does iron rust?"), height=95)
+        question = st.text_area("ਆਪਣਾ ਸਵਾਲ ਲਿਖੋ (ਵਿਕਲਪਿਕ)" if pa else "Type your question (optional)", placeholder=("ਉਦਾਹਰਨ: ਲੋਹੇ ਨੂੰ ਜੰਗ ਕਿਉਂ ਲੱਗਦੀ ਹੈ?" if pa else "Example: Why does iron rust?"), height=95, key=question_key)
         submitted = st.form_submit_button("ਜਵਾਬ ਲੱਭੋ" if pa else "Find answer")
     context_key = f"{grade}_{subject}_{st.session_state.language}"
     if submitted:
