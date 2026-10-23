@@ -3347,8 +3347,8 @@ MENTOR_QUIZZES = {
         "Heredity is the transmission of genetic information between generations.", "ਵਿਰਾਸਤ ਪੀੜ੍ਹੀਆਂ ਵਿਚਕਾਰ ਵਿਰਾਸਤੀ ਜਾਣਕਾਰੀ ਦਾ ਸੰਚਾਰ ਹੈ।"),
 }
 
-def mentor_call_groq(question, language, api_key):
-    """Generate a direct bilingual science answer using Groq's API."""
+def mentor_call_gemini(question, language, api_key):
+    """Generate a direct bilingual school-science answer using the Gemini API."""
     language_instruction = (
         "Answer in Punjabi using natural, clear Gurmukhi script."
         if language == "pa"
@@ -3366,39 +3366,53 @@ def mentor_call_groq(question, language, api_key):
         + question
     )
     payload = {
-        "model": "openai/gpt-oss-20b",
-        "messages": [
-            {"role": "system", "content": "You are a careful, accurate bilingual school science mentor. Give a direct answer, not a quiz or a list of choices."},
-            {"role": "user", "content": prompt},
-        ],
-        "temperature": 0.3,
-        "max_tokens": 900,
+        "contents": [{"role": "user", "parts": [{"text": prompt}]}],
+        "generationConfig": {"temperature": 0.3, "maxOutputTokens": 900},
     }
     request = urllib.request.Request(
-        "https://api.groq.com/openai/v1/chat/completions",
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent",
         data=json.dumps(payload).encode("utf-8"),
-        headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+        headers={"x-goog-api-key": api_key, "Content-Type": "application/json"},
         method="POST",
     )
     try:
         with urllib.request.urlopen(request, timeout=35) as response:
             result = json.loads(response.read().decode("utf-8"))
-        return result["choices"][0]["message"]["content"].strip(), None
+        candidates = result.get("candidates", [])
+        if not candidates:
+            feedback = result.get("promptFeedback", {}).get("blockReason", "")
+            if feedback:
+                return None, ("Gemini could not answer this prompt (safety filter: " + feedback + ").")
+            return None, "Gemini returned no answer. Please rephrase your question and try again."
+        parts = candidates[0].get("content", {}).get("parts", [])
+        answer = "\\n".join(part.get("text", "") for part in parts if part.get("text"))
+        if not answer.strip():
+            return None, "Gemini returned an empty answer. Please try again."
+        return answer.strip(), None
     except urllib.error.HTTPError as exc:
         try:
-            detail = json.loads(exc.read().decode("utf-8")).get("error", {}).get("message", "")
+            error_data = json.loads(exc.read().decode("utf-8")).get("error", {})
+            detail = error_data.get("message", "")
+            status = error_data.get("status", "")
         except Exception:
-            detail = ""
-        if exc.code == 401:
-            return None, "Groq rejected the API key. Check that it is copied correctly and is active." if language != "pa" else "Groq ਨੇ API ਕੁੰਜੀ ਸਵੀਕਾਰ ਨਹੀਂ ਕੀਤੀ। ਜਾਂਚੋ ਕਿ ਕੁੰਜੀ ਠੀਕ ਕਾਪੀ ਕੀਤੀ ਹੈ ਅਤੇ ਸਰਗਰਮ ਹੈ।"
-        if exc.code == 403:
-            return None, ("Groq denied access (403). Check model permissions in your Groq project; this app now uses openai/gpt-oss-20b." if language != "pa" else "Groq ਨੇ ਪਹੁੰਚ ਰੋਕੀ (403)। ਆਪਣੇ Groq ਪ੍ਰੋਜੈਕਟ ਦੀ model permissions ਜਾਂਚੋ; ਐਪ ਹੁਣ openai/gpt-oss-20b ਵਰਤਦੀ ਹੈ।")
+            detail, status = "", ""
+        if exc.code in (400, 401, 403):
+            msg = "Gemini rejected the API key or request. Check that the key is active and has Gemini API access."
+            if detail:
+                msg += " Details: " + detail[:180]
+            return None, msg if language != "pa" else "Gemini ਨੇ API ਕੁੰਜੀ ਜਾਂ ਬੇਨਤੀ ਸਵੀਕਾਰ ਨਹੀਂ ਕੀਤੀ। ਕੁੰਜੀ ਅਤੇ Gemini API ਪਹੁੰਚ ਜਾਂਚੋ।" + ((" ਵੇਰਵਾ: " + detail[:150]) if detail else "")
+        if exc.code == 404:
+            return None, "The selected Gemini model is unavailable for this API key. Please contact the app maintainer." if language != "pa" else "ਚੁਣਿਆ Gemini ਮਾਡਲ ਇਸ API ਕੁੰਜੀ ਲਈ ਉਪਲਬਧ ਨਹੀਂ।"
         if exc.code == 429:
-            return None, "The free-tier limit may have been reached. Please wait and try again." if language != "pa" else "ਮੁਫ਼ਤ ਵਰਤੋਂ ਦੀ ਸੀਮਾ ਪੂਰੀ ਹੋ ਸਕਦੀ ਹੈ। ਕੁਝ ਸਮੇਂ ਬਾਅਦ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
-        return None, (("AI service error: " if language != "pa" else "AI ਸੇਵਾ ਵਿੱਚ ਸਮੱਸਿਆ: ") + (detail[:220] or str(exc)))
+            return None, "Gemini usage limit reached. Wait a little and try again; check your AI Studio usage limits if it continues." if language != "pa" else "Gemini ਦੀ ਵਰਤੋਂ ਸੀਮਾ ਪੂਰੀ ਹੋ ਸਕਦੀ ਹੈ। ਕੁਝ ਸਮੇਂ ਬਾਅਦ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
+        msg = "Gemini service error (" + str(exc.code) + ")."
+        if status:
+            msg += " " + status
+        if detail:
+            msg += " " + detail[:180]
+        return None, msg
     except Exception:
-        return None, "Could not reach the AI service. Check your internet connection and try again." if language != "pa" else "AI ਸੇਵਾ ਨਾਲ ਸੰਪਰਕ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਇੰਟਰਨੈੱਟ ਜਾਂਚ ਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
-
+        return None, "Could not reach Gemini. Check your internet connection and try again." if language != "pa" else "Gemini ਨਾਲ ਸੰਪਰਕ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਇੰਟਰਨੈੱਟ ਜਾਂਚ ਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ."
 
 def mentor_lab():
     pa = st.session_state.language == "pa"
@@ -3410,7 +3424,7 @@ def mentor_lab():
     st.caption("ਸਿੱਧਾ ਸਵਾਲ ਪੁੱਛੋ, ਸਿੱਧਾ ਜਵਾਬ ਲਵੋ" if pa else "Ask directly. Get a direct answer.")
     configured_key = ""
     try:
-        configured_key = st.secrets.get("GROQ_API_KEY", "")
+        configured_key = st.secrets.get("GEMINI_API_KEY", "")
     except Exception:
         configured_key = ""
 
@@ -3418,15 +3432,15 @@ def mentor_lab():
     if not configured_key:
         with st.expander("AI setup / AI ਸੈਟਅੱਪ"):
             api_key = st.text_input(
-                "Groq API key (session only)" if not pa else "Groq API ਕੁੰਜੀ (ਸਿਰਫ਼ ਇਸ ਸੈਸ਼ਨ ਲਈ)",
+                "Gemini API key (session only)" if not pa else "Gemini API ਕੁੰਜੀ (ਸਿਰਫ਼ ਇਸ ਸੈਸ਼ਨ ਲਈ)",
                 type="password",
                 key="mentor_groq_key",
-                help="Create a free key at https://console.groq.com/keys. Do not put it in app.py or GitHub.",
+                help="Create a key at https://aistudio.google.com/. Do not put it in app.py or GitHub.",
             )
             st.caption(
-                "Free key: https://console.groq.com/keys. Your key is not saved in this app." 
+                "Create/manage your key at https://aistudio.google.com/. Your key is not saved in this app." 
                 if not pa else
-                "ਮੁਫ਼ਤ ਕੁੰਜੀ: https://console.groq.com/keys। ਤੁਹਾਡੀ ਕੁੰਜੀ ਇਸ ਐਪ ਵਿੱਚ ਸੁਰੱਖਿਅਤ ਨਹੀਂ ਕੀਤੀ ਜਾਂਦੀ।"
+                "ਕੁੰਜੀ ਬਣਾਉਣ ਲਈ https://aistudio.google.com/ ਖੋਲ੍ਹੋ। ਤੁਹਾਡੀ ਕੁੰਜੀ ਇਸ ਐਪ ਵਿੱਚ ਸੁਰੱਖਿਅਤ ਨਹੀਂ ਕੀਤੀ ਜਾਂਦੀ।"
             )
 
     question_key = "mentor_direct_question"
@@ -3446,10 +3460,10 @@ def mentor_lab():
         if not q:
             st.session_state["mentor_direct_error"] = "ਕਿਰਪਾ ਕਰਕੇ ਪਹਿਲਾਂ ਸਵਾਲ ਲਿਖੋ।" if pa else "Please type your question first."
         elif not api_key:
-            st.session_state["mentor_direct_error"] = "AI ਚਲਾਉਣ ਲਈ AI setup ਵਿੱਚ ਮੁਫ਼ਤ Groq API ਕੁੰਜੀ ਦਿਓ।" if pa else "To use AI, add your free Groq API key under AI setup."
+            st.session_state["mentor_direct_error"] = "AI ਚਲਾਉਣ ਲਈ AI setup ਵਿੱਚ Gemini API ਕੁੰਜੀ ਦਿਓ।" if pa else "To use AI, add your Gemini API key under AI setup."
         else:
             with st.spinner("ਜਵਾਬ ਤਿਆਰ ਹੋ ਰਿਹਾ ਹੈ…" if pa else "Preparing your answer…"):
-                answer, error = mentor_call_groq(q, st.session_state.language, api_key)
+                answer, error = mentor_call_gemini(q, st.session_state.language, api_key)
             st.session_state["mentor_direct_answer"] = answer
             st.session_state["mentor_direct_error"] = error
 
