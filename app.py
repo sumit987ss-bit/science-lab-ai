@@ -3370,26 +3370,47 @@ def mentor_lab():
         submitted = st.form_submit_button("ਜਵਾਬ ਲੱਭੋ" if pa else "Find answer")
     context_key = f"{grade}_{subject}_{st.session_state.language}"
     if submitted:
-        q = question.strip().lower()
+        q = question.strip()
+
+        def mentor_normalize(value):
+            # Normalize punctuation while preserving Punjabi Unicode letters.
+            for mark in [",", ".", "?", "!", ":", ";", "(", ")", "/", "-", "–", "—", "'", '"']:
+                value = value.replace(mark, " ")
+            return " ".join(value.casefold().split())
+
         pool = [item for item in MENTOR_KB if item[1] <= grade <= item[2]] if search_all else eligible
         if not pool:
             pool = MENTOR_KB if search_all else eligible
         ranked = []
         if q:
-            normal_q = q.replace(",", " ").replace(".", " ").replace("?", " ").replace("!", " ").replace(":", " ").replace(";", " ").replace("(", " ").replace(")", " ").replace("/", " ").replace("-", " ")
-            q_words = {word for word in normal_q.split() if len(word) > 2}
+            normal_q = mentor_normalize(q)
+            q_words = {word for word in normal_q.split() if len(word) > 1}
             for item in pool:
-                terms = item[5] + [item[3], item[4], item[6], item[7], item[8], item[9], item[10], item[11]]
+                # Prefer explicit topic keywords and topic/question names; long explanations
+                # are intentionally excluded so generic words do not create false matches.
+                keywords = item[5]
+                topic_names = [item[3], item[4], item[10], item[11]]
                 score = 0
-                for term in terms:
-                    term_l = term.lower()
-                    if term_l in q:
-                        score += 3 if " " in term_l else 2
-                    term_words = {word for word in term_l.replace(",", " ").replace(".", " ").replace("?", " ").replace("!", " ").replace(":", " ").replace(";", " ").replace("(", " ").replace(")", " ").replace("/", " ").replace("-", " ").split() if len(word) > 2}
-                    score += len(q_words & term_words)
-                ranked.append((score, item))
-        best_score, best_item = max(ranked, key=lambda pair: pair[0]) if ranked else (0, selected)
-        found = bool(q and best_score > 0)
+                matched_terms = []
+                for term in keywords:
+                    term_norm = mentor_normalize(term)
+                    if term_norm and term_norm in normal_q:
+                        score += 4 if " " in term_norm else 3
+                        matched_terms.append(term)
+                for name in topic_names:
+                    name_norm = mentor_normalize(name)
+                    if name_norm and name_norm in normal_q:
+                        score += 5
+                keyword_words = {
+                    word for term in keywords + topic_names
+                    for word in mentor_normalize(term).split() if len(word) > 1
+                }
+                # Small overlap bonus helps natural questions in either supported language.
+                score += min(2, len(q_words & keyword_words))
+                ranked.append((score, item, matched_terms))
+        best_score, best_item, matched_terms = max(ranked, key=lambda pair: pair[0]) if ranked else (0, selected, [])
+        # Require a meaningful topic/keyword match; never label a weak guess as an answer.
+        found = bool(q and best_score >= 3)
         if found:
             selected = best_item
         st.session_state["mentor_last_key"] = context_key
@@ -3403,7 +3424,10 @@ def mentor_lab():
             if st.session_state.get("mentor_match_found"):
                 st.success(("ਸਵਾਲ ਨਾਲ ਸਭ ਤੋਂ ਸੰਬੰਧਿਤ ਵਿਸ਼ਾ ਮਿਲਿਆ: " if pa else "Best matching topic found: ") + (selected[4] if pa else selected[3]))
             else:
-                st.warning("ਇਸ ਸਵਾਲ ਲਈ ਪੱਕਾ ਮੇਲ ਨਹੀਂ ਮਿਲਿਆ। ਹੇਠਾਂ ਚੁਣੇ ਵਿਸ਼ੇ ਦੀ ਵਿਆਖਿਆ ਦਿੱਤੀ ਹੈ; ਸਵਾਲ ਨੂੰ ਹੋਰ ਖਾਸ ਕਰਕੇ ਪੁੱਛੋ।" if pa else "I couldn't confidently match that wording. The selected topic is shown below as a starting point; try using a key science term or a shorter question.")
+                st.warning("ਇਸ ਸਵਾਲ ਲਈ ਪੱਕਾ ਮੇਲ ਨਹੀਂ ਮਿਲਿਆ। ਹੇਠਾਂ ਚੁਣੇ ਵਿਸ਼ੇ ਦੀ ਵਿਆਖਿਆ ਦਿੱਤੀ ਹੈ; ਸਵਾਲ ਵਿੱਚ ਮੁੱਖ ਵਿਗਿਆਨਕ ਸ਼ਬਦ ਵਰਤੋ ਜਾਂ ਵਿਸ਼ਾ-ਬਿੰਦੂ ਬਦਲੋ।" if pa else "I couldn't confidently match that question. The selected topic is shown as a starting point; try a key science term or choose a different topic.")
+                st.caption(("ਮਦਦਗਾਰ ਸ਼ਬਦ: " if pa else "Helpful keywords: ") + ", ".join(selected[5][:5]))
+        elif not q:
+            st.info("ਉੱਪਰ ਸਵਾਲ ਲਿਖੋ ਜਾਂ ਚੁਣੇ ਵਿਸ਼ੇ ਦੀ ਵਿਆਖਿਆ ਅਤੇ ਕਵਿਜ਼ ਨਾਲ ਸ਼ੁਰੂ ਕਰੋ।" if pa else "Type a question above, or start with the selected topic explanation and quiz.")
     st.markdown("---")
     st.subheader(("ਸੌਖੀ ਵਿਆਖਿਆ" if pa else "Simple explanation") + " · " + (selected[4] if pa else selected[3]))
     st.write(selected[7] if pa else selected[6])
