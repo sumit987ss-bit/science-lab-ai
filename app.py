@@ -3322,7 +3322,7 @@ def mentor_lab():
             pool = MENTOR_KB if search_all else eligible
         ranked = []
         if q:
-            normal_q = q.translate(str.maketrans({ch: " " for ch in ".,?!:;()[]{}'\\"/\\-"}))
+            normal_q = q.replace(",", " ").replace(".", " ").replace("?", " ").replace("!", " ").replace(":", " ").replace(";", " ").replace("(", " ").replace(")", " ").replace("/", " ").replace("-", " ")
             q_words = {word for word in normal_q.split() if len(word) > 2}
             for item in pool:
                 terms = item[5] + [item[3], item[4], item[6], item[7], item[8], item[9], item[10], item[11]]
@@ -3331,7 +3331,7 @@ def mentor_lab():
                     term_l = term.lower()
                     if term_l in q:
                         score += 3 if " " in term_l else 2
-                    term_words = {word for word in term_l.translate(str.maketrans({ch: " " for ch in ".,?!:;()[]{}'\\"/\\-"})).split() if len(word) > 2}
+                    term_words = {word for word in term_l.replace(",", " ").replace(".", " ").replace("?", " ").replace("!", " ").replace(":", " ").replace(";", " ").replace("(", " ").replace(")", " ").replace("/", " ").replace("-", " ").split() if len(word) > 2}
                     score += len(q_words & term_words)
                 ranked.append((score, item))
         best_score, best_item = max(ranked, key=lambda pair: pair[0]) if ranked else (0, selected)
