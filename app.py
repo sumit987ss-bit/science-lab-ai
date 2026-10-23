@@ -3269,6 +3269,76 @@ def biology_lab():
     st.caption("Virtual educational model. For real laboratory work, follow teacher supervision, hygiene and school safety rules." if not pa else "ਇਹ ਵਰਚੁਅਲ ਸਿੱਖਣ ਮਾਡਲ ਹੈ। ਅਸਲ ਲੈਬ ਦੇ ਕੰਮ ਲਈ ਅਧਿਆਪਕ ਦੀ ਦੇਖ-ਰੇਖ, ਸਫ਼ਾਈ ਅਤੇ ਸਕੂਲ ਦੇ ਸੁਰੱਖਿਆ ਨਿਯਮਾਂ ਦੀ ਪਾਲਣਾ ਕਰੋ।")
 
 
+
+# Free, offline-first mentor: curated curriculum explanations; no paid API or secret key.
+MENTOR_KB = [
+    ("Physics",6,8,"Force and motion","ਬਲ ਅਤੇ ਗਤੀ",["force","motion","push","pull","ਬਲ","ਗਤੀ","ਧੱਕਾ","ਖਿੱਚ"],"A force is a push or pull. It can change an object's motion, direction or shape. Motion describes a change in position over time.","ਬਲ ਧੱਕਾ ਜਾਂ ਖਿੱਚ ਹੁੰਦਾ ਹੈ। ਇਹ ਵਸਤੂ ਦੀ ਗਤੀ, ਦਿਸ਼ਾ ਜਾਂ ਆਕਾਰ ਬਦਲ ਸਕਦਾ ਹੈ। ਸਮੇਂ ਨਾਲ ਸਥਿਤੀ ਬਦਲਣ ਨੂੰ ਗਤੀ ਕਹਿੰਦੇ ਹਨ।","Pushing a stationary trolley can make it move.","ਰੁਕੀ ਹੋਈ ਟਰਾਲੀ ਨੂੰ ਧੱਕਣ ਨਾਲ ਉਹ ਚੱਲ ਸਕਦੀ ਹੈ।","What is one example of a force changing motion?","ਬਲ ਨਾਲ ਗਤੀ ਬਦਲਣ ਦੀ ਇੱਕ ਉਦਾਹਰਨ ਦਿਓ।"),
+    ("Physics",6,8,"Light and shadows","ਪ੍ਰਕਾਸ਼ ਅਤੇ ਪਰਛਾਵੇਂ",["light","shadow","transparent","opaque","translucent","ਪ੍ਰਕਾਸ਼","ਪਰਛਾਵਾਂ","ਪਾਰਦਰਸ਼ੀ","ਅਪਾਰਦਰਸ਼ੀ"],"Light travels in straight lines in a uniform medium. An opaque object blocks light and can form a shadow; transparent materials let most light pass.","ਇੱਕੋ ਜਿਹੇ ਮਾਧਿਅਮ ਵਿੱਚ ਪ੍ਰਕਾਸ਼ ਸਿੱਧੀ ਰੇਖਾ ਵਿੱਚ ਚੱਲਦਾ ਹੈ। ਅਪਾਰਦਰਸ਼ੀ ਵਸਤੂ ਰੋਸ਼ਨੀ ਰੋਕ ਕੇ ਪਰਛਾਵਾਂ ਬਣਾਉਂਦੀ ਹੈ; ਪਾਰਦਰਸ਼ੀ ਪਦਾਰਥ ਵੱਧਤਰ ਰੋਸ਼ਨੀ ਲੰਘਣ ਦਿੰਦੇ ਹਨ।","A book makes a clear shadow; clear glass usually does not.","ਕਿਤਾਬ ਸਪਸ਼ਟ ਪਰਛਾਵਾਂ ਬਣਾਉਂਦੀ ਹੈ; ਸਾਫ਼ ਕੱਚ ਆਮ ਤੌਰ ਤੇ ਨਹੀਂ।","Which material lets most light pass?","ਕਿਹੜਾ ਪਦਾਰਥ ਵੱਧਤਰ ਰੋਸ਼ਨੀ ਲੰਘਣ ਦਿੰਦਾ ਹੈ?"),
+    ("Physics",7,9,"Heat and temperature","ਤਾਪ ਅਤੇ ਤਾਪਮਾਨ",["heat","temperature","conduction","convection","radiation","ਤਾਪ","ਤਾਪਮਾਨ","ਚਾਲਨ","ਸੰਵਹਨ"],"Heat is energy transferred because of a temperature difference. Temperature tells how hot or cold something is. Heat can travel by conduction, convection and radiation.","ਤਾਪਮਾਨ ਦੇ ਅੰਤਰ ਕਾਰਨ ਇੱਕ ਵਸਤੂ ਤੋਂ ਦੂਜੀ ਵਸਤੂ ਵੱਲ ਊਰਜਾ ਦੇ ਸਥਾਨਾਂਤਰ ਨੂੰ ਤਾਪ ਕਹਿੰਦੇ ਹਨ। ਤਾਪਮਾਨ ਦੱਸਦਾ ਹੈ ਕਿ ਵਸਤੂ ਕਿੰਨੀ ਗਰਮ ਜਾਂ ਠੰਡੀ ਹੈ। ਤਾਪ ਚਾਲਨ, ਸੰਵਹਨ ਅਤੇ ਵਿਕਿਰਣ ਰਾਹੀਂ ਫੈਲ ਸਕਦਾ ਹੈ।","A metal spoon warms in hot tea by conduction.","ਗਰਮ ਚਾਹ ਵਿੱਚ ਧਾਤ ਦਾ ਚਮਚਾ ਚਾਲਨ ਰਾਹੀਂ ਗਰਮ ਹੁੰਦਾ ਹੈ।","Name one method of heat transfer.","ਤਾਪ ਦੇ ਸਥਾਨਾਂਤਰ ਦਾ ਇੱਕ ਤਰੀਕਾ ਦੱਸੋ।"),
+    ("Physics",8,10,"Sound and vibration","ਧੁਨੀ ਅਤੇ ਕੰਪਨ",["sound","vibration","frequency","pitch","ਧੁਨੀ","ਕੰਪਨ","ਆਵ੍ਰਿਤੀ","ਸੁਰ"],"Sound is produced by vibrating objects and needs a material medium to travel. Faster vibrations generally produce a higher pitch.","ਧੁਨੀ ਕੰਪਨ ਕਰਦੀਆਂ ਵਸਤੂਆਂ ਤੋਂ ਪੈਦਾ ਹੁੰਦੀ ਹੈ ਅਤੇ ਫੈਲਣ ਲਈ ਪਦਾਰਥਕ ਮਾਧਿਅਮ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ। ਤੇਜ਼ ਕੰਪਨ ਆਮ ਤੌਰ ਤੇ ਉੱਚਾ ਸੁਰ ਪੈਦਾ ਕਰਦੇ ਹਨ।","A plucked guitar string vibrates and produces sound.","ਗਿਟਾਰ ਦੀ ਤਾਰ ਛੇੜਨ ਨਾਲ ਕੰਪਨ ਕਰਦੀ ਹੈ ਅਤੇ ਧੁਨੀ ਪੈਦਾ ਹੁੰਦੀ ਹੈ।","Can sound travel through a vacuum?","ਕੀ ਧੁਨੀ ਖਲਾਅ ਵਿੱਚ ਫੈਲ ਸਕਦੀ ਹੈ?"),
+    ("Physics",9,10,"Electric current and resistance","ਬਿਜਲੀ ਕਰੰਟ ਅਤੇ ਰੋਧ",["current","voltage","resistance","ohm","ohm's law","ਕਰੰਟ","ਵੋਲਟੇਜ","ਰੋਧ","ਓਮ ਦਾ ਨਿਯਮ"],"Electric current is the flow of electric charge. For an ohmic conductor at constant physical conditions, Ohm's law states V = I × R. Use only low-voltage educational circuits.","ਬਿਜਲੀ ਚਾਰਜ ਦੇ ਵਹਾਅ ਨੂੰ ਕਰੰਟ ਕਹਿੰਦੇ ਹਨ। ਸਥਿਰ ਭੌਤਿਕ ਹਾਲਤਾਂ ਵਿੱਚ ਓਮਿਕ ਚਾਲਕ ਲਈ ਓਮ ਦਾ ਨਿਯਮ V = I × R ਹੈ। ਸਿਰਫ਼ ਘੱਟ ਵੋਲਟੇਜ ਵਾਲੇ ਸਿੱਖਿਆਤਮਕ ਸਰਕਟ ਵਰਤੋ।","A larger resistance gives less current when voltage is fixed.","ਵੋਲਟੇਜ ਸਥਿਰ ਹੋਣ ਤੇ ਵੱਧ ਰੋਧ ਨਾਲ ਕਰੰਟ ਘੱਟ ਹੁੰਦਾ ਹੈ।","What happens to current if resistance increases at fixed voltage?","ਵੋਲਟੇਜ ਸਥਿਰ ਹੋਣ ਤੇ ਰੋਧ ਵਧੇ ਤਾਂ ਕਰੰਟ ਦਾ ਕੀ ਹੁੰਦਾ ਹੈ?"),
+    ("Chemistry",6,8,"Materials and their properties","ਪਦਾਰਥ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਗੁਣ",["material","properties","soluble","insoluble","materials","ਪਦਾਰਥ","ਗੁਣ","ਘੁਲਣਸ਼ੀਲ","ਨਾ-ਘੁਲਣਸ਼ੀਲ"],"Materials are chosen by properties such as hardness, flexibility, transparency, solubility and conductivity. A material's use depends on the property needed.","ਪਦਾਰਥਾਂ ਦੀ ਚੋਣ ਕਠੋਰਤਾ, ਲਚਕ, ਪਾਰਦਰਸ਼ਤਾ, ਘੁਲਣਸ਼ੀਲਤਾ ਅਤੇ ਚਾਲਕਤਾ ਵਰਗੇ ਗੁਣਾਂ ਅਨੁਸਾਰ ਹੁੰਦੀ ਹੈ। ਵਰਤੋਂ ਲੋੜੀਂਦੇ ਗੁਣ ਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।","Salt dissolves in water; sand does not dissolve appreciably.","ਨਮਕ ਪਾਣੀ ਵਿੱਚ ਘੁਲ ਜਾਂਦਾ ਹੈ; ਰੇਤ ਖਾਸ ਤੌਰ ਤੇ ਨਹੀਂ ਘੁਲਦੀ।","Which property helps us choose a window material?","ਖਿੜਕੀ ਲਈ ਪਦਾਰਥ ਚੁਣਨ ਵਿੱਚ ਕਿਹੜਾ ਗੁਣ ਮਦਦ ਕਰਦਾ ਹੈ?"),
+    ("Chemistry",6,8,"Physical and chemical changes","ਭੌਤਿਕ ਅਤੇ ਰਸਾਇਣਕ ਤਬਦੀਲੀਆਂ",["physical change","chemical change","reversible","irreversible","rust","ਭੌਤਿਕ ਤਬਦੀਲੀ","ਰਸਾਇਣਕ ਤਬਦੀਲੀ","ਉਲਟਣਯੋਗ","ਜੰਗ"],"A physical change changes form or state without making a new substance. A chemical change forms one or more new substances; many are difficult to reverse.","ਭੌਤਿਕ ਤਬਦੀਲੀ ਵਿੱਚ ਨਵਾਂ ਪਦਾਰਥ ਨਹੀਂ ਬਣਦਾ, ਸਿਰਫ਼ ਰੂਪ ਜਾਂ ਅਵਸਥਾ ਬਦਲਦੀ ਹੈ। ਰਸਾਇਣਕ ਤਬਦੀਲੀ ਵਿੱਚ ਨਵਾਂ ਪਦਾਰਥ ਬਣਦਾ ਹੈ; ਕਈ ਤਬਦੀਲੀਆਂ ਉਲਟਣੀਆਂ ਔਖੀਆਂ ਹੁੰਦੀਆਂ ਹਨ।","Melting ice is physical; iron rusting is chemical.","ਬਰਫ਼ ਪਿਘਲਣਾ ਭੌਤਿਕ ਹੈ; ਲੋਹੇ ਨੂੰ ਜੰਗ ਲੱਗਣਾ ਰਸਾਇਣਕ ਹੈ।","Does rusting make a new substance?","ਕੀ ਜੰਗ ਲੱਗਣ ਨਾਲ ਨਵਾਂ ਪਦਾਰਥ ਬਣਦਾ ਹੈ?"),
+    ("Chemistry",7,10,"Acids, bases and indicators","ਤੇਜ਼ਾਬ, ਖਾਰ ਅਤੇ ਸੂਚਕ",["acid","base","indicator","litmus","neutral","ਤੇਜ਼ਾਬ","ਖਾਰ","ਸੂਚਕ","ਲਿਟਮਸ","ਉਦਾਸੀਨ"],"Acids turn blue litmus red; bases turn red litmus blue. Neutral solutions do not change red or blue litmus. Never taste unknown substances in a lab.","ਤੇਜ਼ਾਬ ਨੀਲੇ ਲਿਟਮਸ ਨੂੰ ਲਾਲ ਕਰਦੇ ਹਨ; ਖਾਰ ਲਾਲ ਲਿਟਮਸ ਨੂੰ ਨੀਲਾ ਕਰਦੇ ਹਨ। ਉਦਾਸੀਨ ਘੋਲ ਲਾਲ ਜਾਂ ਨੀਲੇ ਲਿਟਮਸ ਦਾ ਰੰਗ ਨਹੀਂ ਬਦਲਦੇ। ਲੈਬ ਵਿੱਚ ਅਣਜਾਣ ਪਦਾਰਥ ਕਦੇ ਨਾ ਚੱਖੋ।","Lemon juice is acidic; soap solution is usually basic.","ਨਿੰਬੂ ਦਾ ਰਸ ਤੇਜ਼ਾਬੀ ਹੈ; ਸਾਬਣ ਦਾ ਘੋਲ ਆਮ ਤੌਰ ਤੇ ਖਾਰੀ ਹੁੰਦਾ ਹੈ।","What does a base do to red litmus?","ਖਾਰ ਲਾਲ ਲਿਟਮਸ ਨਾਲ ਕੀ ਕਰਦਾ ਹੈ?"),
+    ("Chemistry",8,10,"Elements, compounds and mixtures","ਤੱਤ, ਯੋਗਿਕ ਅਤੇ ਮਿਸ਼ਰਣ",["element","compound","mixture","atom","molecule","ਤੱਤ","ਯੋਗਿਕ","ਮਿਸ਼ਰਣ","ਪਰਮਾਣੂ","ਅਣੂ"],"An element contains one type of atom. A compound has elements chemically combined in a fixed proportion. A mixture contains substances physically combined and often separable by physical methods.","ਤੱਤ ਵਿੱਚ ਇੱਕ ਕਿਸਮ ਦੇ ਪਰਮਾਣੂ ਹੁੰਦੇ ਹਨ। ਯੋਗਿਕ ਵਿੱਚ ਤੱਤ ਨਿਸ਼ਚਿਤ ਅਨੁਪਾਤ ਵਿੱਚ ਰਸਾਇਣਕ ਤੌਰ ਤੇ ਜੁੜੇ ਹੁੰਦੇ ਹਨ। ਮਿਸ਼ਰਣ ਵਿੱਚ ਪਦਾਰਥ ਭੌਤਿਕ ਤੌਰ ਤੇ ਮਿਲੇ ਹੁੰਦੇ ਹਨ ਅਤੇ ਅਕਸਰ ਭੌਤਿਕ ਤਰੀਕਿਆਂ ਨਾਲ ਵੱਖ ਹੋ ਸਕਦੇ ਹਨ।","Iron is an element; water is a compound; sand mixed with salt is a mixture.","ਲੋਹਾ ਤੱਤ ਹੈ; ਪਾਣੀ ਯੋਗਿਕ ਹੈ; ਰੇਤ ਅਤੇ ਨਮਕ ਦਾ ਮਿਸ਼ਰਣ ਇੱਕ ਮਿਸ਼ਰਣ ਹੈ।","Which can usually be separated by filtration: a mixture or a compound?","ਛਾਣਨ ਨਾਲ ਆਮ ਤੌਰ ਤੇ ਕੀ ਵੱਖ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ: ਮਿਸ਼ਰਣ ਜਾਂ ਯੋਗਿਕ?"),
+    ("Chemistry",9,10,"Atoms, molecules and chemical reactions","ਪਰਮਾਣੂ, ਅਣੂ ਅਤੇ ਰਸਾਇਣਕ ਕਿਰਿਆਵਾਂ",["atom","molecule","reaction","equation","conservation","ਪਰਮਾਣੂ","ਅਣੂ","ਕਿਰਿਆ","ਸਮੀਕਰਨ"],"Atoms are the basic units of elements. Molecules contain atoms bonded together. Chemical equations represent reactions and must be balanced to conserve each type of atom.","ਪਰਮਾਣੂ ਤੱਤਾਂ ਦੀਆਂ ਮੂਲ ਇਕਾਈਆਂ ਹਨ। ਅਣੂ ਵਿੱਚ ਆਪਸ ਵਿੱਚ ਜੁੜੇ ਪਰਮਾਣੂ ਹੁੰਦੇ ਹਨ। ਰਸਾਇਣਕ ਸਮੀਕਰਨ ਕਿਰਿਆ ਦਰਸਾਉਂਦੇ ਹਨ ਅਤੇ ਹਰ ਕਿਸਮ ਦੇ ਪਰਮਾਣੂਆਂ ਦੀ ਗਿਣਤੀ ਸੰਭਾਲਣ ਲਈ ਸੰਤੁਲਿਤ ਹੋਣੇ ਚਾਹੀਦੇ ਹਨ।","In a balanced equation, each element has the same atom count on both sides.","ਸੰਤੁਲਿਤ ਸਮੀਕਰਨ ਵਿੱਚ ਹਰ ਤੱਤ ਦੇ ਪਰਮਾਣੂ ਦੋਹਾਂ ਪਾਸਿਆਂ ਬਰਾਬਰ ਹੁੰਦੇ ਹਨ।","Why must a chemical equation be balanced?","ਰਸਾਇਣਕ ਸਮੀਕਰਨ ਸੰਤੁਲਿਤ ਕਿਉਂ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ?"),
+    ("Biology",6,8,"Living and non-living things","ਸਜੀਵ ਅਤੇ ਨਿਰਜੀਵ ਚੀਜ਼ਾਂ",["living","non-living","growth","respiration","ਸਜੀਵ","ਨਿਰਜੀਵ","ਵਾਧਾ","ਸਾਹ"],"Living things carry out life processes such as nutrition, respiration, growth and response to surroundings. A single feature alone may not be enough to classify something.","ਸਜੀਵ ਪੋਸ਼ਣ, ਸਾਹ ਲੈਣ, ਵਾਧੇ ਅਤੇ ਵਾਤਾਵਰਣ ਪ੍ਰਤੀ ਪ੍ਰਤੀਕਿਰਿਆ ਵਰਗੀਆਂ ਜੀਵਨ ਪ੍ਰਕਿਰਿਆਵਾਂ ਕਰਦੇ ਹਨ। ਸਿਰਫ਼ ਇੱਕ ਗੁਣ ਨਾਲ ਹਰ ਚੀਜ਼ ਦਾ ਵਰਗੀਕਰਨ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ।","A seed may appear inactive but can germinate under suitable conditions.","ਬੀਜ ਸੁੱਤਾ ਜਿਹਾ ਲੱਗ ਸਕਦਾ ਹੈ ਪਰ ਢੁਕਵੀਆਂ ਹਾਲਤਾਂ ਵਿੱਚ ਅੰਕੁਰਿਤ ਹੋ ਸਕਦਾ ਹੈ।","Name one life process.","ਇੱਕ ਜੀਵਨ ਪ੍ਰਕਿਰਿਆ ਦਾ ਨਾਮ ਦੱਸੋ।"),
+    ("Biology",6,9,"Plant and animal cells","ਪੌਦੇ ਅਤੇ ਜਾਨਵਰਾਂ ਦੇ ਕੋਸ਼",["cell","plant cell","animal cell","nucleus","chloroplast","ਕੋਸ਼","ਪੌਦੇ ਦਾ ਕੋਸ਼","ਜਾਨਵਰ ਦਾ ਕੋਸ਼","ਕੇਂਦਰਕ"],"Cells are the basic structural and functional units of living organisms. Plant cells typically have a cell wall, chloroplasts in photosynthetic tissues and a large central vacuole; animal cells lack a cell wall.","ਕੋਸ਼ ਜੀਵਾਂ ਦੀ ਬਣਤਰ ਅਤੇ ਕੰਮ ਦੀਆਂ ਮੂਲ ਇਕਾਈਆਂ ਹਨ। ਪੌਦਿਆਂ ਦੇ ਕੋਸ਼ਾਂ ਵਿੱਚ ਆਮ ਤੌਰ ਤੇ ਕੋਸ਼-ਭਿੱਤ, ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ੀ ਟਿਸ਼ੂਆਂ ਵਿੱਚ ਹਰਿਤਲਵਕ ਅਤੇ ਵੱਡੀ ਕੇਂਦਰੀ ਰਸਧਾਨੀ ਹੁੰਦੀ ਹੈ; ਜਾਨਵਰਾਂ ਦੇ ਕੋਸ਼ਾਂ ਵਿੱਚ ਕੋਸ਼-ਭਿੱਤ ਨਹੀਂ ਹੁੰਦੀ।","A nucleus contains genetic material and helps control cell activities.","ਕੇਂਦਰਕ ਵਿੱਚ ਵਿਰਾਸਤੀ ਪਦਾਰਥ ਹੁੰਦਾ ਹੈ ਅਤੇ ਇਹ ਕੋਸ਼ ਦੀਆਂ ਕਿਰਿਆਵਾਂ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।","Which structure is present in plant cells but not animal cells?","ਕਿਹੜੀ ਬਣਤਰ ਪੌਦੇ ਦੇ ਕੋਸ਼ ਵਿੱਚ ਹੁੰਦੀ ਹੈ ਪਰ ਜਾਨਵਰ ਦੇ ਕੋਸ਼ ਵਿੱਚ ਨਹੀਂ?"),
+    ("Biology",7,10,"Nutrition and photosynthesis","ਪੋਸ਼ਣ ਅਤੇ ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ",["nutrition","photosynthesis","chlorophyll","food","ਪੋਸ਼ਣ","ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ","ਹਰਿਤਲਵਕ","ਭੋਜਨ"],"Green plants use light energy, carbon dioxide and water to make glucose during photosynthesis, releasing oxygen. Chlorophyll captures light energy.","ਹਰੇ ਪੌਦੇ ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਦੌਰਾਨ ਰੋਸ਼ਨੀ ਦੀ ਊਰਜਾ, ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ ਅਤੇ ਪਾਣੀ ਨਾਲ ਗਲੂਕੋਜ਼ ਬਣਾਉਂਦੇ ਹਨ ਅਤੇ ਆਕਸੀਜਨ ਛੱਡਦੇ ਹਨ। ਕਲੋਰੋਫਿਲ ਰੋਸ਼ਨੀ ਦੀ ਊਰਜਾ ਫੜਦਾ ਹੈ।","Leaves are major photosynthetic organs in many plants.","ਕਈ ਪੌਦਿਆਂ ਵਿੱਚ ਪੱਤੇ ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਦੇ ਮੁੱਖ ਅੰਗ ਹਨ।","Name two raw materials needed for photosynthesis.","ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਲਈ ਲੋੜੀਂਦੇ ਦੋ ਕੱਚੇ ਪਦਾਰਥ ਦੱਸੋ।"),
+    ("Biology",7,10,"Respiration","ਸਾਹ ਕਿਰਿਆ",["respiration","aerobic","anaerobic","oxygen","ਸਾਹ ਕਿਰਿਆ","ਆਕਸੀਜਨ"],"Cellular respiration releases usable energy from food. Aerobic respiration uses oxygen; some cells can release energy without oxygen through anaerobic pathways, which yield less energy per glucose molecule.","ਕੋਸ਼ਿਕਾਈ ਸਾਹ ਕਿਰਿਆ ਭੋਜਨ ਤੋਂ ਵਰਤਣਯੋਗ ਊਰਜਾ ਛੱਡਦੀ ਹੈ। ਆਕਸੀਜਨੀ ਸਾਹ ਕਿਰਿਆ ਵਿੱਚ ਆਕਸੀਜਨ ਵਰਤੀ ਜਾਂਦੀ ਹੈ; ਕੁਝ ਕੋਸ਼ਿਕਾਵਾਂ ਬਿਨਾਂ ਆਕਸੀਜਨ ਦੇ ਵੀ ਊਰਜਾ ਛੱਡ ਸਕਦੀਆਂ ਹਨ, ਪਰ ਗਲੂਕੋਜ਼ ਪ੍ਰਤੀ ਘੱਟ ਊਰਜਾ ਮਿਲਦੀ ਹੈ।","Muscle cells may temporarily use anaerobic pathways during intense activity.","ਤੀਬਰ ਕਿਰਿਆ ਦੌਰਾਨ ਮਾਸਪੇਸ਼ੀ ਕੋਸ਼ਿਕਾਵਾਂ ਕੁਝ ਸਮੇਂ ਲਈ ਬਿਨਾਂ ਆਕਸੀਜਨ ਵਾਲਾ ਰਸਤਾ ਵਰਤ ਸਕਦੀਆਂ ਹਨ।","What gas is used in aerobic respiration?","ਆਕਸੀਜਨੀ ਸਾਹ ਕਿਰਿਆ ਵਿੱਚ ਕਿਹੜੀ ਗੈਸ ਵਰਤੀ ਜਾਂਦੀ ਹੈ?"),
+    ("Biology",8,10,"Human body systems","ਮਨੁੱਖੀ ਸਰੀਰ ਦੀਆਂ ਪ੍ਰਣਾਲੀਆਂ",["heart","lungs","digestion","circulation","excretion","ਦਿਲ","ਫੇਫੜੇ","ਪਚਣ","ਖੂਨ ਦਾ ਸੰਚਾਰ","ਨਿਕਾਸ"],"Organ systems work together. The digestive system breaks food into absorbable substances, the respiratory system exchanges gases, the circulatory system transports materials and the excretory system removes wastes.","ਸਰੀਰ ਦੀਆਂ ਪ੍ਰਣਾਲੀਆਂ ਇਕੱਠੇ ਕੰਮ ਕਰਦੀਆਂ ਹਨ। ਪਚਣ ਪ੍ਰਣਾਲੀ ਭੋਜਨ ਨੂੰ ਸੋਖਣਯੋਗ ਪਦਾਰਥਾਂ ਵਿੱਚ ਤੋੜਦੀ ਹੈ, ਸਾਹ ਪ੍ਰਣਾਲੀ ਗੈਸਾਂ ਦਾ ਅਦਾਨ-ਪ੍ਰਦਾਨ ਕਰਦੀ ਹੈ, ਸੰਚਾਰ ਪ੍ਰਣਾਲੀ ਪਦਾਰਥ ਪਹੁੰਚਾਉਂਦੀ ਹੈ ਅਤੇ ਨਿਕਾਸ ਪ੍ਰਣਾਲੀ ਫ਼ਜ਼ਲ ਪਦਾਰਥ ਹਟਾਉਂਦੀ ਹੈ।","Blood transports oxygen from lungs to body tissues.","ਖੂਨ ਫੇਫੜਿਆਂ ਤੋਂ ਆਕਸੀਜਨ ਸਰੀਰ ਦੇ ਟਿਸ਼ੂਆਂ ਤੱਕ ਲੈ ਜਾਂਦਾ ਹੈ।","Which system transports oxygen around the body?","ਸਰੀਰ ਵਿੱਚ ਆਕਸੀਜਨ ਕਿਹੜੀ ਪ੍ਰਣਾਲੀ ਪਹੁੰਚਾਉਂਦੀ ਹੈ?"),
+    ("Biology",9,10,"Heredity and variation","ਵਿਰਾਸਤ ਅਤੇ ਵੱਖਰਾਪਣ",["heredity","variation","gene","dna","trait","ਵਿਰਾਸਤ","ਵੱਖਰਾਪਣ","ਜੀਨ","ਗੁਣ"],"Heredity is the passing of genetic information from parents to offspring. Variation means differences among individuals and can arise from genetic and environmental factors.","ਮਾਪਿਆਂ ਤੋਂ ਸੰਤਾਨ ਤੱਕ ਵਿਰਾਸਤੀ ਜਾਣਕਾਰੀ ਦੇ ਜਾਣ ਨੂੰ ਵਿਰਾਸਤ ਕਹਿੰਦੇ ਹਨ। ਵਿਅਕਤੀਆਂ ਵਿਚਕਾਰ ਅੰਤਰ ਨੂੰ ਵੱਖਰਾਪਣ ਕਹਿੰਦੇ ਹਨ; ਇਹ ਜੀਨਾਂ ਅਤੇ ਵਾਤਾਵਰਣ ਦੋਹਾਂ ਕਾਰਨਾਂ ਨਾਲ ਹੋ ਸਕਦਾ ਹੈ।","Siblings may share traits but still differ from one another.","ਭੈਣ-ਭਰਾ ਵਿੱਚ ਕੁਝ ਗੁਣ ਸਾਂਝੇ ਹੋ ਸਕਦੇ ਹਨ ਪਰ ਉਹ ਇੱਕ-ਦੂਜੇ ਤੋਂ ਵੱਖ ਵੀ ਹੁੰਦੇ ਹਨ।","What is heredity?","ਵਿਰਾਸਤ ਕੀ ਹੈ?")
+]
+
+def mentor_lab():
+    pa = st.session_state.language == "pa"
+    if st.button(tr("back"), key="mentor_back"):
+        go("home")
+        st.rerun()
+    st.title("🤖 " + ("AI ਵਿਗਿਆਨ ਮਾਰਗਦਰਸ਼ਕ" if pa else "AI Science Mentor"))
+    st.caption("ਮੁਫ਼ਤ, ਬਿਨਾਂ API ਕੁੰਜੀ ਦੇ" if pa else "Free offline-first learning helper · no paid API or API key")
+    st.markdown("### " + ("ਆਪਣਾ ਸਵਾਲ ਪੁੱਛੋ" if pa else "Ask a science question"))
+    c1, c2 = st.columns(2)
+    with c1:
+        grade = st.selectbox("ਜਮਾਤ" if pa else "Class", [6,7,8,9,10], key="mentor_grade")
+    with c2:
+        subject = st.selectbox("ਵਿਸ਼ਾ" if pa else "Subject", ["Physics","Chemistry","Biology"], format_func=lambda x: ({"Physics":"ਭੌਤਿਕ ਵਿਗਿਆਨ","Chemistry":"ਰਸਾਇਣ ਵਿਗਿਆਨ","Biology":"ਜੀਵ ਵਿਗਿਆਨ"}[x] if pa else x), key="mentor_subject")
+    eligible = [item for item in MENTOR_KB if item[0] == subject and item[1] <= grade <= item[2]]
+    if not eligible:
+        eligible = [item for item in MENTOR_KB if item[0] == subject]
+    topic_labels = [item[4] if pa else item[3] for item in eligible]
+    selected_topic = st.selectbox("ਵਿਸ਼ਾ-ਬਿੰਦੂ" if pa else "Topic", topic_labels, key=f"mentor_topic_{grade}_{subject}_{st.session_state.language}")
+    selected = eligible[topic_labels.index(selected_topic)]
+    with st.form(f"mentor_ask_form_{grade}_{subject}_{st.session_state.language}"):
+        question = st.text_area("ਆਪਣਾ ਸਵਾਲ ਲਿਖੋ (اختیاری)" if pa else "Type your question (optional)", placeholder=("ਉਦਾਹਰਨ: ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਕੀ ਹੈ?" if pa else "Example: Why does iron rust?"), height=90)
+        submitted = st.form_submit_button("ਸਮਝਾਓ" if pa else "Explain")
+    if submitted:
+        q = question.strip().lower()
+        # Match the learner's wording to a related concept within the selected subject and grade.
+        ranked = []
+        for item in eligible:
+            terms = item[5] + [item[3].lower(), item[4].lower()]
+            score = sum(1 for term in terms if term.lower() in q) if q else 0
+            ranked.append((score, item))
+        best_score, best_item = max(ranked, key=lambda pair: pair[0])
+        if best_score > 0:
+            selected = best_item
+        st.session_state["mentor_last_key"] = f"{grade}_{subject}_{st.session_state.language}"
+        st.session_state["mentor_last_topic"] = selected[3]
+        st.session_state["mentor_last_question"] = question.strip()
+    if st.session_state.get("mentor_last_key") == f"{grade}_{subject}_{st.session_state.language}" and st.session_state.get("mentor_last_topic"):
+        selected = next((item for item in eligible if item[3] == st.session_state["mentor_last_topic"]), selected)
+    st.markdown("---")
+    st.subheader(("ਸੌਖੀ ਵਿਆਖਿਆ" if pa else "Simple explanation") + " · " + (selected[4] if pa else selected[3]))
+    st.write(selected[7] if pa else selected[6])
+    st.markdown("**" + ("ਉਦਾਹਰਨ" if pa else "Example") + "**")
+    st.write(selected[9] if pa else selected[8])
+    st.markdown("**" + ("ਆਪਣੇ ਆਪ ਨੂੰ ਪਰਖੋ" if pa else "Check your understanding") + "**")
+    st.write(selected[11] if pa else selected[10])
+    st.caption("ਇਹ ਪਹਿਲਾ offline ਸੰਸਕਰਣ ਚੁਣੇ ਹੋਏ ਪਾਠ-ਵਿਸ਼ਿਆਂ ਤੋਂ ਜਵਾਬ ਦਿੰਦਾ ਹੈ; ਇਹ ਹਰ ਖੁੱਲ੍ਹੇ ਸਵਾਲ ਦਾ ਜਨਰੇਟਿਵ AI ਜਵਾਬ ਨਹੀਂ ਹੈ।" if pa else "Stage 1 uses a curated, offline knowledge bank. It does not generate an unrestricted answer to every possible question; unmatched questions may need a narrower topic.")
+    st.info("ਸੁਰੱਖਿਆ: ਅਸਲ ਰਸਾਇਣ, ਬਿਜਲੀ ਜਾਂ ਜੀਵ-ਵਿਗਿਆਨਕ ਨਮੂਨਿਆਂ ਵਾਲੇ ਪ੍ਰਯੋਗ ਅਧਿਆਪਕ ਦੀ ਦੇਖ-ਰੇਖ ਹੇਠ ਹੀ ਕਰੋ।" if pa else "Safety: perform real experiments involving chemicals, electricity or biological samples only with teacher supervision.")
+
+
 def planned_lab(page):
     if st.button(tr("back")):
         go("home")
@@ -3319,7 +3389,7 @@ elif st.session_state.page == "biology":
     biology_lab()
 elif st.session_state.page == "mentor":
     show_header()
-    planned_lab("mentor")
+    mentor_lab()
 else:
     st.session_state.page = "home"
     st.rerun()
