@@ -2957,7 +2957,7 @@ def chemistry_lab():
 # Topics are aligned broadly with the PSEB/NCERT middle- and secondary-school Science curriculum.
 BIOLOGY_EXPERIMENTS = {
     6: [
-        ("Explore Plant and Animal Cells", "ਪੌਦਿਆਂ ਅਤੇ ਜਾਨਵਰਾਂ ਦੇ ਕੋਸ਼ਾਂ ਦੀ ਖੋਜ", "Compare the main visible parts of plant and animal cells.", "ਪੌਦੇ ਅਤੇ ਜਾਨਵਰ ਦੇ ਕੋਸ਼ਾਂ ਦੇ ਮੁੱਖ ਭਾਗਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।", "cell"),
+        ("Parts of a Plant", "ਪੌਦੇ ਦੇ ਭਾਗ", "Identify roots, stem, leaves, flower, fruit and seeds and connect each part with its job.", "ਜੜ੍ਹਾਂ, ਤਣੇ, ਪੱਤੇ, ਫੁੱਲ, ਫਲ ਅਤੇ ਬੀਜ ਪਛਾਣੋ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ ਸਮਝੋ।", "plant_parts"),
         ("Seed Germination", "ਬੀਜ ਦਾ ਅੰਕੁਰਣ", "Observe how a seed develops into a seedling when suitable conditions are available.", "ਢੁਕਵੀਆਂ ਹਾਲਤਾਂ ਵਿੱਚ ਬੀਜ ਤੋਂ ਪੌਦਾ ਬਣਨ ਦੀ ਪ੍ਰਕਿਰਿਆ ਵੇਖੋ।", "germination"),
         ("What Does a Plant Need?", "ਪੌਦੇ ਨੂੰ ਕੀ ਚਾਹੀਦਾ ਹੈ?", "Explore the roles of light, water and air in plant growth.", "ਪੌਦੇ ਦੇ ਵਾਧੇ ਵਿੱਚ ਰੋਸ਼ਨੀ, ਪਾਣੀ ਅਤੇ ਹਵਾ ਦੀ ਭੂਮਿਕਾ ਜਾਣੋ।", "plant_needs"),
         ("Food Chains in a Habitat", "ਆਵਾਸ ਵਿੱਚ ਭੋਜਨ ਲੜੀ", "Trace how food energy moves from plants to animals.", "ਪੌਦਿਆਂ ਤੋਂ ਜਾਨਵਰਾਂ ਤੱਕ ਭੋਜਨ ਊਰਜਾ ਦਾ ਵਹਾਅ ਸਮਝੋ।", "food_chain"),
@@ -2978,7 +2978,7 @@ BIOLOGY_EXPERIMENTS = {
         ("Ecosystem Relationships", "ਪਰਿਸਥਿਤਕੀ ਤੰਤਰ ਦੇ ਸੰਬੰਧ", "Observe producers, consumers and decomposers in an ecosystem.", "ਪਰਿਸਥਿਤਕੀ ਤੰਤਰ ਵਿੱਚ ਉਤਪਾਦਕਾਂ, ਖਪਤਕਾਰਾਂ ਅਤੇ ਵਿਘਟਕਾਂ ਨੂੰ ਵੇਖੋ।", "ecosystem"),
     ],
     9: [
-        ("Plant and Animal Tissues", "ਪੌਦਿਆਂ ਅਤੇ ਜਾਨਵਰਾਂ ਦੇ ਟਿਸ਼ੂ", "Compare how groups of specialised cells perform different jobs.", "ਵਿਸ਼ੇਸ਼ੀਕ੍ਰਿਤ ਕੋਸ਼ਾਂ ਦੇ ਸਮੂਹ ਵੱਖ-ਵੱਖ ਕੰਮ ਕਿਵੇਂ ਕਰਦੇ ਹਨ, ਸਮਝੋ।", "tissue"),
+        ("Plant and Animal Cells", "ਪੌਦਿਆਂ ਅਤੇ ਜਾਨਵਰਾਂ ਦੇ ਕੋਸ਼", "Compare plant and animal cells, identify their main structures and understand how their parts differ.", "ਪੌਦਿਆਂ ਅਤੇ ਜਾਨਵਰਾਂ ਦੇ ਕੋਸ਼ਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ, ਮੁੱਖ ਬਣਤਰਾਂ ਪਛਾਣੋ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਫ਼ਰਕ ਸਮਝੋ।", "cell"),
         ("Diffusion and Osmosis", "ਵਿਸਰਣ ਅਤੇ ਪਰਾਸਰਣ", "Model movement of particles and water across a selectively permeable membrane.", "ਕਣਾਂ ਅਤੇ ਪਾਣੀ ਦੀ ਚੋਣਵੀਂ ਪਾਰਗਮਣ ਝਿੱਲੀ ਰਾਹੀਂ ਗਤੀ ਦਾ ਮਾਡਲ ਵੇਖੋ।", "osmosis"),
         ("Nutrition and Digestion", "ਪੋਸ਼ਣ ਅਤੇ ਪਚਣ", "Trace the pathway of food and the role of digestive organs.", "ਭੋਜਨ ਦੇ ਰਸਤੇ ਅਤੇ ਪਾਚਕ ਅੰਗਾਂ ਦੀ ਭੂਮਿਕਾ ਵੇਖੋ।", "digestion"),
         ("Respiration in Living Cells", "ਜੀਵਤ ਕੋਸ਼ਾਂ ਵਿੱਚ ਸ਼ਵਾਸ ਕਿਰਿਆ", "Compare aerobic respiration with energy release when oxygen is limited.", "ਆਕਸੀਜਨ ਦੀ ਉਪਲਬਧਤਾ ਅਨੁਸਾਰ ਊਰਜਾ ਮੁਕਤ ਹੋਣ ਦੀ ਤੁਲਨਾ ਕਰੋ।", "respiration"),
@@ -2994,6 +2994,14 @@ BIOLOGY_EXPERIMENTS = {
 }
 
 BIOLOGY_OPTIONS = {
+    "plant_parts": [
+        ("Root", "ਜੜ੍ਹ", "Roots anchor the plant and absorb water and mineral nutrients from soil.", "ਜੜ੍ਹਾਂ ਪੌਦੇ ਨੂੰ ਮਿੱਟੀ ਵਿੱਚ ਟਿਕਾਉਂਦੀਆਂ ਹਨ ਅਤੇ ਪਾਣੀ ਤੇ ਖਣਿਜ ਪੋਸ਼ਕ ਤੱਤ ਸੋਖਦੀਆਂ ਹਨ।"),
+        ("Stem", "ਤਣਾ", "The stem supports the plant and transports water, minerals and sugars.", "ਤਣਾ ਪੌਦੇ ਨੂੰ ਸਹਾਰਾ ਦਿੰਦਾ ਹੈ ਅਤੇ ਪਾਣੀ, ਖਣਿਜ ਤੇ ਸ਼ੱਕਰ ਦੀ ਆਵਾਜਾਈ ਕਰਦਾ ਹੈ।"),
+        ("Leaf", "ਪੱਤਾ", "Leaves capture light and usually make food by photosynthesis.", "ਪੱਤੇ ਰੋਸ਼ਨੀ ਲੈਂਦੇ ਹਨ ਅਤੇ ਆਮ ਤੌਰ ਤੇ ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਰਾਹੀਂ ਭੋਜਨ ਬਣਾਉਂਦੇ ਹਨ।"),
+        ("Flower", "ਫੁੱਲ", "Flowers are involved in plant reproduction and can develop into fruits after fertilisation.", "ਫੁੱਲ ਪੌਦਿਆਂ ਦੇ ਪ੍ਰਜਨਨ ਵਿੱਚ ਭਾਗ ਲੈਂਦੇ ਹਨ ਅਤੇ ਨਿਸ਼ੇਚਨ ਤੋਂ ਬਾਅਦ ਫਲ ਬਣ ਸਕਦੇ ਹਨ।"),
+        ("Fruit", "ਫਲ", "A fruit develops from the flower ovary and often protects the seeds.", "ਫਲ ਫੁੱਲ ਦੇ ਅੰਡਾਸ਼ਯ ਤੋਂ ਬਣਦਾ ਹੈ ਅਤੇ ਅਕਸਰ ਬੀਜਾਂ ਦੀ ਰੱਖਿਆ ਕਰਦਾ ਹੈ।"),
+        ("Seed", "ਬੀਜ", "A seed contains an embryo and can grow into a new plant under suitable conditions.", "ਬੀਜ ਵਿੱਚ ਭ੍ਰੂਣ ਹੁੰਦਾ ਹੈ ਅਤੇ ਢੁਕਵੀਆਂ ਹਾਲਤਾਂ ਵਿੱਚ ਨਵਾਂ ਪੌਦਾ ਬਣ ਸਕਦਾ ਹੈ।"),
+    ],
     "cell": [
         ("Plant cell", "ਪੌਦੇ ਦਾ ਕੋਸ਼", "Plant cells have a cell wall, membrane, cytoplasm, nucleus and often a large vacuole.", "ਪੌਦੇ ਦੇ ਕੋਸ਼ ਵਿੱਚ ਕੋਸ਼ਿਕਾ ਭਿੱਤ, ਝਿੱਲੀ, ਕੋਸ਼ਦ੍ਰਵ, ਕੇਂਦਰਕ ਅਤੇ ਆਮ ਤੌਰ ਤੇ ਵੱਡੀ ਰਸਧਾਨੀ ਹੁੰਦੀ ਹੈ।"),
         ("Animal cell", "ਜਾਨਵਰ ਦਾ ਕੋਸ਼", "Animal cells have a membrane, cytoplasm and nucleus, but no cell wall.", "ਜਾਨਵਰ ਦੇ ਕੋਸ਼ ਵਿੱਚ ਝਿੱਲੀ, ਕੋਸ਼ਦ੍ਰਵ ਅਤੇ ਕੇਂਦਰਕ ਹੁੰਦੇ ਹਨ, ਪਰ ਕੋਸ਼ਿਕਾ ਭਿੱਤ ਨਹੀਂ ਹੁੰਦੀ।"),
@@ -3118,7 +3126,11 @@ def biology_visual(kind, choice, pa):
     ink = "#25485b"
     # Shared SVG components, with kind-specific drawings and selection-dependent cues.
     art = ""
-    if kind == "cell":
+    if kind == "plant_parts":
+        selected_positions = {"Root": (240, 163), "Stem": (240, 116), "Leaf": (196, 72), "Flower": (240, 42), "Fruit": (294, 84), "Seed": (350, 150)}
+        px, py = selected_positions.get(choice, (240, 116))
+        art = f'<rect x="65" y="148" width="350" height="35" rx="5" fill="#9a7046"/><path d="M240 151 V82" stroke="#43884c" stroke-width="8"/><path d="M240 110 Q203 72 171 91 Q190 121 240 110 M240 98 Q277 60 309 80 Q292 108 240 98" fill="#5bad59" stroke="#397b48" stroke-width="2"/><circle cx="240" cy="53" r="12" fill="#e8b84e" stroke="#b98928" stroke-width="2"/><ellipse cx="224" cy="52" rx="11" ry="17" fill="#efb0c5" stroke="#b96b8b" stroke-width="2"/><ellipse cx="256" cy="52" rx="11" ry="17" fill="#efb0c5" stroke="#b96b8b" stroke-width="2"/><path d="M240 151 Q220 169 211 183 M240 151 Q260 169 269 183 M240 151 V187" stroke="#d4ad76" stroke-width="4" fill="none"/><circle cx="294" cy="84" r="11" fill="#ed8a48" stroke="#b75e2c" stroke-width="2"/><ellipse cx="350" cy="150" rx="14" ry="8" fill="#b58a4b" stroke="#77552a" stroke-width="2"/><path d="M{px} {py} L{min(px+70,410)} {max(py-22,28)}" stroke="#c74747" stroke-width="3" fill="none"/><circle cx="{px}" cy="{py}" r="6" fill="#c74747" stroke="#ffffff" stroke-width="2"/><rect x="286" y="12" width="132" height="25" rx="7" fill="#fff0e8" stroke="#c74747"/><text x="352" y="29" text-anchor="middle" font-size="11" font-weight="bold" fill="#8d302b">{choice.upper()}</text><text x="95" y="62" font-size="11" font-weight="bold" fill="{ink}">LEAF</text><text x="82" y="132" font-size="11" font-weight="bold" fill="{ink}">STEM</text><text x="240" y="202" text-anchor="middle" font-size="10" font-weight="bold" fill="{ink}">ROOTS ANCHOR + ABSORB</text>'
+    elif kind == "cell":
         plant = choice == "Plant cell"
         wall = '<rect x="88" y="57" width="304" height="112" rx="22" fill="#d9f0c7" stroke="#4e8b53" stroke-width="5"/>' if plant else ""
         vac = '<rect x="200" y="88" width="94" height="52" rx="18" fill="#9dd8ed" stroke="#4e91ad" stroke-width="2"/><text x="247" y="118" text-anchor="middle" font-size="11" fill="#25485b">VACUOLE</text>' if plant else ""
