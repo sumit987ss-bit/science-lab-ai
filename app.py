@@ -3366,7 +3366,7 @@ def mentor_call_groq(question, language, api_key):
         + question
     )
     payload = {
-        "model": "llama-3.3-70b-versatile",
+        "model": "openai/gpt-oss-20b",
         "messages": [
             {"role": "system", "content": "You are a careful, accurate bilingual school science mentor. Give a direct answer, not a quiz or a list of choices."},
             {"role": "user", "content": prompt},
@@ -3390,7 +3390,9 @@ def mentor_call_groq(question, language, api_key):
         except Exception:
             detail = ""
         if exc.code == 401:
-            return None, "The API key was rejected. Check the key and try again." if language != "pa" else "API ਕੁੰਜੀ ਸਵੀਕਾਰ ਨਹੀਂ ਹੋਈ। ਕੁੰਜੀ ਜਾਂਚ ਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
+            return None, "Groq rejected the API key. Check that it is copied correctly and is active." if language != "pa" else "Groq ਨੇ API ਕੁੰਜੀ ਸਵੀਕਾਰ ਨਹੀਂ ਕੀਤੀ। ਜਾਂਚੋ ਕਿ ਕੁੰਜੀ ਠੀਕ ਕਾਪੀ ਕੀਤੀ ਹੈ ਅਤੇ ਸਰਗਰਮ ਹੈ।"
+        if exc.code == 403:
+            return None, ("Groq denied access (403). Check model permissions in your Groq project; this app now uses openai/gpt-oss-20b." if language != "pa" else "Groq ਨੇ ਪਹੁੰਚ ਰੋਕੀ (403)। ਆਪਣੇ Groq ਪ੍ਰੋਜੈਕਟ ਦੀ model permissions ਜਾਂਚੋ; ਐਪ ਹੁਣ openai/gpt-oss-20b ਵਰਤਦੀ ਹੈ।")
         if exc.code == 429:
             return None, "The free-tier limit may have been reached. Please wait and try again." if language != "pa" else "ਮੁਫ਼ਤ ਵਰਤੋਂ ਦੀ ਸੀਮਾ ਪੂਰੀ ਹੋ ਸਕਦੀ ਹੈ। ਕੁਝ ਸਮੇਂ ਬਾਅਦ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
         return None, (("AI service error: " if language != "pa" else "AI ਸੇਵਾ ਵਿੱਚ ਸਮੱਸਿਆ: ") + (detail[:220] or str(exc)))
