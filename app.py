@@ -3290,6 +3290,60 @@ MENTOR_KB = [
     ("Biology",9,10,"Heredity and variation","ਵਿਰਾਸਤ ਅਤੇ ਵੱਖਰਾਪਣ",["heredity","variation","gene","dna","trait","ਵਿਰਾਸਤ","ਵੱਖਰਾਪਣ","ਜੀਨ","ਗੁਣ"],"Heredity is the passing of genetic information from parents to offspring. Variation means differences among individuals and can arise from genetic and environmental factors.","ਮਾਪਿਆਂ ਤੋਂ ਸੰਤਾਨ ਤੱਕ ਵਿਰਾਸਤੀ ਜਾਣਕਾਰੀ ਦੇ ਜਾਣ ਨੂੰ ਵਿਰਾਸਤ ਕਹਿੰਦੇ ਹਨ। ਵਿਅਕਤੀਆਂ ਵਿਚਕਾਰ ਅੰਤਰ ਨੂੰ ਵੱਖਰਾਪਣ ਕਹਿੰਦੇ ਹਨ; ਇਹ ਜੀਨਾਂ ਅਤੇ ਵਾਤਾਵਰਣ ਦੋਹਾਂ ਕਾਰਨਾਂ ਨਾਲ ਹੋ ਸਕਦਾ ਹੈ।","Siblings may share traits but still differ from one another.","ਭੈਣ-ਭਰਾ ਵਿੱਚ ਕੁਝ ਗੁਣ ਸਾਂਝੇ ਹੋ ਸਕਦੇ ਹਨ ਪਰ ਉਹ ਇੱਕ-ਦੂਜੇ ਤੋਂ ਵੱਖ ਵੀ ਹੁੰਦੇ ਹਨ।","What is heredity?","ਵਿਰਾਸਤ ਕੀ ਹੈ?")
 ]
 
+
+# Stage 1 mentor checks: local, curated MCQs; works without an API or internet access.
+# Each entry: question EN/PA, options EN/PA, correct option index, explanation EN/PA.
+MENTOR_QUIZZES = {
+    "Force and motion": ("What can a force do?", "ਬਲ ਕੀ ਕਰ ਸਕਦਾ ਹੈ?",
+        [("Change motion or shape", "ਗਤੀ ਜਾਂ ਆਕਾਰ ਬਦਲ ਸਕਦਾ ਹੈ"), ("Create matter", "ਪਦਾਰਥ ਪੈਦਾ ਕਰ ਸਕਦਾ ਹੈ"), ("Always stop time", "ਹਮੇਸ਼ਾ ਸਮਾਂ ਰੋਕ ਸਕਦਾ ਹੈ")], 0,
+        "A force can change speed, direction or shape.", "ਬਲ ਗਤੀ, ਦਿਸ਼ਾ ਜਾਂ ਆਕਾਰ ਬਦਲ ਸਕਦਾ ਹੈ।"),
+    "Light and shadows": ("Which object usually makes a clear shadow?", "ਕਿਹੜੀ ਵਸਤੂ ਆਮ ਤੌਰ ਤੇ ਸਪਸ਼ਟ ਪਰਛਾਵਾਂ ਬਣਾਉਂਦੀ ਹੈ?",
+        [("Clear glass", "ਸਾਫ਼ ਕੱਚ"), ("A book", "ਕਿਤਾਬ"), ("Clean air", "ਸਾਫ਼ ਹਵਾ")], 1,
+        "An opaque book blocks most light and forms a shadow.", "ਅਪਾਰਦਰਸ਼ੀ ਕਿਤਾਬ ਵੱਧਤਰ ਰੋਸ਼ਨੀ ਰੋਕ ਕੇ ਪਰਛਾਵਾਂ ਬਣਾਉਂਦੀ ਹੈ।"),
+    "Heat and temperature": ("How does heat naturally transfer between objects at different temperatures?", "ਵੱਖਰੇ ਤਾਪਮਾਨ ਵਾਲੀਆਂ ਵਸਤੂਆਂ ਵਿਚਕਾਰ ਤਾਪ ਆਮ ਤੌਰ ਤੇ ਕਿਵੇਂ ਜਾਂਦਾ ਹੈ?",
+        [("From colder to hotter", "ਠੰਡੀ ਤੋਂ ਗਰਮ ਵੱਲ"), ("From hotter to colder", "ਗਰਮ ਤੋਂ ਠੰਡੀ ਵੱਲ"), ("It never transfers", "ਇਹ ਕਦੇ ਸਥਾਨਾਂਤਰਿਤ ਨਹੀਂ ਹੁੰਦਾ")], 1,
+        "Net heat transfer is from higher to lower temperature.", "ਤਾਪ ਦਾ ਕੁੱਲ ਸਥਾਨਾਂਤਰ ਵੱਧ ਤਾਪਮਾਨ ਤੋਂ ਘੱਟ ਤਾਪਮਾਨ ਵੱਲ ਹੁੰਦਾ ਹੈ।"),
+    "Sound and vibration": ("What produces sound?", "ਧੁਨੀ ਕਿਵੇਂ ਪੈਦਾ ਹੁੰਦੀ ਹੈ?",
+        [("Vibrations", "ਕੰਪਨ"), ("Shadows", "ਪਰਛਾਵੇਂ"), ("Still objects only", "ਸਿਰਫ਼ ਅਡੋਲ ਵਸਤੂਆਂ")], 0,
+        "Sound is produced by vibrating sources.", "ਧੁਨੀ ਕੰਪਨ ਕਰਦੇ ਸਰੋਤਾਂ ਤੋਂ ਪੈਦਾ ਹੁੰਦੀ ਹੈ।"),
+    "Electric current and resistance": ("At fixed voltage, what happens to current when resistance increases?", "ਵੋਲਟੇਜ ਸਥਿਰ ਹੋਣ ਤੇ ਰੋਧ ਵਧਣ ਨਾਲ ਕਰੰਟ ਦਾ ਕੀ ਹੁੰਦਾ ਹੈ?",
+        [("It increases", "ਵਧਦਾ ਹੈ"), ("It decreases", "ਘਟਦਾ ਹੈ"), ("It must stay unchanged", "ਲਾਜ਼ਮੀ ਤੌਰ ਤੇ ਇੱਕੋ ਰਹਿੰਦਾ ਹੈ")], 1,
+        "For an ohmic conductor at constant conditions, higher resistance means lower current at the same voltage.", "ਸਥਿਰ ਹਾਲਤਾਂ ਵਿੱਚ ਇੱਕੋ ਵੋਲਟੇਜ ਤੇ ਵੱਧ ਰੋਧ ਨਾਲ ਕਰੰਟ ਘੱਟ ਹੁੰਦਾ ਹੈ।"),
+    "Materials and their properties": ("Which material is usually soluble in water?", "ਕਿਹੜਾ ਪਦਾਰਥ ਆਮ ਤੌਰ ਤੇ ਪਾਣੀ ਵਿੱਚ ਘੁਲ ਜਾਂਦਾ ਹੈ?",
+        [("Salt", "ਨਮਕ"), ("Sand", "ਰੇਤ"), ("Small stones", "ਛੋਟੇ ਕੰਕਰ")], 0,
+        "Salt dissolves in water; sand and stones do not dissolve appreciably.", "ਨਮਕ ਪਾਣੀ ਵਿੱਚ ਘੁਲਦਾ ਹੈ; ਰੇਤ ਅਤੇ ਕੰਕਰ ਖਾਸ ਤੌਰ ਤੇ ਨਹੀਂ ਘੁਲਦੇ।"),
+    "Physical and chemical changes": ("Which is a chemical change?", "ਕਿਹੜੀ ਰਸਾਇਣਕ ਤਬਦੀਲੀ ਹੈ?",
+        [("Melting ice", "ਬਰਫ਼ ਪਿਘਲਣਾ"), ("Cutting paper", "ਕਾਗਜ਼ ਕੱਟਣਾ"), ("Iron rusting", "ਲੋਹੇ ਨੂੰ ਜੰਗ ਲੱਗਣਾ")], 2,
+        "Rusting forms new substances, so it is a chemical change.", "ਜੰਗ ਲੱਗਣ ਨਾਲ ਨਵੇਂ ਪਦਾਰਥ ਬਣਦੇ ਹਨ, ਇਸ ਲਈ ਇਹ ਰਸਾਇਣਕ ਤਬਦੀਲੀ ਹੈ।"),
+    "Acids, bases and indicators": ("What does a base do to red litmus?", "ਖਾਰ ਲਾਲ ਲਿਟਮਸ ਨਾਲ ਕੀ ਕਰਦਾ ਹੈ?",
+        [("Turns it blue", "ਇਸ ਨੂੰ ਨੀਲਾ ਕਰਦਾ ਹੈ"), ("Turns it green", "ਇਸ ਨੂੰ ਹਰਾ ਕਰਦਾ ਹੈ"), ("Always turns it black", "ਹਮੇਸ਼ਾ ਕਾਲਾ ਕਰਦਾ ਹੈ")], 0,
+        "A basic solution turns red litmus blue.", "ਖਾਰੀ ਘੋਲ ਲਾਲ ਲਿਟਮਸ ਨੂੰ ਨੀਲਾ ਕਰਦਾ ਹੈ।"),
+    "Elements, compounds and mixtures": ("Which is a mixture?", "ਕਿਹੜਾ ਮਿਸ਼ਰਣ ਹੈ?",
+        [("Pure oxygen", "ਸ਼ੁੱਧ ਆਕਸੀਜਨ"), ("Water as a pure compound", "ਸ਼ੁੱਧ ਯੋਗਿਕ ਵਜੋਂ ਪਾਣੀ"), ("Sand mixed with salt", "ਰੇਤ ਅਤੇ ਨਮਕ ਦਾ ਮਿਸ਼ਰਣ")], 2,
+        "Sand and salt are physically mixed and can be separated by suitable physical methods.", "ਰੇਤ ਅਤੇ ਨਮਕ ਭੌਤਿਕ ਤੌਰ ਤੇ ਮਿਲੇ ਹਨ ਅਤੇ ਢੁਕਵੇਂ ਭੌਤਿਕ ਤਰੀਕਿਆਂ ਨਾਲ ਵੱਖ ਕੀਤੇ ਜਾ ਸਕਦੇ ਹਨ।"),
+    "Atoms, molecules and chemical reactions": ("Why must a chemical equation be balanced?", "ਰਸਾਇਣਕ ਸਮੀਕਰਨ ਸੰਤੁਲਿਤ ਕਿਉਂ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ?",
+        [("To conserve atoms of each element", "ਹਰ ਤੱਤ ਦੇ ਪਰਮਾਣੂਆਂ ਦੀ ਗਿਣਤੀ ਸੰਭਾਲਣ ਲਈ"), ("To change elements into nothing", "ਤੱਤਾਂ ਨੂੰ ਖਤਮ ਕਰਨ ਲਈ"), ("Only to make it longer", "ਸਿਰਫ਼ ਲੰਮਾ ਕਰਨ ਲਈ")], 0,
+        "A balanced equation has the same number of atoms of each element on both sides.", "ਸੰਤੁਲਿਤ ਸਮੀਕਰਨ ਵਿੱਚ ਹਰ ਤੱਤ ਦੇ ਪਰਮਾਣੂ ਦੋਹਾਂ ਪਾਸਿਆਂ ਬਰਾਬਰ ਹੁੰਦੇ ਹਨ।"),
+    "Living and non-living things": ("Which is a life process?", "ਕਿਹੜੀ ਜੀਵਨ ਪ੍ਰਕਿਰਿਆ ਹੈ?",
+        [("Respiration", "ਸਾਹ ਕਿਰਿਆ"), ("Rusting of iron", "ਲੋਹੇ ਨੂੰ ਜੰਗ ਲੱਗਣਾ"), ("A stone casting a shadow", "ਪੱਥਰ ਦਾ ਪਰਛਾਵਾਂ ਬਣਾਉਣਾ")], 0,
+        "Respiration is a life process carried out by living organisms.", "ਸਾਹ ਕਿਰਿਆ ਜੀਵਾਂ ਦੁਆਰਾ ਕੀਤੀ ਜਾਣ ਵਾਲੀ ਜੀਵਨ ਪ੍ਰਕਿਰਿਆ ਹੈ।"),
+    "Plant and animal cells": ("Which structure is typical of plant cells but absent from animal cells?", "ਕਿਹੜੀ ਬਣਤਰ ਪੌਦੇ ਦੇ ਕੋਸ਼ ਵਿੱਚ ਹੁੰਦੀ ਹੈ ਪਰ ਜਾਨਵਰ ਦੇ ਕੋਸ਼ ਵਿੱਚ ਨਹੀਂ?",
+        [("Cell wall", "ਕੋਸ਼-ਭਿੱਤ"), ("Cell membrane", "ਕੋਸ਼ ਝਿੱਲੀ"), ("Cytoplasm", "ਕੋਸ਼ ਦ੍ਰਵ")], 0,
+        "Plant cells have a cell wall; animal cells do not.", "ਪੌਦਿਆਂ ਦੇ ਕੋਸ਼ਾਂ ਵਿੱਚ ਕੋਸ਼-ਭਿੱਤ ਹੁੰਦੀ ਹੈ; ਜਾਨਵਰਾਂ ਦੇ ਕੋਸ਼ਾਂ ਵਿੱਚ ਨਹੀਂ।"),
+    "Nutrition and photosynthesis": ("Which gas is used during photosynthesis?", "ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਦੌਰਾਨ ਕਿਹੜੀ ਗੈਸ ਵਰਤੀ ਜਾਂਦੀ ਹੈ?",
+        [("Carbon dioxide", "ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ"), ("Helium", "ਹੀਲੀਅਮ"), ("Hydrogen only", "ਸਿਰਫ਼ ਹਾਈਡਰੋਜਨ")], 0,
+        "Plants use carbon dioxide and water with light energy to make sugars.", "ਪੌਦੇ ਰੋਸ਼ਨੀ ਦੀ ਊਰਜਾ ਨਾਲ ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ ਅਤੇ ਪਾਣੀ ਵਰਤ ਕੇ ਸ਼ੱਕਰ ਬਣਾਉਂਦੇ ਹਨ।"),
+    "Respiration": ("What is the main role of cellular respiration?", "ਕੋਸ਼ਿਕਾਈ ਸਾਹ ਕਿਰਿਆ ਦਾ ਮੁੱਖ ਕੰਮ ਕੀ ਹੈ?",
+        [("Release usable energy from food", "ਭੋਜਨ ਤੋਂ ਵਰਤਣਯੋਗ ਊਰਜਾ ਛੱਡਣਾ"), ("Make sunlight", "ਸੂਰਜੀ ਰੋਸ਼ਨੀ ਬਣਾਉਣਾ"), ("Stop all cell activity", "ਕੋਸ਼ਿਕਾ ਦੀ ਹਰ ਕਿਰਿਆ ਰੋਕਣਾ")], 0,
+        "Respiration releases usable energy from food molecules.", "ਸਾਹ ਕਿਰਿਆ ਭੋਜਨ ਦੇ ਅਣੂਆਂ ਤੋਂ ਵਰਤਣਯੋਗ ਊਰਜਾ ਛੱਡਦੀ ਹੈ।"),
+    "Human body systems": ("Which system transports oxygen around the body?", "ਸਰੀਰ ਵਿੱਚ ਆਕਸੀਜਨ ਕਿਹੜੀ ਪ੍ਰਣਾਲੀ ਪਹੁੰਚਾਉਂਦੀ ਹੈ?",
+        [("Circulatory system", "ਖੂਨ ਸੰਚਾਰ ਪ੍ਰਣਾਲੀ"), ("Skeletal system only", "ਸਿਰਫ਼ ਹੱਡੀ ਪ੍ਰਣਾਲੀ"), ("Digestive system only", "ਸਿਰਫ਼ ਪਚਣ ਪ੍ਰਣਾਲੀ")], 0,
+        "Blood in the circulatory system carries oxygen from the lungs to body tissues.", "ਖੂਨ ਸੰਚਾਰ ਪ੍ਰਣਾਲੀ ਵਿੱਚ ਖੂਨ ਫੇਫੜਿਆਂ ਤੋਂ ਆਕਸੀਜਨ ਸਰੀਰ ਦੇ ਟਿਸ਼ੂਆਂ ਤੱਕ ਲੈ ਜਾਂਦਾ ਹੈ।"),
+    "Heredity and variation": ("What does heredity mean?", "ਵਿਰਾਸਤ ਦਾ ਕੀ ਅਰਥ ਹੈ?",
+        [("Passing genetic information from parents to offspring", "ਮਾਪਿਆਂ ਤੋਂ ਸੰਤਾਨ ਤੱਕ ਵਿਰਾਸਤੀ ਜਾਣਕਾਰੀ ਜਾਣਾ"), ("Only learning a new skill", "ਸਿਰਫ਼ ਨਵਾਂ ਹੁਨਰ ਸਿੱਖਣਾ"), ("A change in the weather", "ਮੌਸਮ ਵਿੱਚ ਤਬਦੀਲੀ")], 0,
+        "Heredity is the transmission of genetic information between generations.", "ਵਿਰਾਸਤ ਪੀੜ੍ਹੀਆਂ ਵਿਚਕਾਰ ਵਿਰਾਸਤੀ ਜਾਣਕਾਰੀ ਦਾ ਸੰਚਾਰ ਹੈ।"),
+}
+
 def mentor_lab():
     pa = st.session_state.language == "pa"
     if st.button(tr("back"), key="mentor_back"):
@@ -3358,6 +3412,23 @@ def mentor_lab():
     st.markdown("**" + ("ਆਪਣੇ ਆਪ ਨੂੰ ਪਰਖੋ" if pa else "Check your understanding") + "**")
     st.write(selected[11] if pa else selected[10])
     st.caption("ਪੜਾਅ 1 ਵਿੱਚ ਜਵਾਬ ਚੁਣੇ ਹੋਏ ਗਿਆਨ-ਸੰਗ੍ਰਹਿ ਤੋਂ ਮਿਲਦੇ ਹਨ; ਇਹ ਖੁੱਲ੍ਹੇ-ਅੰਤ ਵਾਲਾ ਜਨਰੇਟਿਵ AI ਨਹੀਂ ਹੈ। ਅਗਲੇ ਪੜਾਅ ਵਿੱਚ ਪਾਠ-ਅਧਾਰਿਤ ਕਵਿਜ਼, ਵਿਦਿਆਰਥੀ ਦੀ ਤਰੱਕੀ ਅਤੇ ਹੋਰ ਵਿਸ਼ਿਆਂ ਦੀ ਕਵਰੇਜ ਜੋੜੀ ਜਾ ਸਕਦੀ ਹੈ।" if pa else "Stage 1 retrieves explanations from a curated knowledge bank; it is not unrestricted generative AI. Later stages can add curriculum quizzes, progress tracking and broader topic coverage.")
+    st.markdown("---")
+    st.subheader("ਆਪਣੀ ਸਮਝ ਪਰਖੋ" if pa else "Quick understanding check")
+    quiz = MENTOR_QUIZZES.get(selected[3])
+    if quiz:
+        quiz_q = quiz[1] if pa else quiz[0]
+        quiz_options = [option[1] if pa else option[0] for option in quiz[2]]
+        quiz_answer = st.radio(quiz_q, quiz_options, key=f"mentor_quiz_choice_{selected[3]}_{st.session_state.language}")
+        if st.button("ਜਵਾਬ ਜਾਂਚੋ" if pa else "Check answer", key=f"mentor_quiz_check_{selected[3]}_{st.session_state.language}"):
+            chosen_index = quiz_options.index(quiz_answer)
+            if chosen_index == quiz[3]:
+                st.success("ਬਿਲਕੁਲ ਠੀਕ!" if pa else "Correct — well done!")
+            else:
+                st.warning("ਹਾਲੇ ਠੀਕ ਨਹੀਂ। ਸਹੀ ਜਵਾਬ: " + quiz_options[quiz[3]] if pa else "Not quite. Correct answer: " + quiz_options[quiz[3]])
+            st.write(quiz[5] if pa else quiz[4])
+    else:
+        st.info("ਇਸ ਵਿਸ਼ੇ ਲਈ ਕਵਿਜ਼ ਜਲਦੀ ਜੋੜਿਆ ਜਾਵੇਗਾ।" if pa else "A topic-specific quick check will be added for this topic in a later update.")
+    st.caption("ਇਹ ਕਵਿਜ਼ ਸਥਾਨਕ ਤੌਰ ਤੇ ਚਲਦਾ ਹੈ; ਕੋਈ paid API ਜਾਂ external AI service ਨਹੀਂ ਵਰਤੀ ਜਾਂਦੀ।" if pa else "This quiz runs locally; no paid API or external AI service is used.")
     st.info("ਸੁਰੱਖਿਆ: ਅਸਲ ਰਸਾਇਣ, ਬਿਜਲੀ ਜਾਂ ਜੀਵ-ਵਿਗਿਆਨਕ ਨਮੂਨਿਆਂ ਵਾਲੇ ਪ੍ਰਯੋਗ ਅਧਿਆਪਕ ਦੀ ਦੇਖ-ਰੇਖ ਹੇਠ ਹੀ ਕਰੋ।" if pa else "Safety: perform real experiments involving chemicals, electricity or biological samples only with teacher supervision.")
 
 def planned_lab(page):
