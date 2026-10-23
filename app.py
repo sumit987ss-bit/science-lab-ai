@@ -3347,21 +3347,28 @@ MENTOR_QUIZZES = {
         "Heredity is the transmission of genetic information between generations.", "ਵਿਰਾਸਤ ਪੀੜ੍ਹੀਆਂ ਵਿਚਕਾਰ ਵਿਰਾਸਤੀ ਜਾਣਕਾਰੀ ਦਾ ਸੰਚਾਰ ਹੈ।"),
 }
 
-def mentor_call_groq(question, grade, subject, language, topic, api_key):
-    """Generate a fresh answer with Groq's free-tier API; no SDK dependency."""
-    language_instruction = "Answer in Punjabi (Gurmukhi script)." if language == "pa" else "Answer in clear, age-appropriate English."
+def mentor_call_groq(question, language, api_key):
+    """Generate a direct bilingual science answer using Groq's API."""
+    language_instruction = (
+        "Answer in Punjabi using natural, clear Gurmukhi script."
+        if language == "pa"
+        else "Answer in clear, simple English."
+    )
     prompt = (
-        "You are a careful school science mentor for Indian students in Classes 6-10. "
-        "Teach accurately and simply; use headings: Short answer, Explanation, Everyday example, Check your understanding. "
-        "Match the learner's class level. Do not invent facts. For unsafe experiments, give a safety warning and do not encourage unsupervised handling. "
-        "If the question is outside Physics, Chemistry or Biology, politely redirect to school science. "
+        "You are a reliable, friendly school science mentor for learners aged 11-16. "
+        "Answer the student's exact question directly. Explain only what is needed, "
+        "using simple language and a brief everyday example when useful. Do not ask the student "
+        "to select a class, subject, or topic. Do not invent facts. If the question is not about "
+        "science, briefly say you can answer science questions. For dangerous experiments, "
+        "give a safety warning and never encourage unsupervised handling. "
         + language_instruction
-        + f" Student class: {grade}. Subject selected: {subject}. Topic selected: {topic}. Student question: {question}"
+        + "\nStudent question: "
+        + question
     )
     payload = {
         "model": "llama-3.3-70b-versatile",
         "messages": [
-            {"role": "system", "content": "You are a reliable bilingual school science tutor. Keep answers structured and suitable for ages 11-16."},
+            {"role": "system", "content": "You are a careful, accurate bilingual school science mentor. Give a direct answer, not a quiz or a list of choices."},
             {"role": "user", "content": prompt},
         ],
         "temperature": 0.3,
@@ -3385,10 +3392,10 @@ def mentor_call_groq(question, grade, subject, language, topic, api_key):
         if exc.code == 401:
             return None, "The API key was rejected. Check the key and try again." if language != "pa" else "API ਕੁੰਜੀ ਸਵੀਕਾਰ ਨਹੀਂ ਹੋਈ। ਕੁੰਜੀ ਜਾਂਚ ਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
         if exc.code == 429:
-            return None, "The free-tier rate limit or quota may have been reached. Wait and retry." if language != "pa" else "ਮੁਫ਼ਤ ਵਰਤੋਂ ਦੀ ਸੀਮਾ ਪੂਰੀ ਹੋ ਸਕਦੀ ਹੈ। ਕੁਝ ਸਮੇਂ ਬਾਅਦ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
+            return None, "The free-tier limit may have been reached. Please wait and try again." if language != "pa" else "ਮੁਫ਼ਤ ਵਰਤੋਂ ਦੀ ਸੀਮਾ ਪੂਰੀ ਹੋ ਸਕਦੀ ਹੈ। ਕੁਝ ਸਮੇਂ ਬਾਅਦ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
         return None, (("AI service error: " if language != "pa" else "AI ਸੇਵਾ ਵਿੱਚ ਸਮੱਸਿਆ: ") + (detail[:220] or str(exc)))
-    except Exception as exc:
-        return None, ("Could not reach the AI service. Check your internet connection and try again. " if language != "pa" else "AI ਸੇਵਾ ਨਾਲ ਸੰਪਰਕ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਇੰਟਰਨੈੱਟ ਜਾਂਚ ਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।") + str(exc)[:120]
+    except Exception:
+        return None, "Could not reach the AI service. Check your internet connection and try again." if language != "pa" else "AI ਸੇਵਾ ਨਾਲ ਸੰਪਰਕ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਇੰਟਰਨੈੱਟ ਜਾਂਚ ਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
 
 
 def mentor_lab():
@@ -3396,166 +3403,74 @@ def mentor_lab():
     if st.button(tr("back"), key="mentor_back"):
         go("home")
         st.rerun()
+
     st.title("🤖 " + ("AI ਵਿਗਿਆਨ ਮਾਰਗਦਰਸ਼ਕ" if pa else "AI Science Mentor"))
-    st.caption("ਮੁਫ਼ਤ AI ਮੋਡ + ਸਥਾਨਕ ਪਾਠ-ਸਹਾਇਤਾ" if pa else "Free AI mode + built-in curriculum support")
-    st.info("ਅਸਲ AI ਜਵਾਬ ਲਈ Groq ਦੀ ਮੁਫ਼ਤ API ਕੁੰਜੀ ਵਰਤੋ। ਕੁੰਜੀ ਨਾ ਹੋਣ ਤੇ ਹੇਠਾਂ ਦਿੱਤੀ ਪਾਠ-ਅਧਾਰਿਤ ਸਹਾਇਤਾ ਕੰਮ ਕਰੇਗੀ।" if pa else "For generated answers from a real AI model, use a free Groq API key. Without a key, the built-in curriculum support still works.")
+    st.caption("ਸਿੱਧਾ ਸਵਾਲ ਪੁੱਛੋ, ਸਿੱਧਾ ਜਵਾਬ ਲਵੋ" if pa else "Ask directly. Get a direct answer.")
     configured_key = ""
     try:
         configured_key = st.secrets.get("GROQ_API_KEY", "")
     except Exception:
         configured_key = ""
-    use_real_ai = st.checkbox("ਅਸਲ AI ਨਾਲ ਜਵਾਬ ਬਣਾਓ" if pa else "Generate an answer with real AI", value=bool(configured_key), key="mentor_use_real_ai")
+
     api_key = configured_key
-    if use_real_ai and not configured_key:
-        api_key = st.text_input("Groq API key (session only)" if not pa else "Groq API ਕੁੰਜੀ (ਸਿਰਫ਼ ਇਸ ਸੈਸ਼ਨ ਲਈ)", type="password", key="mentor_groq_key", help="Create a free key at console.groq.com. Do not paste it into chat or commit it to GitHub.")
-        st.caption("Get a key: https://console.groq.com/keys · Never put your key in app.py or GitHub." if not pa else "ਮੁਫ਼ਤ ਕੁੰਜੀ: https://console.groq.com/keys · ਆਪਣੀ ਕੁੰਜੀ app.py ਜਾਂ GitHub ਵਿੱਚ ਨਾ ਪਾਓ।")
-    st.markdown("### " + ("ਆਪਣਾ ਸਵਾਲ ਪੁੱਛੋ" if pa else "Ask a science question"))
-    c1, c2 = st.columns(2)
-    with c1:
-        grade = st.selectbox("ਜਮਾਤ" if pa else "Class", [6, 7, 8, 9, 10], key="mentor_grade")
-    with c2:
-        subject = st.selectbox("ਵਿਸ਼ਾ" if pa else "Subject", ["Physics", "Chemistry", "Biology"], format_func=lambda x: ({"Physics": "ਭੌਤਿਕ ਵਿਗਿਆਨ", "Chemistry": "ਰਸਾਇਣ ਵਿਗਿਆਨ", "Biology": "ਜੀਵ ਵਿਗਿਆਨ"}[x] if pa else x), key="mentor_subject")
-    eligible = [item for item in MENTOR_KB if item[0] == subject and item[1] <= grade <= item[2]]
-    if not eligible:
-        eligible = [item for item in MENTOR_KB if item[0] == subject]
-    topic_labels = [item[4] if pa else item[3] for item in eligible]
-    selected_topic = st.selectbox("ਵਿਸ਼ਾ-ਬਿੰਦੂ" if pa else "Topic", topic_labels, key=f"mentor_topic_{grade}_{subject}_{st.session_state.language}")
-    selected = eligible[topic_labels.index(selected_topic)]
+    if not configured_key:
+        with st.expander("AI setup / AI ਸੈਟਅੱਪ"):
+            api_key = st.text_input(
+                "Groq API key (session only)" if not pa else "Groq API ਕੁੰਜੀ (ਸਿਰਫ਼ ਇਸ ਸੈਸ਼ਨ ਲਈ)",
+                type="password",
+                key="mentor_groq_key",
+                help="Create a free key at https://console.groq.com/keys. Do not put it in app.py or GitHub.",
+            )
+            st.caption(
+                "Free key: https://console.groq.com/keys. Your key is not saved in this app." 
+                if not pa else
+                "ਮੁਫ਼ਤ ਕੁੰਜੀ: https://console.groq.com/keys। ਤੁਹਾਡੀ ਕੁੰਜੀ ਇਸ ਐਪ ਵਿੱਚ ਸੁਰੱਖਿਅਤ ਨਹੀਂ ਕੀਤੀ ਜਾਂਦੀ।"
+            )
 
-    # Starter questions help learners who are unsure how to phrase a science question.
-    starter_questions = {
-        "Physics": [
-            ("Why does a moving object slow down?", "ਚੱਲਦੀ ਵਸਤੂ ਹੌਲੀ ਕਿਉਂ ਹੋ ਜਾਂਦੀ ਹੈ?"),
-            ("How does light form a shadow?", "ਰੋਸ਼ਨੀ ਨਾਲ ਪਰਛਾਵਾਂ ਕਿਵੇਂ ਬਣਦਾ ਹੈ?"),
-            ("Why does resistance affect electric current?", "ਰੋਧ ਬਿਜਲੀ ਕਰੰਟ ਨੂੰ ਕਿਉਂ ਪ੍ਰਭਾਵਿਤ ਕਰਦਾ ਹੈ?"),
-        ],
-        "Chemistry": [
-            ("What is the difference between a physical and chemical change?", "ਭੌਤਿਕ ਅਤੇ ਰਸਾਇਣਕ ਤਬਦੀਲੀ ਵਿੱਚ ਕੀ ਫ਼ਰਕ ਹੈ?"),
-            ("How can an indicator identify an acid or a base?", "ਸੂਚਕ ਤੇਜ਼ਾਬ ਜਾਂ ਖਾਰ ਦੀ ਪਛਾਣ ਕਿਵੇਂ ਕਰਦਾ ਹੈ?"),
-            ("Why must a chemical equation be balanced?", "ਰਸਾਇਣਕ ਸਮੀਕਰਨ ਸੰਤੁਲਿਤ ਕਿਉਂ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ?"),
-        ],
-        "Biology": [
-            ("How are plant cells different from animal cells?", "ਪੌਦੇ ਦੇ ਕੋਸ਼ ਜਾਨਵਰ ਦੇ ਕੋਸ਼ਾਂ ਤੋਂ ਕਿਵੇਂ ਵੱਖਰੇ ਹਨ?"),
-            ("How do green plants make food?", "ਹਰੇ ਪੌਦੇ ਆਪਣਾ ਭੋਜਨ ਕਿਵੇਂ ਬਣਾਉਂਦੇ ਹਨ?"),
-            ("How does blood carry oxygen around the body?", "ਖੂਨ ਸਰੀਰ ਵਿੱਚ ਆਕਸੀਜਨ ਕਿਵੇਂ ਪਹੁੰਚਾਉਂਦਾ ਹੈ?"),
-        ],
-    }
-    question_key = f"mentor_question_{grade}_{subject}_{st.session_state.language}"
-    sample_labels = [pair[1] if pa else pair[0] for pair in starter_questions[subject]]
-    sample_choice = st.selectbox("ਸਵਾਲ ਦੇ ਉਦਾਹਰਨ" if pa else "Question starters", sample_labels, key=f"mentor_sample_{grade}_{subject}_{st.session_state.language}")
-    if st.button("ਇਹ ਸਵਾਲ ਵਰਤੋ" if pa else "Use this question", key=f"mentor_use_sample_{grade}_{subject}_{st.session_state.language}"):
-        st.session_state[question_key] = sample_choice
-        st.rerun()
+    question_key = "mentor_direct_question"
+    with st.form("mentor_direct_question_form", clear_on_submit=False):
+        question = st.text_area(
+            "ਆਪਣਾ ਸਵਾਲ ਲਿਖੋ" if pa else "Your question",
+            placeholder="ਉਦਾਹਰਨ: ਬਿਜਲੀ ਦੀ ਤਾਰ ਵਿੱਚ ਕਰੰਟ ਕਿਵੇਂ ਵਗਦਾ ਹੈ?" if pa else "Example: How does electric current flow through a wire?",
+            height=120,
+            key=question_key,
+        )
+        submitted = st.form_submit_button("ਜਵਾਬ ਦਿਓ" if pa else "Get answer", type="primary")
 
-    search_all = st.checkbox("ਹੋਰ ਵਿਸ਼ਿਆਂ ਵਿੱਚ ਵੀ ਸੰਬੰਧਿਤ ਜਵਾਬ ਲੱਭੋ" if pa else "Search other subjects too if they better match my question", value=True, key=f"mentor_all_subjects_{grade}_{st.session_state.language}")
-    with st.form(f"mentor_ask_form_{grade}_{subject}_{st.session_state.language}"):
-        question = st.text_area("ਆਪਣਾ ਸਵਾਲ ਲਿਖੋ (ਵਿਕਲਪਿਕ)" if pa else "Type your question (optional)", placeholder=("ਉਦਾਹਰਨ: ਲੋਹੇ ਨੂੰ ਜੰਗ ਕਿਉਂ ਲੱਗਦੀ ਹੈ?" if pa else "Example: Why does iron rust?"), height=95, key=question_key)
-        submitted = st.form_submit_button("ਜਵਾਬ ਲੱਭੋ" if pa else "Find answer")
-    context_key = f"{grade}_{subject}_{st.session_state.language}"
     if submitted:
         q = question.strip()
-        st.session_state["mentor_ai_response"] = None
-        st.session_state["mentor_ai_error"] = None
-        if use_real_ai:
-            if not api_key:
-                st.session_state["mentor_ai_error"] = "Enter a Groq API key or add GROQ_API_KEY in Streamlit Secrets." if not pa else "Groq API ਕੁੰਜੀ ਦਿਓ ਜਾਂ Streamlit Secrets ਵਿੱਚ GROQ_API_KEY ਜੋੜੋ।"
-            elif not q:
-                st.session_state["mentor_ai_error"] = "Type a question before asking the AI." if not pa else "AI ਨੂੰ ਪੁੱਛਣ ਤੋਂ ਪਹਿਲਾਂ ਸਵਾਲ ਲਿਖੋ।"
-            else:
-                with st.spinner("AI ਜਵਾਬ ਤਿਆਰ ਕਰ ਰਿਹਾ ਹੈ…" if pa else "Generating an AI answer…"):
-                    answer, error = mentor_call_groq(q, grade, subject, st.session_state.language, selected[4] if pa else selected[3], api_key)
-                st.session_state["mentor_ai_response"] = answer
-                st.session_state["mentor_ai_error"] = error
+        st.session_state["mentor_direct_answer"] = None
+        st.session_state["mentor_direct_error"] = None
+        if not q:
+            st.session_state["mentor_direct_error"] = "ਕਿਰਪਾ ਕਰਕੇ ਪਹਿਲਾਂ ਸਵਾਲ ਲਿਖੋ।" if pa else "Please type your question first."
+        elif not api_key:
+            st.session_state["mentor_direct_error"] = "AI ਚਲਾਉਣ ਲਈ AI setup ਵਿੱਚ ਮੁਫ਼ਤ Groq API ਕੁੰਜੀ ਦਿਓ।" if pa else "To use AI, add your free Groq API key under AI setup."
+        else:
+            with st.spinner("ਜਵਾਬ ਤਿਆਰ ਹੋ ਰਿਹਾ ਹੈ…" if pa else "Preparing your answer…"):
+                answer, error = mentor_call_groq(q, st.session_state.language, api_key)
+            st.session_state["mentor_direct_answer"] = answer
+            st.session_state["mentor_direct_error"] = error
 
-        def mentor_normalize(value):
-            # Normalize punctuation while preserving Punjabi Unicode letters.
-            for mark in [",", ".", "?", "!", ":", ";", "(", ")", "/", "-", "–", "—", "'", '"']:
-                value = value.replace(mark, " ")
-            return " ".join(value.casefold().split())
+    if st.session_state.get("mentor_direct_error"):
+        st.warning(st.session_state["mentor_direct_error"])
 
-        pool = [item for item in MENTOR_KB if item[1] <= grade <= item[2]] if search_all else eligible
-        if not pool:
-            pool = MENTOR_KB if search_all else eligible
-        ranked = []
-        if q:
-            normal_q = mentor_normalize(q)
-            q_words = {word for word in normal_q.split() if len(word) > 1}
-            for item in pool:
-                # Prefer explicit topic keywords and topic/question names; long explanations
-                # are intentionally excluded so generic words do not create false matches.
-                keywords = item[5]
-                topic_names = [item[3], item[4], item[10], item[11]]
-                score = 0
-                matched_terms = []
-                for term in keywords:
-                    term_norm = mentor_normalize(term)
-                    if term_norm and term_norm in normal_q:
-                        score += 4 if " " in term_norm else 3
-                        matched_terms.append(term)
-                for name in topic_names:
-                    name_norm = mentor_normalize(name)
-                    if name_norm and name_norm in normal_q:
-                        score += 5
-                keyword_words = {
-                    word for term in keywords + topic_names
-                    for word in mentor_normalize(term).split() if len(word) > 1
-                }
-                # Small overlap bonus helps natural questions in either supported language.
-                score += min(2, len(q_words & keyword_words))
-                ranked.append((score, item, matched_terms))
-        best_score, best_item, matched_terms = max(ranked, key=lambda pair: pair[0]) if ranked else (0, selected, [])
-        # Require a meaningful topic/keyword match; never label a weak guess as an answer.
-        found = bool(q and best_score >= 3)
-        if found:
-            selected = best_item
-        st.session_state["mentor_last_key"] = context_key
-        st.session_state["mentor_last_topic"] = selected[3]
-        st.session_state["mentor_last_subject"] = selected[0]
-        st.session_state["mentor_last_question"] = question.strip()
-        st.session_state["mentor_match_found"] = found
-    if st.session_state.get("mentor_last_key") == context_key and st.session_state.get("mentor_last_topic"):
-        selected = next((item for item in MENTOR_KB if item[0] == st.session_state.get("mentor_last_subject") and item[3] == st.session_state["mentor_last_topic"]), selected)
-        if st.session_state.get("mentor_last_question"):
-            if st.session_state.get("mentor_match_found"):
-                st.success(("ਸਵਾਲ ਨਾਲ ਸਭ ਤੋਂ ਸੰਬੰਧਿਤ ਵਿਸ਼ਾ ਮਿਲਿਆ: " if pa else "Best matching topic found: ") + (selected[4] if pa else selected[3]))
-            else:
-                st.warning("ਇਸ ਸਵਾਲ ਲਈ ਪੱਕਾ ਮੇਲ ਨਹੀਂ ਮਿਲਿਆ। ਹੇਠਾਂ ਚੁਣੇ ਵਿਸ਼ੇ ਦੀ ਵਿਆਖਿਆ ਦਿੱਤੀ ਹੈ; ਸਵਾਲ ਵਿੱਚ ਮੁੱਖ ਵਿਗਿਆਨਕ ਸ਼ਬਦ ਵਰਤੋ ਜਾਂ ਵਿਸ਼ਾ-ਬਿੰਦੂ ਬਦਲੋ।" if pa else "I couldn't confidently match that question. The selected topic is shown as a starting point; try a key science term or choose a different topic.")
-                st.caption(("ਮਦਦਗਾਰ ਸ਼ਬਦ: " if pa else "Helpful keywords: ") + ", ".join(selected[5][:5]))
-        elif not st.session_state.get("mentor_last_question"):
-            st.info("ਉੱਪਰ ਸਵਾਲ ਲਿਖੋ ਜਾਂ ਚੁਣੇ ਵਿਸ਼ੇ ਦੀ ਵਿਆਖਿਆ ਅਤੇ ਕਵਿਜ਼ ਨਾਲ ਸ਼ੁਰੂ ਕਰੋ।" if pa else "Type a question above, or start with the selected topic explanation and quiz.")
-    if st.session_state.get("mentor_ai_response"):
+    if st.session_state.get("mentor_direct_answer"):
         st.markdown("---")
-        st.subheader("🤖 " + ("AI ਦਾ ਤਿਆਰ ਕੀਤਾ ਜਵਾਬ" if pa else "Generated AI answer"))
-        st.markdown(st.session_state["mentor_ai_response"])
-        st.caption("AI-generated content can make mistakes. Check important facts with your teacher or textbook." if not pa else "AI ਤੋਂ ਮਿਲੇ ਜਵਾਬ ਵਿੱਚ ਗਲਤੀ ਹੋ ਸਕਦੀ ਹੈ। ਮਹੱਤਵਪੂਰਨ ਤੱਥ ਅਧਿਆਪਕ ਜਾਂ ਪਾਠ-ਪੁਸਤਕ ਨਾਲ ਜਾਂਚੋ।")
-    if st.session_state.get("mentor_ai_error"):
-        st.warning(st.session_state["mentor_ai_error"])
-    st.markdown("---")
-    st.subheader(("ਸੌਖੀ ਵਿਆਖਿਆ" if pa else "Simple explanation") + " · " + (selected[4] if pa else selected[3]))
-    st.write(selected[7] if pa else selected[6])
-    st.markdown("**" + ("ਉਦਾਹਰਨ" if pa else "Example") + "**")
-    st.write(selected[9] if pa else selected[8])
-    st.markdown("**" + ("ਆਪਣੇ ਆਪ ਨੂੰ ਪਰਖੋ" if pa else "Check your understanding") + "**")
-    st.write(selected[11] if pa else selected[10])
-    st.caption("ਇਸ ਵਿੱਚ ਮੁਫ਼ਤ Groq AI ਮੋਡ ਅਤੇ ਸਥਾਨਕ ਪਾਠ-ਸਹਾਇਤਾ ਦੋਵੇਂ ਹਨ।" if pa else "This mentor includes both free Groq AI mode and built-in curriculum support.")
-    st.markdown("---")
-    st.subheader("ਆਪਣੀ ਸਮਝ ਪਰਖੋ" if pa else "Quick understanding check")
-    quiz = MENTOR_QUIZZES.get(selected[3])
-    if quiz:
-        quiz_q = quiz[1] if pa else quiz[0]
-        quiz_options = [option[1] if pa else option[0] for option in quiz[2]]
-        quiz_answer = st.radio(quiz_q, quiz_options, key=f"mentor_quiz_choice_{selected[3]}_{st.session_state.language}")
-        if st.button("ਜਵਾਬ ਜਾਂਚੋ" if pa else "Check answer", key=f"mentor_quiz_check_{selected[3]}_{st.session_state.language}"):
-            chosen_index = quiz_options.index(quiz_answer)
-            if chosen_index == quiz[3]:
-                st.success("ਬਿਲਕੁਲ ਠੀਕ!" if pa else "Correct — well done!")
-            else:
-                st.warning("ਹਾਲੇ ਠੀਕ ਨਹੀਂ। ਸਹੀ ਜਵਾਬ: " + quiz_options[quiz[3]] if pa else "Not quite. Correct answer: " + quiz_options[quiz[3]])
-            st.write(quiz[5] if pa else quiz[4])
-    else:
-        st.info("ਇਸ ਵਿਸ਼ੇ ਲਈ ਕਵਿਜ਼ ਜਲਦੀ ਜੋੜਿਆ ਜਾਵੇਗਾ।" if pa else "A topic-specific quick check will be added for this topic in a later update.")
-    st.caption("ਕਵਿਜ਼ ਸਥਾਨਕ ਤੌਰ ਤੇ ਚਲਦਾ ਹੈ। AI ਜਵਾਬ ਲਈ ਮੁਫ਼ਤ Groq API ਅਤੇ ਇੰਟਰਨੈੱਟ ਲੋੜੀਂਦੇ ਹਨ।" if pa else "The quiz runs locally. Generated AI answers require the free Groq API and an internet connection.")
-    st.info("ਸੁਰੱਖਿਆ: ਅਸਲ ਰਸਾਇਣ, ਬਿਜਲੀ ਜਾਂ ਜੀਵ-ਵਿਗਿਆਨਕ ਨਮੂਨਿਆਂ ਵਾਲੇ ਪ੍ਰਯੋਗ ਅਧਿਆਪਕ ਦੀ ਦੇਖ-ਰੇਖ ਹੇਠ ਹੀ ਕਰੋ।" if pa else "Safety: perform real experiments involving chemicals, electricity or biological samples only with teacher supervision.")
+        st.subheader("ਜਵਾਬ" if pa else "Answer")
+        st.markdown(st.session_state["mentor_direct_answer"])
+        st.caption(
+            "AI ਦੇ ਜਵਾਬ ਵਿੱਚ ਗਲਤੀ ਹੋ ਸਕਦੀ ਹੈ; ਮਹੱਤਵਪੂਰਨ ਤੱਥ ਪਾਠ-ਪੁਸਤਕ ਜਾਂ ਅਧਿਆਪਕ ਨਾਲ ਜਾਂਚੋ।"
+            if pa else
+            "AI can make mistakes. Check important facts with your textbook or teacher."
+        )
+
+    st.caption(
+        "ਅੰਗਰੇਜ਼ੀ ਜਾਂ ਪੰਜਾਬੀ ਚੁਣਨ ਲਈ ਐਪ ਦਾ ਭਾਸ਼ਾ ਵਿਕਲਪ ਵਰਤੋ।"
+        if pa else
+        "Use the app's language selector to switch between English and Punjabi."
+    )
+
+
 
 def planned_lab(page):
     if st.button(tr("back")):
