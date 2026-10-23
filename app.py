@@ -3432,7 +3432,37 @@ def mentor_lab():
         st.rerun()
 
     st.title("🤖 " + ("AI ਵਿਗਿਆਨ ਮਾਰਗਦਰਸ਼ਕ" if pa else "AI Science Mentor"))
-    st.caption("ਸਿੱਧਾ ਸਵਾਲ ਪੁੱਛੋ, ਸਿੱਧਾ ਜਵਾਬ ਲਵੋ" if pa else "Ask directly. Get a direct answer.")
+    st.caption("ਸਵਾਲ → ਸਮਝੋ → ਵਰਚੁਅਲ ਪ੍ਰਯੋਗ ਕਰੋ" if pa else "Ask → Understand → Explore it in a virtual lab")
+    st.markdown(
+        "ਇੱਥੇ ਜਵਾਬ ਦੇ ਨਾਲ ਸੰਬੰਧਿਤ ਵਰਚੁਅਲ ਪ੍ਰਯੋਗ ਵੀ ਖੋਲ੍ਹ ਸਕਦੇ ਹੋ।" if pa else
+        "More than a chatbot: connect your question to our class-wise virtual experiments."
+    )
+
+    def match_lab(question_text):
+        q = question_text.lower()
+        if any(k in q for k in ["parallel", "series circuit", "series and parallel", "ਪੈਰਲਲ", "ਸਮਾਂਤਰ", "ਲੜੀਵਾਰ"]):
+            return 9, 2
+        if any(k in q for k in ["electroplat", "plating", "metal coat", "ਇਲੈਕਟ੍ਰੋਪਲੇਟ", "ਧਾਤ ਦੀ ਪਰਤ"]):
+            return 8, 2
+        if any(k in q for k in ["fuse", "overcurrent", "ਫਿਊਜ਼"]):
+            return 7, 3
+        if any(k in q for k in ["electromagnet", "crane", "scrap iron", "ਬਿਜਲੀ-ਚੁੰਬਕ"]):
+            return 7, 2
+        if any(k in q for k in ["magnetic effect of current", "current produce magnet", "ਚੁੰਬਕੀ ਪ੍ਰਭਾਵ"]):
+            return 7, 4
+        if any(k in q for k in ["liquid conduct", "salt water", "distilled water", "ਤਰਲ ਬਿਜਲੀ", "ਨਮਕ ਵਾਲਾ ਪਾਣੀ"]):
+            return 8, 0
+        if any(k in q for k in ["simple circuit", "bulb glow", "complete circuit", "ਬਲਬ ਕਿਵੇਂ", "ਸਰਕਟ"]):
+            return 6, 0
+        if any(k in q for k in ["ohm", "resistance", "voltage", "current", "ਓਹਮ", "ਰੋਧ", "ਵੋਲਟੇਜ", "ਕਰੰਟ"]):
+            return 10, 0
+        return None
+
+    def open_matched_lab(match):
+        class_no, exp_no = match
+        st.session_state.selected_class = class_no
+        st.session_state[f"exp_picker_{class_no}"] = exp_no
+        st.session_state.page = "electricity"
     configured_key = ""
     try:
         configured_key = st.secrets.get("GEMINI_API_KEY", "")
@@ -3490,6 +3520,25 @@ def mentor_lab():
             if pa else
             "AI can make mistakes. Check important facts with your textbook or teacher."
         )
+        match = match_lab(st.session_state.get(question_key, ""))
+        if match:
+            class_no, exp_no = match
+            experiment = EXPERIMENTS[class_no][exp_no]
+            lab_title = experiment[1] if pa else experiment[0]
+            st.markdown("### " + ("ਹੁਣ ਵਰਚੁਅਲ ਪ੍ਰਯੋਗ ਕਰੋ" if pa else "Now explore it in our virtual lab"))
+            st.write((f"ਜਮਾਤ {class_no}ਵੀਂ · {lab_title}") if pa else (f"Class {class_no} · {lab_title}"))
+            st.button(
+                "ਪ੍ਰਯੋਗ ਖੋਲ੍ਹੋ →" if pa else "Open matching experiment →",
+                key="mentor_open_matched_lab",
+                type="primary",
+                on_click=open_matched_lab,
+                args=(match,),
+            )
+        else:
+            st.info(
+                "ਇਸ ਸਵਾਲ ਲਈ ਹਾਲੇ ਸਿੱਧਾ ਲੈਬ ਲਿੰਕ ਨਹੀਂ ਹੈ। ਅਸੀਂ ਹੋਰ ਵਿਸ਼ਿਆਂ ਦੇ ਇੰਟਰਐਕਟਿਵ ਮਾਡਲ ਜੋੜ ਰਹੇ ਹਾਂ।" if pa else
+                "A direct lab link is not available for this question yet. More interactive topic links will be added."
+            )
 
     st.caption(
         "ਅੰਗਰੇਜ਼ੀ ਜਾਂ ਪੰਜਾਬੀ ਚੁਣਨ ਲਈ ਐਪ ਦਾ ਭਾਸ਼ਾ ਵਿਕਲਪ ਵਰਤੋ।"
