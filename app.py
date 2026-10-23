@@ -3,6 +3,7 @@ import pandas as pd
 import json
 import urllib.request
 import urllib.error
+import time
 
 st.set_page_config(page_title="SCIENCE-LAB AI", page_icon="🔬", layout="wide", initial_sidebar_state="collapsed")
 
@@ -3376,8 +3377,18 @@ def mentor_call_gemini(question, language, api_key):
         method="POST",
     )
     try:
-        with urllib.request.urlopen(request, timeout=35) as response:
-            result = json.loads(response.read().decode("utf-8"))
+        # Retry temporary Gemini overload (503) with exponential backoff.
+        result = None
+        for attempt in range(4):
+            try:
+                with urllib.request.urlopen(request, timeout=35) as response:
+                    result = json.loads(response.read().decode("utf-8"))
+                break
+            except urllib.error.HTTPError as retry_exc:
+                if retry_exc.code == 503 and attempt < 3:
+                    time.sleep(1 * (2 ** attempt))
+                    continue
+                raise
         candidates = result.get("candidates", [])
         if not candidates:
             feedback = result.get("promptFeedback", {}).get("blockReason", "")
