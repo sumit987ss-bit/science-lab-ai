@@ -3296,38 +3296,60 @@ def mentor_lab():
         go("home")
         st.rerun()
     st.title("🤖 " + ("AI ਵਿਗਿਆਨ ਮਾਰਗਦਰਸ਼ਕ" if pa else "AI Science Mentor"))
-    st.caption("ਮੁਫ਼ਤ, ਬਿਨਾਂ API ਕੁੰਜੀ ਦੇ" if pa else "Free offline-first learning helper · no paid API or API key")
+    st.caption("ਮੁਫ਼ਤ, ਬਿਨਾਂ API ਕੁੰਜੀ ਦੇ · ਪੜਾਅ 1: ਪਾਠ-ਅਧਾਰਿਤ ਮਾਰਗਦਰਸ਼ਨ" if pa else "Free, no API key · Stage 1: curriculum-based guidance")
+    st.info("ਇਹ ਪਹਿਲਾ ਸੰਸਕਰਣ ਤੁਹਾਡੇ ਸਵਾਲ ਨੂੰ ਵਿਗਿਆਨ ਦੇ ਤਿਆਰ ਕੀਤੇ ਪਾਠ-ਵਿਸ਼ਿਆਂ ਨਾਲ ਮਿਲਾ ਕੇ ਜਵਾਬ ਦਿੰਦਾ ਹੈ। ਇਹ paid API ਜਾਂ internet service ਨਹੀਂ ਵਰਤਦਾ।" if pa else "Stage 1 matches your question to a curated science knowledge bank. It uses no paid API or external AI service.")
     st.markdown("### " + ("ਆਪਣਾ ਸਵਾਲ ਪੁੱਛੋ" if pa else "Ask a science question"))
     c1, c2 = st.columns(2)
     with c1:
-        grade = st.selectbox("ਜਮਾਤ" if pa else "Class", [6,7,8,9,10], key="mentor_grade")
+        grade = st.selectbox("ਜਮਾਤ" if pa else "Class", [6, 7, 8, 9, 10], key="mentor_grade")
     with c2:
-        subject = st.selectbox("ਵਿਸ਼ਾ" if pa else "Subject", ["Physics","Chemistry","Biology"], format_func=lambda x: ({"Physics":"ਭੌਤਿਕ ਵਿਗਿਆਨ","Chemistry":"ਰਸਾਇਣ ਵਿਗਿਆਨ","Biology":"ਜੀਵ ਵਿਗਿਆਨ"}[x] if pa else x), key="mentor_subject")
+        subject = st.selectbox("ਵਿਸ਼ਾ" if pa else "Subject", ["Physics", "Chemistry", "Biology"], format_func=lambda x: ({"Physics": "ਭੌਤਿਕ ਵਿਗਿਆਨ", "Chemistry": "ਰਸਾਇਣ ਵਿਗਿਆਨ", "Biology": "ਜੀਵ ਵਿਗਿਆਨ"}[x] if pa else x), key="mentor_subject")
     eligible = [item for item in MENTOR_KB if item[0] == subject and item[1] <= grade <= item[2]]
     if not eligible:
         eligible = [item for item in MENTOR_KB if item[0] == subject]
     topic_labels = [item[4] if pa else item[3] for item in eligible]
     selected_topic = st.selectbox("ਵਿਸ਼ਾ-ਬਿੰਦੂ" if pa else "Topic", topic_labels, key=f"mentor_topic_{grade}_{subject}_{st.session_state.language}")
     selected = eligible[topic_labels.index(selected_topic)]
+    search_all = st.checkbox("ਹੋਰ ਵਿਸ਼ਿਆਂ ਵਿੱਚ ਵੀ ਸੰਬੰਧਿਤ ਜਵਾਬ ਲੱਭੋ" if pa else "Search other subjects too if they better match my question", value=True, key=f"mentor_all_subjects_{grade}_{st.session_state.language}")
     with st.form(f"mentor_ask_form_{grade}_{subject}_{st.session_state.language}"):
-        question = st.text_area("ਆਪਣਾ ਸਵਾਲ ਲਿਖੋ (اختیاری)" if pa else "Type your question (optional)", placeholder=("ਉਦਾਹਰਨ: ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਕੀ ਹੈ?" if pa else "Example: Why does iron rust?"), height=90)
-        submitted = st.form_submit_button("ਸਮਝਾਓ" if pa else "Explain")
+        question = st.text_area("ਆਪਣਾ ਸਵਾਲ ਲਿਖੋ (ਵਿਕਲਪਿਕ)" if pa else "Type your question (optional)", placeholder=("ਉਦਾਹਰਨ: ਲੋਹੇ ਨੂੰ ਜੰਗ ਕਿਉਂ ਲੱਗਦੀ ਹੈ?" if pa else "Example: Why does iron rust?"), height=95)
+        submitted = st.form_submit_button("ਜਵਾਬ ਲੱਭੋ" if pa else "Find answer")
+    context_key = f"{grade}_{subject}_{st.session_state.language}"
     if submitted:
         q = question.strip().lower()
-        # Match the learner's wording to a related concept within the selected subject and grade.
+        pool = [item for item in MENTOR_KB if item[1] <= grade <= item[2]] if search_all else eligible
+        if not pool:
+            pool = MENTOR_KB if search_all else eligible
         ranked = []
-        for item in eligible:
-            terms = item[5] + [item[3].lower(), item[4].lower()]
-            score = sum(1 for term in terms if term.lower() in q) if q else 0
-            ranked.append((score, item))
-        best_score, best_item = max(ranked, key=lambda pair: pair[0])
-        if best_score > 0:
+        if q:
+            normal_q = q.translate(str.maketrans({ch: " " for ch in ".,?!:;()[]{}'\\"/\\-"}))
+            q_words = {word for word in normal_q.split() if len(word) > 2}
+            for item in pool:
+                terms = item[5] + [item[3], item[4], item[6], item[7], item[8], item[9], item[10], item[11]]
+                score = 0
+                for term in terms:
+                    term_l = term.lower()
+                    if term_l in q:
+                        score += 3 if " " in term_l else 2
+                    term_words = {word for word in term_l.translate(str.maketrans({ch: " " for ch in ".,?!:;()[]{}'\\"/\\-"})).split() if len(word) > 2}
+                    score += len(q_words & term_words)
+                ranked.append((score, item))
+        best_score, best_item = max(ranked, key=lambda pair: pair[0]) if ranked else (0, selected)
+        found = bool(q and best_score > 0)
+        if found:
             selected = best_item
-        st.session_state["mentor_last_key"] = f"{grade}_{subject}_{st.session_state.language}"
+        st.session_state["mentor_last_key"] = context_key
         st.session_state["mentor_last_topic"] = selected[3]
+        st.session_state["mentor_last_subject"] = selected[0]
         st.session_state["mentor_last_question"] = question.strip()
-    if st.session_state.get("mentor_last_key") == f"{grade}_{subject}_{st.session_state.language}" and st.session_state.get("mentor_last_topic"):
-        selected = next((item for item in eligible if item[3] == st.session_state["mentor_last_topic"]), selected)
+        st.session_state["mentor_match_found"] = found
+    if st.session_state.get("mentor_last_key") == context_key and st.session_state.get("mentor_last_topic"):
+        selected = next((item for item in MENTOR_KB if item[0] == st.session_state.get("mentor_last_subject") and item[3] == st.session_state["mentor_last_topic"]), selected)
+        if st.session_state.get("mentor_last_question"):
+            if st.session_state.get("mentor_match_found"):
+                st.success(("ਸਵਾਲ ਨਾਲ ਸਭ ਤੋਂ ਸੰਬੰਧਿਤ ਵਿਸ਼ਾ ਮਿਲਿਆ: " if pa else "Best matching topic found: ") + (selected[4] if pa else selected[3]))
+            else:
+                st.warning("ਇਸ ਸਵਾਲ ਲਈ ਪੱਕਾ ਮੇਲ ਨਹੀਂ ਮਿਲਿਆ। ਹੇਠਾਂ ਚੁਣੇ ਵਿਸ਼ੇ ਦੀ ਵਿਆਖਿਆ ਦਿੱਤੀ ਹੈ; ਸਵਾਲ ਨੂੰ ਹੋਰ ਖਾਸ ਕਰਕੇ ਪੁੱਛੋ।" if pa else "I couldn't confidently match that wording. The selected topic is shown below as a starting point; try using a key science term or a shorter question.")
     st.markdown("---")
     st.subheader(("ਸੌਖੀ ਵਿਆਖਿਆ" if pa else "Simple explanation") + " · " + (selected[4] if pa else selected[3]))
     st.write(selected[7] if pa else selected[6])
@@ -3335,9 +3357,8 @@ def mentor_lab():
     st.write(selected[9] if pa else selected[8])
     st.markdown("**" + ("ਆਪਣੇ ਆਪ ਨੂੰ ਪਰਖੋ" if pa else "Check your understanding") + "**")
     st.write(selected[11] if pa else selected[10])
-    st.caption("ਇਹ ਪਹਿਲਾ offline ਸੰਸਕਰਣ ਚੁਣੇ ਹੋਏ ਪਾਠ-ਵਿਸ਼ਿਆਂ ਤੋਂ ਜਵਾਬ ਦਿੰਦਾ ਹੈ; ਇਹ ਹਰ ਖੁੱਲ੍ਹੇ ਸਵਾਲ ਦਾ ਜਨਰੇਟਿਵ AI ਜਵਾਬ ਨਹੀਂ ਹੈ।" if pa else "Stage 1 uses a curated, offline knowledge bank. It does not generate an unrestricted answer to every possible question; unmatched questions may need a narrower topic.")
+    st.caption("ਪੜਾਅ 1 ਵਿੱਚ ਜਵਾਬ ਚੁਣੇ ਹੋਏ ਗਿਆਨ-ਸੰਗ੍ਰਹਿ ਤੋਂ ਮਿਲਦੇ ਹਨ; ਇਹ ਖੁੱਲ੍ਹੇ-ਅੰਤ ਵਾਲਾ ਜਨਰੇਟਿਵ AI ਨਹੀਂ ਹੈ। ਅਗਲੇ ਪੜਾਅ ਵਿੱਚ ਪਾਠ-ਅਧਾਰਿਤ ਕਵਿਜ਼, ਵਿਦਿਆਰਥੀ ਦੀ ਤਰੱਕੀ ਅਤੇ ਹੋਰ ਵਿਸ਼ਿਆਂ ਦੀ ਕਵਰੇਜ ਜੋੜੀ ਜਾ ਸਕਦੀ ਹੈ।" if pa else "Stage 1 retrieves explanations from a curated knowledge bank; it is not unrestricted generative AI. Later stages can add curriculum quizzes, progress tracking and broader topic coverage.")
     st.info("ਸੁਰੱਖਿਆ: ਅਸਲ ਰਸਾਇਣ, ਬਿਜਲੀ ਜਾਂ ਜੀਵ-ਵਿਗਿਆਨਕ ਨਮੂਨਿਆਂ ਵਾਲੇ ਪ੍ਰਯੋਗ ਅਧਿਆਪਕ ਦੀ ਦੇਖ-ਰੇਖ ਹੇਠ ਹੀ ਕਰੋ।" if pa else "Safety: perform real experiments involving chemicals, electricity or biological samples only with teacher supervision.")
-
 
 def planned_lab(page):
     if st.button(tr("back")):
