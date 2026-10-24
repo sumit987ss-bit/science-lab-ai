@@ -3351,17 +3351,16 @@ MENTOR_QUIZZES = {
 def mentor_call_gemini(question, language, api_key):
     """Discover models enabled for this API key, then answer with a fast supported model."""
     language_instruction = (
-        "Answer in Punjabi using natural, clear Gurmukhi script."
-        if language == "pa"
-        else "Answer in clear, simple English."
+        "Give the complete answer in BOTH languages every time: first simple English, then Punjabi in natural, clear Gurmukhi script. "
+        "Use the headings 'English' and 'ਪੰਜਾਬੀ'. Do not omit either language, even if the question is asked in only one language."
     )
     prompt = (
-        "You are a reliable, friendly school science mentor for learners aged 11-16. "
-        "Answer the student's exact question directly. Start with the answer, then give a short "
-        "explanation and one everyday example when useful. Use simple language. Do not ask the "
-        "student to select a class, subject, or topic. Do not invent facts. If the question is not "
-        "about science, briefly redirect to science questions. For dangerous experiments, give a "
-        "safety warning and never encourage unsupervised handling. "
+        "You are a reliable, friendly bilingual school science mentor for learners aged 11-16. "
+        "Answer the student's exact question directly. Start with a clear answer, then give a short "
+        "explanation and one everyday example when useful. Keep both language sections accurate and equivalent, "
+        "with simple age-appropriate wording. Do not ask the student to select a class, subject, or topic. "
+        "Do not invent facts. If the question is not about science, briefly redirect to science questions. "
+        "For dangerous experiments, give a safety warning and never encourage unsupervised handling. "
         + language_instruction
         + "\nStudent question: "
         + question
@@ -3559,20 +3558,9 @@ def mentor_lab():
     except Exception:
         configured_key = ""
 
+    # The working API key is configured in Streamlit Secrets; keep setup controls
+    # off the student-facing mentor screen.
     api_key = configured_key
-    if not configured_key:
-        with st.expander("AI setup / AI ਸੈਟਅੱਪ"):
-            api_key = st.text_input(
-                "Gemini API key (session only)" if not pa else "Gemini API ਕੁੰਜੀ (ਸਿਰਫ਼ ਇਸ ਸੈਸ਼ਨ ਲਈ)",
-                type="password",
-                key="mentor_groq_key",
-                help="Create a key at https://aistudio.google.com/. Do not put it in app.py or GitHub.",
-            )
-            st.caption(
-                "Create/manage your key at https://aistudio.google.com/. Your key is not saved in this app." 
-                if not pa else
-                "ਕੁੰਜੀ ਬਣਾਉਣ ਲਈ https://aistudio.google.com/ ਖੋਲ੍ਹੋ। ਤੁਹਾਡੀ ਕੁੰਜੀ ਇਸ ਐਪ ਵਿੱਚ ਸੁਰੱਖਿਅਤ ਨਹੀਂ ਕੀਤੀ ਜਾਂਦੀ।"
-            )
 
     question_key = "mentor_direct_question"
     with st.form("mentor_direct_question_form", clear_on_submit=False):
@@ -3591,7 +3579,7 @@ def mentor_lab():
         if not q:
             st.session_state["mentor_direct_error"] = "ਕਿਰਪਾ ਕਰਕੇ ਪਹਿਲਾਂ ਸਵਾਲ ਲਿਖੋ।" if pa else "Please type your question first."
         elif not api_key:
-            st.session_state["mentor_direct_error"] = "AI ਚਲਾਉਣ ਲਈ AI setup ਵਿੱਚ Gemini API ਕੁੰਜੀ ਦਿਓ।" if pa else "To use AI, add your Gemini API key under AI setup."
+            st.session_state["mentor_direct_error"] = "AI ਸੇਵਾ ਲਈ ਕੁੰਜੀ ਸੰਰਚਨਾ ਉਪਲਬਧ ਨਹੀਂ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਅਧਿਆਪਕ ਨਾਲ ਸੰਪਰਕ ਕਰੋ।" if pa else "The AI service key is not configured. Please contact the app guide."
         else:
             with st.spinner("ਜਵਾਬ ਤਿਆਰ ਹੋ ਰਿਹਾ ਹੈ…" if pa else "Preparing your answer…"):
                 answer, error = mentor_call_gemini(q, st.session_state.language, api_key)
