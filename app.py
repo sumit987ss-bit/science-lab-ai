@@ -3558,16 +3558,15 @@ def mentor_lab():
     except Exception:
         configured_key = ""
 
-    # Prefer the private Streamlit secret. If it is not configured yet,
-    # provide a small fallback input (not an AI Setup tab) so the mentor stays usable.
-    api_key = configured_key or st.session_state.get("mentor_groq_key", "")
-    if not api_key:
-        api_key = st.text_input(
-            "Mentor access key" if not pa else "ਮੈਂਟਰ ਐਕਸੈੱਸ ਕੁੰਜੀ",
-            type="password",
-            key="mentor_groq_key",
-            help="Temporary session only. For a permanent private setup, add GEMINI_API_KEY in Streamlit Secrets."
-        )
+    # Always render the key widget. Streamlit may discard a widget's state if
+    # the widget is conditionally omitted on a later rerun.
+    entered_key = st.text_input(
+        "Mentor access key" if not pa else "ਮੈਂਟਰ ਐਕਸੈੱਸ ਕੁੰਜੀ",
+        type="password",
+        key="mentor_groq_key",
+        help="Temporary session only. For a permanent private setup, add GEMINI_API_KEY in Streamlit Secrets."
+    )
+    api_key = configured_key or entered_key or st.session_state.get("mentor_groq_key", "")
     question_key = "mentor_direct_question"
     with st.form("mentor_direct_question_form", clear_on_submit=False):
         question = st.text_area(
