@@ -14,7 +14,18 @@ st.markdown("""
 .hero h1{color:white;font-size:clamp(2rem,5vw,3rem);margin:0}
 .hero p{color:#e5f6ff;font-size:1.03rem;margin:.5rem 0 0}
 .lab-card{border:1px solid rgba(120,140,160,.32);border-radius:16px;padding:1rem;min-height:135px;background:rgba(128,128,128,.04)}
+.welcome-wrap{border-radius:26px;overflow:hidden;background:linear-gradient(135deg,#071b35 0%,#0e4966 48%,#0b7c78 100%);color:#fff;padding:clamp(1.2rem,4vw,2.6rem);box-shadow:0 16px 42px rgba(5,30,55,.22);margin:.3rem 0 1rem}
+.welcome-kicker{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:#a9f3e7;font-weight:800}
+.welcome-title{font-size:clamp(2.2rem,6vw,4rem);line-height:1.03;font-weight:900;color:#fff;margin:.55rem 0}
+.welcome-sub{font-size:1.08rem;color:#e2f5ff;max-width:760px}
+.lab-art{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.65rem;margin:1.4rem 0}
+.lab-item{background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.2);border-radius:17px;padding:.8rem .35rem;text-align:center;backdrop-filter:blur(4px)}
+.lab-emoji{font-size:clamp(1.8rem,4vw,3rem);line-height:1.35}
+.lab-label{font-size:.82rem;color:#e4fbff;font-weight:700}
+.quote-panel{border-left:4px solid #7ef0d0;background:rgba(0,0,0,.17);padding:1rem 1.1rem;border-radius:0 14px 14px 0;margin:1.2rem 0}
+.credits-panel{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.22);padding-top:1rem;margin-top:1rem;color:#e7f7ff}
 div.stButton>button{border-radius:11px;min-height:2.55rem;font-weight:600}
+@media(max-width:520px){.lab-art{grid-template-columns:repeat(2,minmax(0,1fr))}.welcome-wrap{padding:1rem}.credits-panel{display:block}}
 </style>
 """, unsafe_allow_html=True)
 
@@ -122,7 +133,7 @@ def tr(key):
 if "language" not in st.session_state:
     st.session_state.language = "en"
 if "page" not in st.session_state:
-    st.session_state.page = "home"
+    st.session_state.page = "welcome"
 if "selected_class" not in st.session_state:
     st.session_state.selected_class = 10
 if "selected_experiment" not in st.session_state:
@@ -3645,7 +3656,34 @@ def planned_lab(page):
         st.markdown("- " + item)
     st.caption(tr("safe"))
 
-if st.session_state.page == "home":
+if st.session_state.page == "welcome":
+    pa = st.session_state.language == "pa"
+    st.markdown(
+        '<div class="welcome-wrap">'
+        '<div class="welcome-kicker">LEARN · DISCOVER · INNOVATE</div>'
+        '<div class="welcome-title">🔬 SCIENCE LAB AI</div>'
+        '<div class="welcome-sub">Your Virtual Science Laboratory · Classes 6–10</div>'
+        '<div class="welcome-sub">Explore scientific ideas, observe models, ask questions and learn by doing.</div>'
+        '<div class="lab-art">'
+        '<div class="lab-item"><div class="lab-emoji">🧪</div><div class="lab-label">Chemistry</div></div>'
+        '<div class="lab-item"><div class="lab-emoji">🔬</div><div class="lab-label">Microscope</div></div>'
+        '<div class="lab-item"><div class="lab-emoji">⚡</div><div class="lab-label">Electricity</div></div>'
+        '<div class="lab-item"><div class="lab-emoji">🧬</div><div class="lab-label">Life Science</div></div>'
+        '<div class="lab-item"><div class="lab-emoji">🧫</div><div class="lab-label">Test Tubes</div></div>'
+        '<div class="lab-item"><div class="lab-emoji">⚗️</div><div class="lab-label">Flasks</div></div>'
+        '<div class="lab-item"><div class="lab-emoji">🧲</div><div class="lab-label">Magnetism</div></div>'
+        '<div class="lab-item"><div class="lab-emoji">🌱</div><div class="lab-label">Environment</div></div>'
+        '</div>'
+        '<div class="quote-panel"><strong>“The important thing is to never stop questioning.”</strong><br><span style="color:#c8f5ed">— Albert Einstein</span><br><span style="color:#e2f5ff">Every question is the beginning of discovery.</span></div>'
+        '<div class="credits-panel"><div><strong>Developers</strong><br>Student Name</div><div><strong>Guide</strong><br>Sumitpal Singh Sodhi · Science Master</div></div>'
+        '</div>',
+        unsafe_allow_html=True
+    )
+    st.caption("ਖੋਜੋ • ਪ੍ਰਯੋਗ ਕਰੋ • ਸਮਝੋ" if pa else "Explore • Experiment • Understand")
+    if st.button("🔬  ਲੈਬ ਵਿੱਚ ਦਾਖਲ ਹੋਵੋ  →" if pa else "🔬  ENTER SCIENCE LAB  →", key="enter_science_lab", type="primary", use_container_width=True):
+        go("home")
+        st.rerun()
+elif st.session_state.page == "home":
     show_header()
     st.title(tr("choose"))
     st.write(tr("choose_desc"))
