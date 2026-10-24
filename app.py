@@ -3349,7 +3349,7 @@ MENTOR_QUIZZES = {
 }
 
 def mentor_call_gemini(question, language, api_key):
-    """Generate a direct bilingual school-science answer using the Gemini API."""
+    """Return a direct bilingual science answer, with quick Gemini model fallback."""
     language_instruction = (
         "Answer in Punjabi using natural, clear Gurmukhi script."
         if language == "pa"
@@ -3357,73 +3357,107 @@ def mentor_call_gemini(question, language, api_key):
     )
     prompt = (
         "You are a reliable, friendly school science mentor for learners aged 11-16. "
-        "Answer the student's exact question directly. Explain only what is needed, "
-        "using simple language and a brief everyday example when useful. Do not ask the student "
-        "to select a class, subject, or topic. Do not invent facts. If the question is not about "
-        "science, briefly say you can answer science questions. For dangerous experiments, "
-        "give a safety warning and never encourage unsupervised handling. "
+        "Answer the student's exact question directly and quickly. Start with the answer, "
+        "then give a short explanation and one everyday example only when useful. "
+        "Use clear headings or bullets only when they improve understanding. "
+        "Do not ask the student to select a class, subject, or topic. Do not invent facts. "
+        "If the question is not about science, briefly redirect the student to science questions. "
+        "For dangerous experiments, give a safety warning and never encourage unsupervised handling. "
         + language_instruction
         + "\nStudent question: "
         + question
     )
     payload = {
         "contents": [{"role": "user", "parts": [{"text": prompt}]}],
-        "generationConfig": {"temperature": 0.3, "maxOutputTokens": 900},
+        "generationConfig": {"temperature": 0.2, "maxOutputTokens": 700},
     }
-    request = urllib.request.Request(
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent",
-        data=json.dumps(payload).encode("utf-8"),
-        headers={"x-goog-api-key": api_key, "Content-Type": "application/json"},
-        method="POST",
-    )
-    try:
-        # Retry temporary Gemini overload (503) with exponential backoff.
-        result = None
-        for attempt in range(4):
-            try:
-                with urllib.request.urlopen(request, timeout=35) as response:
-                    result = json.loads(response.read().decode("utf-8"))
-                break
-            except urllib.error.HTTPError as retry_exc:
-                if retry_exc.code == 503 and attempt < 3:
-                    time.sleep(1 * (2 ** attempt))
-                    continue
-                raise
-        candidates = result.get("candidates", [])
-        if not candidates:
-            feedback = result.get("promptFeedback", {}).get("blockReason", "")
-            if feedback:
-                return None, ("Gemini could not answer this prompt (safety filter: " + feedback + ").")
-            return None, "Gemini returned no answer. Please rephrase your question and try again."
-        parts = candidates[0].get("content", {}).get("parts", [])
-        answer = "\\n".join(part.get("text", "") for part in parts if part.get("text"))
-        if not answer.strip():
-            return None, "Gemini returned an empty answer. Please try again."
-        return answer.strip(), None
-    except urllib.error.HTTPError as exc:
+
+    # Try the current fast model first; move on quickly if it is busy or unavailable.
+    models = ["gemini-2.5-flash", "gemini-2.0-flash"]
+    last_error = None
+    for model in models:
+        request = urllib.request.Request(
+            "https://generativelanguage.googleapis.com/v1beta/models/"
+            + model
+            + ":generateContent",
+            data=json.dumps(payload).encode("utf-8"),
+            headers={"x-goog-api-key": api_key, "Content-Type": "application/json"},
+            method="POST",
+        )
         try:
-            error_data = json.loads(exc.read().decode("utf-8")).get("error", {})
-            detail = error_data.get("message", "")
-            status = error_data.get("status", "")
+            with urllib.request.urlopen(request, timeout=18) as response:
+                result = json.loads(response.read().decode("utf-8"))
+            candidates = result.get("candidates", [])
+            if not candidates:
+                feedback = result.get("promptFeedback", {}).get("blockReason", "")
+                if feedback:
+                    return None, (
+                        "This question was blocked by the AI safety filter. Please rephrase it."
+                        if language != "pa"
+                        else "ਇਹ ਸਵਾਲ AI ਸੁਰੱਖਿਆ ਫਿਲਟਰ ਕਾਰਨ ਰੋਕਿਆ ਗਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਸਵਾਲ ਨੂੰ ਹੋਰ ਤਰੀਕੇ ਨਾਲ ਲਿਖੋ।"
+                    )
+                last_error = "The AI returned no answer. Please rephrase your question."
+                continue
+            parts = candidates[0].get("content", {}).get("parts", [])
+            answer = "\n".join(part.get("text", "") for part in parts if part.get("text"))
+            if answer.strip():
+                return answer.strip(), None
+            last_error = "The AI returned an empty answer. Please try again."
+        except urllib.error.HTTPError as exc:
+            try:
+                error_data = json.loads(exc.read().decode("utf-8")).get("error", {})
+                detail = error_data.get("message", "")
+                status = error_data.get("status", "")
+            except Exception:
+                detail, status = "", ""
+            if exc.code in (404, 429, 503, 504):
+                last_error = (exc.code, status, detail)
+                continue
+            if exc.code in (400, 401, 403):
+                if language == "pa":
+                    return None, "Gemini API ਕੁੰਜੀ ਜਾਂ API ਪਹੁੰਚ ਦੀ ਜਾਂਚ ਕਰੋ। ਕੁੰਜੀ ਨੂੰ app.py ਜਾਂ GitHub ਵਿੱਚ ਨਾ ਰੱਖੋ।"
+                return None, "Gemini rejected the API key or request. Check that the key is active and Gemini API access is enabled."
+            last_error = (exc.code, status, detail)
         except Exception:
-            detail, status = "", ""
-        if exc.code in (400, 401, 403):
-            msg = "Gemini rejected the API key or request. Check that the key is active and has Gemini API access."
-            if detail:
-                msg += " Details: " + detail[:180]
-            return None, msg if language != "pa" else "Gemini ਨੇ API ਕੁੰਜੀ ਜਾਂ ਬੇਨਤੀ ਸਵੀਕਾਰ ਨਹੀਂ ਕੀਤੀ। ਕੁੰਜੀ ਅਤੇ Gemini API ਪਹੁੰਚ ਜਾਂਚੋ।" + ((" ਵੇਰਵਾ: " + detail[:150]) if detail else "")
-        if exc.code == 404:
-            return None, "The selected Gemini model is unavailable for this API key. Please contact the app maintainer." if language != "pa" else "ਚੁਣਿਆ Gemini ਮਾਡਲ ਇਸ API ਕੁੰਜੀ ਲਈ ਉਪਲਬਧ ਨਹੀਂ।"
-        if exc.code == 429:
-            return None, "Gemini usage limit reached. Wait a little and try again; check your AI Studio usage limits if it continues." if language != "pa" else "Gemini ਦੀ ਵਰਤੋਂ ਸੀਮਾ ਪੂਰੀ ਹੋ ਸਕਦੀ ਹੈ। ਕੁਝ ਸਮੇਂ ਬਾਅਦ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
-        msg = "Gemini service error (" + str(exc.code) + ")."
+            last_error = "network"
+
+    if last_error == "network":
+        return None, (
+            "Gemini ਨਾਲ ਸੰਪਰਕ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਇੰਟਰਨੈੱਟ ਜਾਂਚ ਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
+            if language == "pa"
+            else "Could not reach the AI service. Check the internet connection and try again."
+        )
+    if isinstance(last_error, tuple):
+        code, status, detail = last_error
+        if code == 429:
+            return None, (
+                "AI ਦੀ ਵਰਤੋਂ ਸੀਮਾ ਪੂਰੀ ਹੋ ਸਕਦੀ ਹੈ। ਥੋੜ੍ਹੀ ਦੇਰ ਬਾਅਦ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
+                if language == "pa"
+                else "The free AI usage limit may have been reached. Wait briefly and try again."
+            )
+        if code in (503, 504):
+            return None, (
+                "AI ਸੇਵਾ ਇਸ ਵੇਲੇ ਵਿਅਸਤ ਹੈ। ਕੁਝ ਪਲਾਂ ਬਾਅਦ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
+                if language == "pa"
+                else "The AI service is busy right now. Please try again in a few moments."
+            )
+        if code == 404:
+            return None, (
+                "ਕੋਈ ਉਪਲਬਧ Gemini ਮਾਡਲ ਨਹੀਂ ਮਿਲਿਆ। AI Studio ਵਿੱਚ API ਪਹੁੰਚ ਜਾਂਚੋ।"
+                if language == "pa"
+                else "No supported Gemini model was available for this API key. Check Gemini API access in AI Studio."
+            )
+        message = "Gemini service error (" + str(code) + ")."
         if status:
-            msg += " " + status
+            message += " " + status
         if detail:
-            msg += " " + detail[:180]
-        return None, msg
-    except Exception:
-        return None, "Could not reach Gemini. Check your internet connection and try again." if language != "pa" else "Gemini ਨਾਲ ਸੰਪਰਕ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਇੰਟਰਨੈੱਟ ਜਾਂਚ ਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ."
+            message += " " + detail[:160]
+        return None, message
+    return None, (
+        "ਜਵਾਬ ਨਹੀਂ ਮਿਲਿਆ। ਸਵਾਲ ਨੂੰ ਛੋਟਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
+        if language == "pa"
+        else "No answer was returned. Try asking the question more briefly."
+    )
 
 def mentor_lab():
     pa = st.session_state.language == "pa"
