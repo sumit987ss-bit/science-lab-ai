@@ -5,7 +5,7 @@ import urllib.request
 import urllib.error
 import time
 
-st.set_page_config(page_title="POCKET Science Lab", page_icon="🔬", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(page_title="Pocket Science Lab", page_icon="🧪", layout="wide", initial_sidebar_state="collapsed")
 
 st.markdown("""
 <style>
@@ -3661,7 +3661,7 @@ if st.session_state.page == "welcome":
     st.markdown(
         '<div class="welcome-wrap">'
         '<div class="welcome-kicker">LEARN · DISCOVER · INNOVATE</div>'
-        '<div class="welcome-title">🔬 POCKET Science Lab</div>'
+        '<div style="display:flex;align-items:center;gap:.8rem;margin:.45rem 0"><img src="/app/static/pocket-science-lab.svg" alt="Pocket Science Lab icon" style="width:clamp(3.4rem,10vw,5.2rem);height:clamp(3.4rem,10vw,5.2rem);object-fit:contain;flex-shrink:0;filter:drop-shadow(0 5px 12px rgba(0,0,0,.25))"><div class="welcome-title" style="margin:.2rem 0">Pocket Science Lab</div></div>'
         '<div class="welcome-sub">Your Virtual Science Laboratory · Classes 6–10</div>'
         '<div class="welcome-sub">Explore ideas, observe models, ask questions and learn by doing.</div>'
         '<div class="lab-art">'
