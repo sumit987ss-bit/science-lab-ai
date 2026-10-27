@@ -9,23 +9,23 @@ st.set_page_config(page_title="POCKET Science Lab", page_icon="🔬", layout="wi
 
 st.markdown("""
 <style>
-.block-container{padding-top:.35rem;padding-bottom:.45rem;max-width:900px}
+.block-container{padding-top:1.1rem;padding-bottom:.65rem;max-width:1000px}
 .hero{padding:1.5rem;border-radius:20px;background:linear-gradient(120deg,#102a43,#176b87 58%,#27a6a1);color:white;margin-bottom:1rem}
 .hero h1{color:white;font-size:clamp(2rem,5vw,3rem);margin:0}
 .hero p{color:#e5f6ff;font-size:1.03rem;margin:.5rem 0 0}
 .lab-card{border:1px solid rgba(120,140,160,.32);border-radius:16px;padding:1rem;min-height:135px;background:rgba(128,128,128,.04)}
-.welcome-wrap{border-radius:20px;overflow:hidden;background:linear-gradient(135deg,#071b35 0%,#0e4966 48%,#0b7c78 100%);color:#fff;padding:clamp(.65rem,2vw,1.15rem);box-shadow:0 10px 26px rgba(5,30,55,.18);margin:0 0 .35rem}
+.welcome-wrap{border-radius:24px;overflow:hidden;background:radial-gradient(circle at 85% 12%,rgba(88,230,206,.22),transparent 28%),linear-gradient(135deg,#071b35 0%,#0e4966 48%,#0b7c78 100%);color:#fff;padding:clamp(1.1rem,3vw,1.8rem);box-shadow:0 16px 38px rgba(5,30,55,.24);margin:.25rem 0 .55rem}
 .welcome-kicker{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:#a9f3e7;font-weight:800}
-.welcome-title{font-size:clamp(1.8rem,5vw,2.7rem);line-height:1.02;font-weight:900;color:#fff;margin:.25rem 0}
-.welcome-sub{font-size:.9rem;line-height:1.25;color:#e2f5ff;max-width:760px}
-.lab-art{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.35rem;margin:.55rem 0}
-.lab-item{background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:.28rem .2rem;text-align:center;backdrop-filter:blur(4px)}
-.lab-emoji{font-size:clamp(1.35rem,3vw,2rem);line-height:1.15}
-.lab-label{font-size:.7rem;color:#e4fbff;font-weight:700}
-.quote-panel{border-left:3px solid #7ef0d0;background:rgba(0,0,0,.17);padding:.5rem .7rem;border-radius:0 10px 10px 0;margin:.5rem 0;font-size:.82rem;line-height:1.25}
-.credits-panel{display:flex;justify-content:space-between;gap:.5rem;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.22);padding-top:.45rem;margin-top:.45rem;color:#e7f7ff;font-size:.8rem;line-height:1.25}
+.welcome-title{font-size:clamp(2.1rem,5.6vw,3.35rem);line-height:1.12;font-weight:900;color:#fff;margin:.55rem 0 .45rem;overflow-wrap:anywhere}
+.welcome-sub{font-size:1rem;line-height:1.4;color:#e2f5ff;max-width:760px;margin:.15rem 0}
+.lab-art{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.5rem;margin:1rem 0}
+.lab-item{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.23);border-radius:15px;padding:.55rem .25rem;text-align:center;backdrop-filter:blur(4px)}
+.lab-emoji{font-size:clamp(1.7rem,3.6vw,2.5rem);line-height:1.25}
+.lab-label{font-size:.78rem;color:#e4fbff;font-weight:700}
+.quote-panel{border-left:4px solid #7ef0d0;background:rgba(0,0,0,.17);padding:.75rem .9rem;border-radius:0 13px 13px 0;margin:.8rem 0;font-size:.9rem;line-height:1.4}
+.credits-panel{display:flex;justify-content:space-between;gap:.8rem;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.22);padding-top:.7rem;margin-top:.7rem;color:#e7f7ff;font-size:.9rem;line-height:1.4}
 div.stButton>button{border-radius:10px;min-height:2.15rem;font-weight:700;padding:.35rem .7rem}
-@media(max-width:520px){.block-container{padding-top:.2rem;padding-bottom:.25rem}.lab-art{grid-template-columns:repeat(4,minmax(0,1fr));gap:.22rem}.welcome-wrap{padding:.55rem;border-radius:14px}.welcome-kicker{font-size:.62rem}.welcome-title{font-size:1.65rem}.welcome-sub{font-size:.78rem}.lab-item{padding:.25rem .08rem}.lab-label{font-size:.58rem}.quote-panel{font-size:.72rem;padding:.4rem .5rem;margin:.4rem 0}.credits-panel{display:flex;gap:.4rem;font-size:.72rem;padding-top:.35rem;margin-top:.35rem}.credits-panel>div{flex:1}}
+@media(max-width:520px){.block-container{padding-top:1.15rem;padding-bottom:.65rem;padding-left:.7rem;padding-right:.7rem}.lab-art{grid-template-columns:repeat(4,minmax(0,1fr));gap:.3rem;margin:.75rem 0}.welcome-wrap{padding:.85rem;border-radius:18px;margin-top:.2rem}.welcome-kicker{font-size:.65rem;letter-spacing:.12em}.welcome-title{font-size:clamp(1.95rem,8vw,2.45rem);line-height:1.12;margin:.55rem 0}.welcome-sub{font-size:.83rem;line-height:1.35}.lab-item{padding:.42rem .08rem;border-radius:11px}.lab-emoji{font-size:1.65rem}.lab-label{font-size:.62rem;line-height:1.2}.quote-panel{font-size:.76rem;line-height:1.35;padding:.55rem .6rem;margin:.6rem 0}.credits-panel{display:flex;gap:.5rem;font-size:.76rem;padding-top:.55rem;margin-top:.55rem}.credits-panel>div{flex:1;min-width:0}div.stButton>button{min-height:2.8rem;font-size:.95rem}}
 </style>
 """, unsafe_allow_html=True)
 
