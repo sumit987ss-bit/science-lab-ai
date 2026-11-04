@@ -21,7 +21,7 @@ GitHub Actions passed the validation workflow on the current migration branch. T
 
 1. Complete a side-by-side parity review of every one of the 100 experiments against the original Streamlit app. Some web diagrams and observations are simplified visual models and are not yet guaranteed to reproduce every original interactive detail.
 2. Test navigation, control changes, quizzes, English/Punjabi text, responsive layout and accessibility in real browsers and on Android.
-3. Create the Cloudflare Pages project in the owner's Cloudflare account and deploy this branch for testing.
+3. Add GitHub repository Actions secrets `CLOUDFLARE_API_TOKEN` (Cloudflare Pages Edit permission) and `CLOUDFLARE_ACCOUNT_ID`, then run **Actions → Deploy POCKET Science Lab preview to Cloudflare Pages → Run workflow**. The workflow creates the Pages project if needed and deploys the `cloudflare-migration` preview branch.
 4. Add the Pages Function secret `GEMINI_API_KEY` if live AI responses are desired. The offline mentor fallback works without it.
 5. Test install prompt, homescreen name/icon, offline launch, cache refresh and live Mentor responses on the deployed URL.
 6. Only after acceptance should the draft PR be merged and production switched. Keep Streamlit available until then.
@@ -33,6 +33,7 @@ GitHub Actions passed the validation workflow on the current migration branch. T
 - Root directory: `cloudflare-app`
 - Build command: none
 - Build output directory: `.`
-- Optional Pages Function secret: `GEMINI_API_KEY`
+- Optional Pages Function secret (set in Cloudflare Pages dashboard, not GitHub Actions): `GEMINI_API_KEY`
+- GitHub Actions repository secrets needed for deployment: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`
 
-The Cloudflare Pages project has not yet been created or deployed. This migration is not yet production-complete.
+A manual preview-deployment workflow is prepared at `.github/workflows/deploy-cloudflare-preview.yml`. It has not been run because Cloudflare account authorization secrets are not available in this repository session. This migration is not yet production-complete.
