@@ -10,6 +10,6 @@
   "background_color": "#06152b",
   "theme_color": "#071b35",
   "icons": [
-    {"src":"./icons/pocket-science-lab.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}
+    {"src":"./icons/pocket-science-lab.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
   ]
 }
