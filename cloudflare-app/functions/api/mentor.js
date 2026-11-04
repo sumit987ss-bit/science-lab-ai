@@ -28,16 +28,20 @@ export async function onRequestPost({ request, env }) {
   const englishRules =
     "You are a helpful science learning mentor for Classes 6–10. Answer in clear, accurate, age-appropriate English and guide students step by step.";
 
+  const strictPunjabiRules =
+    "You are a science teacher for Classes 6–10. You MUST answer entirely in Punjabi language using Gurmukhi script. This applies even when the question is written in English. Do not write English sentences. Keep only scientific symbols and unavoidable technical terms in English, in brackets. Explain accurately in simple Punjabi.";
+
+
   const system = language === "pa" ? punjabiRules : englishRules;
 
-  async function askGemini(userText) {
+  async function askGemini(userText, instruction = system) {
     const upstream = await fetch(
       "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + encodeURIComponent(env.GEMINI_API_KEY),
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          systemInstruction: { parts: [{ text: system }] },
+          systemInstruction: { parts: [{ text: instruction }] },
           contents: [{ role: "user", parts: [{ text: userText }] }],
           generationConfig: { temperature: 0.3, maxOutputTokens: 1200 }
         })
@@ -61,7 +65,8 @@ export async function onRequestPost({ request, env }) {
     // If the model ignores the selected Punjabi setting, request a strict Punjabi rewrite.
     if (language === "pa" && !/[\u0A00-\u0A7F]/.test(answer)) {
       answer = await askGemini(
-        "ਪਿਛਲਾ ਜਵਾਬ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਸੀ। ਹੁਣ ਉਸੇ ਜਵਾਬ ਨੂੰ ਸੌਖੀ, ਸਹੀ ਪੰਜਾਬੀ ਵਿੱਚ ਗੁਰਮੁਖੀ ਲਿਪੀ ਵਰਤ ਕੇ ਪੂਰੀ ਤਰ੍ਹਾਂ ਦੁਬਾਰਾ ਲਿਖੋ। ਅੰਗਰੇਜ਼ੀ ਵਾਕ ਨਾ ਵਰਤੋ। ਸਵਾਲ: " + question
+        "Answer the following science question fully in Punjabi using Gurmukhi script only. Do not answer in English. Question: " + question,
+        strictPunjabiRules
       );
     }
 
