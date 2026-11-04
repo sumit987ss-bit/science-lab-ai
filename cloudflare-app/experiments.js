@@ -763,8 +763,8 @@ window.LAB_DATA = {
       "aim": "Identify roots, stem, leaves, flower, fruit and seeds and connect each part with its job.",
       "aim_pa": "ਜੜ੍ਹਾਂ, ਤਣੇ, ਪੱਤੇ, ਫੁੱਲ, ਫਲ ਅਤੇ ਬੀਜ ਪਛਾਣੋ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ ਸਮਝੋ।",
       "kind": "plant_parts",
-      "note": "",
-      "note_pa": "",
+      "note": "Roots absorb water and minerals; stems support the plant and transport materials; leaves make food; flowers help reproduction.",
+      "note_pa": "ਜੜ੍ਹਾਂ ਪਾਣੀ ਅਤੇ ਖਣਿਜ ਸੋਖਦੀਆਂ ਹਨ; ਤਣਾ ਸਹਾਰਾ ਅਤੇ ਆਵਾਜਾਈ ਕਰਦਾ ਹੈ; ਪੱਤੇ ਭੋਜਨ ਬਣਾਉਂਦੇ ਹਨ; ਫੁੱਲ ਪ੍ਰਜਨਨ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ।",
       "class": 6
     },
     {
@@ -773,8 +773,8 @@ window.LAB_DATA = {
       "aim": "Observe how a seed develops into a seedling when suitable conditions are available.",
       "aim_pa": "ਢੁਕਵੀਆਂ ਹਾਲਤਾਂ ਵਿੱਚ ਬੀਜ ਤੋਂ ਪੌਦਾ ਬਣਨ ਦੀ ਪ੍ਰਕਿਰਿਆ ਵੇਖੋ।",
       "kind": "germination",
-      "note": "",
-      "note_pa": "",
+      "note": "A seed needs suitable water, oxygen and temperature to germinate; the radicle usually emerges first.",
+      "note_pa": "ਬੀਜ ਦੇ ਅੰਕੁਰਣ ਲਈ ਢੁਕਵਾਂ ਪਾਣੀ, ਆਕਸੀਜਨ ਅਤੇ ਤਾਪਮਾਨ ਚਾਹੀਦਾ ਹੈ; ਆਮ ਤੌਰ ਤੇ ਸਭ ਤੋਂ ਪਹਿਲਾਂ ਜੜ੍ਹਿਕਾ ਨਿਕਲਦੀ ਹੈ।",
       "class": 6
     },
     {
@@ -783,8 +783,8 @@ window.LAB_DATA = {
       "aim": "Explore the roles of light, water and air in plant growth.",
       "aim_pa": "ਪੌਦੇ ਦੇ ਵਾਧੇ ਵਿੱਚ ਰੋਸ਼ਨੀ, ਪਾਣੀ ਅਤੇ ਹਵਾ ਦੀ ਭੂਮਿਕਾ ਜਾਣੋ।",
       "kind": "plant_needs",
-      "note": "",
-      "note_pa": "",
+      "note": "Plants need light, water, air, suitable temperature and mineral nutrients for healthy growth.",
+      "note_pa": "ਪੌਦਿਆਂ ਦੇ ਚੰਗੇ ਵਾਧੇ ਲਈ ਰੋਸ਼ਨੀ, ਪਾਣੀ, ਹਵਾ, ਢੁਕਵਾਂ ਤਾਪਮਾਨ ਅਤੇ ਖਣਿਜ ਪੋਸ਼ਕ ਤੱਤ ਲੋੜੀਂਦੇ ਹਨ।",
       "class": 6
     },
     {
@@ -793,8 +793,8 @@ window.LAB_DATA = {
       "aim": "Trace how food energy moves from plants to animals.",
       "aim_pa": "ਪੌਦਿਆਂ ਤੋਂ ਜਾਨਵਰਾਂ ਤੱਕ ਭੋਜਨ ਊਰਜਾ ਦਾ ਵਹਾਅ ਸਮਝੋ।",
       "kind": "food_chain",
-      "note": "",
-      "note_pa": "",
+      "note": "Food chains show how energy passes from producers to consumers; energy is reduced at each higher trophic level.",
+      "note_pa": "ਭੋਜਨ ਲੜੀ ਦਿਖਾਉਂਦੀ ਹੈ ਕਿ ਊਰਜਾ ਉਤਪਾਦਕਾਂ ਤੋਂ ਖਪਤਕਾਰਾਂ ਤੱਕ ਜਾਂਦੀ ਹੈ; ਹਰ ਉੱਚੇ ਪੋਸ਼ਣ ਪੱਧਰ ਤੇ ਊਰਜਾ ਘਟਦੀ ਹੈ।",
       "class": 6
     },
     {
@@ -803,8 +803,8 @@ window.LAB_DATA = {
       "aim": "Connect an organism's features with the habitat where it lives.",
       "aim_pa": "ਜੀਵ ਦੀਆਂ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਨੂੰ ਉਸ ਦੇ ਆਵਾਸ ਨਾਲ ਜੋੜੋ।",
       "kind": "adaptation",
-      "note": "",
-      "note_pa": "",
+      "note": "Adaptations are inherited features that help organisms survive and reproduce in their habitats.",
+      "note_pa": "ਅਨੁਕੂਲਨ ਵਿਰਾਸਤੀ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਹਨ ਜੋ ਜੀਵਾਂ ਨੂੰ ਆਪਣੇ ਆਵਾਸ ਵਿੱਚ ਜੀਊਣ ਅਤੇ ਪ੍ਰਜਨਨ ਵਿੱਚ ਮਦਦ ਕਰਦੀਆਂ ਹਨ।",
       "class": 6
     },
     {
@@ -813,8 +813,8 @@ window.LAB_DATA = {
       "aim": "Model how leaves use light, water and carbon dioxide to make food.",
       "aim_pa": "ਪੱਤੇ ਰੋਸ਼ਨੀ, ਪਾਣੀ ਅਤੇ ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ ਨਾਲ ਭੋਜਨ ਕਿਵੇਂ ਬਣਾਉਂਦੇ ਹਨ, ਸਮਝੋ।",
       "kind": "photosynthesis",
-      "note": "",
-      "note_pa": "",
+      "note": "Green plants use light energy, water and carbon dioxide to make glucose; oxygen is released.",
+      "note_pa": "ਹਰੇ ਪੌਦੇ ਰੋਸ਼ਨੀ ਦੀ ਊਰਜਾ, ਪਾਣੀ ਅਤੇ ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ ਨਾਲ ਗਲੂਕੋਜ਼ ਬਣਾਉਂਦੇ ਹਨ ਅਤੇ ਆਕਸੀਜਨ ਛੱਡਦੇ ਹਨ।",
       "class": 7
     },
     {
@@ -823,8 +823,8 @@ window.LAB_DATA = {
       "aim": "Follow food through the main stages of digestion.",
       "aim_pa": "ਭੋਜਨ ਦੇ ਪਚਣ ਦੇ ਮੁੱਖ ਪੜਾਅ ਵੇਖੋ।",
       "kind": "digestion",
-      "note": "",
-      "note_pa": "",
+      "note": "Digestion breaks complex food into simpler soluble substances that can be absorbed by the body.",
+      "note_pa": "ਪਚਣ ਨਾਲ ਜਟਿਲ ਭੋਜਨ ਸਧਾਰਨ ਘੁਲਣਸ਼ੀਲ ਪਦਾਰਥਾਂ ਵਿੱਚ ਟੁੱਟਦਾ ਹੈ ਜਿਨ੍ਹਾਂ ਨੂੰ ਸਰੀਰ ਜਜ਼ਬ ਕਰ ਸਕਦਾ ਹੈ।",
       "class": 7
     },
     {
@@ -833,8 +833,8 @@ window.LAB_DATA = {
       "aim": "Distinguish breathing from the release of energy in cells.",
       "aim_pa": "ਸਾਹ ਲੈਣ ਅਤੇ ਕੋਸ਼ਾਂ ਵਿੱਚ ਊਰਜਾ ਮੁਕਤ ਹੋਣ ਦਾ ਫਰਕ ਸਮਝੋ।",
       "kind": "respiration",
-      "note": "",
-      "note_pa": "",
+      "note": "Cellular respiration releases usable energy from food molecules; it is different from the physical process of breathing.",
+      "note_pa": "ਕੋਸ਼ਿਕਾਈ ਸ਼ਵਾਸ ਕਿਰਿਆ ਭੋਜਨ ਦੇ ਅਣੂਆਂ ਤੋਂ ਵਰਤਣਯੋਗ ਊਰਜਾ ਛੱਡਦੀ ਹੈ; ਇਹ ਸਾਹ ਲੈਣ ਦੀ ਭੌਤਿਕ ਪ੍ਰਕਿਰਿਆ ਤੋਂ ਵੱਖਰੀ ਹੈ।",
       "class": 7
     },
     {
@@ -843,8 +843,8 @@ window.LAB_DATA = {
       "aim": "Trace water from roots through the stem to leaves.",
       "aim_pa": "ਜੜ੍ਹਾਂ ਤੋਂ ਤਣੇ ਰਾਹੀਂ ਪੱਤਿਆਂ ਤੱਕ ਪਾਣੀ ਦਾ ਸਫ਼ਰ ਵੇਖੋ।",
       "kind": "transport_plant",
-      "note": "",
-      "note_pa": "",
+      "note": "Xylem transports water and dissolved minerals from roots towards the stem and leaves.",
+      "note_pa": "ਜ਼ਾਇਲਮ ਜੜ੍ਹਾਂ ਤੋਂ ਪਾਣੀ ਅਤੇ ਘੁਲੇ ਖਣਿਜ ਤਣੇ ਅਤੇ ਪੱਤਿਆਂ ਵੱਲ ਲਿਜਾਂਦਾ ਹੈ।",
       "class": 7
     },
     {
@@ -853,8 +853,8 @@ window.LAB_DATA = {
       "aim": "Identify the main flower parts involved in pollination and seed formation.",
       "aim_pa": "ਪਰਾਗਣ ਅਤੇ ਬੀਜ ਬਣਨ ਨਾਲ ਸੰਬੰਧਿਤ ਫੁੱਲ ਦੇ ਮੁੱਖ ਭਾਗ ਪਛਾਣੋ।",
       "kind": "flower",
-      "note": "",
-      "note_pa": "",
+      "note": "Stamens produce pollen and the pistil contains ovary and ovules; petals often attract pollinators.",
+      "note_pa": "ਪੁੰਕੇਸਰ ਪਰਾਗਕਣ ਬਣਾਉਂਦੇ ਹਨ ਅਤੇ ਇਸਤਰੀਕੇਸਰ ਵਿੱਚ ਅੰਡਾਸ਼ਯ ਤੇ ਬੀਜਕ ਹੁੰਦੇ ਹਨ; ਪੰਖੁੜੀਆਂ ਅਕਸਰ ਪਰਾਗਣਕਾਂ ਨੂੰ ਆਕਰਸ਼ਿਤ ਕਰਦੀਆਂ ਹਨ।",
       "class": 7
     },
     {
@@ -863,8 +863,8 @@ window.LAB_DATA = {
       "aim": "Compare useful microbes in food production with microbes that can cause disease.",
       "aim_pa": "ਭੋਜਨ ਬਣਾਉਣ ਵਾਲੇ ਲਾਭਦਾਇਕ ਸੂਖਮ ਜੀਵਾਂ ਅਤੇ ਰੋਗ ਪੈਦਾ ਕਰ ਸਕਣ ਵਾਲਿਆਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
       "kind": "microbes",
-      "note": "",
-      "note_pa": "",
+      "note": "Some microorganisms help make foods and decompose waste, while others can cause disease.",
+      "note_pa": "ਕੁਝ ਸੂਖਮ ਜੀਵ ਭੋਜਨ ਬਣਾਉਣ ਅਤੇ ਕਚਰਾ ਵਿਘਟਿਤ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ, ਜਦਕਿ ਹੋਰ ਰੋਗ ਪੈਦਾ ਕਰ ਸਕਦੇ ਹਨ।",
       "class": 8
     },
     {
@@ -873,8 +873,8 @@ window.LAB_DATA = {
       "aim": "Explore healthy crop conditions and the roles of soil, water and nutrients.",
       "aim_pa": "ਮਿੱਟੀ, ਪਾਣੀ ਅਤੇ ਪੋਸ਼ਕ ਤੱਤਾਂ ਦੀ ਫ਼ਸਲ ਦੇ ਵਾਧੇ ਵਿੱਚ ਭੂਮਿਕਾ ਜਾਣੋ।",
       "kind": "crop",
-      "note": "",
-      "note_pa": "",
+      "note": "Healthy crop growth depends on suitable soil, water, light, nutrients and responsible crop care.",
+      "note_pa": "ਫ਼ਸਲ ਦਾ ਚੰਗਾ ਵਾਧਾ ਢੁਕਵੀਂ ਮਿੱਟੀ, ਪਾਣੀ, ਰੋਸ਼ਨੀ, ਪੋਸ਼ਕ ਤੱਤਾਂ ਅਤੇ ਸਹੀ ਸੰਭਾਲ ਤੇ ਨਿਰਭਰ ਕਰਦਾ ਹੈ।",
       "class": 8
     },
     {
@@ -883,8 +883,8 @@ window.LAB_DATA = {
       "aim": "Match common cell structures with their functions.",
       "aim_pa": "ਕੋਸ਼ਿਕਾ ਦੀਆਂ ਬਣਤਰਾਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੇ ਕੰਮਾਂ ਨਾਲ ਜੋੜੋ।",
       "kind": "organelles",
-      "note": "",
-      "note_pa": "",
+      "note": "Cell organelles perform specialised jobs such as controlling activities, producing energy and making or transporting materials.",
+      "note_pa": "ਕੋਸ਼ਿਕਾ ਦੇ ਅੰਗਕ ਨਿਯੰਤਰਣ, ਊਰਜਾ ਉਤਪਾਦਨ ਅਤੇ ਪਦਾਰਥ ਬਣਾਉਣ ਜਾਂ ਲਿਜਾਣ ਵਰਗੇ ਖਾਸ ਕੰਮ ਕਰਦੇ ਹਨ।",
       "class": 8
     },
     {
@@ -893,8 +893,8 @@ window.LAB_DATA = {
       "aim": "Explore how habitat protection supports plants and animals.",
       "aim_pa": "ਆਵਾਸ ਦੀ ਰੱਖਿਆ ਪੌਦਿਆਂ ਅਤੇ ਜਾਨਵਰਾਂ ਦੀ ਮਦਦ ਕਿਵੇਂ ਕਰਦੀ ਹੈ, ਸਮਝੋ।",
       "kind": "biodiversity",
-      "note": "",
-      "note_pa": "",
+      "note": "Biodiversity includes variety within species, between species and among ecosystems; it supports ecosystem stability.",
+      "note_pa": "ਜੈਵ ਵਿਭਿੰਨਤਾ ਵਿੱਚ ਇੱਕ ਪ੍ਰਜਾਤੀ ਅੰਦਰ, ਵੱਖ-ਵੱਖ ਪ੍ਰਜਾਤੀਆਂ ਅਤੇ ਪਰਿਸਥਿਤਕੀ ਤੰਤਰਾਂ ਦੀ ਵਿਭਿੰਨਤਾ ਸ਼ਾਮਲ ਹੈ; ਇਹ ਤੰਤਰਾਂ ਦੀ ਸਥਿਰਤਾ ਨੂੰ ਸਹਾਰਾ ਦਿੰਦੀ ਹੈ।",
       "class": 8
     },
     {
@@ -903,8 +903,8 @@ window.LAB_DATA = {
       "aim": "Observe producers, consumers and decomposers in an ecosystem.",
       "aim_pa": "ਪਰਿਸਥਿਤਕੀ ਤੰਤਰ ਵਿੱਚ ਉਤਪਾਦਕਾਂ, ਖਪਤਕਾਰਾਂ ਅਤੇ ਵਿਘਟਕਾਂ ਨੂੰ ਵੇਖੋ।",
       "kind": "ecosystem",
-      "note": "",
-      "note_pa": "",
+      "note": "An ecosystem includes living organisms and non-living surroundings interacting through energy flow and nutrient cycling.",
+      "note_pa": "ਪਰਿਸਥਿਤਕੀ ਤੰਤਰ ਵਿੱਚ ਜੀਵ ਅਤੇ ਨਿਰਜੀਵ ਵਾਤਾਵਰਣ ਊਰਜਾ ਦੇ ਵਹਾਅ ਅਤੇ ਪੋਸ਼ਕ ਤੱਤਾਂ ਦੇ ਚੱਕਰ ਰਾਹੀਂ ਆਪਸ ਵਿੱਚ ਜੁੜੇ ਹੁੰਦੇ ਹਨ।",
       "class": 8
     },
     {
@@ -913,8 +913,8 @@ window.LAB_DATA = {
       "aim": "Compare plant and animal cells, identify their main structures and understand how their parts differ.",
       "aim_pa": "ਪੌਦਿਆਂ ਅਤੇ ਜਾਨਵਰਾਂ ਦੇ ਕੋਸ਼ਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ, ਮੁੱਖ ਬਣਤਰਾਂ ਪਛਾਣੋ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਫ਼ਰਕ ਸਮਝੋ।",
       "kind": "cell",
-      "note": "",
-      "note_pa": "",
+      "note": "Cells are the basic structural and functional units of life; plant cells typically have a cell wall, chloroplasts and a large vacuole.",
+      "note_pa": "ਕੋਸ਼ਿਕਾਵਾਂ ਜੀਵਨ ਦੀਆਂ ਬੁਨਿਆਦੀ ਬਣਤਰਕ ਅਤੇ ਕਾਰਜਕ ਇਕਾਈਆਂ ਹਨ; ਪੌਦਿਆਂ ਦੀਆਂ ਕੋਸ਼ਿਕਾਵਾਂ ਵਿੱਚ ਆਮ ਤੌਰ ਤੇ ਕੋਸ਼ਿਕਾ ਭਿੱਤ, ਹਰਿਤਲਵਕ ਅਤੇ ਵੱਡੀ ਰਸਧਾਨੀ ਹੁੰਦੀ ਹੈ।",
       "class": 9
     },
     {
@@ -923,8 +923,8 @@ window.LAB_DATA = {
       "aim": "Model movement of particles and water across a selectively permeable membrane.",
       "aim_pa": "ਕਣਾਂ ਅਤੇ ਪਾਣੀ ਦੀ ਚੋਣਵੀਂ ਪਾਰਗਮਣ ਝਿੱਲੀ ਰਾਹੀਂ ਗਤੀ ਦਾ ਮਾਡਲ ਵੇਖੋ।",
       "kind": "osmosis",
-      "note": "",
-      "note_pa": "",
+      "note": "Osmosis is the net movement of water through a selectively permeable membrane from higher water potential to lower water potential.",
+      "note_pa": "ਪਰਾਸਰਣ ਵਿੱਚ ਪਾਣੀ ਚੋਣਵੀਂ ਪਾਰਗਮਣਯੋਗ ਝਿੱਲੀ ਰਾਹੀਂ ਵੱਧ ਜਲ ਸੰਭਾਵਨਾ ਤੋਂ ਘੱਟ ਜਲ ਸੰਭਾਵਨਾ ਵੱਲ ਜਾਂਦਾ ਹੈ।",
       "class": 9
     },
     {
@@ -933,8 +933,8 @@ window.LAB_DATA = {
       "aim": "Trace the pathway of food and the role of digestive organs.",
       "aim_pa": "ਭੋਜਨ ਦੇ ਰਸਤੇ ਅਤੇ ਪਾਚਕ ਅੰਗਾਂ ਦੀ ਭੂਮਿਕਾ ਵੇਖੋ।",
       "kind": "digestion",
-      "note": "",
-      "note_pa": "",
+      "note": "Digestion breaks complex food into simpler soluble substances that can be absorbed by the body.",
+      "note_pa": "ਪਚਣ ਨਾਲ ਜਟਿਲ ਭੋਜਨ ਸਧਾਰਨ ਘੁਲਣਸ਼ੀਲ ਪਦਾਰਥਾਂ ਵਿੱਚ ਟੁੱਟਦਾ ਹੈ ਜਿਨ੍ਹਾਂ ਨੂੰ ਸਰੀਰ ਜਜ਼ਬ ਕਰ ਸਕਦਾ ਹੈ।",
       "class": 9
     },
     {
@@ -943,8 +943,8 @@ window.LAB_DATA = {
       "aim": "Compare aerobic respiration with energy release when oxygen is limited.",
       "aim_pa": "ਆਕਸੀਜਨ ਦੀ ਉਪਲਬਧਤਾ ਅਨੁਸਾਰ ਊਰਜਾ ਮੁਕਤ ਹੋਣ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
       "kind": "respiration",
-      "note": "",
-      "note_pa": "",
+      "note": "Cellular respiration releases usable energy from food molecules; it is different from the physical process of breathing.",
+      "note_pa": "ਕੋਸ਼ਿਕਾਈ ਸ਼ਵਾਸ ਕਿਰਿਆ ਭੋਜਨ ਦੇ ਅਣੂਆਂ ਤੋਂ ਵਰਤਣਯੋਗ ਊਰਜਾ ਛੱਡਦੀ ਹੈ; ਇਹ ਸਾਹ ਲੈਣ ਦੀ ਭੌਤਿਕ ਪ੍ਰਕਿਰਿਆ ਤੋਂ ਵੱਖਰੀ ਹੈ।",
       "class": 9
     },
     {
@@ -953,8 +953,8 @@ window.LAB_DATA = {
       "aim": "Follow blood between the heart, lungs and body.",
       "aim_pa": "ਦਿਲ, ਫੇਫੜਿਆਂ ਅਤੇ ਸਰੀਰ ਵਿਚਕਾਰ ਖੂਨ ਦਾ ਰਸਤਾ ਵੇਖੋ।",
       "kind": "circulation",
-      "note": "",
-      "note_pa": "",
+      "note": "The circulatory system transports oxygen, nutrients and wastes; arteries carry blood away from the heart and veins return it.",
+      "note_pa": "ਰਕਤ ਸੰਚਾਰ ਪ੍ਰਣਾਲੀ ਆਕਸੀਜਨ, ਪੋਸ਼ਕ ਤੱਤ ਅਤੇ ਕਚਰਾ ਲਿਜਾਂਦੀ ਹੈ; ਧਮਨੀਆਂ ਖੂਨ ਦਿਲ ਤੋਂ ਦੂਰ ਅਤੇ ਸ਼ਿਰਾਵਾਂ ਦਿਲ ਵੱਲ ਲਿਆਉਂਦੀਆਂ ਹਨ।",
       "class": 9
     },
     {
@@ -963,8 +963,8 @@ window.LAB_DATA = {
       "aim": "Explore ingestion, digestion, absorption and assimilation.",
       "aim_pa": "ਭੋਜਨ ਗ੍ਰਹਿਣ, ਪਚਣ, ਅਵਸ਼ੋਸ਼ਣ ਅਤੇ ਅੰਗੀਕਰਨ ਨੂੰ ਸਮਝੋ।",
       "kind": "digestion",
-      "note": "",
-      "note_pa": "",
+      "note": "Digestion breaks complex food into simpler soluble substances that can be absorbed by the body.",
+      "note_pa": "ਪਚਣ ਨਾਲ ਜਟਿਲ ਭੋਜਨ ਸਧਾਰਨ ਘੁਲਣਸ਼ੀਲ ਪਦਾਰਥਾਂ ਵਿੱਚ ਟੁੱਟਦਾ ਹੈ ਜਿਨ੍ਹਾਂ ਨੂੰ ਸਰੀਰ ਜਜ਼ਬ ਕਰ ਸਕਦਾ ਹੈ।",
       "class": 10
     },
     {
@@ -973,8 +973,8 @@ window.LAB_DATA = {
       "aim": "Trace air into the lungs and oxygen transfer into the blood.",
       "aim_pa": "ਫੇਫੜਿਆਂ ਤੱਕ ਹਵਾ ਅਤੇ ਖੂਨ ਵਿੱਚ ਆਕਸੀਜਨ ਦੇ ਜਾਣ ਦਾ ਰਸਤਾ ਵੇਖੋ।",
       "kind": "respiration",
-      "note": "",
-      "note_pa": "",
+      "note": "Cellular respiration releases usable energy from food molecules; it is different from the physical process of breathing.",
+      "note_pa": "ਕੋਸ਼ਿਕਾਈ ਸ਼ਵਾਸ ਕਿਰਿਆ ਭੋਜਨ ਦੇ ਅਣੂਆਂ ਤੋਂ ਵਰਤਣਯੋਗ ਊਰਜਾ ਛੱਡਦੀ ਹੈ; ਇਹ ਸਾਹ ਲੈਣ ਦੀ ਭੌਤਿਕ ਪ੍ਰਕਿਰਿਆ ਤੋਂ ਵੱਖਰੀ ਹੈ।",
       "class": 10
     },
     {
@@ -983,8 +983,8 @@ window.LAB_DATA = {
       "aim": "Compare blood transport with kidney filtration and urine formation.",
       "aim_pa": "ਖੂਨ ਰਾਹੀਂ ਆਵਾਜਾਈ ਅਤੇ ਗੁਰਦਿਆਂ ਵਿੱਚ ਛਾਣਨ ਤੇ ਪਿਸ਼ਾਬ ਬਣਨ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
       "kind": "excretion",
-      "note": "",
-      "note_pa": "",
+      "note": "The kidneys filter blood and help regulate water and salt balance while forming urine.",
+      "note_pa": "ਗੁਰਦੇ ਖੂਨ ਨੂੰ ਛਾਣਦੇ ਹਨ ਅਤੇ ਪਿਸ਼ਾਬ ਬਣਾਉਂਦੇ ਹੋਏ ਪਾਣੀ ਤੇ ਲੂਣ ਦਾ ਸੰਤੁਲਨ ਬਣਾਈ ਰੱਖਣ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ।",
       "class": 10
     },
     {
@@ -993,8 +993,8 @@ window.LAB_DATA = {
       "aim": "Model pollination, fertilisation and seed formation.",
       "aim_pa": "ਪਰਾਗਣ, ਨਿਸ਼ੇਚਨ ਅਤੇ ਬੀਜ ਬਣਨ ਦਾ ਮਾਡਲ ਵੇਖੋ।",
       "kind": "reproduction",
-      "note": "",
-      "note_pa": "",
+      "note": "Flowering plants reproduce sexually through pollination and fertilisation, leading to seed formation.",
+      "note_pa": "ਫੁੱਲਦਾਰ ਪੌਦੇ ਪਰਾਗਣ ਅਤੇ ਨਿਸ਼ੇਚਨ ਰਾਹੀਂ ਲਿੰਗੀ ਪ੍ਰਜਨਨ ਕਰਦੇ ਹਨ, ਜਿਸ ਨਾਲ ਬੀਜ ਬਣਦੇ ਹਨ।",
       "class": 10
     },
     {
@@ -1003,8 +1003,8 @@ window.LAB_DATA = {
       "aim": "Explore how inherited traits can resemble parents while variation remains.",
       "aim_pa": "ਵਿਰਾਸਤੀ ਲੱਛਣ ਮਾਪਿਆਂ ਵਰਗੇ ਹੋ ਸਕਦੇ ਹਨ ਪਰ ਵੱਖਰਾਪਣ ਵੀ ਰਹਿੰਦਾ ਹੈ, ਸਮਝੋ।",
       "kind": "heredity",
-      "note": "",
-      "note_pa": "",
+      "note": "Heredity is the passing of genetic information from parents to offspring; variation makes individuals different.",
+      "note_pa": "ਵਿਰਾਸਤ ਮਾਪਿਆਂ ਤੋਂ ਸੰਤਾਨ ਤੱਕ ਜੈਨੇਟਿਕ ਜਾਣਕਾਰੀ ਦੇ ਸੰਚਾਰ ਨੂੰ ਕਹਿੰਦੇ ਹਨ; ਵੱਖਰਾਪਣ ਵਿਅਕਤੀਆਂ ਨੂੰ ਅਲੱਗ ਬਣਾਉਂਦਾ ਹੈ।",
       "class": 10
     }
   ]
