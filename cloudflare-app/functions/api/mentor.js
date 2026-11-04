@@ -48,7 +48,7 @@ export async function onRequestPost({ request, env }) {
       }
     );
     const data = await upstream.json();
-    if (!upstream.ok) throw new Error(upstream.status === 429 ? "RATE_LIMIT" : "UPSTREAM");
+    if (!upstream.ok) {\n      if (upstream.status === 429) throw new Error("RATE_LIMIT");\n      if (upstream.status === 401 || upstream.status === 403) throw new Error("API_KEY_OR_PERMISSION");\n      if (upstream.status === 404) throw new Error("MODEL_NOT_AVAILABLE");\n      throw new Error("GEMINI_HTTP_" + upstream.status);\n    }
     return (data.candidates?.[0]?.content?.parts || [])
       .map(part => part.text || "")
       .join("\n")
