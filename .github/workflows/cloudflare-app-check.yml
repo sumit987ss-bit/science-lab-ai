@@ -37,3 +37,20 @@ jobs:
           }
           console.log('All 100 class-wise experiment records passed.');
           NODE
+
+      - name: Check migrated subject engines and PWA assets
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const app = fs.readFileSync('cloudflare-app/app.js', 'utf8');
+          const sw = fs.readFileSync('cloudflare-app/sw.js', 'utf8');
+          const html = fs.readFileSync('cloudflare-app/index.html', 'utf8');
+          const icon = 'cloudflare-app/icons/pocket-science-lab.svg';
+          for (const feature of ['function subjectVisual(it)', 'function subjectObservation(it)', 'function displayChoice(value)', 'function controlNames(it)', 'function quizData(it)']) {
+            if (!app.includes(feature)) throw new Error('Missing app feature: ' + feature);
+          }
+          if (!fs.existsSync(icon)) throw new Error('Missing custom PWA icon');
+          if (!html.includes('./icons/pocket-science-lab.svg')) throw new Error('HTML does not reference custom icon');
+          if (!sw.includes('./experiments.js') || !sw.includes('./icons/pocket-science-lab.svg')) throw new Error('Offline shell does not precache catalogue/icon');
+          console.log('Subject simulation helpers, custom icon and offline assets passed.');
+          NODE
