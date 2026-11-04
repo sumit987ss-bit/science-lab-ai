@@ -26,7 +26,10 @@ function draw(){
 function refresh(it){$("#visual").innerHTML=visual(it);$("#obs").textContent=observe(it)}
 function visual(it){
  const k=it.kind,pa=lang==="pa";let art="";
- if(lab==="electricity"&&cls===7&&exp===0){
+ if(lab==="electricity"&&cls===10&&exp===0&&k==="ohms"){
+  const current=a/b,rows=[0,6,12,18,24].map(v=>'<tr><td>'+v+'</td><td>'+(v/b).toFixed(2)+'</td><td>'+(v===0?"—":b.toFixed(2)+" Ω")+'</td></tr>').join("");
+  art='<div class="ohms-lab"><svg viewBox="0 0 400 180" role="img" aria-label="Ohm law circuit with battery, ammeter, resistor and voltmeter"><path d="M35 45 H115 M165 45 H300 V130 H35 V80 M35 45 V80" fill="none" stroke="#16a34a" stroke-width="5"/><path d="M20 80 H50 M27 98 H43" stroke="#475569" stroke-width="4"/><circle cx="140" cy="45" r="23" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/><text x="140" y="51" text-anchor="middle" fill="#1d4ed8" font-weight="700">A</text><rect x="220" y="30" width="80" height="30" rx="6" fill="#fed7aa" stroke="#c2410c" stroke-width="2"/><path d="M228 45 l8 -8 l8 16 l8 -16 l8 16 l8 -16 l8 8" stroke="#9a3412" stroke-width="2" fill="none"/><circle cx="260" cy="92" r="20" fill="#dcfce7" stroke="#15803d" stroke-width="3"/><text x="260" y="98" text-anchor="middle" fill="#166534" font-weight="700">V</text><text x="140" y="15" text-anchor="middle" fill="#28485b">AMMETER</text><text x="260" y="20" text-anchor="middle" fill="#28485b">RESISTOR</text><text x="260" y="128" text-anchor="middle" fill="#28485b">VOLTMETER</text></svg><div class="ohms-readings"><b>'+ (pa?"ਓਮ ਦਾ ਨਿਯਮ":"OHM’S LAW") +'</b><p>V = '+a+' V&nbsp;&nbsp; R = '+b+' Ω&nbsp;&nbsp; I = '+current.toFixed(2)+' A</p><p>I = V / R = '+a+' / '+b+' = '+current.toFixed(2)+' A</p><table><thead><tr><th>Voltage (V)</th><th>Current (A)</th><th>V/I (Ω)</th></tr></thead><tbody>'+rows+'</tbody></table><small>'+(pa?"ਆਦਰਸ਼ ਮਾਡਲ: ਰੋਧ ਸਥਿਰ ਹੈ।":"Ideal model: resistance is held constant. These are calculated values, not laboratory measurements.")+'</small></div></div>';
+ }else if(lab==="electricity"&&cls===7&&exp===0){
   const shapes={
    "Cell":'<path d="M12 40 H55 M55 20 V60 M72 30 V50 M72 40 H112" stroke="#334155" stroke-width="4" fill="none"/>',
    "Bulb":'<path d="M8 40 H35 M85 40 H112" stroke="#334155" stroke-width="4"/><circle cx="60" cy="40" r="24" fill="#fef3c7" stroke="#334155" stroke-width="3"/><path d="M46 26 L74 54 M74 26 L46 54 M50 65 H70 M52 71 H68" stroke="#334155" stroke-width="3" fill="none"/>',
@@ -65,7 +68,7 @@ function visual(it){
 }
 function observe(it){
  const k=it.kind;
- if(k==="ohms")return "Illustrative current = "+((a/10)/(b/10)).toFixed(2)+" A. At fixed voltage, increasing resistance reduces current.";
+ if(lab==="electricity"&&cls===10&&k==="ohms")return (lang==="pa"?"ਕਰੰਟ I = V/R = ":"Current I = V/R = ")+a+"/"+b+" = "+(a/b).toFixed(2)+" A. "+(lang==="pa"?"ਰੋਧ ਸਥਿਰ ਹੋਣ ਤੇ ਵੋਲਟੇਜ ਵਧਾਉਣ ਨਾਲ ਕਰੰਟ ਵਧਦਾ ਹੈ।":"At constant resistance, increasing voltage increases current.");if(lab==="electricity"&&cls===9&&k==="ohms")return (lang==="pa"?"ਇਹ ਗੁਣਾਤਮਕ ਮਾਡਲ ਹੈ: ਵੱਧ ਵੋਲਟੇਜ ਕਰੰਟ ਵਧਾਉਂਦਾ ਹੈ ਅਤੇ ਵੱਧ ਰੋਧ ਕਰੰਟ ਘਟਾਉਂਦਾ ਹੈ।":"Qualitative model only: higher voltage raises current and higher resistance lowers current.");
  if(k==="motion"||k==="speed")return "Average speed in this model = "+(a/Math.max(1,b)).toFixed(2)+" distance units per time unit.";
  if(k==="conductors")return choice+" is "+(["Copper","Aluminium","Iron"].includes(choice)?"a conductor":"an insulator or poor conductor")+" in this model.";
  if(k==="liquids")return (choice==="Salt solution"||choice==="Lemon juice")?(lang==="pa"?"ਚਲਣਯੋਗ ਆਇਨਾਂ ਕਾਰਨ ਇਹ ਤਰਲ ਬਿਜਲੀ ਚਲਾਉਂਦਾ ਹੈ ਅਤੇ ਬਲਬ ਜਗਦਾ ਹੈ।":choice+" conducts in this qualitative model, so the bulb glows."):(lang==="pa"?"ਇਸ ਨਮੂਨੇ ਵਿੱਚ ਚਲਣਯੋਗ ਆਇਨ ਘੱਟ ਹਨ, ਇਸ ਲਈ ਬਲਬ ਨਹੀਂ ਜਗਦਾ।":choice+" does not conduct enough in this model to light the bulb.");
