@@ -7,7 +7,72 @@ let lang="en",lab="",cls=6,exp=0,choice="",a=12,b=6,sw=true,busy=false,seriesMai
 const $=s=>document.querySelector(s), tr=k=>T[lang][k]||T.en[k]||k, esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function list(){return (LAB_DATA[lab]||[]).filter(x=>x.class===cls)}
 function item(){return list()[exp]}
-function opts(k){if(lab==="electricity"&&cls===7&&exp===0)return ["Cell","Bulb","Open switch","Closed switch","Connecting wire"];const d={
+function opts(k){
+ if(lab==="electricity"&&cls===7&&exp===0)return ["Cell","Bulb","Open switch","Closed switch","Connecting wire"];
+ if(lab==="physics"){
+  const exact={
+   "6-1":["Slow motion","Fast motion"],"6-2":["Push a shopping cart","Kick a football","Pull a wagon","Open a drawer"],"6-3":["Torch and hand","Tree on a sunny day","Opaque book blocking light","Translucent curtain"],"6-4":["Like poles (N–N)","Unlike poles (N–S)"],
+   "7-1":["Sliding friction — block on different surfaces","Rolling friction — wheel on a road","Fluid friction — cyclist or boat through a fluid"],"7-2":["Water jets from holes at different depths","Water pressing against a dam wall","Water flowing from an overhead tank"],"7-3":["10°","20°","30°","40°","50°","60°","70°","80°"],
+   "8-0":["Snowshoes vs high heels","Sharp knife vs blunt knife","Broad tractor tyres vs narrow tyres","Wide building foundation"],"8-1":["Both people push the table to the right","People push equally in opposite directions","People push in opposite directions, one harder"],"8-2":["Metal rod (iron / steel)","Copper spoon","Wooden stick","Plastic ruler"],"8-3":["10°","20°","30°","40°","50°","60°","70°","80°"],"8-4":["Soft, low-pitched sound","Loud, low-pitched sound","Soft, high-pitched sound","Loud, high-pitched sound"],
+   "10-4":["Low pitch — long wavelength","High pitch — short wavelength","Soft sound — small amplitude","Loud sound — large amplitude"]
+  };
+  const key=cls+"-"+exp;if(exact[key])return exact[key];
+ }
+ if(lab==="chemistry"){
+  const chem={
+   materials:["Metal spoon","Iron nail","Wood","Plastic ruler","Rubber band","Cotton cloth","Clear glass","Cardboard"],
+   solubility:["Salt in water","Sugar in water","Sand in water","Chalk powder in water","Oil and water","Flour in water"],
+   filtration:["Sand and water","Salt and water"],
+   changes:["Ice melting","Water freezing","Water evaporating","Tearing paper","Dissolving sugar","Rusting iron","Curdling milk","Paper burning (diagram only)"],
+   transparency:["Clear glass","Clean water","Tracing sheet","Frosted glass","Thin cloth","Cardboard","Wooden board"],
+   indicators:["Lemon juice (acidic)","Vinegar (acidic)","Soap solution (basic)","Baking soda solution (basic)","Water (neutral)","Sugar solution (neutral)"],
+   reversible:["Ice melting","Water freezing","Stretching a rubber band","Folding paper","Dissolving salt in water","Cooking an egg (diagram)","Burning paper (diagram)","Rusting iron"],
+   physical_chemical:["Ice melting","Water evaporating","Tearing paper","Dissolving sugar","Rusting iron","Cooking an egg (diagram)","Curdling milk","Burning paper (diagram)"],
+   rusting:["Iron with air and moisture","Protected iron"],
+   separation:["Sand and water","Iron filings and sand","Salt solution","Oil and water","Rice and stones","Wheat grains and husk","Tea leaves and tea","Gravel and sand"],
+   combustion:["All three present","Remove oxygen","Remove heat"],
+   flame:["Inner dark zone","Luminous yellow zone","Outer zone"],
+   metals:["Iron","Copper","Aluminium","Gold","Sulphur (conceptual)","Carbon / graphite","Oxygen (gas)"],
+   corrosion:["Unprotected iron","Painted iron","Oiled iron","Galvanised iron","Stainless steel"],
+   crystals:["Cooling a suitable solution","Evaporating solvent"],
+   mixture_compound:["Iron and sulphur mixed","A compound (particle model)"],
+   particles:["Separate atoms","Combined molecule"],
+   conservation:["Before and after: same atoms","Open system loses some gas"],
+   mixture_types:["Solution","Suspension","Colloid"],
+   distillation:["Evaporation only","Distillation and collection"],
+   ph:["Acidic sample","Neutral sample","Basic sample"],
+   reaction:["Gas bubbles appear","A new solid appears","Only shape changes"],
+   neutralisation:["Acid and base react","Acid only","Base only"],
+   reactivity:["More reactive metal","Less reactive metal"],
+   electrochemistry:["Metal coating model","Current switched off"]
+  };return chem[k]||["Observe the model","Compare the result","Explore the change"];
+ }
+ if(lab==="biology"){
+  const bio={
+   plant_parts:["Root","Stem","Leaf","Flower","Fruit","Seed"],
+   cell:["Plant cell","Animal cell"],
+   germination:["Dry seed","Germinating seed","Young seedling"],
+   plant_needs:["Light available","Water shortage","Air available","Mineral nutrients"],
+   food_chain:["Grass → grasshopper → frog → snake","Wheat → mouse → owl","Leaves → caterpillar → bird"],
+   adaptation:["Fish in water","Cactus in dry habitat","Duck near wetlands","Camel in desert"],
+   photosynthesis:["Leaf in sunlight","Leaf kept in darkness","Stomata on a leaf"],
+   digestion:["Mouth and saliva","Stomach","Small intestine","Large intestine"],
+   respiration:["Air enters the lungs","Aerobic respiration","Oxygen is limited"],
+   transport_plant:["Water in roots","Water moving in xylem","Water reaches leaves"],
+   flower:["Petal and sepal","Stamen","Pistil / carpel"],
+   microbes:["Yeast in bread making","Lactobacillus in curd","Disease-causing microbes","Decomposer microbes"],
+   crop:["Healthy crop with nutrients","Crop with water stress","Crop protection"],
+   organelles:["Nucleus","Chloroplast","Mitochondrion","Vacuole","Cell membrane"],
+   biodiversity:["Species-rich habitat","Habitat with low diversity"],
+   ecosystem:["Balanced ecosystem","Disturbed ecosystem"],
+   osmosis:["Water enters a cell","Water leaves a cell"],
+   circulation:["Heart pumps blood","Arteries carry blood","Veins return blood"],
+   excretion:["Kidneys filter blood","Urine formation"],
+   reproduction:["Pollination","Fertilisation","Seed formation"],
+   heredity:["Inherited trait","Variation"]
+  };return bio[k]||["Observe the model","Compare the result","Explore the change"];
+ }
+ const d={
 electroplating:["Copper coating","Silver coating","Nickel coating"],electrolysis:["Copper sulphate solution","Lemon water","Distilled water"],conductors:["Copper","Aluminium","Iron","Rubber","Plastic","Wood"],liquids:["Distilled water","Salt solution","Sugar solution","Lemon juice"],fuse:["Normal current","Excessive current"],series_parallel:["Series circuit","Parallel circuit"],magnet:["Unlike poles","Like poles"],reflection:["30° incident ray","45° incident ray","60° incident ray"],refraction:["Air into glass","Glass into air","Along the normal"],lens:["Object beyond 2F","Object at 2F","Object between F and 2F","Object at F","Object between lens and F"],materials:["Wood","Metal","Rubber","Plastic","Glass"],solubility:["Salt in water","Sand in water","Sugar in water","Oil and water"],filtration:["Settling","Filtration","Evaporation"],changes:["Melting ice","Burning paper","Rusting iron"],transparency:["Clear glass","Tracing paper","Wood"],indicators:["Lemon juice","Soap solution","Water"],reversible:["Melting ice","Cutting paper","Burning paper"],physical_chemical:["Melting wax","Rusting iron","Tearing paper"],rusting:["Dry air","Moist air","Protective coating"],separation:["Filtration","Evaporation","Magnetic separation"],combustion:["Fuel","Oxygen","Heat"],flame:["Inner zone","Middle zone","Outer zone"],metals:["Iron","Sulphur","Copper"],corrosion:["Air and moisture","Dry air","Protective paint"],crystals:["Cooling solution","Evaporation"],mixture_compound:["Iron and sulphur mixture","Iron sulphide compound"],particles:["Atoms","Molecules","Mixture particles"],conservation:["Before reaction","After reaction"],mixture_types:["Solution","Suspension","Colloid"],distillation:["Evaporation","Distillation"],ph:["Acidic sample","Neutral sample","Basic sample"],reaction:["Gas formation","Colour change","Precipitate"],neutralisation:["Acid + base","Acid only","Base only"],reactivity:["More reactive metal","Less reactive metal"],electrochemistry:["Electrolysis","Electroplating"],
 motion:["Uniform motion","Changing motion","At rest"],speed:["Short time","Long time","Greater distance"],force:["Push","Pull","Balanced forces"],shadow:["Light source near","Light source far","Opaque object"],friction:["Smooth surface","Rough surface","Very rough surface"],pressure:["Shallow depth","Medium depth","Greater depth"],pressure_area:["Large contact area","Small contact area"],balanced:["Equal opposing forces","Unequal opposing forces","Same direction"],heat:["Metal","Wood","Plastic"],reflection:["30° incident ray","45° incident ray","60° incident ray"],sound:["Low frequency","Medium frequency","High frequency"],wave:["Low frequency","High frequency","Large amplitude"],acceleration:["Increasing velocity","Constant velocity","Decreasing velocity"],newton:["Small force","Large force","Greater mass"],work:["Force along motion","No displacement","Opposite direction"],refraction:["Air into glass","Glass into air","Along the normal"],potential:["Low height","Medium height","High height"],lens:["Object beyond 2F","Object at 2F","Object between F and 2F","Object at F","Object between lens and F"],
 plant_parts:["Root","Stem","Leaf","Flower","Fruit","Seed"],cell:["Plant cell","Animal cell"],germination:["Dry seed","Germinating seed","Young seedling"],plant_needs:["Adequate light and water","Water shortage","No light"],photosynthesis:["Normal photosynthesis","Leaf kept in darkness"],food_chain:["Grass → Grasshopper → Frog → Snake","Plants → Deer → Tiger"],adaptation:["Fish in water","Cactus in dry habitat","Duck near wetlands","Camel in desert"],digestion:["Mouth and saliva","Stomach","Small intestine","Large intestine"],respiration:["Air enters the lungs","Aerobic respiration","Anaerobic respiration"],transport_plant:["Water in roots","Water moves up stem","Water reaches leaves"],flower:["Petal","Sepal","Stamen","Pistil"],microbes:["Yeast in bread making","Lactobacillus in curd","Disease-causing microbes","Decomposer microbes"],crop:["Healthy crop","Crop with water stress"],organelles:["Nucleus","Cell membrane","Cytoplasm","Chloroplast","Vacuole"],heredity:["Inherited trait","Variation"],biodiversity:["Species-rich habitat","Low-diversity habitat"],ecosystem:["Balanced ecosystem","Disturbed ecosystem"],osmosis:["Dilute solution","Concentrated solution"],circulation:["Artery","Vein","Capillary"],excretion:["Kidney filtration","Urine formation"],reproduction:["Pollination","Fertilisation"],adaptation:["Fish in water","Cactus in dry habitat","Duck near wetlands","Camel in desert"]};return d[k]||["Observe the model","Compare the result","Explore the change"]}
