@@ -46,7 +46,7 @@ export async function onRequestPost({ request, env }) {
           body: JSON.stringify({
             systemInstruction: { parts: [{ text: systemInstruction }] },
             contents: [{ role: "user", parts: [{ text: userText }] }],
-            generationConfig: { temperature: 0.25, maxOutputTokens: 1400 }
+            generationConfig: { temperature: 0.2, maxOutputTokens: 1800, thinkingConfig: { thinkingBudget: 0 } }
           })
         }
       );
@@ -93,13 +93,13 @@ export async function onRequestPost({ request, env }) {
     // Ask for a second Punjabi-only version if the first response ignored the selected language.
     const gurmukhiCount = (answer.match(/[\u0A00-\u0A7F]/g) || []).length;
     const letterCount = (answer.match(/[\p{L}]/gu) || []).length;
-    if (gurmukhiCount < 8 || gurmukhiCount < letterCount * 0.35) {
+    if (gurmukhiCount < 4 || gurmukhiCount < letterCount * 0.2) {
       const retry = await askGemini(
         "ਪਿਛਲਾ ਜਵਾਬ ਪੰਜਾਬੀ ਗੁਰਮੁਖੀ ਵਿੱਚ ਨਹੀਂ ਸੀ। ਹੁਣ ਇਸ ਸਵਾਲ ਦਾ ਪੂਰਾ ਅਤੇ ਸੌਖਾ ਜਵਾਬ ਪੰਜਾਬੀ ਗੁਰਮੁਖੀ ਲਿਪੀ ਵਿੱਚ ਹੀ ਲਿਖੋ। ਅੰਗਰੇਜ਼ੀ ਵਾਕ ਨਾ ਵਰਤੋ। ਸਵਾਲ: " + question,
         punjabiSystem + " ਜਵਾਬ ਦੀ ਮੁੱਖ ਭਾਸ਼ਾ ਲਾਜ਼ਮੀ ਤੌਰ ਤੇ ਪੰਜਾਬੀ ਗੁਰਮੁਖੀ ਹੋਵੇ।"
       );
       const retryGurmukhi = (retry.match(/[\u0A00-\u0A7F]/g) || []).length;
-      if (retryGurmukhi < 8) {
+      if (retryGurmukhi < 4) {
         return reply(502, { error: "PUNJABI_OUTPUT: Gemini did not return a usable Gurmukhi Punjabi answer. Please try once more." });
       }
       return reply(200, { answer: retry, language });
