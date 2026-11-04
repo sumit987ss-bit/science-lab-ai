@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#071b35">
+  <meta name="description" content="POCKET Science Lab — interactive science learning for Classes 6–10.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/pocket-science-lab.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icons/pocket-science-lab.svg">
+  <link rel="stylesheet" href="./styles.css">
+  <title>POCKET Science Lab</title>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="POCKET Science Lab home">
+      <img src="./icons/pocket-science-lab.svg" alt="" class="brand-icon">
+      <span><strong>POCKET</strong><small>SCIENCE LAB</small></span>
+    </a>
+    <div class="top-actions">
+      <button id="languageToggle" class="language-button" type="button" aria-label="Switch language">ਪੰਜਾਬੀ</button>
+      <button id="installButton" class="install-button" type="button" hidden>Install app</button>
+    </div>
+  </header>
+  <main id="app" class="app-shell">
+    <section class="hero">
+      <div class="eyebrow" data-en="LEARN · DISCOVER · INNOVATE" data-pa="ਸਿੱਖੋ · ਖੋਜੋ · ਨਵਾਂ ਕਰੋ">LEARN · DISCOVER · INNOVATE</div>
+      <h1 data-en="Your science lab,<br>right in your pocket." data-pa="ਤੁਹਾਡੀ ਵਿਗਿਆਨ ਲੈਬ,<br>ਹੁਣ ਤੁਹਾਡੀ ਜੇਬ ਵਿੱਚ।">Your science lab,<br>right in your pocket.</h1>
+      <p data-en="Explore science through interactive models, experiments and guided learning." data-pa="ਇੰਟਰਐਕਟਿਵ ਮਾਡਲਾਂ, ਪ੍ਰਯੋਗਾਂ ਅਤੇ ਮਾਰਗਦਰਸ਼ਨ ਰਾਹੀਂ ਵਿਗਿਆਨ ਦੀ ਖੋਜ ਕਰੋ।">Explore science through interactive models, experiments and guided learning.</p>
+      <div class="hero-art" aria-hidden="true"><span>🧪</span><span>⚡</span><span>🔬</span><span>🧬</span></div>
+      <div class="credits">
+        <div><small>STUDENT DEVELOPER</small><strong>Arshdeep Kaur</strong></div>
+        <div><small>GUIDE</small><strong>Sumitpal Singh Sodhi</strong></div>
+      </div>
+    </section>
+    <section class="section-heading">
+      <div><span class="eyebrow" data-en="START EXPLORING" data-pa="ਖੋਜ ਸ਼ੁਰੂ ਕਰੋ">START EXPLORING</span><h2 data-en="Choose your laboratory" data-pa="ਆਪਣੀ ਪ੍ਰਯੋਗਸ਼ਾਲਾ ਚੁਣੋ">Choose your laboratory</h2></div>
+      <span class="class-chip">CLASSES 6–10</span>
+    </section>
+    <section class="lab-grid" aria-label="Science laboratories">
+      <button class="lab-card" data-lab="electricity"><span class="lab-icon">⚡</span><span><strong data-en="Electricity Lab" data-pa="ਬਿਜਲੀ ਲੈਬ">Electricity Lab</strong><small data-en="Circuits, current and magnetism" data-pa="ਸਰਕਟ, ਕਰੰਟ ਅਤੇ ਚੁੰਬਕਤਾ">Circuits, current and magnetism</small></span><b>›</b></button>
+      <button class="lab-card" data-lab="physics"><span class="lab-icon">🚀</span><span><strong data-en="Physics Lab" data-pa="ਭੌਤਿਕ ਵਿਗਿਆਨ ਲੈਬ">Physics Lab</strong><small data-en="Motion, force, light and sound" data-pa="ਗਤੀ, ਬਲ, ਪ੍ਰਕਾਸ਼ ਅਤੇ ਧੁਨੀ">Motion, force, light and sound</small></span><b>›</b></button>
+      <button class="lab-card" data-lab="chemistry"><span class="lab-icon">🧪</span><span><strong data-en="Chemistry Lab" data-pa="ਰਸਾਇਣ ਵਿਗਿਆਨ ਲੈਬ">Chemistry Lab</strong><small data-en="Materials, reactions and solutions" data-pa="ਪਦਾਰਥ, ਕਿਰਿਆਵਾਂ ਅਤੇ ਘੋਲ">Materials, reactions and solutions</small></span><b>›</b></button>
+      <button class="lab-card" data-lab="biology"><span class="lab-icon">🧬</span><span><strong data-en="Biology Lab" data-pa="ਜੀਵ ਵਿਗਿਆਨ ਲੈਬ">Biology Lab</strong><small data-en="Living systems and life processes" data-pa="ਜੀਵ ਪ੍ਰਣਾਲੀਆਂ ਅਤੇ ਜੀਵਨ ਪ੍ਰਕਿਰਿਆਵਾਂ">Living systems and life processes</small></span><b>›</b></button>
+      <button class="lab-card mentor-card" data-lab="mentor"><span class="lab-icon">✦</span><span><strong data-en="AI Science Mentor" data-pa="AI ਵਿਗਿਆਨ ਮਾਰਗਦਰਸ਼ਕ">AI Science Mentor</strong><small data-en="Ask science questions in English or Punjabi" data-pa="ਅੰਗਰੇਜ਼ੀ ਜਾਂ ਪੰਜਾਬੀ ਵਿੱਚ ਸਵਾਲ ਪੁੱਛੋ">Ask science questions in English or Punjabi</small></span><b>›</b></button>
+    </section>
+    <section id="labView" class="lab-view" hidden aria-live="polite"></section>
+    <footer><span>POCKET Science Lab</span><span data-en="Explore • Experiment • Understand" data-pa="ਖੋਜੋ • ਪ੍ਰਯੋਗ ਕਰੋ • ਸਮਝੋ">Explore • Experiment • Understand</span></footer>
+  </main>
+  <script src="./app.js" defer></script>
+</body>
+</html>
