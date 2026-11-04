@@ -1,0 +1,39 @@
+name: Cloudflare app validation
+on:
+  push:
+    branches: [cloudflare-migration]
+    paths:
+      - "cloudflare-app/**"
+      - ".github/workflows/cloudflare-app-check.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "cloudflare-app/**"
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check JavaScript syntax
+        run: |
+          node --check cloudflare-app/app.js
+          node --check cloudflare-app/experiments.js
+          node --check cloudflare-app/functions/api/mentor.js
+      - name: Check manifest JSON
+        run: node -e "JSON.parse(require('fs').readFileSync('cloudflare-app/manifest.webmanifest','utf8'))"
+      - name: Check experiment catalog counts
+        run: |
+          node - <<'NODE'
+          global.window = global;
+          require('./cloudflare-app/experiments.js');
+          for (const [name, rows] of Object.entries(LAB_DATA)) {
+            if (rows.length !== 25) throw new Error(name + ': expected 25 experiments, got ' + rows.length);
+            for (const c of [6,7,8,9,10]) {
+              if (rows.filter(x => x.class === c).length !== 5) throw new Error(name + ': class ' + c + ' does not have five experiments');
+            }
+          }
+          console.log('All 100 class-wise experiment records passed.');
+          NODE
