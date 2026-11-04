@@ -1,36 +1,38 @@
 # POCKET Science Lab — Cloudflare migration
 
-The Cloudflare Pages/PWA application is being built in parallel with the original Streamlit app. The original app remains untouched and must remain available until the migrated version passes feature-parity and live deployment tests.
+This is a parallel migration of the Streamlit science laboratory into a static Cloudflare Pages PWA. The original Streamlit app on `main` is preserved as the live backup.
 
-## Current migration progress
+## Implemented in this migration branch
 
-- Mobile-first PWA shell, custom science flask icon, English/Punjabi UI, manifest and offline service worker.
-- All 100 class-wise experiment catalogue records are present (25 per subject; five per class).
-- Cloudflare Pages AI Mentor endpoint reads `GEMINI_API_KEY` only from a server-side secret.
-- Detailed Electricity simulations now include:
-  - Class 6: bulb-terminal/wire comparison and open/closed circuit.
-  - Class 7: circuit-symbol gallery and selected-symbol explanation; crane-style electromagnet; fuse intact/blown comparison with a current-condition selector (no switch checkbox).
-  - Class 8: liquid conductivity, electrolysis solution comparison, electroplating, electromagnet and cell circuit.
-  - Class 9: series/parallel comparison with a main series switch and independent parallel-branch switches; qualitative Ohm's law.
-  - Class 10: Ohm's law circuit, calculated current and observation table.
-- Automated GitHub validation passed for JavaScript syntax, manifest JSON and the 100-record catalogue.
+- Mobile-first POCKET Science Lab interface with a custom SVG flask icon, web app manifest and offline service worker.
+- English and Punjabi UI, bilingual experiment catalogue titles/aims/notes, translated experiment choices and translated knowledge checks.
+- 100 class-wise experiment catalogue records: 25 each for Electricity, Physics, Chemistry and Biology; five per subject per class for Classes 6–10.
+- Interactive renderer with subject-specific SVG diagrams for Electricity, Physics, Chemistry and Biology.
+- Subject-specific situation choices and variable labels; qualitative dropdown-only controls are used where appropriate, while quantitative Physics and Class 10 Electricity experiments retain model sliders.
+- Electricity-specific work includes circuit symbols, electromagnet crane, fuse condition selector, liquid conductivity, electrolysis, electroplating, cell circuit, series/parallel switching and Class 10 Ohm's law calculation table.
+- Offline bilingual science-mentor fallback covering 20 curriculum topics. The live Gemini endpoint remains optional and reads `GEMINI_API_KEY` server-side only.
+- Security headers and automated GitHub checks for JavaScript syntax, manifest JSON, experiment counts, PWA icon/offline assets and subject-engine helpers.
 
-## Still required before calling this fully migrated
+## Verification status
 
-- Port and verify the individual Physics, Chemistry and Biology simulations against the original Streamlit app.
-- Complete parity checks for every Electricity experiment, including all diagrams, controls, bilingual observations, quizzes and navigation.
-- Test all 100 experiments on a real Android phone, including narrow screens and offline reload.
-- Create the Cloudflare Pages project in the owner's Cloudflare account and deploy the testing branch.
-- Add the Pages Function secret `GEMINI_API_KEY` and live-test the AI Mentor in English and Punjabi.
-- Verify PWA installation, custom icon, cache refresh, accessibility and error states.
-- Only after acceptance should the draft PR be reviewed/merged and the production app switched. Do not delete or retire the Streamlit backup before then.
+GitHub Actions passed the validation workflow on the current migration branch. These checks confirm syntax and static asset/catalogue structure; they do not replace interactive browser testing or prove full one-to-one parity with every Streamlit experiment.
 
-## Cloudflare Pages testing settings
+## Still required before production migration
 
+1. Complete a side-by-side parity review of every one of the 100 experiments against the original Streamlit app. Some web diagrams and observations are simplified visual models and are not yet guaranteed to reproduce every original interactive detail.
+2. Test navigation, control changes, quizzes, English/Punjabi text, responsive layout and accessibility in real browsers and on Android.
+3. Create the Cloudflare Pages project in the owner's Cloudflare account and deploy this branch for testing.
+4. Add the Pages Function secret `GEMINI_API_KEY` if live AI responses are desired. The offline mentor fallback works without it.
+5. Test install prompt, homescreen name/icon, offline launch, cache refresh and live Mentor responses on the deployed URL.
+6. Only after acceptance should the draft PR be merged and production switched. Keep Streamlit available until then.
+
+## Cloudflare Pages setup
+
+- Connect GitHub repository: `sumit987ss-bit/science-lab-ai`
+- Production/test branch initially: `cloudflare-migration`
 - Root directory: `cloudflare-app`
-- Build command: leave empty (static app)
-- Build output directory: `. ` (enter a single dot: `.`)
-- Testing branch: `cloudflare-migration`
-- Pages Function secret: `GEMINI_API_KEY`
+- Build command: none
+- Build output directory: `.`
+- Optional Pages Function secret: `GEMINI_API_KEY`
 
-The migration is in progress, not yet a production deployment.
+The Cloudflare Pages project has not yet been created or deployed. This migration is not yet production-complete.
