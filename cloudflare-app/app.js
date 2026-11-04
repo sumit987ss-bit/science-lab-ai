@@ -299,6 +299,21 @@ function mentor(){
  $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+tr("back")+'</button><div class="lab-top-name"><span>✦</span><div><strong>'+tr("mentor")+'</strong><small>Classes 6–10 · English + ਪੰਜਾਬੀ</small></div></div></section><section class="experiment-card mentor-panel"><div class="eyebrow">POCKET SCIENCE LAB</div><h2>'+tr("mentor")+'</h2><p>'+tr("mentorHint")+'</p><label>'+tr("question")+'<textarea id="question" rows="5" maxlength="2000" placeholder="'+(lang==="pa"?"ਉਦਾਹਰਨ: ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਕੀ ਹੈ?":"Example: What is photosynthesis?")+'"></textarea></label><button id="ask" class="primary-button">'+tr("ask")+' →</button><div id="answer" class="mentor-answer" aria-live="polite"></div><p class="safety-note">'+tr("safe")+'</p></section>';
  $("#back").onclick=home;$("#ask").onclick=async()=>{const q=$("#question").value.trim(),out=$("#answer"),btn=$("#ask");if(!q){out.textContent=tr("question");return}if(busy)return;busy=true;btn.disabled=true;btn.textContent=tr("thinking");try{const r=await fetch("./api/mentor",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({question:q,language:lang})}),d=await r.json();if(!r.ok)throw Error(d.error||("HTTP "+r.status));if(!d.answer)throw Error("Empty AI response");out.innerHTML="<h3>"+(lang==="pa"?"ਜਵਾਬ":"Answer")+"</h3><p>"+esc(d.answer).replace(/\n/g,"<br>")+"</p>";}catch(e){const local=offlineMentorAnswer(q);const reason=e&&e.message?e.message:"Network request failed";out.innerHTML="<h3>"+(lang==="pa"?"ਆਨਲਾਈਨ AI ਜਵਾਬ ਨਹੀਂ ਮਿਲਿਆ":"Online AI response unavailable")+"</h3><p>"+(lang==="pa"?"ਕਾਰਨ: ":"Reason: ")+esc(reason)+"</p><div class=\"offline-answer\"><p>"+esc(local)+"</p></div>";}finally{busy=false;btn.disabled=false;btn.textContent=tr("ask")+" →"}};
 }
+// Progressive Web App installation support (Android Chrome and supported browsers).
+let deferredInstallPrompt=null;
+const installControl=document.querySelector("#installButton");
+const appIsInstalled=()=>window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone===true;
+if(installControl){
+  if(appIsInstalled()) installControl.hidden=true;
+  else installControl.hidden=false;
+  window.addEventListener("beforeinstallprompt",event=>{event.preventDefault();deferredInstallPrompt=event;installControl.hidden=false;installControl.textContent=lang==="pa"?"ਹੋਮ ਸਕ੍ਰੀਨ ’ਤੇ ਇੰਸਟਾਲ ਕਰੋ":"Install app";});
+  installControl.addEventListener("click",async()=>{
+    if(deferredInstallPrompt){deferredInstallPrompt.prompt();const choice=await deferredInstallPrompt.userChoice;deferredInstallPrompt=null;if(choice&&choice.outcome==="accepted")installControl.hidden=true;return;}
+    const message=lang==="pa"?"Chrome ਦੇ ਉੱਪਰਲੇ ⋮ ਮੀਨੂ ਨੂੰ ਖੋਲ੍ਹੋ ਅਤੇ ‘Add to Home screen’ ਜਾਂ ‘Install app’ ਚੁਣੋ।":"Open Chrome’s ⋮ menu and choose ‘Add to Home screen’ or ‘Install app’.";
+    window.alert(message);
+  });
+  window.addEventListener("appinstalled",()=>{installControl.hidden=true;deferredInstallPrompt=null;});
+}
 $("#languageToggle").onclick=()=>{lang=lang==="en"?"pa":"en";document.documentElement.lang=lang==="pa"?"pa":"en";$("#languageToggle").textContent=lang==="en"?"ਪੰਜਾਬੀ":"English";lab?draw():home()};
 if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
 home();
