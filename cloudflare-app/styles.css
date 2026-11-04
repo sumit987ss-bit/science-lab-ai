@@ -7,3 +7,5 @@
 
 .ohms-lab{background:#f5fbff;color:#19384d;border:1px solid #b8d2df;border-radius:13px;padding:10px}.ohms-lab>svg{display:block;width:100%;max-height:190px}.ohms-readings{text-align:center}.ohms-readings p{margin:6px 0;color:#19384d;font-weight:650}.ohms-readings table{width:100%;border-collapse:collapse;margin:10px 0;font-size:12px}.ohms-readings th,.ohms-readings td{padding:7px 4px;border:1px solid #b8d2df}.ohms-readings th{background:#dceefa}.ohms-readings small{color:#456477;line-height:1.4;display:block}
 .switch-options{display:grid;gap:8px;margin-top:12px}.switch-options label{display:flex;align-items:center;gap:8px;background:#123c58;border:1px solid #65ddec55;padding:9px;border-radius:9px;font-size:12px}.switch-options input{accent-color:#51d7ee}
+
+.control-panel.choice-only label:has(input[type="range"]){display:none}
