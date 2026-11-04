@@ -2,6 +2,9 @@ name: Deploy POCKET Science Lab preview to Cloudflare Pages
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 permissions:
   contents: read
