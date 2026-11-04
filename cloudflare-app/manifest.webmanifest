@@ -1,0 +1,15 @@
+{
+  "id": "./",
+  "name": "POCKET Science Lab",
+  "short_name": "POCKET Lab",
+  "description": "Interactive virtual science laboratory for Classes 6–10",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#06152b",
+  "theme_color": "#071b35",
+  "icons": [
+    {"src":"./icons/pocket-science-lab.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
