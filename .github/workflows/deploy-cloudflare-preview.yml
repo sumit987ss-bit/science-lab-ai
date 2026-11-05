@@ -2,6 +2,12 @@ name: Deploy POCKET Science Lab preview to Cloudflare Pages
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - cloudflare-migration
+    paths:
+      - 'cloudflare-app/**'
+      - '.github/workflows/deploy-cloudflare-preview.yml'
 
 permissions:
   contents: read
