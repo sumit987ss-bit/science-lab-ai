@@ -296,8 +296,34 @@ function offlineMentorAnswer(question){
  return hit?(pa?hit[2]:hit[1]):(pa?"ਇਹ ਆਫਲਾਈਨ ਮਾਰਗਦਰਸ਼ਕ ਬਿਜਲੀ, ਭੌਤਿਕ ਵਿਗਿਆਨ, ਰਸਾਇਣ ਵਿਗਿਆਨ ਅਤੇ ਜੀਵ ਵਿਗਿਆਨ ਦੇ ਮੁੱਖ ਪਾਠਕ੍ਰਮਕ ਵਿਸ਼ਿਆਂ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦਾ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਸਵਾਲ ਵਿੱਚ ਵਿਸ਼ੇ ਦਾ ਨਾਮ ਸ਼ਾਮਲ ਕਰੋ।":"This offline mentor covers core Electricity, Physics, Chemistry and Biology topics. Please include the topic name in your question so I can match it to a lesson.");
 }
 function mentor(){
- $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+tr("back")+'</button><div class="lab-top-name"><span>✦</span><div><strong>'+tr("mentor")+'</strong><small>Classes 6–10 · English + ਪੰਜਾਬੀ</small></div></div></section><section class="experiment-card mentor-panel"><div class="eyebrow">POCKET SCIENCE LAB</div><h2>'+tr("mentor")+'</h2><p>'+tr("mentorHint")+'</p><label>'+tr("question")+'<textarea id="question" rows="5" maxlength="2000" placeholder="'+(lang==="pa"?"ਉਦਾਹਰਨ: ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਕੀ ਹੈ?":"Example: What is photosynthesis?")+'"></textarea></label><button id="ask" class="primary-button">'+tr("ask")+' →</button><div id="answer" class="mentor-answer" aria-live="polite"></div><p class="safety-note">'+tr("safe")+'</p></section>';
- $("#back").onclick=home;$("#ask").onclick=async()=>{
+ $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+tr("back")+'</button><div class="lab-top-name"><span>✦</span><div><strong>'+tr("mentor")+'</strong><small>Classes 6–10 · English + ਪੰਜਾਬੀ</small></div></div></section><section class="experiment-card mentor-panel"><div class="eyebrow">POCKET SCIENCE LAB</div><h2>'+tr("mentor")+'</h2><p>'+tr("mentorHint")+'</p><div class="mentor-status-row"><p id="mentorStatus" class="mentor-status" role="status" aria-live="polite">'+(lang==="pa"?"ਲਾਈਵ AI ਸੇਵਾ ਦੀ ਜਾਂਚ ਹੋ ਰਹੀ ਹੈ…":"Checking live AI service…")+'</p><button id="statusRefresh" class="status-refresh" type="button">'+(lang==="pa"?"ਮੁੜ ਜਾਂਚੋ":"Check again")+'</button></div><label>'+tr("question")+'<textarea id="question" rows="5" maxlength="2000" placeholder="'+(lang==="pa"?"ਉਦਾਹਰਨ: ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਕੀ ਹੈ?":"Example: What is photosynthesis?")+'"></textarea></label><button id="ask" class="primary-button">'+tr("ask")+' →</button><div id="answer" class="mentor-answer" aria-live="polite"></div><p class="safety-note">'+tr("safe")+'</p></section>';
+ $("#back").onclick=home;
+ const statusBox=$("#mentorStatus"),statusButton=$("#statusRefresh");
+ async function refreshMentorStatus(){
+  statusBox.className="mentor-status";
+  statusBox.textContent=lang==="pa"?"ਲਾਈਵ AI ਸੇਵਾ ਦੀ ਜਾਂਚ ਹੋ ਰਹੀ ਹੈ…":"Checking live AI service…";
+  statusButton.disabled=true;
+  try{
+   const response=await fetch("/api/mentor",{method:"GET",cache:"no-store",headers:{"Accept":"application/json"},signal:AbortSignal.timeout(8000)});
+   const state=await response.json();
+   if(response.ok&&state.ok&&state.configured){
+    statusBox.className="mentor-status is-ready";
+    statusBox.textContent=lang==="pa"?"ਲਾਈਵ AI ਤਿਆਰ ਹੈ · Gemini ਨਾਲ ਜੁੜਿਆ ਹੋਇਆ":"Live AI is ready · Connected to Gemini";
+   }else if(response.ok&&state.ok&&!state.configured){
+    statusBox.className="mentor-status is-warning";
+    statusBox.textContent=lang==="pa"?"ਲਾਈਵ AI ਲਈ Cloudflare Pages ਦੇ Preview ਵਿੱਚ GEMINI_API_KEY ਜੋੜੋ; ਫਿਰ ਨਵੀਂ deployment ਕਰੋ।":"Live AI needs GEMINI_API_KEY in Cloudflare Pages → Preview. Redeploy after saving.";
+   }else{
+    statusBox.className="mentor-status is-warning";
+    statusBox.textContent=lang==="pa"?"AI ਸਰਵਰ ਨੇ HTTP "+response.status+" ਦਿੱਤਾ।":"AI server returned HTTP "+response.status+".";
+   }
+  }catch(error){
+   statusBox.className="mentor-status is-warning";
+   statusBox.textContent=lang==="pa"?"AI ਸਰਵਰ ਨਾਲ ਸੰਪਰਕ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਇੰਟਰਨੈੱਟ ਜਾਂ deployment ਜਾਂਚੋ।":"Could not reach the AI server. Check internet access or the deployment.";
+  }finally{statusButton.disabled=false;}
+ }
+ statusButton.onclick=refreshMentorStatus;
+ refreshMentorStatus();
+ $("#ask").onclick=async()=>{
  const q=$("#question").value.trim(),out=$("#answer"),btn=$("#ask");
  if(!q){out.textContent=tr("question");return}
  if(busy)return;
