@@ -297,7 +297,47 @@ function offlineMentorAnswer(question){
 }
 function mentor(){
  $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+tr("back")+'</button><div class="lab-top-name"><span>✦</span><div><strong>'+tr("mentor")+'</strong><small>Classes 6–10 · English + ਪੰਜਾਬੀ</small></div></div></section><section class="experiment-card mentor-panel"><div class="eyebrow">POCKET SCIENCE LAB</div><h2>'+tr("mentor")+'</h2><p>'+tr("mentorHint")+'</p><label>'+tr("question")+'<textarea id="question" rows="5" maxlength="2000" placeholder="'+(lang==="pa"?"ਉਦਾਹਰਨ: ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਕੀ ਹੈ?":"Example: What is photosynthesis?")+'"></textarea></label><button id="ask" class="primary-button">'+tr("ask")+' →</button><div id="answer" class="mentor-answer" aria-live="polite"></div><p class="safety-note">'+tr("safe")+'</p></section>';
- $("#back").onclick=home;$("#ask").onclick=async()=>{const q=$("#question").value.trim(),out=$("#answer"),btn=$("#ask");if(!q){out.textContent=tr("question");return}if(busy)return;busy=true;btn.disabled=true;btn.textContent=tr("thinking");try{const r=await fetch("./api/mentor",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({question:q,language:lang})}),d=await r.json();if(!r.ok)throw Error(d.error||("HTTP "+r.status));if(!d.answer)throw Error("Empty AI response");out.innerHTML="<h3>"+(lang==="pa"?"ਜਵਾਬ":"Answer")+"</h3><p>"+esc(d.answer).replace(/\n/g,"<br>")+"</p>";}catch(e){const local=offlineMentorAnswer(q);const reason=e&&e.message?e.message:"Network request failed";out.innerHTML="<h3>"+(lang==="pa"?"ਆਨਲਾਈਨ AI ਜਵਾਬ ਨਹੀਂ ਮਿਲਿਆ":"Online AI response unavailable")+"</h3><p>"+(lang==="pa"?"ਕਾਰਨ: ":"Reason: ")+esc(reason)+"</p><div class=\"offline-answer\"><p>"+esc(local)+"</p></div>";}finally{busy=false;btn.disabled=false;btn.textContent=tr("ask")+" →"}};
+ $("#back").onclick=home;$("#ask").onclick=async()=>{
+ const q=$("#question").value.trim(),out=$("#answer"),btn=$("#ask");
+ if(!q){out.textContent=tr("question");return}
+ if(busy)return;
+ busy=true;btn.disabled=true;btn.textContent=tr("thinking");
+ try{
+  const r=await fetch("/api/mentor",{
+   method:"POST",cache:"no-store",
+   headers:{"Content-Type":"application/json","Accept":"application/json"},
+   signal:AbortSignal.timeout(30000),
+   body:JSON.stringify({question:q,language:lang})
+  });
+  const raw=await r.text();let d={};
+  try{d=JSON.parse(raw)}catch{throw Error("SERVER_RESPONSE: The AI endpoint did not return JSON (HTTP "+r.status+").")}
+  if(!r.ok)throw Error(d.error||("HTTP "+r.status));
+  if(!d.answer)throw Error("EMPTY_RESPONSE: The AI service returned no answer.");
+  out.innerHTML="<h3>"+(lang==="pa"?"ਜਵਾਬ":"Answer")+"</h3><p>"+esc(d.answer).replace(/\n/g,"<br>")+"</p>";
+ }catch(e){
+  const local=offlineMentorAnswer(q);
+  let reason=e&&e.message?e.message:"Network request failed";
+  let serverCheck="";
+  try{
+   const check=await fetch("/api/mentor",{method:"GET",cache:"no-store",headers:{"Accept":"application/json"},signal:AbortSignal.timeout(8000)});
+   const status=await check.json();
+   if(check.ok&&status.ok){
+    serverCheck=status.configured
+     ? (lang==="pa"?"ਸਰਵਰ ਜਾਂਚ: API ਰੂਟ ਚੱਲ ਰਿਹਾ ਹੈ ਅਤੇ Gemini Key ਮੌਜੂਦ ਹੈ।":"Server check: API route is online and the Gemini key is present.")
+     : (lang==="pa"?"ਸਰਵਰ ਜਾਂਚ: Gemini Key Cloudflare ਵਿੱਚ ਸੈੱਟ ਨਹੀਂ ਹੈ।":"Server check: GEMINI_API_KEY is not configured in Cloudflare.");
+   }else{
+    serverCheck=lang==="pa"?"ਸਰਵਰ ਜਾਂਚ: API ਰੂਟ ਨੇ HTTP "+check.status+" ਦਿੱਤਾ।":"Server check: API route returned HTTP "+check.status+".";
+   }
+  }catch{
+   serverCheck=lang==="pa"
+    ?"ਸਰਵਰ ਜਾਂਚ: /api/mentor ਰੂਟ ਤੱਕ ਪਹੁੰਚ ਨਹੀਂ ਹੋਈ। Cloudflare Pages deployment ਜਾਂ ਪੁਰਾਣੇ ਕੈਸ਼ ਦੀ ਜਾਂਚ ਲੋੜੀਂਦੀ ਹੈ।"
+    :"Server check: /api/mentor could not be reached. Check the Cloudflare Pages deployment or cached app.";
+  }
+  out.innerHTML="<h3>"+(lang==="pa"?"ਆਨਲਾਈਨ AI ਜਵਾਬ ਨਹੀਂ ਮਿਲਿਆ":"Online AI response unavailable")+"</h3><p>"+(lang==="pa"?"ਕਾਰਨ: ":"Reason: ")+esc(reason)+"</p><p>"+esc(serverCheck)+"</p><div class=\"offline-answer\"><p>"+esc(local)+"</p></div>";
+ }finally{
+  busy=false;btn.disabled=false;btn.textContent=tr("ask")+" →";
+ }
+};
 }
 // Progressive Web App installation support (Android Chrome and supported browsers).
 let deferredInstallPrompt=null;
