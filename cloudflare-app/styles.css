@@ -9,3 +9,5 @@
 .switch-options{display:grid;gap:8px;margin-top:12px}.switch-options label{display:flex;align-items:center;gap:8px;background:#123c58;border:1px solid #65ddec55;padding:9px;border-radius:9px;font-size:12px}.switch-options input{accent-color:#51d7ee}
 
 .control-panel.choice-only label:has(input[type="range"]){display:none}
+
+.mentor-status-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:16px 0;padding:12px 13px;border:1px solid #65ddec44;border-radius:12px;background:#071e35}.mentor-status{margin:0!important;font-size:12px;font-weight:750;color:#c4e5f2}.mentor-status.is-ready{color:#7ef0d0}.mentor-status.is-warning{color:#ffd38a}.status-refresh{border:1px solid #65ddec66;background:#123c58;color:#fff;border-radius:9px;padding:8px 11px;font-size:11px;font-weight:750}.status-refresh:disabled{opacity:.55}
