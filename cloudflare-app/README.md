@@ -1,39 +1,41 @@
-# POCKET Science Lab — Cloudflare migration
+# POCKET Science Lab — Render migration
 
-This is a parallel migration of the Streamlit science laboratory into a static Cloudflare Pages PWA. The original Streamlit app on `main` is preserved as the live backup.
+This branch prepares the existing POCKET Science Lab PWA for deployment on Render. It preserves the current mobile-first interface, experiment catalogue, interactive subject engines, English/Punjabi interface, offline mentor fallback, app icon, and installable PWA.
 
-## Implemented in this migration branch
+## Hosting architecture
 
-- Mobile-first POCKET Science Lab interface with a custom SVG flask icon, web app manifest and offline service worker.
-- English and Punjabi UI, bilingual experiment catalogue titles/aims/notes, translated experiment choices and translated knowledge checks.
-- 100 class-wise experiment catalogue records: 25 each for Electricity, Physics, Chemistry and Biology; five per subject per class for Classes 6–10.
-- Interactive renderer with subject-specific SVG diagrams for Electricity, Physics, Chemistry and Biology.
-- Subject-specific situation choices and variable labels; qualitative dropdown-only controls are used where appropriate, while quantitative Physics and Class 10 Electricity experiments retain model sliders.
-- Electricity-specific work includes circuit symbols, electromagnet crane, fuse condition selector, liquid conductivity, electrolysis, electroplating, cell circuit, series/parallel switching and Class 10 Ohm's law calculation table.
-- Offline bilingual science-mentor fallback covering 20 curriculum topics. The live Gemini endpoint remains optional and reads `GEMINI_API_KEY` server-side only.
-- Security headers and automated GitHub checks for JavaScript syntax, manifest JSON, experiment counts, PWA icon/offline assets and subject-engine helpers.
+- Render Node.js Web Service serves the static PWA files from this directory.
+- The same service exposes `GET /api/mentor` for a safe readiness check and `POST /api/mentor` for Gemini AI answers.
+- The Gemini key is read only from the server-side `GEMINI_API_KEY` environment variable. It is never sent to the browser.
+- The default model is `gemini-2.5-flash`; it can be changed with `GEMINI_MODEL`.
+- The service binds to `0.0.0.0` and Render's assigned `PORT`.
 
-## Verification status
+## Render deployment
 
-GitHub Actions passed the validation workflow on the current migration branch. These checks confirm syntax and static asset/catalogue structure; they do not replace interactive browser testing or prove full one-to-one parity with every Streamlit experiment.
+A Blueprint is provided at the repository root in `render.yaml`.
 
-## Still required before production migration
-
-1. Complete a side-by-side parity review of every one of the 100 experiments against the original Streamlit app. Some web diagrams and observations are simplified visual models and are not yet guaranteed to reproduce every original interactive detail.
-2. Test navigation, control changes, quizzes, English/Punjabi text, responsive layout and accessibility in real browsers and on Android.
-3. Add GitHub repository Actions secrets `CLOUDFLARE_API_TOKEN` (Cloudflare Pages Edit permission) and `CLOUDFLARE_ACCOUNT_ID`, then run **Actions → Deploy POCKET Science Lab preview to Cloudflare Pages → Run workflow**. The workflow creates the Pages project if needed and deploys the `cloudflare-migration` preview branch.
-4. Add the Pages Function secret `GEMINI_API_KEY` if live AI responses are desired. The offline mentor fallback works without it.
-5. Test install prompt, homescreen name/icon, offline launch, cache refresh and live Mentor responses on the deployed URL.
-6. Only after acceptance should the draft PR be merged and production switched. Keep Streamlit available until then.
-
-## Cloudflare Pages setup
-
-- Connect GitHub repository: `sumit987ss-bit/science-lab-ai`
-- Production/test branch initially: `cloudflare-migration`
+- Service name: `pocket-science-lab`
+- Runtime: Node.js
 - Root directory: `cloudflare-app`
-- Build command: none
-- Build output directory: `.`
-- Optional Pages Function secret (set in Cloudflare Pages dashboard, not GitHub Actions): `GEMINI_API_KEY`
-- GitHub Actions repository secrets needed for deployment: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`
+- Build command: `npm install`
+- Start command: `npm start`
+- Initial plan: Free (for preview/testing only)
+- Health check: `/api/mentor`
 
-A manual preview-deployment workflow is prepared at `.github/workflows/deploy-cloudflare-preview.yml`. It has not been run because Cloudflare account authorization secrets are not available in this repository session. This migration is not yet production-complete.
+Connect the GitHub repository `sumit987ss-bit/science-lab-ai` to Render and create the service from the Blueprint. Render will ask for the secret value of `GEMINI_API_KEY`; enter the Google AI Studio Gemini API key directly in Render's environment settings. Do not put the key in GitHub or in frontend code.
+
+## Important free-plan limitation
+
+Render's free web services spin down after 15 minutes without inbound traffic and can take about a minute to wake up. Free instances are intended for testing and hobby projects, not production-critical availability. No paid plan is selected or required for the initial preview.
+
+## Verification still required
+
+The repository changes prepare the app for Render, but they do not prove a live deployment or a working Gemini response. After Render creates the service, verify:
+
+1. The homepage loads and the app can be installed on Android.
+2. The readiness endpoint reports `configured: true`.
+3. A simple English science question receives an AI answer.
+4. A Punjabi question receives a Gurmukhi answer.
+5. The experiment catalogue and interactive controls work on mobile.
+
+Keep the existing Streamlit and Cloudflare deployments available as backups until the Render deployment passes these checks.
