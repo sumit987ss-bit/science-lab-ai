@@ -152,7 +152,7 @@ function serveStatic(req, res, pathname) {
       return res.end("Not found");
     }
     const ext = path.extname(filePath).toLowerCase();
-    const cache = ["index.html", ".webmanifest", ".js"].includes(path.basename(filePath)) || ext === ".webmanifest"
+    const cache = [".html", ".webmanifest", ".js"].includes(ext)
       ? "no-cache"
       : "public, max-age=3600";
     res.writeHead(200, {
