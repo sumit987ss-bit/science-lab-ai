@@ -2,6 +2,7 @@
   "name": "pocket-science-lab",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "POCKET Science Lab web app and Gemini AI Mentor",
   "scripts": {
     "start": "node server.js"
