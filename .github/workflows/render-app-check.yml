@@ -1,0 +1,57 @@
+name: Render app validation
+on:
+  push:
+    branches: [render-migration]
+    paths:
+      - "cloudflare-app/**"
+      - "render.yaml"
+      - ".github/workflows/render-app-check.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "cloudflare-app/**"
+      - "render.yaml"
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check JavaScript syntax
+        run: |
+          node --check cloudflare-app/server.js
+          node --check cloudflare-app/app.js
+          node --check cloudflare-app/experiments.js
+      - name: Check manifest and Render configuration
+        run: |
+          node -e "JSON.parse(require('fs').readFileSync('cloudflare-app/manifest.webmanifest','utf8'))"
+          node -e "const p=require('./cloudflare-app/package.json'); if(p.type!=='module'||p.scripts.start!=='node server.js') process.exit(1)"
+          grep -q 'rootDir: cloudflare-app' render.yaml
+          grep -q 'healthCheckPath: /api/mentor' render.yaml
+      - name: Check experiment catalogue
+        run: |
+          node - <<'NODE'
+          global.window = global;
+          require('./cloudflare-app/experiments.js');
+          for (const [name, rows] of Object.entries(LAB_DATA)) {
+            if (rows.length !== 25) throw new Error(name + ': expected 25 experiments, got ' + rows.length);
+            for (const c of [6,7,8,9,10]) {
+              if (rows.filter(x => x.class === c).length !== 5) throw new Error(name + ': class ' + c + ' does not have five experiments');
+            }
+          }
+          console.log('All 100 class-wise experiment records passed.');
+          NODE
+      - name: Check AI key is server-side only and diagnostics target Render
+        run: |
+          if grep -Eq 'AIza[0-9A-Za-z_-]{20,}' cloudflare-app/app.js; then
+            echo "A Gemini API key must never be embedded in browser code."
+            exit 1
+          fi
+          if grep -q 'Cloudflare Pages → Preview' cloudflare-app/app.js; then
+            echo "Old Cloudflare setup instructions remain in the app."
+            exit 1
+          fi
+          grep -q 'process.env.GEMINI_API_KEY' cloudflare-app/server.js
+          echo "Server-side Gemini key handling and Render diagnostics passed."
