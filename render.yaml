@@ -3,6 +3,7 @@ services:
     name: pocket-science-lab
     runtime: node
     plan: free
+    region: singapore
     rootDir: cloudflare-app
     buildCommand: npm install
     startCommand: npm start
