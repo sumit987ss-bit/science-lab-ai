@@ -758,13 +758,13 @@ window.LAB_DATA = {
   ],
   "biology": [
     {
-      "title": "Parts of a Plant",
-      "title_pa": "ਪੌਦੇ ਦੇ ਭਾਗ",
-      "aim": "Identify roots, stem, leaves, flower, fruit and seeds and connect each part with its job.",
-      "aim_pa": "ਜੜ੍ਹਾਂ, ਤਣੇ, ਪੱਤੇ, ਫੁੱਲ, ਫਲ ਅਤੇ ਬੀਜ ਪਛਾਣੋ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ ਸਮਝੋ।",
-      "kind": "plant_parts",
-      "note": "Roots absorb water and minerals; stems support the plant and transport materials; leaves make food; flowers help reproduction.",
-      "note_pa": "ਜੜ੍ਹਾਂ ਪਾਣੀ ਅਤੇ ਖਣਿਜ ਸੋਖਦੀਆਂ ਹਨ; ਤਣਾ ਸਹਾਰਾ ਅਤੇ ਆਵਾਜਾਈ ਕਰਦਾ ਹੈ; ਪੱਤੇ ਭੋਜਨ ਬਣਾਉਂਦੇ ਹਨ; ਫੁੱਲ ਪ੍ਰਜਨਨ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ।",
+      "title": "Testing Food for Protein, Starch and Fats",
+      "title_pa": "ਭੋਜਨ ਵਿੱਚ ਪ੍ਰੋਟੀਨ, ਸਟਾਰਚ ਅਤੇ ਚਰਬੀ ਦੀ ਜਾਂਚ",
+      "aim": "Explore three food tests in a guided virtual laboratory and identify nutrients in common foods.",
+      "aim_pa": "ਮਾਰਗਦਰਸ਼ਿਤ ਵਰਚੁਅਲ ਪ੍ਰਯੋਗਸ਼ਾਲਾ ਵਿੱਚ ਤਿੰਨ ਭੋਜਨ ਜਾਂਚਾਂ ਰਾਹੀਂ ਆਮ ਭੋਜਨਾਂ ਦੇ ਪੋਸ਼ਕ ਤੱਤ ਪਛਾਣੋ।",
+      "kind": "food_tests",
+      "note": "Protein, starch and fats can be identified by characteristic test observations. This interactive activity is a simulation; real chemical tests require a trained teacher and proper laboratory safety.",
+      "note_pa": "ਪ੍ਰੋਟੀਨ, ਸਟਾਰਚ ਅਤੇ ਚਰਬੀ ਦੀ ਪਛਾਣ ਖਾਸ ਨਿਰੀਖਣਾਂ ਰਾਹੀਂ ਕੀਤੀ ਜਾ ਸਕਦੀ ਹੈ। ਇਹ ਇੰਟਰਐਕਟਿਵ ਗਤੀਵਿਧੀ ਸਿਮੂਲੇਸ਼ਨ ਹੈ; ਅਸਲ ਰਸਾਇਣਕ ਜਾਂਚ ਅਧਿਆਪਕ ਦੀ ਦੇਖ-ਰੇਖ ਅਤੇ ਲੈਬ ਸੁਰੱਖਿਆ ਨਾਲ ਹੀ ਕਰੋ।",
       "class": 6
     },
     {
