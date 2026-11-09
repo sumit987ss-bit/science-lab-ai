@@ -16,3 +16,16 @@
 @media(max-width:650px){.food-workbench{grid-template-columns:1fr}.food-tabs{gap:6px}.food-tab{padding:12px 5px;font-size:13px}.food-left,.food-right{padding:13px}}
 
 .food-label{display:grid;gap:8px;margin:12px 0;color:#d9eef8;font-size:13px;font-weight:750}.food-label select{width:100%;min-height:46px;border-radius:10px;border:1px solid #6bb9d055;background:#071e35;color:#f3fbff;padding:10px;font:inherit}.food-left .primary-button{width:100%;margin:8px 0}.food-left .back-button{width:100%;margin-top:10px}.food-materials{padding:0;margin:8px 0 14px;list-style:none;display:grid;gap:8px}.food-materials li{padding:9px 10px;border:1px solid #ffffff16;border-radius:10px;background:#ffffff06;color:#d9eef8;font-size:12px}
+
+/* Class 6 Electricity Experiment 1: high-contrast, readable circuit labels */
+.circuit-panel{background:linear-gradient(145deg,#102f4c,#0b223a);border-color:#55cddd66}
+.circuit-panel #circuitVisual{background:#f8fbff;border:2px solid #8bd8e8;border-radius:15px;padding:8px;margin:8px 0 12px;box-shadow:0 5px 16px #0002}
+.circuit-panel .simple-circuit-svg{display:block;width:100%;height:auto;max-height:320px}
+.circuit-panel #circuitStatus{display:block;margin:12px 0 8px;padding:12px 14px;border-radius:11px;background:#d1fae5;border:2px solid #059669;color:#064e3b;font-size:clamp(14px,2.5vw,18px);font-weight:900;line-height:1.35;text-align:center;letter-spacing:.01em}
+.circuit-panel #circuitObservation{margin:0 0 14px;padding:12px 14px;background:#f0f9ff;border:1px solid #7dd3fc;border-left:5px solid #0284c7;border-radius:10px;color:#0c3553;font-size:14px;font-weight:750;line-height:1.55}
+.circuit-panel #circuitToggle{font-weight:900;font-size:15px;min-height:48px}
+.circuit-panel #circuitVisual svg text{fill:#102f4c;font-weight:900}
+.circuit-panel #circuitVisual svg text{paint-order:stroke;stroke:#f8fbff;stroke-width:2px;stroke-linejoin:round}
+.circuit-symbol-key .symbol-tile{border:2px solid #8bd8e8;background:#f8fbff;color:#102f4c}
+.circuit-symbol-key .symbol-tile b{color:#102f4c;font-size:13px;font-weight:900}
+@media(max-width:480px){.circuit-panel #circuitVisual{padding:4px}.circuit-panel #circuitObservation{font-size:13px}.circuit-panel #circuitStatus{padding:10px 8px}}
