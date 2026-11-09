@@ -345,7 +345,7 @@ function conductorTesterLab(){
 function draw(){
  if(lab==="electricity"&&cls===6&&exp===0){simpleCircuitLab();return}
  if(lab==="electricity"&&cls===6&&exp===1){circuitConnectionsLab();return}
- if(lab==="electricity"&&cls===6&&exp===2){conductorTesterLab();return}
+ if(lab==="electricity"&&cls===6&&item()?.kind==="conductors"){conductorTesterLab();return}
  if(lab==="mentor"){mentor();return}
  if(lab==="biology"&&cls===6&&exp===0){foodTestLab();return}
  if(lab==="chemistry"&&cls===6&&exp===1){solubilityLab();return}
