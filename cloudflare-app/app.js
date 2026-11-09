@@ -298,9 +298,7 @@ function offlineMentorAnswer(question){
 function mentor(){
  $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+tr("back")+'</button><div class="lab-top-name"><span>✦</span><div><strong>'+tr("mentor")+'</strong><small>Classes 6–10 · English + ਪੰਜਾਬੀ</small></div></div></section><section class="experiment-card mentor-panel"><div class="eyebrow">POCKET SCIENCE LAB</div><h2>'+tr("mentor")+'</h2><p>'+tr("mentorHint")+'</p><label>'+tr("question")+'<textarea id="question" rows="5" maxlength="2000" placeholder="'+(lang==="pa"?"ਉਦਾਹਰਨ: ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਕੀ ਹੈ?":"Example: What is photosynthesis?")+'"></textarea></label><button id="ask" class="primary-button">'+tr("ask")+' →</button><div id="answer" class="mentor-answer" aria-live="polite"></div><p class="safety-note">'+tr("safe")+'</p></section>';
  $("#back").onclick=home;
-
- refreshMentorStatus();
- $("#ask").onclick=async()=>{
+$("#ask").onclick=async()=>{
  const q=$("#question").value.trim(),out=$("#answer"),btn=$("#ask");
  if(!q){out.textContent=tr("question");return}
  if(busy)return;
