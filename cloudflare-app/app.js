@@ -222,8 +222,50 @@ function simpleCircuitLab(){
  render();
 }
 
+
+function circuitConnectionsLab(){
+ const pa=lang==="pa",it=list()[1]||{};let mode="same";
+ const c=pa?{
+ title:"ਬਲਬ ਅਤੇ ਸੈੱਲ ਦੇ ਸਹੀ ਜੋੜ",aim:"ਵੇਖੋ ਕਿ ਬਲਬ ਜਗਾਉਣ ਲਈ ਦੋਵੇਂ ਟਰਮੀਨਲਾਂ ਤੱਕ ਪੂਰਾ ਬਿਜਲੀ ਰਸਤਾ ਕਿਉਂ ਲੋੜੀਂਦਾ ਹੈ।",select:"ਜੋੜ ਦੀ ਸਥਿਤੀ ਚੁਣੋ",
+ options:["ਦੋਵੇਂ ਤਾਰਾਂ ਬਲਬ ਦੇ ਇੱਕੋ ਟਰਮੀਨਲ ਨਾਲ","ਇੱਕ ਤਾਰ ਵਿਚਕਾਰੋਂ ਟੁੱਟੀ ਹੋਈ","ਸਾਰੇ ਤਾਰ ਸਹੀ ਤਰ੍ਹਾਂ ਜੁੜੇ ਹੋਏ"],bulb:"ਬਲਬ",battery:"ਸੈੱਲ",
+ status:["ਬਲਬ ਨਹੀਂ ਜਗਦਾ — ਦੋਵੇਂ ਤਾਰਾਂ ਇੱਕੋ ਟਰਮੀਨਲ ਨਾਲ","ਬਲਬ ਨਹੀਂ ਜਗਦਾ — ਇੱਕ ਤਾਰ ਟੁੱਟੀ ਹੋਈ ਹੈ","ਬਲਬ ਜਗ ਰਿਹਾ ਹੈ — ਸਰਕਟ ਪੂਰਾ ਹੈ"],
+ obs:["ਦੋਵੇਂ ਤਾਰਾਂ ਬਲਬ ਦੇ ਇੱਕੋ ਪਾਸੇ ਜੁੜੀਆਂ ਹਨ। ਬਲਬ ਦੇ ਦੋਵੇਂ ਟਰਮੀਨਲਾਂ ਵਿਚਕਾਰ ਕਰੰਟ ਦਾ ਰਸਤਾ ਨਹੀਂ ਬਣਦਾ।","ਦੋਵੇਂ ਟਰਮੀਨਲਾਂ ਨਾਲ ਤਾਰਾਂ ਜੁੜੀਆਂ ਹਨ, ਪਰ ਇੱਕ ਤਾਰ ਵਿਚਕਾਰੋਂ ਟੁੱਟੀ ਹੈ। ਸਰਕਟ ਅਧੂਰਾ ਹੈ, ਇਸ ਲਈ ਬਲਬ ਨਹੀਂ ਜਗਦਾ।","ਦੋਵੇਂ ਤਾਰਾਂ ਬਲਬ ਦੇ ਵੱਖ-ਵੱਖ ਟਰਮੀਨਲਾਂ ਅਤੇ ਸੈੱਲ ਨਾਲ ਲਗਾਤਾਰ ਜੁੜੀਆਂ ਹਨ। ਪੂਰੇ ਸਰਕਟ ਵਿੱਚ ਬਲਬ ਜਗਦਾ ਹੈ।"],
+ safe:"ਇਹ ਸਿਰਫ਼ ਵਰਚੁਅਲ ਸਿੱਖਣ ਮਾਡਲ ਹੈ। ਅਸਲ ਬਿਜਲੀ ਦੇ ਸਰੋਤ ਜਾਂ ਤਾਰਾਂ ਨਾਲ ਪ੍ਰਯੋਗ ਨਾ ਕਰੋ।"
+ }:{
+ title:"How Connections Affect a Bulb",aim:"Explore why a complete path to both bulb terminals is needed for a bulb to glow.",select:"Select a connection arrangement",
+ options:["Both wires connected to the same bulb terminal","One wire broken in the middle","All wires connected properly"],bulb:"Electric bulb",battery:"Cell / battery",
+ status:["BULB OFF — BOTH WIRES AT ONE TERMINAL","BULB OFF — ONE WIRE IS BROKEN","BULB GLOWING — COMPLETE CIRCUIT"],
+ obs:["Both battery wires meet the same side of the bulb. There is no complete path through the bulb between its two terminals.","The wires reach both bulb terminals and the battery, but one wire has a visible gap in the middle. The circuit is incomplete, so the bulb stays off.","Each battery terminal is connected to a different bulb terminal by an unbroken wire. The circuit is complete and the bulb glows."],
+ safe:"Virtual learning model only. Do not experiment with real electrical sources or wiring."
+ };
+ function render(){
+  const broken=mode==="broken",glow=mode==="complete";let paths="";
+  if(mode==="same")paths='<path d="M155 202 V160 H108 V82 H155" class="wire"/><path d="M245 202 V174 H130 V82 H155" class="wire"/>';
+  else if(broken)paths='<path d="M155 202 V82 H155" class="wire"/><path d="M245 82 V132" class="wire"/><path d="M245 166 V202" class="wire"/>';
+  else paths='<path d="M155 202 V82 H155" class="wire"/><path d="M245 82 V202" class="wire"/>';
+  const svg='<svg class="connection-circuit-svg" viewBox="0 0 400 270" role="img" aria-label="'+esc(c.status[mode==="same"?0:broken?1:2])+'"><defs>'+(glow?'<radialGradient id="connectionBulbGlow"><stop stop-color="#fffde7"/><stop offset=".58" stop-color="#fde047"/><stop offset="1" stop-color="#f59e0b"/></radialGradient><filter id="connectionGlow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="9" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>':'')+'</defs>'+
+  '<g fill="none" stroke="'+(broken?"#d97706":"#16a34a")+'" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">'+paths+'</g>'+
+  '<circle cx="200" cy="82" r="42" fill="'+(glow?'url(#connectionBulbGlow)':'#e2e8f0')+'" stroke="'+(glow?'#d97706':'#475569')+'" stroke-width="5" '+(glow?'filter="url(#connectionGlow)"':'')+'/>'+
+  '<path d="M184 66 L216 98 M216 66 L184 98" stroke="#475569" stroke-width="5" stroke-linecap="round"/><path d="M188 124 H212 M191 132 H209" stroke="#475569" stroke-width="4"/>'+
+  '<rect x="125" y="202" width="150" height="43" rx="9" fill="#e2e8f0" stroke="#475569" stroke-width="3"/><path d="M170 210 V237 M183 216 V231 M230 210 V237" stroke="#334155" stroke-width="4"/>'+
+  '<g fill="#102f4c" font-size="13" font-weight="900" text-anchor="middle"><text x="200" y="22">'+c.bulb+'</text><text x="200" y="263">'+c.battery+'</text></g>'+
+  (mode==="same"?'<g fill="#991b1b" font-size="12" font-weight="900"><text x="76" y="147">A</text><text x="137" y="147">B</text><text x="300" y="83">'+(pa?"ਦੂਜਾ ਟਰਮੀਨਲ":"Other terminal")+'</text></g>':'')+
+  (broken?'<g><circle cx="245" cy="149" r="16" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/><path d="M238 142 L252 156 M252 142 L238 156" stroke="#b91c1c" stroke-width="4" stroke-linecap="round"/><text x="285" y="153" fill="#991b1b" font-size="12" font-weight="900">'+(pa?"ਟੁੱਟ":"BREAK")+'</text></g>':'')+
+  (glow?'<g stroke="#f59e0b" stroke-width="4" stroke-linecap="round"><path d="M200 28 V17 M157 42 L149 34 M243 42 L251 34 M146 82 H134 M254 82 H266"/></g>':'')+'</svg>';
+  $("#connectionVisual").innerHTML=svg;const n=mode==="same"?0:broken?1:2;
+  $("#connectionStatus").textContent=c.status[n];$("#connectionObservation").textContent=c.obs[n];
+ }
+ $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+tr("back")+'</button><div class="lab-top-name"><span>⚡</span><div><strong>'+tr("electricity")+'</strong><small>'+(pa?"ਜਮਾਤਾਂ 6–10 · ਬਿਜਲੀ ਲੈਬ":"Classes 6–10 · Electricity Lab")+'</small></div></div></section>'+
+ '<section class="lab-selectors"><label>'+tr("chooseClass")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option '+(cls===n?"selected":"")+' value="'+n+'">'+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+tr("chooseExperiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+esc(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section>'+
+ '<section class="experiment-card"><div class="experiment-meta">'+(pa?"ਜਮਾਤ 6 · ਪ੍ਰਯੋਗ 2 / 5":"CLASS 6 · EXPERIMENT 2 / 5")+'</div><h2>'+esc(pa?(it.title_pa||c.title):(it.title||c.title))+'</h2><p class="aim"><b>'+tr("aim")+':</b> '+c.aim+'</p><div class="control-panel connection-control"><label><b>'+c.select+'</b><select id="connectionMode">'+c.options.map((v,i)=>'<option value="'+["same","broken","complete"][i]+'">'+v+'</option>').join("")+'</select></label></div>'+
+ '<div class="visual-panel circuit-panel connection-panel"><h3>'+tr("observation")+'</h3><div id="connectionVisual"></div><div id="connectionStatus" class="circuit-status" aria-live="polite"></div><p id="connectionObservation"></p></div><div class="conclusion"><b>'+tr("conclusion")+':</b> '+(pa?"ਬਲਬ ਤਦ ਹੀ ਜਗਦਾ ਹੈ ਜਦੋਂ ਦੋਵੇਂ ਟਰਮੀਨਲਾਂ ਵਿਚਕਾਰ ਬੈਟਰੀ ਤੱਕ ਪੂਰਾ, ਬਿਨਾਂ ਟੁੱਟਿਆ ਰਸਤਾ ਹੋਵੇ।":"A bulb glows only when an unbroken, complete path connects the battery to both bulb terminals.")+'</div><p class="safety-note">'+c.safe+'</p><div class="navigation"><button class="back-button" id="prev">'+tr("previous")+'</button><button class="primary-button" id="next">'+tr("next")+' →</button></div></section>';
+ $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};$("#connectionMode").onchange=e=>{mode=e.target.value;render()};
+ $("#prev").onclick=()=>{if(exp>0){exp--;choice="";draw()}};$("#next").onclick=()=>{if(exp<list().length-1){exp++;choice="";draw()}};render();
+}
+
 function draw(){
  if(lab==="electricity"&&cls===6&&exp===0){simpleCircuitLab();return}
+ if(lab==="electricity"&&cls===6&&exp===1){circuitConnectionsLab();return}
  if(lab==="mentor"){mentor();return}
  if(lab==="biology"&&cls===6&&exp===0){foodTestLab();return}
  if(lab==="chemistry"&&cls===6&&exp===1){solubilityLab();return}
