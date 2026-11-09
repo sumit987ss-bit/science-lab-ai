@@ -263,9 +263,89 @@ function circuitConnectionsLab(){
  $("#prev").onclick=()=>{if(exp>0){exp--;choice="";draw()}};$("#next").onclick=()=>{if(exp<list().length-1){exp++;choice="";draw()}};render();
 }
 
+
+function conductorTesterLab(){
+ const pa=lang==="pa";let material="Iron";
+ const items=[
+  ["Iron","ਲੋਹਾ","conductor","A small iron nail / rod"],
+  ["Copper","ਤਾਂਬਾ","conductor","A short copper strip"],
+  ["Aluminium","ਐਲੂਮੀਨੀਅਮ","conductor","A small aluminium strip"],
+  ["Steel","ਸਟੀਲ","conductor","A small steel piece"],
+  ["Graphite","ਗ੍ਰੈਫਾਈਟ","conductor","A graphite pencil lead"],
+  ["Rubber","ਰਬੜ","insulator","A short rubber strip"],
+  ["Plastic","ਪਲਾਸਟਿਕ","insulator","A plastic ruler piece"],
+  ["Wood","ਲੱਕੜ","insulator","A dry wooden stick"],
+  ["Glass","ਕੱਚ","insulator","A small glass rod"],
+  ["Ceramic","ਸਿਰੈਮਿਕ","insulator","A ceramic piece"],
+  ["Dry paper","ਸੁੱਕਾ ਕਾਗਜ਼","insulator","A folded dry paper strip"]
+ ];
+ const labels=pa?{
+  title:"ਚਾਲਕ ਅਤੇ ਕੁਚਾਲਕ ਪਦਾਰਥਾਂ ਦੀ ਜਾਂਚ",aim:"ਚੁਣੇ ਪਦਾਰਥ ਨੂੰ ਸਰਕਟ ਦੇ ਖੁੱਲ੍ਹੇ ਸਥਾਨ ਵਿੱਚ ਰੱਖ ਕੇ ਬਲਬ ਦਾ ਨਿਰੀਖਣ ਕਰੋ।",
+  choose:"ਪਦਾਰਥ ਚੁਣੋ",slot:"ਜਾਂਚ ਵਾਲੀ ਥਾਂ",cell:"ਸੈੱਲ",bulb:"ਬਲਬ",conductor:"ਚਾਲਕ",insulator:"ਕੁਚਾਲਕ",
+  result:"ਨਤੀਜਾ",yes:"ਚਾਲਕ — ਬਲਬ ਜਗਦਾ ਹੈ",no:"ਕੁਚਾਲਕ — ਬਲਬ ਨਹੀਂ ਜਗਦਾ",
+  explainYes:"ਇਹ ਪਦਾਰਥ ਬਿਜਲੀ ਕਰੰਟ ਨੂੰ ਲੰਘਣ ਦਿੰਦਾ ਹੈ, ਇਸ ਲਈ ਸਰਕਟ ਪੂਰਾ ਹੁੰਦਾ ਹੈ ਅਤੇ ਬਲਬ ਜਗਦਾ ਹੈ।",
+  explainNo:"ਇਹ ਪਦਾਰਥ ਕਰੰਟ ਨੂੰ ਆਸਾਨੀ ਨਾਲ ਨਹੀਂ ਲੰਘਣ ਦਿੰਦਾ। ਸਰਕਟ ਅਧੂਰਾ ਰਹਿੰਦਾ ਹੈ ਅਤੇ ਬਲਬ ਨਹੀਂ ਜਗਦਾ।",
+  note:"ਨਤੀਜਾ ਆਮ ਸੁੱਕੇ ਪਦਾਰਥਾਂ ਲਈ ਹੈ। ਗ੍ਰੈਫਾਈਟ ਵੀ ਬਿਜਲੀ ਚਲਾਉਂਦਾ ਹੈ।",
+  safe:"ਸਿਰਫ਼ ਵਰਚੁਅਲ ਸਿਮੂਲੇਸ਼ਨ। ਅਸਲ ਬਿਜਲੀ ਦੇ ਸਰੋਤ ਜਾਂ ਵਸਤੂਆਂ ਨਾਲ ਇਹ ਜਾਂਚ ਨਾ ਕਰੋ।"
+ }:{
+  title:"Testing Conductors and Insulators",aim:"Place the selected material in the open gap of the circuit and observe the bulb.",
+  choose:"Choose material",slot:"Material testing gap",cell:"Cell / battery",bulb:"Bulb",conductor:"CONDUCTOR",insulator:"INSULATOR",
+  result:"TEST RESULT",yes:"CONDUCTOR — BULB GLOWS",no:"INSULATOR — BULB DOES NOT GLOW",
+  explainYes:"This material allows electric current to pass through it, completing the circuit and lighting the bulb.",
+  explainNo:"This material does not allow current to pass through easily. The circuit remains incomplete and the bulb stays off.",
+  note:"Results describe typical dry samples. Graphite is also an electrical conductor.",
+  safe:"VIRTUAL SIMULATION ONLY. Do not test real materials using electrical sources."
+ };
+ const escHtml=v=>String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+ const current=()=>items.find(x=>x[0]===material)||items[0];
+ function materialArt(){
+  const type=current()[2],metal=type==="conductor",body=material==="Iron"||material==="Steel"
+   ?'<path d="M145 99 L255 99 L268 111 L255 125 L145 125 L132 112Z" fill="url(#metalShade)" stroke="#536779" stroke-width="3"/><path d="M151 104 H247" stroke="#f8fafc" stroke-opacity=".7" stroke-width="4"/>'
+   :material==="Copper"?'<path d="M145 96 H255 L267 112 L255 128 H145 L133 112Z" fill="url(#copperShade)" stroke="#8c431f" stroke-width="3"/>'
+   :material==="Aluminium"?'<path d="M145 96 H255 L267 112 L255 128 H145 L133 112Z" fill="url(#metalShade)" stroke="#64748b" stroke-width="3"/>'
+   :material==="Graphite"?'<path d="M145 102 L255 102 L266 112 L255 122 L145 122 L134 112Z" fill="#30343b" stroke="#111827" stroke-width="3"/><path d="M150 106 H250" stroke="#9ca3af" stroke-width="2"/>'
+   :material==="Rubber"?'<path d="M142 96 Q200 88 258 96 L264 126 Q200 134 136 126Z" fill="#202a35" stroke="#0f172a" stroke-width="3"/><path d="M150 101 Q200 94 250 101" stroke="#64748b" stroke-width="3" fill="none"/>'
+   :material==="Plastic"?'<path d="M143 94 L257 94 L265 128 L135 128Z" fill="#60a5fa" stroke="#1d4ed8" stroke-width="3"/><path d="M149 101 H250" stroke="#dbeafe" stroke-width="4"/>'
+   :material==="Wood"?'<path d="M140 96 Q200 86 260 96 L255 128 Q200 136 145 128Z" fill="#b7793f" stroke="#75431f" stroke-width="3"/><path d="M151 105 Q185 96 218 109 T250 111 M155 120 Q190 111 235 121" fill="none" stroke="#8b4b25" stroke-width="2"/>'
+   :material==="Glass"?'<path d="M145 96 L255 96 L262 126 L138 126Z" fill="#a5f3fc" fill-opacity=".72" stroke="#0891b2" stroke-width="3"/><path d="M155 100 L165 100 L157 121" fill="none" stroke="#fff" stroke-width="4"/>'
+   :material==="Ceramic"?'<path d="M145 96 L255 96 L263 125 Q200 136 137 125Z" fill="#f1eee7" stroke="#a8a29e" stroke-width="3"/><path d="M152 102 H248" stroke="#fff" stroke-width="4"/>'
+   :'<path d="M145 96 L255 96 L263 126 L137 126Z" fill="#fef3c7" stroke="#b45309" stroke-width="3"/><path d="M151 103 L249 120 M151 120 L249 103" stroke="#d6a84b" stroke-width="2"/>';
+  return '<svg viewBox="0 0 400 220" class="tested-material-svg" role="img" aria-label="'+escHtml(material)+' sample"><defs><linearGradient id="metalShade" x2="0" y2="1"><stop stop-color="#f8fafc"/><stop offset=".45" stop-color="#94a3b8"/><stop offset="1" stop-color="#475569"/></linearGradient><linearGradient id="copperShade" x2="0" y2="1"><stop stop-color="#fed7aa"/><stop offset=".5" stop-color="#c66b36"/><stop offset="1" stop-color="#7c2d12"/></linearGradient></defs><ellipse cx="200" cy="151" rx="82" ry="9" fill="#0f172a" opacity=".13"/>'+body+'<text x="200" y="178" text-anchor="middle" fill="#102f4c" font-size="16" font-weight="900">'+escHtml(pa?current()[1]:material)+'</text><text x="200" y="199" text-anchor="middle" fill="#475569" font-size="11" font-weight="700">'+(pa?"ਚੁਣਿਆ ਨਮੂਨਾ":"SELECTED SAMPLE")+'</text></svg>';
+ }
+ function render(){
+  const good=current()[2]==="conductor",idx=items.findIndex(x=>x[0]===material);
+  const bulb=good?'<defs><radialGradient id="testGlow"><stop stop-color="#fffde7"/><stop offset=".55" stop-color="#fde047"/><stop offset="1" stop-color="#f59e0b"/></radialGradient><filter id="testBloom" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>':'';
+  const circuit='<svg viewBox="0 0 400 230" class="material-circuit-svg" role="img" aria-label="'+escHtml(good?labels.yes:labels.no)+'">'+bulb+
+   '<g fill="none" stroke="#16a34a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M80 160 V55 H155"/><path d="M245 55 H320 V160 H80"/></g>'+
+   '<circle cx="200" cy="55" r="40" fill="'+(good?'url(#testGlow)':'#e2e8f0')+'" stroke="'+(good?'#d97706':'#475569')+'" stroke-width="5" '+(good?'filter="url(#testBloom)"':'')+'/><path d="M184 39 L216 71 M216 39 L184 71" stroke="#475569" stroke-width="5" stroke-linecap="round"/>'+
+   '<path d="M155 160 H165 M235 160 H245" stroke="#334155" stroke-width="5" stroke-linecap="round"/><path d="M165 160 H235" stroke="'+(good?'#16a34a':'#dc2626')+'" stroke-width="4" stroke-dasharray="'+(good?"0":"5 6")+'"/>'+
+   '<rect x="166" y="133" width="68" height="53" rx="8" fill="#fff" stroke="'+(good?'#059669':'#dc2626')+'" stroke-width="3"/>'+
+   '<text x="200" y="151" text-anchor="middle" fill="#102f4c" font-size="10" font-weight="900">'+(pa?"ਨਮੂਨਾ":"SAMPLE")+'</text>'+
+   '<g><rect x="125" y="160" width="150" height="48" rx="9" fill="#e2e8f0" stroke="#475569" stroke-width="3"/><path d="M170 168 V199 M183 174 V193 M230 168 V199" stroke="#334155" stroke-width="4"/></g>'+
+   '<g fill="#102f4c" font-size="12" font-weight="900" text-anchor="middle"><text x="200" y="15">'+labels.bulb+'</text><text x="200" y="225">'+labels.cell+'</text></g>'+
+   (good?'<g stroke="#f59e0b" stroke-width="4" stroke-linecap="round"><path d="M200 9 V0 M157 22 L149 14 M243 22 L251 14"/></g>':'')+'</svg>';
+  $("#materialCircuit").innerHTML=circuit;$("#testedMaterial").innerHTML=materialArt();
+  $("#materialResult").className="material-result "+(good?"is-conductor":"is-insulator");
+  $("#materialResult").innerHTML='<span class="result-icon">'+(good?"✓":"×")+'</span><div><strong>'+labels.result+'</strong><h3>'+(good?labels.conductor:labels.insulator)+'</h3><p>'+(good?labels.yes:labels.no)+'</p></div>';
+  $("#materialExplanation").textContent=good?labels.explainYes:labels.explainNo;
+ }
+ $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+tr("back")+'</button><div class="lab-top-name"><span>⚡</span><div><strong>'+tr("electricity")+'</strong><small>'+(pa?"ਜਮਾਤ 6 · ਬਿਜਲੀ ਲੈਬ":"Class 6 · Electricity Lab")+'</small></div></div></section>'+
+ '<section class="lab-selectors"><label>'+tr("chooseClass")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option '+(cls===n?"selected":"")+' value="'+n+'">'+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+tr("chooseExperiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+esc(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section>'+
+ '<section class="experiment-card"><div class="experiment-meta">'+(pa?"ਜਮਾਤ 6 · ਪ੍ਰਯੋਗ 3 / 5":"CLASS 6 · EXPERIMENT 3 / 5")+'</div><h2>'+esc(pa?(it.title_pa||labels.title):(it.title||labels.title))+'</h2><p class="aim"><b>'+tr("aim")+':</b> '+labels.aim+'</p>'+
+ '<div class="material-workbench"><div class="material-select-card"><label for="materialSelect"><strong>'+labels.choose+'</strong><select id="materialSelect">'+items.map(x=>'<option value="'+x[0]+'" '+(x[0]===material?"selected":"")+'>'+(pa?x[1]:x[0])+'</option>').join("")+'</select></label><div class="tested-material-wrap"><h3>'+labels.slot+'</h3><div id="testedMaterial"></div></div></div>'+
+ '<div class="material-circuit-card"><h3>'+(pa?"ਬਿਜਲੀ ਸਰਕਟ":"ELECTRIC CIRCUIT")+'</h3><div id="materialCircuit"></div></div></div>'+
+ '<div id="materialResult" class="material-result" aria-live="polite"></div><p id="materialExplanation" class="material-explanation"></p><div class="conclusion"><b>'+tr("conclusion")+':</b> '+labels.note+'</div><p class="safety-note">'+labels.safe+'</p>'+
+ '<div class="navigation"><button class="back-button" id="prev">'+tr("previous")+'</button><button class="primary-button" id="next">'+tr("next")+' →</button></div></section>';
+ $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};
+ $("#materialSelect").onchange=e=>{material=e.target.value;render()};
+ $("#prev").onclick=()=>{if(exp>0){exp--;choice="";draw()}};$("#next").onclick=()=>{if(exp<list().length-1){exp++;choice="";draw()}};
+ render();
+}
+
 function draw(){
  if(lab==="electricity"&&cls===6&&exp===0){simpleCircuitLab();return}
  if(lab==="electricity"&&cls===6&&exp===1){circuitConnectionsLab();return}
+ if(lab==="electricity"&&cls===6&&exp===2){conductorTesterLab();return}
  if(lab==="mentor"){mentor();return}
  if(lab==="biology"&&cls===6&&exp===0){foodTestLab();return}
  if(lab==="chemistry"&&cls===6&&exp===1){solubilityLab();return}
