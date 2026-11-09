@@ -91,7 +91,7 @@ function foodTestLab(){
  let active="protein",food={protein:"Daal",starch:"Potato",fats:"Peanuts"},added={protein:[],starch:[],fats:[]},paperApplied=false;
  const foods={protein:["Daal","Milk","Egg","Soybean"],starch:["Potato","Rice","Bread","Corn"],fats:["Peanuts","Cashews","Almonds","Sesame"]};
  const names=pa?{Daal:"ਦਾਲ",Milk:"ਦੁੱਧ",Egg:"ਅੰਡਾ",Soybean:"ਸੋਇਆਬੀਨ",Potato:"ਆਲੂ",Rice:"ਚੌਲ",Bread:"ਡਬਲ ਰੋਟੀ",Corn:"ਮੱਕੀ",Peanuts:"ਮੂੰਗਫਲੀ",Cashews:"ਕਾਜੂ",Almonds:"ਬਦਾਮ",Sesame:"ਤਿਲ"}:{};
- const materials={protein:["Copper sulphate","Caustic soda"],starch:["Iodine solution"],fats:[]};
+ const materials={protein:["Copper sulphate","Caustic soda"],starch:["Iodine solution"],fats:["Filter paper"]};
  const materialNames=pa?{"Copper sulphate":"ਕਾਪਰ ਸਲਫੇਟ","Caustic soda":"ਕਾਸਟਿਕ ਸੋਡਾ","Iodine solution":"ਆਇਓਡੀਨ ਘੋਲ"}:{};
  const hasResult=()=>active==="protein"?added.protein.includes("Copper sulphate")&&added.protein.includes("Caustic soda"):active==="starch"?added.starch.includes("Iodine solution"):paperApplied;
  const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -104,7 +104,8 @@ function foodTestLab(){
  function update(){
   const done=hasResult();
   const sampleOptions=foods[active].map(x=>'<option value="'+x+'" '+(food[active]===x?'selected':'')+'>'+(names[x]||x)+'</option>').join("");
-  const reagentOptions=materials[active].filter(x=>!added[active].includes(x)).map(x=>'<option value="'+x+'">'+(materialNames[x]||x)+'</option>').join("");
+  const selectedReagent=$("#foodReagent")?$("#foodReagent").value:"";
+  const reagentOptions=materials[active].filter(x=>!added[active].includes(x)).map(x=>'<option value="'+x+'" '+(selectedReagent===x?"selected":"")+'">'+(materialNames[x]||x)+'</option>').join("");
   $("#foodVisual").innerHTML=art();
   $("#foodSample").innerHTML=sampleOptions;
   $("#foodSample").value=food[active];
@@ -112,6 +113,7 @@ function foodTestLab(){
   $("#foodReagent").innerHTML='<option value="">'+T.select+'</option>'+reagentOptions;
   $("#foodAdded").innerHTML=(added[active].length?added[active].map(x=>'<li>✓ '+(materialNames[x]||x)+'</li>').join(""):'<li class="muted">—</li>');
   $("#foodPaperAction").style.display=active==="fats"?"block":"none";
+  $("#foodApply").disabled=!added.fats.includes("Filter paper")||paperApplied;
   $("#foodResult").innerHTML=done?'<div class="food-result"><strong>✓ '+T.result+'</strong><p>'+(active==="protein"?T.proteinObs:active==="starch"?T.starchObs:T.fatObs)+'</p><small>'+T.explain+': '+(active==="protein"?(pa?"ਬਾਇਯੂਰੇਟ ਜਾਂਚ ਵਿੱਚ ਪ੍ਰੋਟੀਨ ਨਾਲ ਜਾਮਨੀ ਰੰਗ ਬਣਦਾ ਹੈ।":"The Biuret test gives a violet-purple colour when protein is present."):active==="starch"?(pa?"ਆਇਓਡੀਨ ਸਟਾਰਚ ਨਾਲ ਨੀਲਾ-ਕਾਲਾ ਰੰਗ ਬਣਾਉਂਦਾ ਹੈ।":"Iodine forms a blue-black complex with starch."):(pa?"ਚਰਬੀ ਕਾਗਜ਼ ਵਿੱਚ ਸਮਾ ਕੇ ਪਾਰਦਰਸ਼ੀ ਧੱਬਾ ਛੱਡਦੀ ਹੈ।":"Fat leaves a translucent spot in paper fibres."))+'</small></div>':'<div class="food-result waiting"><strong>'+T.result+'</strong><p>'+T.waiting+'</p></div>';
   $("#foodAdd").disabled=!$("#foodReagent").value||done;
   $("#foodAdd").textContent=T.add;
@@ -122,7 +124,7 @@ function foodTestLab(){
  $("#foodSample").onchange=e=>{food[active]=e.target.value;paperApplied=false;update()};
  $("#foodReagent").onchange=update;
  $("#foodAdd").onclick=()=>{const x=$("#foodReagent").value;if(x&&!added[active].includes(x))added[active].push(x);update()};
- $("#foodApply").onclick=()=>{paperApplied=true;update()};
+ $("#foodApply").onclick=()=>{if(added.fats.includes("Filter paper")){paperApplied=true;update()}};
  $("#foodReset").onclick=()=>{added[active]=[];paperApplied=false;update()};
  update();
 }
@@ -400,5 +402,5 @@ if(installControl){
   window.addEventListener("appinstalled",()=>{installControl.hidden=true;deferredInstallPrompt=null;});
 }
 $("#languageToggle").onclick=()=>{lang=lang==="en"?"pa":"en";document.documentElement.lang=lang==="pa"?"pa":"en";$("#languageToggle").textContent=lang==="en"?"ਪੰਜਾਬੀ":"English";lab?draw():home()};
-if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?release=26",{updateViaCache:"none"}).then(reg=>reg.update()).catch(()=>{}));
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?release=27",{updateViaCache:"none"}).then(reg=>reg.update()).catch(()=>{}));
 home();
