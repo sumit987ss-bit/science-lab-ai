@@ -188,7 +188,42 @@ function solubilityLab(){
  $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};$("#prev").onclick=()=>{if(exp>0){exp--;choice="";draw()}};$("#next").onclick=()=>{if(exp<4){exp++;choice="";draw()}};
  $("#solubilitySelect").onchange=e=>{selected=e.target.value;render()};render();
 }
+
+function simpleCircuitLab(){
+ const pa=lang==="pa";let closed=true;
+ const labels=pa?{title:"ਸਧਾਰਨ ਬਿਜਲੀ ਸਰਕਟ",aim:"ਸੈੱਲ, ਬਲਬ, ਸਵਿੱਚ ਅਤੇ ਤਾਰਾਂ ਨਾਲ ਪੂਰਾ ਬਿਜਲੀ ਰਸਤਾ ਵੇਖੋ।",switch:"ਸਵਿੱਚ",close:"ਸਵਿੱਚ ਬੰਦ ਕਰੋ",open:"ਸਵਿੱਚ ਖੋਲ੍ਹੋ",on:"ਸਰਕਟ ਪੂਰਾ — ਬਲਬ ਜਗ ਰਿਹਾ ਹੈ",off:"ਸਰਕਟ ਅਧੂਰਾ — ਬਲਬ ਬੰਦ ਹੈ",obsOn:"ਬੰਦ ਸਵਿੱਚ ਨਾਲ ਚਾਲਕ ਰਸਤਾ ਪੂਰਾ ਹੁੰਦਾ ਹੈ। ਕਰੰਟ ਵਹਿੰਦਾ ਹੈ ਅਤੇ ਬਲਬ ਜਗਦਾ ਹੈ।",obsOff:"ਖੁੱਲ੍ਹਾ ਸਵਿੱਚ ਰਸਤਾ ਤੋੜਦਾ ਹੈ। ਕਰੰਟ ਨਹੀਂ ਵਹਿੰਦਾ ਅਤੇ ਬਲਬ ਨਹੀਂ ਜਗਦਾ।",battery:"ਸੈੱਲ",bulb:"ਬਲਬ",wire:"ਜੋੜਨ ਵਾਲੀ ਤਾਰ",safe:"ਇਹ ਸਿਰਫ਼ ਵਰਚੁਅਲ ਸਰਕਟ ਮਾਡਲ ਹੈ। ਅਸਲ ਬਿਜਲੀ ਦੇ ਸਰੋਤ ਜਾਂ ਤਾਰਾਂ ਨਾਲ ਪ੍ਰਯੋਗ ਨਾ ਕਰੋ।"}:{title:"Build a Simple Electric Circuit",aim:"Explore a complete path using a cell, bulb, switch and connecting wires.",switch:"Circuit switch",close:"Close the switch",open:"Open the switch",on:"CIRCUIT COMPLETE — BULB GLOWING",off:"CIRCUIT INCOMPLETE — BULB OFF",obsOn:"The closed switch completes the conducting path. Current flows and the bulb glows.",obsOff:"The open switch breaks the path. Current stops and the bulb does not glow.",battery:"Cell / battery",bulb:"Electric bulb",wire:"Connecting wire",safe:"Virtual circuit only. Do not experiment with real electrical sources or wiring."};
+ function render(){
+  const wire=closed?"#16a34a":"#64748b",glow=closed;
+  const svg='<svg class="simple-circuit-svg" viewBox="0 0 400 280" role="img" aria-label="'+(closed?labels.on:labels.off)+'">'+
+   (glow?'<defs><filter id="bulbGlow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="9" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter><radialGradient id="lit"><stop stop-color="#fffde7"/><stop offset=".55" stop-color="#fde047"/><stop offset="1" stop-color="#f59e0b"/></radialGradient></defs>':'')+
+   '<g fill="none" stroke="'+wire+'" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M80 55 H160 M240 55 H310 V105 M310 150 V225 H80 V151 M80 105 V55"/></g>'+
+   '<g stroke="#334155" stroke-width="4" stroke-linecap="round"><path d="M53 111 H107" /><path d="M64 132 H96" /></g>'+
+   '<circle cx="200" cy="55" r="40" fill="'+(glow?'url(#lit)':'#e2e8f0')+'" stroke="'+(glow?'#d97706':'#475569')+'" stroke-width="5" '+(glow?'filter="url(#bulbGlow)"':'')+'/>'+
+   '<path d="M184 39 L216 71 M216 39 L184 71" stroke="#475569" stroke-width="5" stroke-linecap="round"/><path d="M188 96 H212 M191 103 H209" stroke="#475569" stroke-width="4" stroke-linecap="round"/>'+
+   '<g stroke="#334155" stroke-width="5" stroke-linecap="round"><circle cx="310" cy="105" r="5" fill="#334155"/><circle cx="310" cy="150" r="5" fill="#334155"/></g>'+
+   '<path d="'+(closed?'M310 105 L310 150':'M310 105 L340 119')+'" stroke="'+(closed?'#16a34a':'#d97706')+'" stroke-width="6" stroke-linecap="round"/>'+
+   '<g fill="#28485b" font-size="13" font-weight="700"><text x="25" y="166">'+labels.battery+'</text><text x="200" y="15" text-anchor="middle">'+labels.bulb+'</text><text x="340" y="174" text-anchor="middle">'+labels.switch+'</text><text x="200" y="260" text-anchor="middle">'+labels.wire+'</text></g>'+
+   (closed?'<g fill="#f59e0b"><path d="M200 5 V0 M150 20 L143 13 M250 20 L257 13 M145 55 H137 M255 55 H263"/></g>':'')+
+   '</svg>';
+  $("#circuitVisual").innerHTML=svg;
+  $("#circuitStatus").textContent=closed?labels.on:labels.off;
+  $("#circuitObservation").textContent=closed?labels.obsOn:labels.obsOff;
+  $("#circuitToggle").textContent=closed?labels.open:labels.close;
+  $("#circuitToggle").setAttribute("aria-pressed",String(closed));
+ }
+ $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+tr("back")+'</button><div class="lab-top-name"><span>⚡</span><div><strong>'+tr("electricity")+'</strong><small>'+(pa?"25 ਪ੍ਰਯੋਗ · ਜਮਾਤਾਂ 6–10":"25 experiments · Classes 6–10")+'</small></div></div></section>'+
+ '<section class="lab-selectors"><label>'+tr("chooseClass")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option '+(cls===n?"selected":"")+' value="'+n+'">'+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+tr("chooseExperiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+esc(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section>'+
+ '<section class="experiment-card"><div class="experiment-meta">'+(pa?"ਜਮਾਤ 6 · ਪ੍ਰਯੋਗ 1 / 5":"CLASS 6 · EXPERIMENT 1 / 5")+'</div><h2>'+labels.title+'</h2><p class="aim"><b>'+tr("aim")+':</b> '+labels.aim+'</p><div class="visual-panel circuit-panel"><h3>'+tr("observation")+'</h3><div id="circuitVisual"></div><div id="circuitStatus" class="circuit-status" aria-live="polite"></div><p id="circuitObservation"></p><button id="circuitToggle" class="primary-button" type="button"></button></div><div class="conclusion"><b>'+tr("conclusion")+':</b> '+(pa?"ਬਲਬ ਸਿਰਫ਼ ਪੂਰੇ ਸਰਕਟ ਵਿੱਚ ਹੀ ਜਗਦਾ ਹੈ।":"A bulb glows only when the circuit is complete.")+'</div><div class="symbol-gallery circuit-symbol-key"><div class="symbol-tile"><svg viewBox="0 0 120 70"><path d="M60 5 V26 M42 26 H78 M50 42 H70 M60 42 V65" stroke="#334155" stroke-width="4" fill="none"/></svg><b>'+labels.battery+'</b></div><div class="symbol-tile"><svg viewBox="0 0 120 70"><circle cx="60" cy="35" r="23" fill="none" stroke="#334155" stroke-width="3"/><path d="M44 19 L76 51 M76 19 L44 51" stroke="#334155" stroke-width="3"/></svg><b>'+labels.bulb+'</b></div><div class="symbol-tile"><svg viewBox="0 0 120 70"><path d="M12 40 H42 M78 40 H108 M42 40 L74 15" stroke="#334155" stroke-width="4" fill="none"/><circle cx="42" cy="40" r="4" fill="#334155"/><circle cx="78" cy="40" r="4" fill="#334155"/></svg><b>'+labels.switch+'</b></div></div><p class="safety-note">'+labels.safe+'</p><div class="navigation"><button class="back-button" id="prev" disabled>'+tr("previous")+'</button><button class="primary-button" id="next">'+tr("next")+' →</button></div></section>';
+ $("#back").onclick=home;
+ $("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};
+ $("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};
+ $("#circuitToggle").onclick=()=>{closed=!closed;render()};
+ $("#next").onclick=()=>{if(exp<list().length-1){exp++;choice="";draw()}};
+ render();
+}
+
 function draw(){
+ if(lab==="electricity"&&cls===6&&exp===0){simpleCircuitLab();return}
  if(lab==="mentor"){mentor();return}
  if(lab==="biology"&&cls===6&&exp===0){foodTestLab();return}
  if(lab==="chemistry"&&cls===6&&exp===1){solubilityLab();return}
