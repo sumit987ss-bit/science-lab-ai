@@ -39,3 +39,23 @@
 .connection-control label{display:grid;gap:9px;color:#d9eef8;font-weight:850}
 .connection-control select{width:100%;min-height:48px;border-radius:10px;border:2px solid #55cddd;background:#0b223a;color:#fff;padding:10px;font:inherit;font-weight:750}
 @media(max-width:480px){.connection-panel #connectionVisual{padding:4px}.connection-panel #connectionObservation{font-size:13px}.connection-panel #connectionStatus{padding:10px 8px}}
+
+/* Class 6 Electricity Experiment 3: material conductivity test bench */
+.material-workbench{display:grid;grid-template-columns:1fr 1.15fr;gap:14px;margin:16px 0}
+.material-select-card,.material-circuit-card{min-width:0;padding:15px;border:1px solid #55cddd55;border-radius:16px;background:linear-gradient(145deg,#102f4c,#0b223a);color:#eaf7ff}
+.material-select-card>label{display:grid;gap:9px;color:#eaf7ff;font-weight:850}
+.material-select-card select{width:100%;min-height:48px;border-radius:10px;border:2px solid #55cddd;background:#071e35;color:#fff;padding:10px;font:inherit;font-weight:750}
+.tested-material-wrap{margin-top:16px;padding:10px;border-radius:12px;background:#f8fbff;color:#102f4c}
+.tested-material-wrap h3,.material-circuit-card h3{margin:0 0 10px;font-size:14px;font-weight:900}
+.tested-material-svg{display:block;width:100%;height:auto;max-height:190px}
+.material-circuit-card #materialCircuit{padding:8px;border-radius:12px;background:#f8fbff}
+.material-circuit-svg{display:block;width:100%;height:auto}
+.material-result{display:flex;align-items:center;gap:13px;margin:14px 0 10px;padding:15px;border-radius:14px;border:2px solid;font-weight:850}
+.material-result .result-icon{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border-radius:50%;background:#fff;font-size:27px;font-weight:950}
+.material-result strong{display:block;font-size:12px;letter-spacing:.06em}
+.material-result h3{margin:3px 0;font-size:20px;font-weight:950}
+.material-result p{margin:0;font-size:13px;font-weight:800}
+.material-result.is-conductor{background:#d1fae5;border-color:#059669;color:#064e3b}
+.material-result.is-insulator{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.material-explanation{padding:13px 15px;border-radius:11px;background:#eff6ff;border-left:5px solid #2563eb;color:#102f4c;font-weight:750;line-height:1.55}
+@media(max-width:650px){.material-workbench{grid-template-columns:1fr}.material-select-card,.material-circuit-card{padding:12px}.tested-material-svg{max-height:160px}}
