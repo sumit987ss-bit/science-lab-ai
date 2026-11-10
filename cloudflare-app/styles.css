@@ -138,3 +138,22 @@
 .magnetic-effect-display>p{margin:0;padding:12px;border-radius:9px;background:#eff6ff;border-left:5px solid #0284c7;color:#123b59;font-size:13px;font-weight:750;line-height:1.55}
 .magnetic-effect-result{margin-top:10px;padding:13px;border-radius:10px;background:#fff7d6;border:2px solid #eab308;color:#713f12;font-size:14px;font-weight:950;line-height:1.5}
 @media(max-width:650px){.magnetic-effect-workbench{grid-template-columns:1fr}.magnetic-effect-controls,.magnetic-effect-display{padding:12px}.magnetic-effect-display>p,.magnetic-effect-result{font-size:12px}}
+
+/* Class 8 Electricity Experiment 1: liquid conductivity circuit simulator */
+.liquid-conductivity-workbench{display:grid;grid-template-columns:minmax(190px,.55fr) minmax(0,1.45fr);gap:14px;margin:18px 0}
+.liquid-conductivity-controls,.liquid-conductivity-display{min-width:0;padding:16px;border:1px solid #55cddd55;border-radius:16px;background:linear-gradient(145deg,#102f4c,#0b223a);color:#eaf7ff}
+.liquid-conductivity-controls h3,.liquid-conductivity-display h3{margin:0 0 12px;font-size:15px;font-weight:950}
+.liquid-conductivity-controls label{display:grid;gap:9px;color:#f3fbff;font-weight:850}
+.liquid-conductivity-controls select{width:100%;min-height:50px;border:2px solid #55cddd;border-radius:10px;background:#071e35;color:#fff;padding:10px;font:inherit;font-weight:800}
+.liquid-conductivity-controls p{font-size:13px;line-height:1.55;color:#c3dbe8;margin:14px 0}
+.liquid-key{display:grid;gap:8px;margin-top:16px}
+.liquid-key span{padding:10px;border-radius:9px;background:#ffffff12;color:#e8f7ff;font-size:12px;font-weight:850}
+.liquid-conductivity-display{background:#f8fbff;color:#173b55}
+.liquid-circuit-svg{display:block;width:100%;height:auto}
+.liquid-circuit-result{margin-top:12px;padding:14px;border:2px solid;border-radius:12px;line-height:1.5}
+.liquid-circuit-result strong{display:block;font-size:11px;letter-spacing:.1em}
+.liquid-circuit-result h3{margin:5px 0;font-size:clamp(15px,2.3vw,20px);font-weight:950}
+.liquid-circuit-result p{margin:0;font-size:13px;font-weight:750}
+.liquid-circuit-result.conducting{background:#d1fae5;border-color:#059669;color:#065f46}
+.liquid-circuit-result.nonconducting{background:#e2e8f0;border-color:#64748b;color:#334155}
+@media(max-width:650px){.liquid-conductivity-workbench{grid-template-columns:1fr}.liquid-conductivity-controls,.liquid-conductivity-display{padding:12px}.liquid-circuit-result p{font-size:12px}}
