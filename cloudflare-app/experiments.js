@@ -42,13 +42,13 @@ window.LAB_DATA = {
       "class": 6
     },
     {
-      "title": "Magnetic Materials",
-      "title_pa": "ਚੁੰਬਕੀ ਪਦਾਰਥ",
-      "aim": "Compare magnetic and non-magnetic objects in a simple model.",
-      "aim_pa": "ਸਧਾਰਨ ਮਾਡਲ ਵਿੱਚ ਚੁੰਬਕੀ ਅਤੇ ਗੈਰ-ਚੁੰਬਕੀ ਚੀਜ਼ਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
-      "kind": "magnet",
-      "note": "Iron and steel are commonly attracted by magnets; many other materials are not.",
-      "note_pa": "ਲੋਹਾ ਅਤੇ ਸਟੀਲ ਆਮ ਤੌਰ ਤੇ ਚੁੰਬਕ ਵੱਲ ਖਿੱਚੇ ਜਾਂਦੇ ਹਨ; ਕਈ ਹੋਰ ਪਦਾਰਥ ਨਹੀਂ।",
+      "title": "Attraction and Repulsion of Magnets",
+      "title_pa": "ਚੁੰਬਕਾਂ ਵਿੱਚ ਖਿੱਚ ਅਤੇ ਵਿਕਰਸ਼ਣ",
+      "aim": "Observe how like poles repel and unlike poles attract using two bar magnets.",
+      "aim_pa": "ਦੋ ਡੰਡਾ ਚੁੰਬਕਾਂ ਰਾਹੀਂ ਵੇਖੋ ਕਿ ਇੱਕੋ ਜਿਹੇ ਧਰੁਵ ਦੂਰ ਧੱਕਦੇ ਅਤੇ ਵੱਖਰੇ ਧਰੁਵ ਖਿੱਚਦੇ ਹਨ।",
+      "kind": "magnet_poles",
+      "note": "Like magnetic poles repel; unlike magnetic poles attract.",
+      "note_pa": "ਇੱਕੋ ਜਿਹੇ ਚੁੰਬਕੀ ਧਰੁਵ ਦੂਰ ਧੱਕਦੇ ਹਨ; ਵੱਖਰੇ ਧਰੁਵ ਖਿੱਚਦੇ ਹਨ।",
       "class": 6
     },
     {
