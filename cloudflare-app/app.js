@@ -342,9 +342,63 @@ function conductorTesterLab(){
  render();
 }
 
+
+function openClosedCircuitLab(){
+ const pa=lang==="pa";let mode="closed";
+ const c=pa?{
+  title:"ਖੁੱਲ੍ਹਾ ਅਤੇ ਬੰਦ ਬਿਜਲੀ ਸਰਕਟ",aim:"ਸਰਕਟ ਦੀ ਕਿਸਮ ਚੁਣੋ ਅਤੇ ਸਵਿੱਚ, ਤਾਰਾਂ, ਬਲਬ ਅਤੇ ਕਰੰਟ ਦੇ ਰਸਤੇ ਵਿੱਚ ਫਰਕ ਵੇਖੋ।",
+  choose:"ਸਰਕਟ ਚੁਣੋ",closed:"ਬੰਦ ਸਰਕਟ",open:"ਖੁੱਲ੍ਹਾ ਸਰਕਟ",bulb:"ਬਲਬ",battery:"ਸੈੱਲ",switch:"ਸਵਿੱਚ",
+  closedStatus:"ਬੰਦ ਸਰਕਟ — ਬਲਬ ਜਗ ਰਿਹਾ ਹੈ",openStatus:"ਖੁੱਲ੍ਹਾ ਸਰਕਟ — ਬਲਬ ਬੰਦ ਹੈ",
+  closedObs:"ਸਵਿੱਚ ਬੰਦ ਹੋਣ ਨਾਲ ਤਾਰਾਂ ਦਾ ਰਸਤਾ ਪੂਰਾ ਹੈ। ਕਰੰਟ ਵਹਿੰਦਾ ਹੈ ਅਤੇ ਬਲਬ ਜਗਦਾ ਹੈ।",
+  openObs:"ਸਵਿੱਚ ਖੁੱਲ੍ਹਾ ਹੋਣ ਕਰਕੇ ਰਸਤੇ ਵਿੱਚ ਖਾਲੀ ਥਾਂ ਹੈ। ਕਰੰਟ ਨਹੀਂ ਵਹਿੰਦਾ ਅਤੇ ਬਲਬ ਨਹੀਂ ਜਗਦਾ।",
+  conclusion:"ਬੰਦ ਸਰਕਟ ਵਿੱਚ ਪੂਰਾ ਰਸਤਾ ਹੁੰਦਾ ਹੈ; ਖੁੱਲ੍ਹੇ ਸਰਕਟ ਵਿੱਚ ਰਸਤਾ ਟੁੱਟਿਆ ਹੁੰਦਾ ਹੈ।",
+  safe:"ਸਿਰਫ਼ ਵਰਚੁਅਲ ਸਿਮੂਲੇਸ਼ਨ। ਅਸਲ ਬਿਜਲੀ ਦੇ ਸਰੋਤ ਜਾਂ ਤਾਰਾਂ ਨਾਲ ਪ੍ਰਯੋਗ ਨਾ ਕਰੋ।"
+ }:{
+  title:"Open and Closed Circuits",aim:"Choose a circuit type and compare the switch, wires, bulb and path of current.",
+  choose:"Select circuit type",closed:"Closed circuit",open:"Open circuit",bulb:"Electric bulb",battery:"Cell / battery",switch:"Switch",
+  closedStatus:"CLOSED CIRCUIT — BULB GLOWING",openStatus:"OPEN CIRCUIT — BULB OFF",
+  closedObs:"The switch is closed, completing the conducting path. Current flows through the circuit and the bulb glows.",
+  openObs:"The switch is open, leaving a gap in the conducting path. Current cannot flow and the bulb stays off.",
+  conclusion:"A closed circuit has a complete path for current; an open circuit has a break in that path.",
+  safe:"VIRTUAL SIMULATION ONLY. Do not experiment with real electrical sources or wiring."
+ };
+ function render(){
+  const closed=mode==="closed",wire=closed?"#16a34a":"#64748b";
+  const svg='<svg class="open-closed-svg" viewBox="0 0 520 330" role="img" aria-label="'+(closed?c.closedStatus:c.openStatus)+'">'+
+   (closed?'<defs><radialGradient id="ocGlow"><stop stop-color="#fffde7"/><stop offset=".58" stop-color="#fde047"/><stop offset="1" stop-color="#f59e0b"/></radialGradient><filter id="ocBloom" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="10" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>':'')+
+   '<rect x="12" y="12" width="496" height="306" rx="18" fill="#f8fbff"/>'+
+   '<g fill="none" stroke="'+wire+'" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"><path d="M105 95 H212 M308 95 H420 V142 M420 194 V260 H105 V202 M105 155 V95"/></g>'+
+   '<circle cx="260" cy="95" r="48" fill="'+(closed?'url(#ocGlow)':'#e2e8f0')+'" stroke="'+(closed?'#d97706':'#475569')+'" stroke-width="6" '+(closed?'filter="url(#ocBloom)"':'')+'/>'+
+   '<path d="M240 75 L280 115 M280 75 L240 115" stroke="#475569" stroke-width="6" stroke-linecap="round"/><path d="M246 148 H274 M250 157 H270" stroke="#475569" stroke-width="5" stroke-linecap="round"/>'+
+   '<g stroke="#334155" stroke-width="5" stroke-linecap="round"><path d="M77 155 H133 M90 178 H120"/></g>'+
+   '<circle cx="420" cy="142" r="7" fill="#334155"/><circle cx="420" cy="194" r="7" fill="#334155"/>'+
+   '<path d="'+(closed?'M420 142 L420 194':'M420 142 L455 160')+'" stroke="'+(closed?'#16a34a':'#d97706')+'" stroke-width="8" stroke-linecap="round"/>'+
+   '<g fill="#173b55" font-size="16" font-weight="900"><text x="260" y="27" text-anchor="middle">'+c.bulb+'</text><text x="105" y="225" text-anchor="middle">'+c.battery+'</text><text x="420" y="225" text-anchor="middle">'+c.switch+'</text><text x="260" y="294" text-anchor="middle">'+(pa?(closed?"ਪੂਰਾ ਕਰੰਟ ਰਸਤਾ":"ਟੁੱਟਿਆ ਕਰੰਟ ਰਸਤਾ"):(closed?"COMPLETE CURRENT PATH":"BROKEN CURRENT PATH"))+'</text></g>'+
+   (closed?'<g stroke="#f59e0b" stroke-width="5" stroke-linecap="round"><path d="M260 32 V20 M210 48 L201 39 M310 48 L319 39 M200 95 H187 M320 95 H333"/></g>':'<g fill="#b45309" font-size="14" font-weight="900"><text x="455" y="132" text-anchor="middle">'+(pa?"ਖਾਲੀ ਥਾਂ":"GAP")+'</text></g>')+
+   '</svg>';
+  $("#openClosedVisual").innerHTML=svg;
+  $("#openClosedStatus").textContent=closed?c.closedStatus:c.openStatus;
+  $("#openClosedObservation").textContent=closed?c.closedObs:c.openObs;
+ }
+ $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+tr("back")+'</button><div class="lab-top-name"><span>⚡</span><div><strong>'+tr("electricity")+'</strong><small>'+(pa?"25 ਪ੍ਰਯੋਗ · ਜਮਾਤਾਂ 6–10":"25 experiments · Classes 6–10")+'</small></div></div></section>'+
+ '<section class="lab-selectors"><label>'+tr("chooseClass")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option '+(cls===n?"selected":"")+' value="'+n+'">'+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+tr("chooseExperiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+esc(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section>'+
+ '<section class="experiment-card"><div class="experiment-meta">'+(pa?"ਜਮਾਤ 6 · ਪ੍ਰਯੋਗ 4 / 5":"CLASS 6 · EXPERIMENT 4 / 5")+'</div><h2>'+c.title+'</h2><p class="aim"><b>'+tr("aim")+':</b> '+c.aim+'</p>'+
+ '<div class="open-closed-workbench"><div class="open-closed-control"><label for="circuitMode">'+c.choose+'</label><select id="circuitMode"><option value="closed" selected>'+c.closed+'</option><option value="open">'+c.open+'</option></select><p>'+(pa?"ਚੋਣ ਬਦਲ ਕੇ ਸਰਕਟ ਦਾ ਨਿਰੀਖਣ ਕਰੋ।":"Change the selection to inspect each circuit.")+'</p></div><div class="open-closed-display"><div id="openClosedVisual"></div><div id="openClosedStatus" class="open-closed-status" aria-live="polite"></div><p id="openClosedObservation"></p></div></div>'+
+ '<div class="conclusion"><b>'+tr("conclusion")+':</b> '+c.conclusion+'</div><p class="safety-note">'+c.safe+'</p><div class="navigation"><button class="back-button" id="prev">'+tr("previous")+'</button><button class="primary-button" id="next">'+tr("next")+' →</button></div></section>';
+ $("#back").onclick=home;
+ $("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};
+ $("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};
+ $("#circuitMode").onchange=e=>{mode=e.target.value;render()};
+ $("#prev").onclick=()=>{if(exp>0){exp--;choice="";draw()}};
+ $("#next").onclick=()=>{if(exp<list().length-1){exp++;choice="";draw()}};
+ render();
+}
+
+
 function draw(){
  if(lab==="electricity"&&cls===6&&exp===0){simpleCircuitLab();return}
  if(lab==="electricity"&&cls===6&&exp===1){circuitConnectionsLab();return}
+ if(lab==="electricity"&&cls===6&&exp===3){openClosedCircuitLab();return}
  if(lab==="electricity"&&cls===6&&item()?.kind==="conductors"){conductorTesterLab();return}
  if(lab==="mentor"){mentor();return}
  if(lab==="biology"&&cls===6&&exp===0){foodTestLab();return}
