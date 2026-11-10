@@ -64,3 +64,15 @@
 .material-circuit-stage .material-circuit-object{position:absolute;left:40.5%;top:53.5%;width:19%;height:31%;display:grid;place-items:center;overflow:hidden;background:#fff;border:2px solid #059669;border-radius:8px;box-shadow:0 2px 7px #0f172a33}
 .material-circuit-stage .material-circuit-object .tested-material-svg{width:100%;height:100%;max-height:none;display:block}
 .material-select-card .tested-material-svg{background:#f8fbff;border-radius:8px}
+
+/* Class 6 Electricity Experiment 4: open and closed circuit comparison */
+.open-closed-workbench{display:grid;grid-template-columns:minmax(190px,.65fr) minmax(0,1.35fr);gap:14px;margin:18px 0}
+.open-closed-control,.open-closed-display{min-width:0;padding:16px;border:1px solid #55cddd55;border-radius:16px;background:linear-gradient(145deg,#102f4c,#0b223a);color:#eaf7ff}
+.open-closed-control label{display:grid;gap:9px;font-weight:900;color:#f3fbff}
+.open-closed-control select{width:100%;min-height:50px;border:2px solid #55cddd;border-radius:10px;background:#071e35;color:#fff;padding:10px;font:inherit;font-weight:800}
+.open-closed-control p{font-size:12px;line-height:1.5;color:#b9d1df}
+.open-closed-display{background:#f8fbff;color:#173b55}
+.open-closed-svg{display:block;width:100%;height:auto}
+.open-closed-status{margin:12px 0 8px;padding:13px;border-radius:11px;background:#d1fae5;border:2px solid #059669;color:#064e3b;text-align:center;font-size:clamp(14px,2.4vw,18px);font-weight:950;line-height:1.4}
+.open-closed-display p{margin:0;padding:12px;background:#eff6ff;border-left:5px solid #0284c7;border-radius:9px;color:#123b59;font-size:14px;font-weight:750;line-height:1.55}
+@media(max-width:650px){.open-closed-workbench{grid-template-columns:1fr}.open-closed-control,.open-closed-display{padding:12px}.open-closed-display p{font-size:13px}}
