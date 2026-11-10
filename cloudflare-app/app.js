@@ -416,7 +416,44 @@ function magnetPolesLab(){
 }
 
 
+
+function heatingEffectApplicationsLab(){
+ const pa=lang==="pa";
+ const T=pa?{
+  title:"ਕਰੰਟ ਦਾ ਤਾਪੀ ਪ੍ਰਭਾਵ — ਰੋਜ਼ਾਨਾ ਵਰਤੋਂ",
+  aim:"ਵੇਖੋ ਕਿ ਬਿਜਲੀ ਕਰੰਟ ਕਾਰਨ ਪੈਦਾ ਹੋਣ ਵਾਲੀ ਗਰਮੀ ਵੱਖ-ਵੱਖ ਉਪਕਰਣਾਂ ਵਿੱਚ ਕਿਵੇਂ ਕੰਮ ਆਉਂਦੀ ਹੈ।",
+  cards:[
+   ["ਬਿਜਲੀ ਦਾ ਬਲਬ","ਤਾਪੀ ਪ੍ਰਭਾਵ ਨਾਲ ਫਿਲਾਮੈਂਟ ਗਰਮ ਹੋ ਕੇ ਰੌਸ਼ਨੀ ਦਿੰਦਾ ਹੈ। ਬਲਬ ਰੌਸ਼ਨੀ ਦੇ ਨਾਲ ਕੁਝ ਤਾਪ ਵੀ ਪੈਦਾ ਕਰਦਾ ਹੈ।"],
+   ["ਬਿਜਲੀ ਹੀਟਰ","ਹੀਟਰ ਦਾ ਤੱਤ ਗਰਮ ਹੁੰਦਾ ਹੈ ਅਤੇ ਆਲੇ-ਦੁਆਲੇ ਨੂੰ ਗਰਮੀ ਦਿੰਦਾ ਹੈ।"],
+   ["ਬਿਜਲੀ ਫਿਊਜ਼","ਬਹੁਤ ਜ਼ਿਆਦਾ ਕਰੰਟ ਨਾਲ ਫਿਊਜ਼ ਤੱਤ ਗਰਮ ਹੋ ਕੇ ਪਿਘਲਦਾ ਹੈ ਅਤੇ ਸਰਕਟ ਤੋੜ ਕੇ ਉਪਕਰਣਾਂ ਦੀ ਰੱਖਿਆ ਕਰਦਾ ਹੈ।"],
+   ["ਬਿਜਲੀ ਪ੍ਰੈੱਸ","ਪ੍ਰੈੱਸ ਦੀ ਤਲੀ ਗਰਮ ਹੁੰਦੀ ਹੈ ਅਤੇ ਕੱਪੜਿਆਂ ਦੀਆਂ ਸਲਵਟਾਂ ਦੂਰ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ।"]
+  ],
+  conclusion:"ਬਿਜਲੀ ਊਰਜਾ ਤਾਪ ਵਿੱਚ ਬਦਲ ਸਕਦੀ ਹੈ। ਇਸ ਤਾਪੀ ਪ੍ਰਭਾਵ ਦੀ ਵਰਤੋਂ ਰੌਸ਼ਨੀ, ਗਰਮੀ, ਸੁਰੱਖਿਆ ਅਤੇ ਕੱਪੜੇ ਪ੍ਰੈੱਸ ਕਰਨ ਲਈ ਹੁੰਦੀ ਹੈ।",
+  safe:"ਇਹ ਸਿਰਫ਼ ਸਿੱਖਣ ਲਈ ਵਰਚੁਅਲ ਚਿੱਤਰ ਹਨ। ਅਸਲ ਬਿਜਲੀ ਦੇ ਉਪਕਰਣ ਨਾ ਖੋਲ੍ਹੋ ਅਤੇ ਨਾ ਹੀ ਉਨ੍ਹਾਂ ਨਾਲ ਪ੍ਰਯੋਗ ਕਰੋ।"
+ }:{
+  title:"Heating Effect of Current — Everyday Applications",
+  aim:"Explore how heat produced by electric current is useful in different appliances.",
+  cards:[
+   ["Electric Bulb","The filament becomes very hot and gives out light. An incandescent bulb also produces heat."],
+   ["Electric Heater","The heating element becomes hot and transfers warmth to the surroundings."],
+   ["Electric Fuse","Excessive current heats and melts the fuse element, breaking the circuit and protecting appliances."],
+   ["Electric Iron","The soleplate becomes hot and helps remove wrinkles from clothes."]
+  ],
+  conclusion:"Electrical energy can be converted into heat. This heating effect is used for producing light, warming spaces, protecting appliances and ironing clothes.",
+  safe:"Virtual learning illustrations only. Do not open, touch or experiment with real electrical appliances or mains electricity."
+ };
+ const pictures=[
+  '<svg viewBox="0 0 220 150" role="img" aria-label="Glowing electric bulb"><defs><radialGradient id="bulbGlow7"><stop stop-color="#fff7ae"/><stop offset=".65" stop-color="#facc15"/><stop offset="1" stop-color="#f59e0b"/></radialGradient></defs><circle cx="110" cy="66" r="54" fill="#fde68a" opacity=".35"/><path d="M78 58a32 32 0 1 1 64 0c0 15-10 22-14 34H92C88 80 78 73 78 58Z" fill="url(#bulbGlow7)" stroke="#b45309" stroke-width="4"/><path d="M94 92h32m-30 9h28m-24 9h20" stroke="#64748b" stroke-width="5" stroke-linecap="round"/><path d="M98 65l12 14 12-14m-12 14v13" fill="none" stroke="#92400e" stroke-width="4" stroke-linecap="round"/><path d="M110 5v-9m-51 25-8-8m110 8 8-8" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/><text x="110" y="137" text-anchor="middle" fill="#92400e" font-size="11" font-weight="800">HOT FILAMENT → LIGHT</text></svg>',
+  '<svg viewBox="0 0 220 150" role="img" aria-label="Electric room heater warming air"><rect x="48" y="42" width="124" height="83" rx="12" fill="#e2e8f0" stroke="#475569" stroke-width="4"/><rect x="62" y="54" width="96" height="55" rx="7" fill="#1e293b"/><path d="M72 82q8-30 16 0t16 0t16 0t16 0t16 0" fill="none" stroke="#fb923c" stroke-width="6" stroke-linecap="round"/><path d="M82 35q-12-15 0-27m28 27q-12-15 0-27m28 27q-12-15 0-27" fill="none" stroke="#f97316" stroke-width="4" stroke-linecap="round"/><path d="M62 126v8m96-8v8" stroke="#475569" stroke-width="6"/><text x="110" y="147" text-anchor="middle" fill="#9a3412" font-size="11" font-weight="800">HEAT TO THE ROOM</text></svg>',
+  '<svg viewBox="0 0 220 150" role="img" aria-label="Fuse element breaking circuit to protect appliance"><path d="M18 67h55m74 0h55" stroke="#16a34a" stroke-width="7" stroke-linecap="round"/><rect x="72" y="47" width="76" height="40" rx="8" fill="#e2e8f0" stroke="#475569" stroke-width="3"/><path d="M80 67h18l10-13 10 26 10-13h12" fill="none" stroke="#dc2626" stroke-width="4" stroke-linejoin="round"/><path d="M104 48l-9-18m22 17 9-22" stroke="#f97316" stroke-width="4" stroke-linecap="round"/><path d="M182 91v22h-20m20-22h20" fill="none" stroke="#64748b" stroke-width="4"/><rect x="154" y="111" width="54" height="25" rx="5" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/><path d="M167 123h28m-14-8v16" stroke="#2563eb" stroke-width="3"/><text x="110" y="17" text-anchor="middle" fill="#b91c1c" font-size="11" font-weight="900">EXCESS CURRENT</text><text x="110" y="145" text-anchor="middle" fill="#166534" font-size="10" font-weight="800">CIRCUIT BREAKS · APPLIANCE PROTECTED</text></svg>',
+  '<svg viewBox="0 0 220 150" role="img" aria-label="Electric iron pressing a piece of cloth"><path d="M32 107q10-28 43-40l42-34q20-16 38 4l29 47q10 18-8 24H32Z" fill="#94a3b8" stroke="#334155" stroke-width="4"/><path d="M86 66q7-37 36-39h22q18 0 22 22" fill="none" stroke="#334155" stroke-width="9" stroke-linecap="round"/><path d="M32 107h144" stroke="#64748b" stroke-width="5"/><path d="M55 119h112l-12 15H67Z" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/><path d="M83 98q-8-14 0-24m24 20q-8-14 0-24m24 20q-8-14 0-24" fill="none" stroke="#f97316" stroke-width="3" stroke-linecap="round"/><text x="110" y="13" text-anchor="middle" fill="#9a3412" font-size="11" font-weight="900">HOT SOLEPLATE</text></svg>'
+ ];
+ $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+tr("back")+'</button><div class="lab-top-name"><span>⚡</span><div><strong>'+tr("electricity")+'</strong><small>'+(pa?"ਜਮਾਤਾਂ 6–10 · ਬਿਜਲੀ ਲੈਬ":"Classes 6–10 · Electricity Lab")+'</small></div></div></section><section class="lab-selectors"><label>'+tr("chooseClass")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option '+(cls===n?"selected":"")+' value="'+n+'">'+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+tr("chooseExperiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+esc(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section><section class="experiment-card"><div class="experiment-meta">'+(pa?"ਜਮਾਤ 7 · ਬਿਜਲੀ ਪ੍ਰਯੋਗ 2 / 5":"CLASS 7 · ELECTRICITY EXPERIMENT 2 / 5")+'</div><h2>'+T.title+'</h2><p class="aim"><b>'+tr("aim")+':</b> '+T.aim+'</p><div class="heating-app-grid">'+T.cards.map((v,i)=>'<article class="heating-app-card"><div class="heating-app-art">'+pictures[i]+'</div><div class="heating-app-copy"><span>'+(pa?"ਵਰਤੋਂ "+(i+1):"APPLICATION "+(i+1))+'</span><h3>'+v[0]+'</h3><p>'+v[1]+'</p></div></article>').join("")+'</div><div class="conclusion"><b>'+tr("conclusion")+':</b> '+T.conclusion+'</div><p class="safety-note">'+T.safe+'</p><div class="navigation"><button class="back-button" id="prev">'+tr("previous")+'</button><button class="primary-button" id="next">'+tr("next")+' →</button></div></section>';
+ $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};$("#prev").onclick=()=>{if(exp>0){exp--;choice="";draw()}};$("#next").onclick=()=>{if(exp<list().length-1){exp++;choice="";draw()}};
+}
+
 function draw(){
+ if(lab==="electricity"&&cls===7&&exp===1){heatingEffectApplicationsLab();return}
  if(lab==="electricity"&&cls===6&&exp===0){simpleCircuitLab();return}
  if(lab==="electricity"&&cls===6&&exp===1){circuitConnectionsLab();return}
  if(lab==="electricity"&&cls===6&&exp===3){openClosedCircuitLab();return}
