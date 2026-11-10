@@ -395,10 +395,29 @@ function openClosedCircuitLab(){
 }
 
 
+
+function magnetPolesLab(){
+ const pa=lang==="pa";let selected="NN";
+ const opts=[{id:"NN",name:"N–N Poles",left:"S",right:"N",like:true},{id:"SS",name:"S–S Poles",left:"N",right:"S",like:true},{id:"NS",name:"N–S Poles",left:"S",right:"N",like:false},{id:"SN",name:"S–N Poles",left:"N",right:"S",like:false}];
+ const c=pa?{title:"ਚੁੰਬਕਾਂ ਵਿੱਚ ਖਿੱਚ ਅਤੇ ਵਿਕਰਸ਼ਣ",aim:"ਦੋ ਡੰਡਾ ਚੁੰਬਕਾਂ ਦੇ ਆਮ੍ਹੋ-ਸਾਹਮਣੇ ਧਰੁਵ ਚੁਣੋ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀ ਗਤੀ ਵੇਖੋ।",choose:"ਧਰੁਵਾਂ ਦੀ ਜੋੜੀ ਚੁਣੋ",attract:"ਚੁੰਬਕ ਇੱਕ-ਦੂਜੇ ਨੂੰ ਖਿੱਚਦੇ ਹਨ",repel:"ਚੁੰਬਕ ਇੱਕ-ਦੂਜੇ ਨੂੰ ਦੂਰ ਧੱਕਦੇ ਹਨ",attraction:"ਵੱਖਰੇ ਧਰੁਵ (N–S ਜਾਂ S–N) ਇੱਕ-ਦੂਜੇ ਨੂੰ ਖਿੱਚਦੇ ਹਨ। ਚੁੰਬਕ ਨੇੜੇ ਆ ਕੇ ਛੂਹਦੇ ਹਨ।",repulsion:"ਇੱਕੋ ਜਿਹੇ ਧਰੁਵ (N–N ਜਾਂ S–S) ਇੱਕ-ਦੂਜੇ ਨੂੰ ਦੂਰ ਧੱਕਦੇ ਹਨ। ਚੁੰਬਕ ਦੂਰ ਹੋ ਜਾਂਦੇ ਹਨ।",left:"ਖੱਬਾ ਡੰਡਾ ਚੁੰਬਕ",right:"ਸੱਜਾ ਡੰਡਾ ਚੁੰਬਕ",rule:"ਇੱਕੋ ਜਿਹੇ ਧਰੁਵ ਦੂਰ ਧੱਕਦੇ ਹਨ; ਵੱਖਰੇ ਧਰੁਵ ਖਿੱਚਦੇ ਹਨ।",safe:"ਇਹ ਚੁੰਬਕਾਂ ਦਾ ਵਰਚੁਅਲ ਸਿੱਖਣ ਮਾਡਲ ਹੈ।"}:{title:"Attraction and Repulsion of Magnets",aim:"Choose the facing poles of two bar magnets and observe how they move.",choose:"Select the facing poles",attract:"MAGNETS ATTRACT",repel:"MAGNETS REPEL",attraction:"Unlike poles (N–S or S–N) attract each other. The two bar magnets move towards and touch each other.",repulsion:"Like poles (N–N or S–S) repel each other. The two bar magnets move away from each other.",left:"LEFT BAR MAGNET",right:"RIGHT BAR MAGNET",rule:"Like poles repel; unlike poles attract.",safe:"Virtual magnet model for learning."};
+ function render(){
+  const o=opts.find(x=>x.id===selected)||opts[0],attract=!o.like,lx=attract?112:38,rx=attract?272:352;
+  const half=(p,x)=>'<g><rect x="'+x+'" y="0" width="80" height="62" rx="8" fill="'+(p==="N"?"#dc3b42":"#2877c7")+'"/><text x="'+(x+40)+'" y="40" text-anchor="middle" font-size="29" font-weight="1000" fill="#fff">'+p+'</text></g>';
+  const bar=(l,r,x)=>'<g class="magnet-bar" transform="translate('+x+' 78)">'+half(l,0)+half(r,80)+'<rect x="0" y="0" width="160" height="62" rx="8" fill="none" stroke="#173b55" stroke-width="3"/></g>';
+  $("#magnetVisual").innerHTML='<svg class="magnet-poles-svg" viewBox="0 0 520 205" role="img" aria-label="'+(attract?c.attract:c.repel)+'"><rect x="8" y="8" width="504" height="188" rx="18" fill="#f5f9ff"/>'+bar(o.left,o.right,lx)+bar(o.right==="N"?"S":"N",o.right,rx)+'<text x="'+(lx+80)+'" y="62" text-anchor="middle" font-size="12" font-weight="900" fill="#173b55">'+c.left+'</text><text x="'+(rx+80)+'" y="62" text-anchor="middle" font-size="12" font-weight="900" fill="#173b55">'+c.right+'</text></svg>';
+  $("#magnetResult").textContent=attract?c.attract:c.repel;$("#magnetResult").className="magnet-result "+(attract?"attract":"repel");$("#magnetObservation").textContent=attract?c.attraction:c.repulsion;$("#magnetFacing").textContent=(pa?"ਆਮ੍ਹੋ-ਸਾਹਮਣੇ ਧਰੁਵ: ":"Facing poles: ")+o.id.replace("N","N").replace("S","S").split("").join("–");
+ }
+ const names=pa?{"N–N Poles":"N–N ਧਰੁਵ","S–S Poles":"S–S ਧਰੁਵ","N–S Poles":"N–S ਧਰੁਵ","S–N Poles":"S–N ਧਰੁਵ"}:{};
+ $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+tr("back")+'</button><div class="lab-top-name"><span>🧲</span><div><strong>'+tr("electricity")+'</strong><small>'+(pa?"ਜਮਾਤਾਂ 6–10 · ਬਿਜਲੀ ਲੈਬ":"Classes 6–10 · Electricity Lab")+'</small></div></div></section><section class="lab-selectors"><label>'+tr("chooseClass")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option '+(cls===n?"selected":"")+' value="'+n+'">'+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+tr("chooseExperiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+esc(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section><section class="experiment-card"><div class="experiment-meta">'+(pa?"ਜਮਾਤ 6 · ਬਿਜਲੀ ਪ੍ਰਯੋਗ 5 / 5":"CLASS 6 · ELECTRICITY EXPERIMENT 5 / 5")+'</div><h2>'+c.title+'</h2><p class="aim"><b>'+tr("aim")+':</b> '+c.aim+'</p><div class="magnet-lab"><div class="magnet-select"><label for="magnetPoles">'+c.choose+'</label><select id="magnetPoles">'+opts.map(o=>'<option value="'+o.id+'" '+(o.id===selected?"selected":"")+'>'+(names[o.name]||o.name)+'</option>').join("")+'</select><p id="magnetFacing" class="magnet-facing"></p></div><div class="magnet-display"><div id="magnetVisual"></div><div id="magnetResult" class="magnet-result" aria-live="polite"></div><p id="magnetObservation" class="magnet-observation"></p></div></div><div class="conclusion"><b>'+tr("conclusion")+':</b> '+c.rule+'</div><p class="safety-note">'+c.safe+'</p><div class="navigation"><button class="back-button" id="prev">'+tr("previous")+'</button><button class="primary-button" id="next" disabled>'+tr("next")+' →</button></div></section>';
+ $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};$("#magnetPoles").onchange=e=>{selected=e.target.value;render()};$("#prev").onclick=()=>{if(exp>0){exp--;choice="";draw()}};render();
+}
+
+
 function draw(){
  if(lab==="electricity"&&cls===6&&exp===0){simpleCircuitLab();return}
  if(lab==="electricity"&&cls===6&&exp===1){circuitConnectionsLab();return}
  if(lab==="electricity"&&cls===6&&exp===3){openClosedCircuitLab();return}
+ if(lab==="electricity"&&cls===6&&exp===4){magnetPolesLab();return}
  if(lab==="electricity"&&cls===6&&item()?.kind==="conductors"){conductorTesterLab();return}
  if(lab==="mentor"){mentor();return}
  if(lab==="biology"&&cls===6&&exp===0){foodTestLab();return}
