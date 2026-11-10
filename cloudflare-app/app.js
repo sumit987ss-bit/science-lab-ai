@@ -265,7 +265,7 @@ function circuitConnectionsLab(){
 
 
 function conductorTesterLab(){
- const pa=lang==="pa";let material="Iron";
+ const pa=lang==="pa";const it=item();let material="Iron";
  const items=[
   ["Iron","ਲੋਹਾ","conductor","A small iron nail / rod"],
   ["Copper","ਤਾਂਬਾ","conductor","A short copper strip"],
