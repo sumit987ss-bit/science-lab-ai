@@ -635,7 +635,7 @@ function class9VoltageCurrentResistanceLab(){
 }
 
 
-function class9SeriesParallelLab(){
+function class10SeriesParallelLab(){
  const pa=lang==="pa";let mode="series";
  const render=()=>{
   const s=mode==="series";
@@ -646,12 +646,36 @@ function class9SeriesParallelLab(){
   $("#spTitle").textContent=heading;$("#spDetail").textContent=detail;
   $("#spResult").innerHTML=s?'<div class="c9-sp-result series"><b>'+(pa?"ਨਤੀਜਾ":"RESULT")+'</b><strong>'+(pa?"ਇੱਕ ਰਸਤਾ":"ONE PATH")+'</strong><span>'+(pa?"ਇੱਕ ਬਲਬ ਖਰਾਬ ਹੋਵੇ ਤਾਂ ਦੋਵੇਂ ਬੰਦ":"If one bulb fails, both go OFF")+'</span></div>':'<div class="c9-sp-result parallel"><b>'+(pa?"ਨਤੀਜਾ":"RESULT")+'</b><strong>'+(pa?"ਦੋ ਵੱਖਰੀਆਂ ਸ਼ਾਖਾਂ":"TWO BRANCHES")+'</strong><span>'+(pa?"ਇੱਕ ਬਲਬ ਖਰਾਬ ਹੋਵੇ ਤਾਂ ਦੂਜਾ ਜਲ ਸਕਦਾ ਹੈ":"If one bulb fails, the other can stay ON")+'</span></div>';
  };
- $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+tr("back")+'</button><div class="lab-top-name"><span>⚡</span><div><strong>'+tr("electricity")+'</strong><small>Classes 6–10 · Electricity Lab</small></div></div></section><section class="lab-selectors"><label>'+tr("chooseClass")+'<select id="cl">'+[6,7,8,9,10].map(v=>'<option value="'+v+'" '+(cls===v?"selected":"")+'>'+(pa?v+"ਵੀਂ ਜਮਾਤ":"Class "+v)+'</option>').join("")+'</select></label><label>'+tr("chooseExperiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+esc(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section><section class="experiment-card"><div class="experiment-meta">'+(pa?"ਜਮਾਤ 9 · ਬਿਜਲੀ ਲੈਬ · ਪ੍ਰਯੋਗ 3 / 5":"CLASS 9 · ELECTRICITY LAB · EXPERIMENT 3 / 5")+'</div><h2>'+(pa?"ਲੜੀਵਾਰ ਅਤੇ ਸਮਾਂਤਰ ਸਰਕਟ":"Series and Parallel Circuits")+'</h2><p class="aim"><b>'+tr("aim")+':</b> '+(pa?"ਦੋ ਬਲਬਾਂ ਦੇ ਸਰਕਟ ਵਿੱਚ ਕਰੰਟ ਦੇ ਰਸਤੇ ਦੀ ਤੁਲਨਾ ਕਰਨੀ।":"Compare the current paths in circuits containing two bulbs.")+'</p><div class="c9-sp-controls"><label>'+(pa?"ਸਰਕਟ ਦੀ ਕਿਸਮ ਚੁਣੋ":"Choose circuit type")+'<select id="spMode" class="c9-dropdown"><option value="series">'+(pa?"ਲੜੀਵਾਰ ਸਰਕਟ":"Series circuit")+'</option><option value="parallel">'+(pa?"ਸਮਾਂਤਰ ਸਰਕਟ":"Parallel circuit")+'</option></select></label></div><h3 id="spTitle" class="c9-sp-heading"></h3><div class="c9-sp-visual" id="spVisual"></div><p class="c9-sp-detail" id="spDetail"></p><div id="spResult"></div><p class="safety-note">'+(pa?"ਇਹ ਸਮਝਾਉਣ ਲਈ ਬਣਾਇਆ ਗਿਆ ਵਰਚੁਅਲ ਸਰਕਟ ਮਾਡਲ ਹੈ।":"Illustrative virtual circuit model for learning.")+'</p><div class="navigation"><button id="prev" class="back-button">'+tr("previous")+'</button><button id="next" class="primary-button">'+tr("next")+' →</button></div></section>';
+ $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+tr("back")+'</button><div class="lab-top-name"><span>⚡</span><div><strong>'+tr("electricity")+'</strong><small>Classes 6–10 · Electricity Lab</small></div></div></section><section class="lab-selectors"><label>'+tr("chooseClass")+'<select id="cl">'+[6,7,8,9,10].map(v=>'<option value="'+v+'" '+(cls===v?"selected":"")+'>'+(pa?v+"ਵੀਂ ਜਮਾਤ":"Class "+v)+'</option>').join("")+'</select></label><label>'+tr("chooseExperiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+esc(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section><section class="experiment-card"><div class="experiment-meta">'+(pa?"ਜਮਾਤ 10 · ਬਿਜਲੀ ਲੈਬ · ਪ੍ਰਯੋਗ 2 / 5":"CLASS 10 · ELECTRICITY LAB · EXPERIMENT 2 / 5")+'</div><h2>'+(pa?"ਲੜੀਵਾਰ ਅਤੇ ਸਮਾਂਤਰ ਸਰਕਟ":"Series and Parallel Circuits")+'</h2><p class="aim"><b>'+tr("aim")+':</b> '+(pa?"ਦੋ ਬਲਬਾਂ ਦੇ ਸਰਕਟ ਵਿੱਚ ਕਰੰਟ ਦੇ ਰਸਤੇ ਦੀ ਤੁਲਨਾ ਕਰਨੀ।":"Compare the current paths in circuits containing two bulbs.")+'</p><div class="c9-sp-controls"><label>'+(pa?"ਸਰਕਟ ਦੀ ਕਿਸਮ ਚੁਣੋ":"Choose circuit type")+'<select id="spMode" class="c9-dropdown"><option value="series">'+(pa?"ਲੜੀਵਾਰ ਸਰਕਟ":"Series circuit")+'</option><option value="parallel">'+(pa?"ਸਮਾਂਤਰ ਸਰਕਟ":"Parallel circuit")+'</option></select></label></div><h3 id="spTitle" class="c9-sp-heading"></h3><div class="c9-sp-visual" id="spVisual"></div><p class="c9-sp-detail" id="spDetail"></p><div id="spResult"></div><p class="safety-note">'+(pa?"ਇਹ ਸਮਝਾਉਣ ਲਈ ਬਣਾਇਆ ਗਿਆ ਵਰਚੁਅਲ ਸਰਕਟ ਮਾਡਲ ਹੈ।":"Illustrative virtual circuit model for learning.")+'</p><div class="navigation"><button id="prev" class="back-button">'+tr("previous")+'</button><button id="next" class="primary-button">'+tr("next")+' →</button></div></section>';
  $("#back").onclick=home;$("#cl").onchange=ev=>{cls=+ev.target.value;exp=0;choice="";draw()};$("#ex").onchange=ev=>{exp=+ev.target.value;choice="";draw()};
  $("#spMode").onchange=ev=>{mode=ev.target.value;render()};
  $("#prev").onclick=()=>{if(exp>0){exp--;choice="";draw()}};$("#next").onclick=()=>{if(exp<list().length-1){exp++;choice="";draw()}};
  render();
 }
+
+function class10ResistanceCombinationLab(){
+ const pa=lang==="pa";let mode="series";
+ const render=()=>{
+  const series=mode==="series";
+  const names=[4,8,12,24];
+  const resistor=(x,y,w,h,n)=>'<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="8" fill="#ffedd5" stroke="#ea580c" stroke-width="3"/><path d="M'+(x+8)+' '+(y+h/2)+' l8 -8 8 16 8 -16 8 16 8 -8" fill="none" stroke="#c2410c" stroke-width="2.5"/><text x="'+(x+w/2)+'" y="'+(y+h/2+29)+'" text-anchor="middle" font-size="15" font-weight="950" fill="#9a3412">'+n+' Ω</text>';
+  let body="";
+  if(series){
+   body='<path d="M65 145 H110 M190 145 H220 M300 145 H330 M410 145 H440 M520 145 H615 V260 H65 V145" fill="none" stroke="#256b83" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>'+resistor(110,125,80,40,4)+resistor(220,125,80,40,8)+resistor(330,125,80,40,12)+resistor(440,125,80,40,24)+'<text x="340" y="205" text-anchor="middle" font-size="17" font-weight="950" fill="#1e40af">ONE PATH · ALL FOUR IN SERIES</text>';
+  }else{
+   body='<path d="M85 75 V270 M615 75 V270 M85 75 H615 M85 270 H615" fill="none" stroke="#256b83" stroke-width="6" stroke-linecap="round"/>';
+   const ys=[105,155,205,255],rs=[4,8,12,24];
+   body+=ys.map((y,i)=>'<path d="M85 '+y+' H210 M490 '+y+' H615" stroke="#256b83" stroke-width="5"/>'+resistor(210,y-17,280,34,rs[i])).join('');
+   body+='<text x="350" y="45" text-anchor="middle" font-size="16" font-weight="950" fill="#1e40af">FOUR SEPARATE PARALLEL BRANCHES</text>';
+  }
+  const total=series?48:2;
+  const calc=series?"4 + 8 + 12 + 24 = 48 Ω":"1/R = 1/4 + 1/8 + 1/12 + 1/24 = 12/24 = 1/2\nR = 2 Ω";
+  $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+tr("back")+'</button><div class="lab-top-name"><span>⚡</span><div><strong>'+tr("electricity")+'</strong><small>Classes 6–10 · Electricity Lab</small></div></div></section><section class="lab-selectors"><label>'+tr("chooseClass")+'<select id="cl">'+[6,7,8,9,10].map(v=>'<option value="'+v+'" '+(cls===v?"selected":"")+'>'+(pa?v+"ਵੀਂ ਜਮਾਤ":"Class "+v)+'</option>').join("")+'</select></label><label>'+tr("chooseExperiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+esc(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section><section class="experiment-card c10-rcombo"><div class="experiment-meta">'+(pa?"ਜਮਾਤ 10 · ਬਿਜਲੀ ਲੈਬ · ਪ੍ਰਯੋਗ 3 / 5":"CLASS 10 · ELECTRICITY LAB · EXPERIMENT 3 / 5")+'</div><h2>'+(pa?"ਲੜੀਵਾਰ ਅਤੇ ਸਮਾਂਤਰ ਰੋਧ ਦਾ ਕੁੱਲ ਰੋਧ":"Total Resistance in Series and Parallel")+'</h2><p class="aim"><b>'+tr("aim")+':</b> '+(pa?"4Ω, 8Ω, 12Ω ਅਤੇ 24Ω ਰੋਧਾਂ ਨੂੰ ਲੜੀਵਾਰ ਅਤੇ ਸਮਾਂਤਰ ਜੋੜ ਕੇ ਕੁੱਲ ਰੋਧ ਪਤਾ ਕਰਨਾ।":"Find the total resistance when 4 Ω, 8 Ω, 12 Ω and 24 Ω resistors are connected (a) in series and (b) in parallel.")+'</p><div class="c10-rcombo-controls"><label>'+(pa?"ਜੋੜ ਦੀ ਕਿਸਮ ਚੁਣੋ":"Select connection")+'<select id="rcomboMode" class="c9-dropdown"><option value="series" '+(series?"selected":"")+'>'+(pa?"ਲੜੀਵਾਰ ਜੋੜ":"Series connection")+'</option><option value="parallel" '+(!series?"selected":"")+'>'+(pa?"ਸਮਾਂਤਰ ਜੋੜ":"Parallel connection")+'</option></select></label></div><h3 class="c10-rcombo-heading">'+(series?(pa?"ਲੜੀਵਾਰ ਸਰਕਟ":"SERIES CONNECTION"):(pa?"ਸਮਾਂਤਰ ਸਰਕਟ":"PARALLEL CONNECTION"))+'</h3><div class="c10-rcombo-visual"><svg viewBox="0 0 700 320" role="img" aria-label="'+(series?"Four resistors 4, 8, 12 and 24 ohms connected in series":"Four resistors 4, 8, 12 and 24 ohms connected in parallel")+'"><rect width="700" height="320" rx="18" fill="#f7fbff"/>'+body+'</svg></div><div class="c10-rcombo-result '+(series?"series":"parallel")+'"><span>'+(pa?"ਕੁੱਲ ਰੋਧ":"TOTAL RESISTANCE")+'</span><strong>'+total+' Ω</strong><b>'+calc.replaceAll("\n","<br>")+'</b><small>'+(series?(pa?"ਲੜੀਵਾਰ ਜੋੜ ਵਿੱਚ ਸਾਰੇ ਰੋਧ ਜੋੜੇ ਜਾਂਦੇ ਹਨ।":"In series, all resistance values are added."):(pa?"ਸਮਾਂਤਰ ਜੋੜ ਵਿੱਚ ਉਲਟ ਰੋਧ ਜੋੜੇ ਜਾਂਦੇ ਹਨ।":"In parallel, the reciprocals of the resistances are added."))+'</small></div><p class="safety-note">'+(pa?"ਇਹ ਸਿੱਖਣ ਲਈ ਬਣਾਇਆ ਗਿਆ ਵਰਚੁਅਲ ਸਰਕਟ ਮਾਡਲ ਹੈ।":"Virtual circuit model for learning.")+'</p><div class="navigation"><button id="prev" class="back-button">'+tr("previous")+'</button><button id="next" class="primary-button">'+tr("next")+' →</button></div></section>';
+  $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};$("#rcomboMode").onchange=e=>{mode=e.target.value;render()};$("#prev").onclick=()=>{if(exp>0){exp--;choice="";draw()}};$("#next").onclick=()=>{if(exp<list().length-1){exp++;choice="";draw()}};
+ };
+ render();
+}
+
 function class9PowerEnergyLab(){
  const pa=lang==="pa";let concept="power";
  const render=()=>{
@@ -696,6 +720,8 @@ function class9StaticElectricityLab(){
 
 function draw(){
  if(lab==="electricity"&&cls===10&&exp===0){class10OhmsLawLab();return}
+ if(lab==="electricity"&&cls===10&&exp===1){class10SeriesParallelLab();return}
+ if(lab==="electricity"&&cls===10&&exp===2){class10ResistanceCombinationLab();return}
  if(lab==="electricity"&&cls===9&&exp===0){class9AtomicStructureLab();return}
  if(lab==="electricity"&&cls===9&&exp===1){class9VoltageCurrentResistanceLab();return}
  if(lab==="electricity"&&cls===9&&exp===2){class9SeriesParallelLab();return}
