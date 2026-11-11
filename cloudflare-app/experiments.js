@@ -294,8 +294,8 @@ window.LAB_DATA = {
       "class": 6
     },
     {
-      "title": "Magnets Attract or Repel",
-      "title_pa": "ਚੁੰਬਕ ਖਿੱਚਦੇ ਜਾਂ ਧੱਕਦੇ ਹਨ",
+      "title": "Attraction and Repulsion of Magnets",
+      "title_pa": "ਚੁੰਬਕਾਂ ਵਿੱਚ ਖਿੱਚ ਅਤੇ ਵਿਕਰਸ਼ਣ",
       "aim": "Choose pole orientation and observe the interaction.",
       "aim_pa": "ਧਰੁਵਾਂ ਦੀ ਦਿਸ਼ਾ ਚੁਣ ਕੇ ਪ੍ਰਭਾਵ ਵੇਖੋ।",
       "kind": "magnet",
