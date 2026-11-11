@@ -373,3 +373,13 @@
 .c10-rcombo-result b{font-size:clamp(16px,3.5vw,21px);line-height:1.7;white-space:normal}
 .c10-rcombo-result small{font-size:13px;font-weight:800;line-height:1.5}
 @media(max-width:560px){.c10-rcombo-controls{padding:12px}.c10-rcombo-visual{padding:3px}.c10-rcombo-visual svg{min-height:170px}}
+
+
+.c10-ohm-graph{margin:12px 0 18px;padding:8px;border:1px solid #9cc9e2;border-radius:16px;background:#eef7fc;overflow:hidden}
+.c10-ohm-graph-wrap{width:100%}
+.c10-ohm-graph-wrap svg{display:block;width:100%;height:auto}
+.c10-ohm-graph-key{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:9px 12px;color:#173b55;font-size:13px;font-weight:850}
+.c10-ohm-graph-key span{display:flex;align-items:center;gap:8px}
+.c10-ohm-graph-key i{display:inline-block;width:12px;height:12px;border-radius:50%;background:#0d9488}
+.c10-ohm-graph-key b{padding:7px 10px;border-radius:9px;background:#fff7ed;color:#9a3412}
+@media(max-width:560px){.c10-ohm-graph{padding:3px}.c10-ohm-graph-key{font-size:11px}}
