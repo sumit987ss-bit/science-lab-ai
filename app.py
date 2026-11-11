@@ -106,7 +106,7 @@ EXPERIMENTS = {
 ],
 8: [
 ("Can Liquids Conduct Electricity?","ਕੀ ਤਰਲ ਬਿਜਲੀ ਚਲਾ ਸਕਦੇ ਹਨ?","Compare the conductivity of different virtual liquid samples.","ਵੱਖ-ਵੱਖ ਵਰਚੁਅਲ ਤਰਲਾਂ ਦੀ ਚਾਲਕਤਾ ਦੀ ਤੁਲਨਾ ਕਰੋ।","liquids","Conductivity depends on mobile ions; the sample model is qualitative.","ਚਾਲਕਤਾ ਚਲਣਯੋਗ ਆਇਨਾਂ ਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ; ਇਹ ਮਾਡਲ ਗੁਣਾਤਮਕ ਹੈ।"),
-("Chemical Effects of Electric Current","ਬਿਜਲੀ ਕਰੰਟ ਦੇ ਰਸਾਇਣਕ ਪ੍ਰਭਾਵ","Explore how current through a suitable solution can cause chemical change.","ਜਾਣੋ ਕਿ ਢੁਕਵੇਂ ਘੋਲ ਵਿੱਚੋਂ ਕਰੰਟ ਲੰਘਣ ਨਾਲ ਰਸਾਇਣਕ ਤਬਦੀਲੀ ਹੋ ਸਕਦੀ ਹੈ।","electrolysis","Electrolysis involves chemical changes driven by electric current.","ਇਲੈਕਟ੍ਰੋਲਾਈਸਿਸ ਵਿੱਚ ਬਿਜਲੀ ਕਰੰਟ ਕਾਰਨ ਰਸਾਇਣਕ ਤਬਦੀਲੀਆਂ ਹੁੰਦੀਆਂ ਹਨ।"),
+("Chemical Effects of Electric Current — Electroplating","ਬਿਜਲੀ ਕਰੰਟ ਦੇ ਰਸਾਇਣਕ ਪ੍ਰਭਾਵ — ਇਲੈਕਟ੍ਰੋਪਲੇਟਿੰਗ","Use electric current to deposit a thin copper layer on a metal plate in copper sulphate solution.","ਕਾਪਰ ਸਲਫੇਟ ਦੇ ਘੋਲ ਵਿੱਚ ਬਿਜਲੀ ਕਰੰਟ ਦੀ ਮਦਦ ਨਾਲ ਧਾਤ ਦੀ ਪਲੇਟ ਉੱਤੇ ਤਾਂਬੇ ਦੀ ਪਤਲੀ ਪਰਤ ਜਮਾਓ।","electroplating","Copper ions move towards the negative cathode and form a copper coating; the copper anode replenishes copper ions.","ਤਾਂਬੇ ਦੇ ਆਇਨ ਰਿਣਾਤਮਕ ਕੈਥੋਡ ਵੱਲ ਜਾਂਦੇ ਹਨ ਅਤੇ ਤਾਂਬੇ ਦੀ ਪਰਤ ਬਣਾਉਂਦੇ ਹਨ; ਤਾਂਬੇ ਦਾ ਐਨੋਡ ਘੋਲ ਵਿੱਚ ਤਾਂਬੇ ਦੇ ਆਇਨ ਮੁੜ ਪੈਦਾ ਕਰਦਾ ਹੈ।"),
 ("Understand Electroplating","ਇਲੈਕਟ੍ਰੋਪਲੇਟਿੰਗ ਨੂੰ ਸਮਝੋ","Simulate metal coating and learn why it is used.","ਧਾਤ ਦੀ ਪਰਤ ਚੜ੍ਹਾਉਣ ਦਾ ਮਾਡਲ ਵੇਖੋ ਅਤੇ ਇਸ ਦੀ ਵਰਤੋਂ ਸਮਝੋ।","electroplating","Electroplating deposits a thin layer of one metal on another object.","ਇਲੈਕਟ੍ਰੋਪਲੇਟਿੰਗ ਵਿੱਚ ਇੱਕ ਧਾਤ ਦੀ ਪਤਲੀ ਪਰਤ ਦੂਜੀ ਵਸਤੂ ਉੱਤੇ ਜਮਾਈ ਜਾਂਦੀ ਹੈ।"),
 ("Electricity Can Produce Magnetism","ਬਿਜਲੀ ਨਾਲ ਚੁੰਬਕਤਾ ਪੈਦਾ ਹੋ ਸਕਦੀ ਹੈ","Investigate the relationship between current and magnetic effects.","ਕਰੰਟ ਅਤੇ ਚੁੰਬਕੀ ਪ੍ਰਭਾਵਾਂ ਵਿਚਕਾਰ ਸਬੰਧ ਸਮਝੋ।","electromagnet","A coil carrying current can behave like a magnet.","ਕਰੰਟ ਵਾਲੀ ਕੋਇਲ ਚੁੰਬਕ ਵਾਂਗ ਵਰਤਾਅ ਕਰ ਸਕਦੀ ਹੈ।"),
 ("How Does a Cell Supply Electricity?","ਸੈੱਲ ਬਿਜਲੀ ਕਿਵੇਂ ਦਿੰਦਾ ਹੈ?","Explore the conversion of chemical energy into electrical energy.","ਰਸਾਇਣਕ ਊਰਜਾ ਦੇ ਬਿਜਲੀ ਊਰਜਾ ਵਿੱਚ ਬਦਲਣ ਨੂੰ ਸਮਝੋ।","cell","A cell converts stored chemical energy into electrical energy.","ਸੈੱਲ ਵਿੱਚ ਸੰਭਾਲੀ ਰਸਾਇਣਕ ਊਰਜਾ ਬਿਜਲੀ ਊਰਜਾ ਵਿੱਚ ਬਦਲਦੀ ਹੈ।")
@@ -201,7 +201,7 @@ def electricity_lab():
                 ),
                 key=f"class7_fuse_condition_{st.session_state.language}",
             )
-        closed = st.checkbox(tr("switch"), value=True, key=f"sw_{selected_class}_{exp_index}") if ((kind in ("circuit", "motor", "electromagnet", "magnetic_field", "ohms", "series_parallel", "power", "heating") or (selected_class == 8 and exp_index == 4 and kind == "cell")) and not (selected_class == 6 and exp_index == 1) and not (selected_class == 9 and exp_index == 2 and kind == "series_parallel")) else True
+        closed = st.checkbox(tr("switch"), value=True, key=f"sw_{selected_class}_{exp_index}") if ((kind in ("circuit", "motor", "electromagnet", "magnetic_field", "ohms", "series_parallel", "power", "heating", "electroplating") or (selected_class == 8 and exp_index == 4 and kind == "cell")) and not (selected_class == 6 and exp_index == 1) and not (selected_class == 9 and exp_index == 2 and kind == "series_parallel")) else True
         turns = 10
         current_control = 1.0
         material = None
@@ -1433,79 +1433,104 @@ def electricity_lab():
             st.write("💡 " + note)
             st.caption("Qualitative illustration only — effects depend on solution and electrode material; no numerical readings." if not is_pa_electrolysis else "ਸਿਰਫ਼ ਗੁਣਾਤਮਕ ਚਿੱਤਰ — ਪ੍ਰਭਾਵ ਘੋਲ ਅਤੇ ਇਲੈਕਟ੍ਰੋਡ ਦੇ ਪਦਾਰਥ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੇ ਹਨ; ਕੋਈ ਸੰਖਿਆਤਮਕ ਮਾਪ ਨਹੀਂ।")
         elif kind == "electroplating":
+            # Class 8 chemical-effects experiment: copper electroplating with
+            # a copper anode (+), an iron cathode (-), and copper sulphate.
             is_pa_plate = st.session_state.language != "en"
-            plate_options = ["copper", "silver", "nickel"]
-            plate_labels = {
-                "copper": "ਤਾਂਬੇ ਦੀ ਪਰਤ" if is_pa_plate else "Copper coating",
-                "silver": "ਚਾਂਦੀ ਦੀ ਪਰਤ" if is_pa_plate else "Silver coating",
-                "nickel": "ਨਿੱਕਲ ਦੀ ਪਰਤ" if is_pa_plate else "Nickel coating",
-            }
-            coating_metal = st.selectbox(
-                "ਕਿਹੜੀ ਧਾਤ ਦੀ ਪਰਤ?" if is_pa_plate else "Choose coating metal",
-                plate_options,
-                format_func=lambda x: plate_labels[x],
-                key=f"electroplate_metal_{st.session_state.language}",
+            active = closed
+            wire_color = "#16a34a" if active else "#94a3b8"
+            coating_color = "#c87941"
+            coating_opacity = "1" if active else "0"
+            ion_arrows = (
+                '<g stroke="#f59e0b" stroke-width="3" fill="#f59e0b" stroke-linecap="round">'
+                '<path d="M185 151 H270 M260 143 L270 151 L260 159"/>'
+                '<path d="M185 185 H270 M260 177 L270 185 L260 193"/>'
+                '<path d="M185 219 H270 M260 211 L270 219 L260 227"/>'
+                '</g>'
+                if active else ""
             )
-            coating_colors = {"copper": "#c87941", "silver": "#dbe4ee", "nickel": "#94a3b8"}
-            coating_color = coating_colors[coating_metal]
-            metal_name = plate_labels[coating_metal]
-            # Illustrative cross-section: a base object receives a thin deposited metal layer.
+            copper_atoms = (
+                '<g fill="#c87941" stroke="#8b4513" stroke-width="1.5">'
+                '<circle cx="277" cy="127" r="4"/><circle cx="285" cy="141" r="3"/>'
+                '<circle cx="277" cy="158" r="4"/><circle cx="286" cy="176" r="3"/>'
+                '<circle cx="277" cy="194" r="4"/><circle cx="285" cy="211" r="3"/>'
+                '</g>'
+                if active else ""
+            )
+            switch_status = (
+                ("ਸਵਿੱਚ ਚਾਲੂ — ਕੈਥੋਡ ਉੱਤੇ ਤਾਂਬੇ ਦੀ ਪਰਤ ਜਮ ਰਹੀ ਹੈ" if active else "ਸਵਿੱਚ ਬੰਦ — ਇਲੈਕਟ੍ਰੋਪਲੇਟਿੰਗ ਰੁਕੀ ਹੋਈ ਹੈ")
+                if is_pa_plate else
+                ("SWITCH ON — COPPER IS DEPOSITING ON THE CATHODE" if active else "SWITCH OFF — ELECTROPLATING IS STOPPED")
+            )
             plating_svg = f"""
 <div style="border:1px solid rgba(120,140,160,.35);border-radius:16px;padding:12px;background:rgba(128,128,128,.035);">
-<svg viewBox="0 0 440 310" width="100%" role="img" aria-label="Electroplating illustration showing a metal coating depositing onto an object in an electrolyte bath">
+<svg viewBox="0 0 460 360" width="100%" role="img" aria-label="Copper electroplating cell: copper anode connected to positive terminal and iron cathode connected to negative terminal, both dipped in copper sulphate solution; copper deposits on cathode">
   <defs>
-    <linearGradient id="bath" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#bfdbfe" stop-opacity=".8"/>
-      <stop offset="100%" stop-color="#60a5fa" stop-opacity=".45"/>
+    <linearGradient id="cuBath" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#93c5fd" stop-opacity=".85"/>
+      <stop offset="100%" stop-color="#2563eb" stop-opacity=".48"/>
     </linearGradient>
-    <linearGradient id="baseMetal" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#64748b"/>
-      <stop offset="100%" stop-color="#334155"/>
+    <linearGradient id="ironPlate" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#64748b"/><stop offset="50%" stop-color="#cbd5e1"/><stop offset="100%" stop-color="#64748b"/>
     </linearGradient>
   </defs>
   <g stroke-linecap="round" stroke-linejoin="round">
-    <path d="M62 95 V238 Q62 258 84 258 H356 Q378 258 378 238 V95" fill="none" stroke="#64748b" stroke-width="5"/>
-    <path d="M67 130 H373 V237 Q373 253 354 253 H86 Q67 253 67 237 Z" fill="url(#bath)"/>
-    <path d="M67 130 H373" stroke="#2563eb" stroke-width="3" stroke-dasharray="7 5"/>
-    <path d="M132 54 V191" stroke="#c87941" stroke-width="13"/>
-    <path d="M132 54 V28 H309 V54" fill="none" stroke="#dc2626" stroke-width="4"/>
-    <path d="M309 54 V191" stroke="#64748b" stroke-width="13"/>
-    <rect x="185" y="15" width="70" height="27" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
-    <text x="220" y="33" fill="#0f172a" font-size="12" font-weight="700" text-anchor="middle">CELL</text>
-    <path d="M132 28 H185 M255 28 H309" stroke="#dc2626" stroke-width="4"/>
-    <text x="132" y="48" fill="currentColor" font-size="12" text-anchor="middle">{'ਐਨੋਡ (+)' if is_pa_plate else 'ANODE (+)'}</text>
-    <text x="309" y="48" fill="currentColor" font-size="12" text-anchor="middle">{'ਕੈਥੋਡ (−)' if is_pa_plate else 'CATHODE (−)'}</text>
-    <g fill="{coating_color}" stroke="#475569" stroke-width="2">
-      <path d="M196 179 L196 211 Q196 225 210 225 H270 Q284 225 284 211 V179 Q284 169 274 169 H206 Q196 169 196 179 Z"/>
+    <rect x="176" y="16" width="108" height="42" rx="9" fill="#e2e8f0" stroke="#475569" stroke-width="2.5"/>
+    <text x="230" y="34" fill="#0f172a" font-size="12" font-weight="700" text-anchor="middle">{'ਡੀ.ਸੀ. ਸੈੱਲ' if is_pa_plate else 'DC CELL'}</text>
+    <text x="198" y="50" fill="#dc2626" font-size="15" font-weight="bold" text-anchor="middle">+</text>
+    <text x="262" y="50" fill="#2563eb" font-size="15" font-weight="bold" text-anchor="middle">−</text>
+    <path d="M198 16 V7 H105 V105" fill="none" stroke="{wire_color}" stroke-width="5"/>
+    <path d="M262 16 V7 H355 V105" fill="none" stroke="{wire_color}" stroke-width="5"/>
+    <path d="M70 105 V286 Q70 310 94 310 H366 Q390 310 390 286 V105" fill="none" stroke="#64748b" stroke-width="5"/>
+    <path d="M76 145 H384 V285 Q384 304 365 304 H95 Q76 304 76 285 Z" fill="url(#cuBath)"/>
+    <path d="M76 145 H384" stroke="#2563eb" stroke-width="3" stroke-dasharray="7 5"/>
+    <rect x="91" y="103" width="28" height="150" rx="3" fill="#c87941" stroke="#8b4513" stroke-width="2.5"/>
+    <rect x="341" y="103" width="28" height="150" rx="3" fill="url(#ironPlate)" stroke="#475569" stroke-width="2.5"/>
+    <rect x="337" y="101" width="36" height="154" rx="4" fill="none" stroke="{coating_color}" stroke-width="7" opacity="{coating_opacity}"/>
+    {ion_arrows}
+    {copper_atoms}
+    <g fill="currentColor" font-size="12" font-weight="700" text-anchor="middle">
+      <text x="105" y="91">{'ਤਾਂਬੇ ਦਾ ਐਨੋਡ' if is_pa_plate else 'COPPER ANODE'}</text>
+      <text x="355" y="91">{'ਲੋਹੇ ਦਾ ਕੈਥੋਡ' if is_pa_plate else 'IRON CATHODE'}</text>
+      <text x="105" y="271">{'ਐਨੋਡ (+)' if is_pa_plate else 'ANODE (+)'}</text>
+      <text x="355" y="271">{'ਕੈਥੋਡ (−)' if is_pa_plate else 'CATHODE (−)'}</text>
+      <text x="230" y="333">{'ਕਾਪਰ ਸਲਫੇਟ ਦਾ ਨੀਲਾ ਘੋਲ' if is_pa_plate else 'BLUE COPPER SULPHATE SOLUTION'}</text>
     </g>
-    <g fill="url(#baseMetal)" stroke="#1e293b" stroke-width="2">
-      <path d="M204 184 L204 207 Q204 216 214 216 H266 Q276 216 276 207 V184 Q276 177 268 177 H212 Q204 177 204 184 Z"/>
+    <g fill="#f59e0b" font-size="11" font-weight="700">
+      <text x="206" y="130">Cu²⁺</text><text x="235" y="174">Cu²⁺</text><text x="204" y="211">Cu²⁺</text>
     </g>
-    <g fill="{coating_color}" stroke="{coating_color}" stroke-width="2">
-      <circle cx="184" cy="160" r="4"/><circle cx="195" cy="150" r="3"/><circle cx="285" cy="155" r="4"/>
-      <circle cx="294" cy="167" r="3"/><circle cx="175" cy="176" r="3"/><circle cx="304" cy="182" r="3"/>
-    </g>
-    <path d="M174 174 Q190 188 196 191 M306 174 Q291 188 284 191" fill="none" stroke="{coating_color}" stroke-width="3" stroke-dasharray="4 4"/>
-    <path d="M284 196 L333 183" stroke="currentColor" stroke-width="1.5" fill="none"/>
-    <text x="335" y="180" fill="currentColor" font-size="11">{'ਪਰਤ' if is_pa_plate else 'Coating'}</text>
-    <path d="M220 235 V270" stroke="currentColor" stroke-width="1.5"/>
-    <text x="220" y="286" fill="currentColor" font-size="12" text-anchor="middle">{'ਮੂਲ ਧਾਤ ਦੀ ਵਸਤੂ' if is_pa_plate else 'Base metal object'}</text>
-    <text x="220" y="302" fill="currentColor" font-size="11" text-anchor="middle">{'ਉੱਤੇ ਜਮਦੀ ਹੈ: ' if is_pa_plate else 'Deposited layer: '}{metal_name}</text>
+    <path d="M373 184 L415 168" stroke="{coating_color}" stroke-width="2"/>
+    <text x="418" y="163" fill="currentColor" font-size="10" text-anchor="end">{'ਤਾਂਬੇ ਦੀ ਪਰਤ' if is_pa_plate else 'COPPER COATING'}</text>
   </g>
 </svg>
+<div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:6px;font-size:12px">
+<span style="color:#c87941;font-weight:700">● {'ਤਾਂਬੇ ਦਾ ਐਨੋਡ (+)' if is_pa_plate else 'Copper anode (+)'}</span>
+<span style="color:#64748b;font-weight:700">● {'ਕੈਥੋਡ (−)' if is_pa_plate else 'Cathode (−)'}</span>
+<span style="color:#d97706;font-weight:700">● Cu²⁺ {'ਆਇਨ' if is_pa_plate else 'ions'}</span>
+</div>
 </div>
 """
-            st.markdown("#### " + ("ਇਲੈਕਟ੍ਰੋਪਲੇਟਿੰਗ ਦਾ ਵਰਚੁਅਲ ਮਾਡਲ" if is_pa_plate else "Virtual electroplating model"))
+            st.markdown("#### " + ("ਕਾਪਰ ਸਲਫੇਟ ਵਿੱਚ ਇਲੈਕਟ੍ਰੋਪਲੇਟਿੰਗ" if is_pa_plate else "Electroplating in copper sulphate"))
             st.markdown(plating_svg, unsafe_allow_html=True)
-            st.success(
-                ("ਚੁਣੀ ਧਾਤ ਦੀ ਪਤਲੀ ਪਰਤ ਵਸਤੂ ਉੱਤੇ ਜਮਦੀ ਦਿਖਾਈ ਗਈ ਹੈ।" if is_pa_plate else "A thin layer of the selected metal is shown depositing onto the object.")
+            if active:
+                st.success(switch_status)
+                st.info(
+                    "ਤਾਂਬੇ ਦਾ ਐਨੋਡ (+) ਘੁਲ ਕੇ Cu²⁺ ਆਇਨ ਦਿੰਦਾ ਹੈ। ਇਹ ਆਇਨ ਰਿਣਾਤਮਕ ਕੈਥੋਡ (−) ਵੱਲ ਜਾਂਦੇ ਹਨ ਅਤੇ ਲੋਹੇ ਦੀ ਪਲੇਟ ਉੱਤੇ ਤਾਂਬੇ ਦੀ ਪਤਲੀ ਪਰਤ ਜਮਾਉਂਦੇ ਹਨ।"
+                    if is_pa_plate else
+                    "The copper anode (+) dissolves and supplies Cu²⁺ ions. These ions move towards the negative cathode (−) and form a thin copper coating on the iron plate."
+                )
+            else:
+                st.warning(switch_status)
+                st.info(
+                    "ਸਵਿੱਚ ਚਾਲੂ ਕਰਨ ਤੇ ਹੀ ਆਇਨ ਦੀ ਗਤੀ ਅਤੇ ਤਾਂਬੇ ਦੀ ਪਰਤ ਬਣਨ ਦੀ ਪ੍ਰਕਿਰਿਆ ਦਿਖਾਈ ਜਾਵੇਗੀ।"
+                    if is_pa_plate else
+                    "Turn the virtual switch on to show ion movement and copper coating on the cathode."
+                )
+            st.caption(
+                "ਇਹ ਸਿਰਫ਼ ਗੁਣਾਤਮਕ ਵਰਚੁਅਲ ਮਾਡਲ ਹੈ। ਅਸਲ ਇਲੈਕਟ੍ਰੋਪਲੇਟਿੰਗ ਵਿੱਚ ਘੋਲ, ਇਲੈਕਟ੍ਰੋਡ ਅਤੇ ਸੁਰੱਖਿਆ ਪ੍ਰਬੰਧ ਮਹੱਤਵਪੂਰਨ ਹਨ।"
+                if is_pa_plate else
+                "Qualitative virtual model only. Real electroplating requires suitable solutions, electrodes and proper laboratory safety."
             )
             st.write("💡 " + note)
-            st.caption(
-                "Qualitative illustration only — actual plating depends on the electrolyte, electrode materials and current; no numerical readings."
-                if not is_pa_plate else
-                "ਸਿਰਫ਼ ਗੁਣਾਤਮਕ ਚਿੱਤਰ — ਅਸਲ ਇਲੈਕਟ੍ਰੋਪਲੇਟਿੰਗ ਘੋਲ, ਇਲੈਕਟ੍ਰੋਡ ਦੇ ਪਦਾਰਥ ਅਤੇ ਕਰੰਟ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ; ਕੋਈ ਸੰਖਿਆਤਮਕ ਮਾਪ ਨਹੀਂ।"
-            )
         elif kind == "cell" and selected_class == 8 and exp_index == 4:  # LIVE-DEPLOY-VERIFY-2026-10-21
             # Class 8 Experiment 5: qualitative cell animation with no numerical readings.
             is_pa_cell = st.session_state.language != "en"
