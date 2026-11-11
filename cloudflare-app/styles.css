@@ -333,3 +333,26 @@
  .c9-atom-controls label,.c9-vcr-controls label,.c9-sp-controls label,.c9-pe-controls label,.c9-se-controls label{width:100%;font-size:14px}
  .c9-atom-controls select.c9-dropdown,.c9-vcr-controls select.c9-dropdown,.c9-sp-controls select.c9-dropdown,.c9-pe-controls select.c9-dropdown,.c9-se-controls select.c9-dropdown{min-height:52px;font-size:16px}
 }
+
+
+/* Class 10 Ohm's law interactive circuit */
+.c10-ohm-card{overflow:hidden}
+.c10-ohm-controls{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0;padding:16px;border:1px solid #55cddd88;border-radius:16px;background:linear-gradient(135deg,#102f4c,#153d5c);color:#f0faff}
+.c10-ohm-controls label{display:grid;gap:10px;align-content:start;font-weight:850}
+.c10-ohm-controls label strong{color:#7ef0d0;font-size:20px}
+.c10-ohm-controls input[type=range]{width:100%;accent-color:#55d6c2;min-height:30px}
+.c10-ohm-controls select{width:100%;min-height:52px;padding:10px 44px 10px 13px;border:2px solid #67e8f9;border-radius:11px;background:#071e35;color:#fff;font:inherit;font-weight:900;appearance:auto}
+.c10-ohm-scale{display:flex;justify-content:space-between;color:#b8d8e9;font-size:12px}
+.c10-ohm-subhead{margin:18px 0 10px;font-size:clamp(17px,3vw,22px);font-weight:950}
+.c10-ohm-visual{padding:7px;border:1px solid #9cc9e2;border-radius:16px;background:#f5faff;overflow:hidden}
+.c10-ohm-visual svg{display:block;width:100%;height:auto}
+.c10-ohm-answer{margin:16px 0;padding:17px;border:2px solid #34d399;border-radius:17px;background:linear-gradient(145deg,#ecfdf5,#d1fae5);color:#064e3b}
+.c10-ohm-formula{font-size:clamp(24px,5vw,34px);font-weight:1000;text-align:center;padding:7px}
+.c10-ohm-values{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.c10-ohm-values span{display:grid;gap:5px;padding:12px;border-radius:11px;background:#fff;color:#14532d;font-size:13px;font-weight:800}
+.c10-ohm-values b{font-size:22px}
+.c10-ohm-current{display:grid;gap:6px;margin:12px 0;padding:15px;border:2px solid #059669;border-radius:13px;background:#065f46;color:#fff;text-align:center;font-size:12px;font-weight:950;letter-spacing:.08em}
+.c10-ohm-current strong{font-size:clamp(30px,7vw,42px);line-height:1.2;letter-spacing:0}
+.c10-ohm-current b{font-size:20px;letter-spacing:0}
+.c10-ohm-answer p{font-weight:750;line-height:1.6}
+@media(max-width:560px){.c10-ohm-controls{grid-template-columns:1fr;padding:13px}.c10-ohm-values{grid-template-columns:1fr 1fr}.c10-ohm-visual{padding:3px}}
