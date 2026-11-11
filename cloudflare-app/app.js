@@ -802,11 +802,75 @@ function class10BarMagnetFieldLab(){
  $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};$("#prev").onclick=()=>{if(exp>0){exp--;choice="";draw()}};$("#next").onclick=()=>{if(exp<4){exp++;choice="";draw()}};
 }
 
+
+function class10ElectricMotorLab(){
+ const pa=lang==="pa";let angle=0,running=false,supply=true,timer=null,dir=1;
+ const t=pa?{
+ title:"ਸਧਾਰਨ ਬਿਜਲੀ ਮੋਟਰ ਦਾ ਕਾਰਜਕਾਰੀ ਮਾਡਲ",aim:"ਚੁੰਬਕੀ ਖੇਤਰ ਵਿੱਚ ਕਰੰਟ ਵਾਲੀ ਕੁੰਡਲੀ ਉੱਤੇ ਲੱਗਣ ਵਾਲੇ ਬਲ ਅਤੇ ਸਪਲਿਟ-ਰਿੰਗ ਕਮਿਊਟੇਟਰ ਦੀ ਭੂਮਿਕਾ ਸਮਝੋ।",
+ play:"ਚਲਾਓ",pause:"ਰੋਕੋ",step:"ਅੱਧਾ ਚੱਕਰ ਘੁਮਾਓ",power:"ਬਿਜਲੀ ਸਪਲਾਈ",reverse:"ਕਰੰਟ ਦੀ ਦਿਸ਼ਾ ਬਦਲੋ",
+ field:"ਚੁੰਬਕੀ ਖੇਤਰ: N ਤੋਂ S",force:"ਕੁੰਡਲੀ ਦੇ ਦੋ ਪਾਸਿਆਂ ਉੱਤੇ ਉਲਟ ਦਿਸ਼ਾਵਾਂ ਵਿੱਚ ਬਲ ਲੱਗਦੇ ਹਨ। ਇਹ ਬਲ ਟਾਰਕ ਪੈਦਾ ਕਰਦੇ ਹਨ ਅਤੇ ਕੁੰਡਲੀ ਘੁੰਮਦੀ ਹੈ।",
+ comm:"ਹਰ ਅੱਧੇ ਚੱਕਰ ਬਾਅਦ ਸਪਲਿਟ-ਰਿੰਗ ਕਮਿਊਟੇਟਰ ਕੁੰਡਲੀ ਵਿੱਚ ਕਰੰਟ ਦੀ ਦਿਸ਼ਾ ਉਲਟ ਦਿੰਦਾ ਹੈ। ਇਸ ਨਾਲ ਘੁੰਮਾਉਣ ਵਾਲਾ ਟਾਰਕ ਇੱਕੋ ਦਿਸ਼ਾ ਵਿੱਚ ਬਣਿਆ ਰਹਿੰਦਾ ਹੈ।",
+ off:"ਸਪਲਾਈ ਬੰਦ ਹੈ। ਕੁੰਡਲੀ ਉੱਤੇ ਕਰੰਟ ਨਹੀਂ, ਇਸ ਲਈ ਮੋਟਰ ਨਹੀਂ ਘੁੰਮਦੀ।",
+ labels:["ਉੱਤਰੀ ਧਰੁਵ","ਦੱਖਣੀ ਧਰੁਵ","ਕੁੰਡਲੀ","ਕਾਰਬਨ ਬਰਸ਼","ਸਪਲਿਟ-ਰਿੰਗ ਕਮਿਊਟੇਟਰ"],
+ status:"ਮੋਟਰ ਚੱਲ ਰਹੀ ਹੈ",principle:"ਸਿਧਾਂਤ"
+ }:{
+ title:"Working Model of a Simple Electric Motor",aim:"Explore the forces on a current-carrying coil in a magnetic field and the role of the split-ring commutator.",
+ play:"Start motor",pause:"Pause",step:"Rotate half a turn",power:"Power supply",reverse:"Reverse current",
+ field:"MAGNETIC FIELD: N → S",force:"Opposite sides of the current-carrying coil experience forces in opposite directions. These forces produce a turning effect (torque), rotating the coil.",
+ comm:"After every half-turn, the split-ring commutator reverses the current in the coil. This keeps the turning effect in the same rotational direction, so the motor continues to spin.",
+ off:"Power is OFF. No current flows in the coil, so the motor does not rotate.",
+ labels:["NORTH POLE","SOUTH POLE","ARMATURE COIL","CARBON BRUSHES","SPLIT-RING COMMUTATOR"],
+ status:"MOTOR RUNNING",principle:"WORKING PRINCIPLE"
+ };
+ const svg=()=>'<svg viewBox="0 0 720 430" role="img" aria-label="'+t.title+'" style="width:100%;height:auto;display:block;background:#f4f8fc;border-radius:16px">'+
+ '<defs><marker id="motField" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6Z" fill="#0d9488"/></marker><marker id="motForce" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6Z" fill="#7c3aed"/></marker></defs>'+
+ '<rect x="65" y="90" width="120" height="230" rx="16" fill="#dc454e"/><rect x="535" y="90" width="120" height="230" rx="16" fill="#2877c7"/>'+
+ '<g fill="#fff" font-family="Arial" font-size="34" font-weight="900" text-anchor="middle"><text x="125" y="215">N</text><text x="595" y="215">S</text></g>'+
+ '<g fill="none" stroke="#0d9488" stroke-width="3" marker-end="url(#motField)"><path d="M200 135 H510"/><path d="M200 205 H510"/><path d="M200 275 H510"/></g>'+
+ '<g font-family="Arial" font-size="13" font-weight="900" fill="#0f766e"><text x="360" y="68" text-anchor="middle">'+t.field+'</text></g>'+
+ '<g id="motorRotor" style="transform-origin:360px 205px;transform:rotate('+angle+'deg)">'+
+ '<rect x="275" y="145" width="170" height="120" rx="8" fill="none" stroke="#d97706" stroke-width="9"/>'+
+ '<path d="M275 205 H445" stroke="#d97706" stroke-width="5"/>'+
+ '<path d="M275 180 V230 M445 180 V230" stroke="#7c3aed" stroke-width="5"/>'+
+ '<path d="M275 180 V145 M445 230 V265" stroke="#7c3aed" stroke-width="4"/>'+
+ '<g font-family="Arial" font-size="16" font-weight="900" fill="#92400e"><text x="360" y="202" text-anchor="middle">'+t.labels[2]+'</text></g>'+
+ (supply?'<g fill="none" stroke="#7c3aed" stroke-width="5" marker-end="url(#motForce)"><path d="'+(dir>0?'M285 145 V105':'M285 265 V305')+'"/><path d="'+(dir>0?'M435 265 V305':'M435 145 V105')+'"/></g>':'')+
+ '</g>'+
+ '<path d="M330 265 V326 M390 265 V326" stroke="#334155" stroke-width="5"/>'+
+ '<path d="M330 326 A30 30 0 0 1 360 296 A30 30 0 0 1 390 326" fill="none" stroke="#d97706" stroke-width="13"/>'+
+ '<path d="M360 296 V326" stroke="#f4f8fc" stroke-width="5"/>'+
+ '<rect x="302" y="324" width="18" height="38" rx="4" fill="#475569"/><rect x="400" y="324" width="18" height="38" rx="4" fill="#475569"/>'+
+ '<path d="M311 362 V380 H275 M409 362 V380 H445" stroke="#334155" stroke-width="4" fill="none"/>'+
+ '<g font-family="Arial" font-size="12" font-weight="800" fill="#334155"><text x="360" y="400" text-anchor="middle">'+t.labels[4]+'</text><text x="260" y="378" text-anchor="end">'+t.labels[3]+'</text></g>'+
+ '<path d="M185 345 H65 V320 M535 345 H655 V320" stroke="#334155" stroke-width="3" fill="none"/>'+
+ '<g font-family="Arial" font-size="13" font-weight="900" fill="#334155"><text x="125" y="345" text-anchor="middle">'+t.labels[0]+'</text><text x="595" y="345" text-anchor="middle">'+t.labels[1]+'</text></g>'+
+ '<g font-family="Arial" font-size="12" font-weight="900" fill="#64748b"><text x="360" y="22" text-anchor="middle">'+(pa?"ਸਪਲਾਈ · ਬਰਸ਼ · ਕਮਿਊਟੇਟਰ · ਘੁੰਮਦੀ ਕੁੰਡਲੀ":"SUPPLY · BRUSHES · COMMUTATOR · ROTATING COIL")+'</text></g></svg>';
+ const render=()=>{
+  $("#motorVisual").innerHTML=svg();
+  $("#motorStatus").textContent=!supply?t.off:(running?t.status:(pa?"ਮੋਟਰ ਰੁਕੀ ਹੋਈ ਹੈ":"MOTOR PAUSED"));
+  $("#motorAngle").textContent=(pa?"ਕੁੰਡਲੀ ਦਾ ਕੋਣ: ":"Coil angle: ")+angle+"°";
+  $("#motorPlay").textContent=running?t.pause:t.play;
+  $("#motorPower").textContent=(supply?"● ":"○ ")+t.power;
+  $("#motorForce").textContent=t.force;
+  $("#motorCommutator").textContent=t.comm;
+ };
+ const stop=()=>{if(timer){clearInterval(timer);timer=null}running=false};
+ const tick=()=>{if(!supply)return;angle=(angle+6*dir)%360;if(angle<0)angle+=360;if(angle%180===0)dir*=-1;render()};
+ $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+tr("back")+'</button><div class="lab-top-name"><span>⚙️</span><div><strong>'+tr("electricity")+'</strong><small>'+(pa?"ਜਮਾਤ 10 · ਬਿਜਲੀ ਲੈਬ":"CLASS 10 · ELECTRICITY LAB")+'</small></div></div></section><section class="lab-selectors"><label>'+tr("chooseClass")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option '+(cls===n?"selected":"")+' value="'+n+'">'+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+tr("chooseExperiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+esc(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section><section class="experiment-card"><div class="experiment-meta">'+(pa?"ਜਮਾਤ 10 · ਬਿਜਲੀ ਲੈਬ · ਪ੍ਰਯੋਗ 5 / 5":"CLASS 10 · ELECTRICITY LAB · EXPERIMENT 5 / 5")+'</div><h2>'+t.title+'</h2><p class="aim"><b>'+tr("aim")+':</b> '+t.aim+'</p><div class="visual-panel" style="padding:12px;margin:16px 0"><h3>'+(pa?"ਮੋਟਰ ਦਾ ਕਾਰਜਕਾਰੀ ਚਿੱਤਰ":"INTERACTIVE MOTOR MODEL")+'</h3><div id="motorVisual">'+svg()+'</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="primary-button" id="motorPlay">'+t.play+'</button><button class="back-button" id="motorStep">'+t.step+'</button><button class="back-button" id="motorPower">'+t.power+'</button><button class="back-button" id="motorReverse">'+t.reverse+'</button></div><p id="motorStatus" class="helper" aria-live="polite"></p><p id="motorAngle" class="helper"></p></div><div class="conclusion"><b>'+t.principle+'</b><p id="motorForce">'+t.force+'</p><p id="motorCommutator">'+t.comm+'</p></div><div class="conclusion"><b>'+(pa?"ਊਰਜਾ ਬਦਲਾਅ":"ENERGY CONVERSION")+'</b><p>'+(pa?"ਬਿਜਲੀ ਊਰਜਾ → ਮਕੈਨੀਕਲ ਊਰਜਾ (ਘੁੰਮਣ ਦੀ ਗਤੀ)।":"Electrical energy → mechanical energy (rotational motion).")+'</p></div><p class="safety-note">'+(pa?"ਇਹ ਮੋਟਰ ਦੇ ਸਿਧਾਂਤ ਨੂੰ ਸਮਝਾਉਣ ਵਾਲਾ ਵਰਚੁਅਲ ਮਾਡਲ ਹੈ।":"Virtual conceptual model showing the motor principle; no physical wiring is required.")+'</p><div class="navigation"><button class="back-button" id="prev">'+tr("previous")+'</button><button class="primary-button" id="next">'+tr("next")+' →</button></div></section>';
+ $("#back").onclick=()=>{stop();home()};$("#cl").onchange=e=>{stop();cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{stop();exp=+e.target.value;choice="";draw()};$("#prev").onclick=()=>{stop();if(exp>0){exp--;choice="";draw()}};$("#next").onclick=()=>{stop();if(exp<4){exp++;choice="";draw()}};
+ $("#motorPlay").onclick=()=>{if(running){stop();render()}else if(supply){running=true;render();timer=setInterval(tick,80)}};
+ $("#motorStep").onclick=()=>{stop();if(supply){angle=(angle+180)%360;dir*=-1}render()};
+ $("#motorPower").onclick=()=>{supply=!supply;if(!supply)stop();render()};
+ $("#motorReverse").onclick=()=>{stop();dir*=-1;render()};
+ render();
+}
+
 function draw(){
  if(lab==="electricity"&&cls===10&&exp===0){class10OhmsLawLab();return}
  if(lab==="electricity"&&cls===10&&exp===1){class10SeriesParallelLab();return}
  if(lab==="electricity"&&cls===10&&exp===2){class10ResistanceCombinationLab();return}
  if(lab==="electricity"&&cls===10&&exp===3){class10BarMagnetFieldLab();return}
+ if(lab==="electricity"&&cls===10&&exp===4){class10ElectricMotorLab();return}
  if(lab==="electricity"&&cls===9&&exp===0){class9AtomicStructureLab();return}
  if(lab==="electricity"&&cls===9&&exp===1){class9VoltageCurrentResistanceLab();return}
  if(lab==="electricity"&&cls===9&&exp===2){class9SeriesParallelLab();return}
