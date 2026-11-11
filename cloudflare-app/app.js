@@ -732,7 +732,7 @@ function class6LightShadowLab(){
  ];
  const current=()=>objects.find(o=>o.id===object)||objects[0];
  function render(){
-  const o=current(),near=light==="Near",sx=near?45:95,ox=205,screen=350;
+  const o=current(),near=light==="Near",sx=near?130:45,ox=205,screen=350;
   const factor=(screen-sx)/(ox-sx),scale=Math.min(2.65,Math.max(1.35,factor));
   const cx=ox,cy=128;
   let shape="",shadow="";
