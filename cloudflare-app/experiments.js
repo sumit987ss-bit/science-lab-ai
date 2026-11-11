@@ -242,12 +242,12 @@ window.LAB_DATA = {
       "class": 10
     },
     {
-      "title": "Explore a Simple Electric Motor",
-      "title_pa": "ਸਧਾਰਨ ਬਿਜਲੀ ਮੋਟਰ ਦੀ ਖੋਜ",
-      "aim": "Explore how magnetic forces can produce rotation in a motor model.",
-      "aim_pa": "ਮੋਟਰ ਦੇ ਮਾਡਲ ਵਿੱਚ ਚੁੰਬਕੀ ਬਲਾਂ ਨਾਲ ਘੁੰਮਣ ਦੀ ਪ੍ਰਕਿਰਿਆ ਸਮਝੋ।",
+      "title": "Working Model of a Simple Electric Motor",
+      "title_pa": "ਸਧਾਰਨ ਬਿਜਲੀ ਮੋਟਰ ਦਾ ਕਾਰਜਕਾਰੀ ਮਾਡਲ",
+      "aim": "Observe forces on a current-carrying coil, torque, and how a split-ring commutator reverses coil current every half-turn to maintain rotation.",
+      "aim_pa": "ਕਰੰਟ ਵਾਲੀ ਕੁੰਡਲੀ ਉੱਤੇ ਚੁੰਬਕੀ ਬਲ, ਟਾਰਕ ਅਤੇ ਹਰ ਅੱਧੇ ਚੱਕਰ ਬਾਅਦ ਸਪਲਿਟ-ਰਿੰਗ ਕਮਿਊਟੇਟਰ ਵੱਲੋਂ ਕਰੰਟ ਉਲਟਣ ਦੀ ਪ੍ਰਕਿਰਿਆ ਵੇਖੋ।",
       "kind": "motor",
-      "note": "A motor converts electrical energy into mechanical motion.",
+      "note": "Opposite forces on the coil create torque; the split-ring commutator reverses coil current every half-turn so the motor keeps rotating.",
       "note_pa": "ਮੋਟਰ ਬਿਜਲੀ ਊਰਜਾ ਨੂੰ ਮਕੈਨੀਕਲ ਗਤੀ ਵਿੱਚ ਬਦਲਦੀ ਹੈ।",
       "class": 10
     }
