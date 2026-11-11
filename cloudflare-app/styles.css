@@ -356,3 +356,20 @@
 .c10-ohm-current b{font-size:20px;letter-spacing:0}
 .c10-ohm-answer p{font-weight:750;line-height:1.6}
 @media(max-width:560px){.c10-ohm-controls{grid-template-columns:1fr;padding:13px}.c10-ohm-values{grid-template-columns:1fr 1fr}.c10-ohm-visual{padding:3px}}
+
+
+/* Class 10 experiment 3 — four-resistor series / parallel comparison */
+.c10-rcombo-controls{margin:16px 0;padding:15px;border:1px solid #38bdf866;border-radius:15px;background:linear-gradient(135deg,#102f4c,#153d5c);color:#effaff}
+.c10-rcombo-controls label{display:grid;gap:9px;font-weight:900}
+.c10-rcombo-controls select{width:100%;min-height:52px;padding:10px 44px 10px 14px;border:2px solid #67e8f9;border-radius:11px;background:#071e35;color:#fff;font:inherit;font-weight:900;appearance:none}
+.c10-rcombo-heading{margin:16px 0 10px;font-size:clamp(18px,3vw,24px);font-weight:1000}
+.c10-rcombo-visual{padding:7px;border:1px solid #9cc9e2;border-radius:16px;background:#f7fbff;overflow:hidden}
+.c10-rcombo-visual svg{display:block;width:100%;height:auto}
+.c10-rcombo-result{display:grid;gap:9px;margin:15px 0;padding:17px;border:2px solid;border-radius:15px;text-align:center}
+.c10-rcombo-result.series{background:#fff7ed;border-color:#f59e0b;color:#92400e}
+.c10-rcombo-result.parallel{background:#ecfdf5;border-color:#10b981;color:#065f46}
+.c10-rcombo-result span{font-size:11px;font-weight:950;letter-spacing:.12em}
+.c10-rcombo-result strong{font-size:clamp(34px,8vw,48px);line-height:1.1;font-weight:1000}
+.c10-rcombo-result b{font-size:clamp(16px,3.5vw,21px);line-height:1.7;white-space:normal}
+.c10-rcombo-result small{font-size:13px;font-weight:800;line-height:1.5}
+@media(max-width:560px){.c10-rcombo-controls{padding:12px}.c10-rcombo-visual{padding:3px}.c10-rcombo-visual svg{min-height:170px}}
