@@ -225,3 +225,24 @@
 .c9-atom-key i{width:13px;height:13px;border-radius:50%;display:inline-block}
 .c9-atom-key .proton-key{background:#ef8b35}.c9-atom-key .neutron-key{background:#64748b}.c9-atom-key .electron-key{background:#2563eb}
 @media(max-width:650px){.c9-atom-layout{grid-template-columns:1fr}.c9-atom-controls{padding:12px}.c9-particle-result{min-height:110px;padding:12px}}
+
+/* Class 9 Experiment 2 — Voltage, Current & Resistance */
+.c9-vcr-controls{display:flex;flex-wrap:wrap;gap:12px;align-items:end;justify-content:space-between;margin:16px 0;padding:15px;border:1px solid #38bdf866;border-radius:16px;background:linear-gradient(135deg,#102f4c,#153d5c);color:#f0f9ff}
+.c9-vcr-controls label{display:grid;gap:8px;min-width:190px;font-weight:900}
+.c9-vcr-controls select{width:100%;min-height:48px;padding:10px 14px;border:2px solid #67e8f9;border-radius:11px;background:#071e35;color:white;font:inherit;font-weight:900}
+.c9-vcr-badge{padding:10px 14px;border-radius:999px;background:#dbeafe;color:#1e3a8a;font-weight:950}
+.c9-vcr-heading{margin:16px 0 10px;color:var(--text,#173b55);font-size:clamp(18px,3vw,24px);font-weight:1000;line-height:1.25}
+.c9-vcr-visual{padding:8px;border:1px solid #9cc9e2;border-radius:16px;background:#f7fbff;box-shadow:0 7px 22px #0b355015}
+.c9-vcr-svg{display:block;width:100%;height:auto}
+.c9-flow-dot{animation:c9CurrentFlow 2.2s linear infinite}
+.c9-flow-dot.slow{animation-duration:5.5s;opacity:.8}
+@keyframes c9CurrentFlow{from{transform:translateX(-35px);opacity:.15}to{transform:translateX(35px);opacity:1}}
+.c9-vcr-explain{margin:14px 0;padding:16px;border-radius:14px;background:linear-gradient(135deg,#eaf6ff,#f2f8ff);border-left:5px solid #0ea5e9;color:#173b55}
+.c9-vcr-explain>p{margin:0;font-size:15px;line-height:1.65;font-weight:750}
+.c9-vcr-fact{margin-top:12px;padding:12px;border-radius:11px;background:white;border:1px solid #bfdbfe}
+.c9-vcr-fact b{font-size:12px;letter-spacing:.06em;color:#1d4ed8}
+.c9-vcr-fact p{margin:5px 0 0;font-size:13px;line-height:1.55}
+.c9-vcr-formula{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:12px 0;padding:13px 16px;border-radius:13px;background:#102f4c;color:#fff}
+.c9-vcr-formula span{font-size:22px;font-weight:1000;letter-spacing:.04em}
+.c9-vcr-formula small{font-size:10px;font-weight:900;letter-spacing:.12em;color:#a5f3fc}
+@media(max-width:600px){.c9-vcr-controls{align-items:stretch}.c9-vcr-controls label{min-width:100%}.c9-vcr-badge{align-self:flex-start}.c9-vcr-explain{padding:12px}.c9-vcr-svg{min-height:150px}}
