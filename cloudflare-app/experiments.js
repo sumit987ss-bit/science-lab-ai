@@ -232,13 +232,13 @@ window.LAB_DATA = {
       "class": 10
     },
     {
-      "title": "Magnetic Field Around a Wire",
-      "title_pa": "ਤਾਰ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਚੁੰਬਕੀ ਖੇਤਰ",
-      "aim": "Explore how current direction affects the magnetic field direction.",
-      "aim_pa": "ਕਰੰਟ ਦੀ ਦਿਸ਼ਾ ਬਦਲਣ ਨਾਲ ਚੁੰਬਕੀ ਖੇਤਰ ਦੀ ਦਿਸ਼ਾ ਕਿਵੇਂ ਬਦਲਦੀ ਹੈ, ਸਮਝੋ।",
+      "title": "Magnetic Field Lines Around a Bar Magnet",
+      "title_pa": "ਡੰਡਾ ਚੁੰਬਕ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਚੁੰਬਕੀ ਖੇਤਰ ਰੇਖਾਵਾਂ",
+      "aim": "Observe magnetic field lines outside the magnet from N to S and inside from S to N, forming continuous closed loops.",
+      "aim_pa": "ਚੁੰਬਕ ਦੇ ਬਾਹਰ N ਤੋਂ S ਅਤੇ ਅੰਦਰ S ਤੋਂ N ਵੱਲ ਚੁੰਬਕੀ ਖੇਤਰ ਰੇਖਾਵਾਂ ਅਤੇ ਬੰਦ ਲੂਪ ਵੇਖੋ।",
       "kind": "magnetic_field",
-      "note": "Reversing current reverses the magnetic field direction.",
-      "note_pa": "ਕਰੰਟ ਦੀ ਦਿਸ਼ਾ ਉਲਟਣ ਨਾਲ ਚੁੰਬਕੀ ਖੇਤਰ ਦੀ ਦਿਸ਼ਾ ਵੀ ਉਲਟ ਜਾਂਦੀ ਹੈ।",
+      "note": "Magnetic field lines form continuous closed loops: N to S outside the magnet and S to N inside it.",
+      "note_pa": "ਚੁੰਬਕੀ ਖੇਤਰ ਰੇਖਾਵਾਂ ਲਗਾਤਾਰ ਬੰਦ ਲੂਪ ਬਣਾਉਂਦੀਆਂ ਹਨ: ਬਾਹਰ N ਤੋਂ S ਅਤੇ ਅੰਦਰ S ਤੋਂ N।",
       "class": 10
     },
     {
