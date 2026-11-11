@@ -246,3 +246,22 @@
 .c9-vcr-formula span{font-size:22px;font-weight:1000;letter-spacing:.04em}
 .c9-vcr-formula small{font-size:10px;font-weight:900;letter-spacing:.12em;color:#a5f3fc}
 @media(max-width:600px){.c9-vcr-controls{align-items:stretch}.c9-vcr-controls label{min-width:100%}.c9-vcr-badge{align-self:flex-start}.c9-vcr-explain{padding:12px}.c9-vcr-svg{min-height:150px}}
+
+/* Class 9 Experiment 3 — Series and Parallel circuits */
+.c9-sp-controls,.c9-pe-controls{margin:15px 0;padding:15px;border:1px solid #38bdf866;border-radius:15px;background:linear-gradient(135deg,#102f4c,#153d5c);color:#effaff}
+.c9-sp-controls label,.c9-pe-controls label{display:grid;gap:8px;font-weight:900}
+.c9-sp-controls select,.c9-pe-controls select{width:100%;min-height:49px;padding:10px 14px;border:2px solid #67e8f9;border-radius:11px;background:#071e35;color:#fff;font:inherit;font-weight:900}
+.c9-sp-heading,.c9-pe-heading{margin:15px 0 10px;color:var(--text,#173b55);font-size:clamp(18px,3vw,24px);font-weight:1000}
+.c9-sp-visual,.c9-pe-visual{padding:8px;border:1px solid #9cc9e2;border-radius:16px;background:#f7fbff;box-shadow:0 7px 22px #0b355015}
+.c9-sp-svg,.c9-pe-svg{display:block;width:100%;height:auto}
+.c9-sp-detail,.c9-pe-detail{margin:14px 0;padding:15px;border-radius:13px;background:#eaf6ff;border-left:5px solid #0ea5e9;color:#173b55;font-size:15px;font-weight:750;line-height:1.65}
+.c9-sp-result{display:grid;gap:6px;margin:12px 0;padding:15px;border-radius:13px;border:2px solid}
+.c9-sp-result.series{background:#fff7ed;border-color:#f59e0b;color:#92400e}
+.c9-sp-result.parallel{background:#ecfdf5;border-color:#10b981;color:#065f46}
+.c9-sp-result b{font-size:10px;letter-spacing:.12em}.c9-sp-result strong{font-size:19px}.c9-sp-result span{font-size:13px;font-weight:800}
+.c9-pe-formula{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:12px 0;padding:14px 16px;border-radius:13px;background:#102f4c;color:white}
+.c9-pe-formula span{font-size:23px;font-weight:1000}.c9-pe-formula small{font-size:10px;font-weight:900;letter-spacing:.1em;color:#a5f3fc}
+.c9-pe-units{display:grid;gap:7px;padding:14px;border:1px solid #bfdbfe;border-radius:12px;background:#eff6ff;color:#173b55;font-size:13px}
+.c9-pe-units b{font-size:12px;color:#1d4ed8}.c9-pe-units span{font-weight:850}
+.c9-pe-relation{margin:12px 0;padding:14px;border-radius:12px;background:#ecfdf5;border-left:5px solid #10b981;color:#065f46;font-size:14px;font-weight:800;line-height:1.6}
+@media(max-width:600px){.c9-sp-controls,.c9-pe-controls{padding:12px}.c9-sp-svg,.c9-pe-svg{min-height:150px}.c9-sp-detail,.c9-pe-detail{padding:12px}}
