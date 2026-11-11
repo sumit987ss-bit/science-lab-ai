@@ -187,3 +187,20 @@
 .chemical-concept-grid article strong{display:block;margin:8px 0 5px;font-size:13px;font-weight:950}
 .chemical-concept-grid article p{margin:0;font-size:12px;line-height:1.5;font-weight:700}
 @media(max-width:680px){.chemical-workbench{grid-template-columns:1fr}.chemical-controls,.chemical-display{padding:12px}.chemical-concept-grid{grid-template-columns:1fr}.chemical-state p{font-size:12px}}
+
+
+/* Class 8 Electricity experiments 3–5 */
+.c8-visual-panel{margin:16px 0;padding:14px;border:1px solid #55cddd66;border-radius:16px;background:linear-gradient(145deg,#102f4c,#0b223a);color:#effaff}
+.c8-visual-heading{margin:8px 0 12px;color:#dff8ff;font-size:14px;font-weight:950;letter-spacing:.045em}
+.c8-electro-svg,.c8-magnet-svg,.c8-cell-svg{display:block;width:100%;height:auto;border-radius:13px;background:#f8fbff}
+.c8-toggle{width:100%;min-height:50px;margin:14px 0 4px;border:2px solid #16a34a;border-radius:11px;background:#d1fae5;color:#065f46;font-size:14px;font-weight:950;cursor:pointer}
+.c8-observation{margin:12px 0 4px;padding:14px;border:2px solid #64748b;border-radius:12px;background:#e2e8f0;color:#334155;line-height:1.5}
+.c8-observation.good{border-color:#059669;background:#d1fae5;color:#065f46}
+.c8-observation.neutral{border-color:#64748b;background:#e2e8f0;color:#334155}
+.c8-observation>b{font-size:11px;letter-spacing:.1em}
+.c8-observation h3{margin:5px 0;font-size:clamp(15px,2.5vw,19px);font-weight:950}
+.c8-observation p{margin:0;font-size:13px;font-weight:750}
+.c8-fact-strip{margin:15px 0;padding:14px 16px;border-left:5px solid #0284c7;border-radius:10px;background:#eff8ff;color:#173b55}
+.c8-fact-strip>b{font-size:12px;letter-spacing:.07em}
+.c8-fact-strip p{margin:5px 0 0;font-size:13px;line-height:1.55;font-weight:750}
+@media(max-width:600px){.c8-visual-panel{padding:10px}.c8-visual-heading{font-size:12px}.c8-observation{padding:11px}.c8-observation p{font-size:12px}}
