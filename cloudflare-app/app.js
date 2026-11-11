@@ -577,7 +577,36 @@ function class8ElectricCellLab(){
  $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};$("#cellToggle").onclick=()=>{on=!on;render()};$("#prev").onclick=()=>{if(exp>0){exp--;draw()}};$("#next").onclick=()=>{if(exp<list().length-1){exp++;draw()}};render();
 }
 
+
+function class9AtomicStructureLab(){
+ const pa=lang==="pa";let particle="proton";
+ const render=()=>{
+  const p=particle==="proton",n=particle==="neutron",e=particle==="electron";
+  const nucleus=[[-15,-10],[12,-13],[-4,13],[18,9],[-22,12],[1,-1],[25,-1],[-12,25]];
+  const protonDots=nucleus.slice(0,4).map(([x,y],i)=>'<circle cx="'+(380+x)+'" cy="'+(218+y)+'" r="17" fill="'+(p?"#fb923c":"#ef8b35")+'" stroke="'+(p?"#9a3412":"#9a3412")+'" stroke-width="'+(p?5:2)+'" opacity="'+(p?1:.92)+'"/><text x="'+(380+x)+'" y="'+(224+y)+'" text-anchor="middle" font-size="17" font-weight="950" fill="#fff">+</text>').join("");
+  const neutronDots=nucleus.slice(4).map(([x,y],i)=>'<circle cx="'+(380+x)+'" cy="'+(218+y)+'" r="17" fill="'+(n?"#38bdf8":"#64748b")+'" stroke="'+(n?"#075985":"#334155")+'" stroke-width="'+(n?5:2)+'" opacity="'+(n?1:.92)+'"/><text x="'+(380+x)+'" y="'+(224+y)+'" text-anchor="middle" font-size="15" font-weight="950" fill="#fff">0</text>').join("");
+  const electrons=[[380,72],[510,218],[380,364],[250,218]];
+  const electronDots=electrons.map(([x,y],i)=>'<circle cx="'+x+'" cy="'+y+'" r="'+(e?17:13)+'" fill="#2563eb" stroke="'+(e?"#facc15":"#1e40af")+'" stroke-width="'+(e?6:2)+'"/><text x="'+x+'" y="'+(y+6)+'" text-anchor="middle" font-size="19" font-weight="950" fill="#fff">−</text>').join("");
+  const title=pa?"ਪਰਮਾਣੂ ਦੀ ਬਣਤਰ":"STRUCTURE OF AN ATOM";
+  $("#atomicVisual").innerHTML='<svg viewBox="0 0 760 440" class="c9-atom-svg" role="img" aria-label="Atom model showing protons and neutrons in the nucleus and electrons in shells"><defs><radialGradient id="atomBg"><stop stop-color="#fff"/><stop offset="1" stop-color="#eaf4ff"/></radialGradient><filter id="atomGlow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="760" height="440" rx="18" fill="url(#atomBg)"/><text x="380" y="30" text-anchor="middle" font-size="18" font-weight="950" fill="#173b55">'+title+'</text><ellipse cx="380" cy="218" rx="130" ry="130" fill="none" stroke="#60a5fa" stroke-width="3" stroke-dasharray="9 7"/><ellipse cx="380" cy="218" rx="130" ry="130" fill="none" stroke="#93c5fd" stroke-width="1.5" opacity=".55"/><path d="M380 88 A130 130 0 0 1 510 218" fill="none" stroke="#2563eb" stroke-width="4" opacity="'+(e?1:.25)+'"/><circle cx="380" cy="218" r="65" fill="#dbeafe" opacity=".45"/><g filter="'+(p||n?"url(#atomGlow)":"none")+'">'+protonDots+neutronDots+'</g><g filter="'+(e?"url(#atomGlow)":"none")+'">'+electronDots+'</g><text x="380" y="414" text-anchor="middle" font-size="13" font-weight="900" fill="#173b55">NUCLEUS: PROTONS (+) AND NEUTRONS (0) · SHELL: ELECTRONS (−)</text></svg>';
+  const labels=pa?{proton:"ਪ੍ਰੋਟਾਨ",neutron:"ਨਿਊਟ੍ਰਾਨ",electron:"ਇਲੈਕਟ੍ਰਾਨ"}:{proton:"Proton",neutron:"Neutron",electron:"Electron"};
+  const facts=pa?{proton:"ਧਨਾਤਮਕ ਚਾਰਜ (+) — ਪਰਮਾਣੂ ਦੇ ਕੇਂਦਰਕ ਵਿੱਚ",neutron:"ਕੋਈ ਚਾਰਜ ਨਹੀਂ (0) — ਪਰਮਾਣੂ ਦੇ ਕੇਂਦਰਕ ਵਿੱਚ",electron:"ਰਿਣਾਤਮਕ ਚਾਰਜ (−) — ਕੇਂਦਰਕ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਊਰਜਾ-ਖੋਲਾਂ ਵਿੱਚ"}:{proton:"Positive charge (+) — located in the nucleus.",neutron:"No electric charge (0) — located in the nucleus.",electron:"Negative charge (−) — found in energy shells around the nucleus."};
+  $("#atomicParticleResult").innerHTML='<div class="c9-particle-result '+particle+'"><span class="c9-particle-symbol">'+(p?"+":n?"0":"−")+'</span><div><strong>'+(pa?"ਚੁਣਿਆ ਕਣ":"SELECTED PARTICLE")+'</strong><h3>'+labels[particle]+'</h3><p>'+facts[particle]+'</p></div></div>';
+ };
+ const title=pa?"ਪਰਮਾਣੂ ਦੀ ਬਣਤਰ — ਪ੍ਰੋਟਾਨ, ਨਿਊਟ੍ਰਾਨ ਅਤੇ ਇਲੈਕਟ੍ਰਾਨ":"Atomic Structure: Protons, Neutrons and Electrons";
+ const aim=pa?"ਪਰਮਾਣੂ ਦੇ ਕਣਾਂ ਦੀ ਸਥਿਤੀ ਅਤੇ ਬਿਜਲਈ ਚਾਰਜ ਦੀ ਪਛਾਣ ਕਰਨੀ।":"Identify the location and electric charge of the three main subatomic particles.";
+ $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+tr("back")+'</button><div class="lab-top-name"><span>⚡</span><div><strong>'+tr("electricity")+'</strong><small>Classes 6–10 · Electricity Lab</small></div></div></section><section class="lab-selectors"><label>'+tr("chooseClass")+'<select id="cl">'+[6,7,8,9,10].map(v=>'<option value="'+v+'" '+(cls===v?"selected":"")+'>'+(pa?v+"ਵੀਂ ਜਮਾਤ":"Class "+v)+'</option>').join("")+'</select></label><label>'+tr("chooseExperiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+esc(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section><section class="experiment-card"><div class="experiment-meta">'+(pa?"ਜਮਾਤ 9 · ਬਿਜਲੀ ਲੈਬ · ਪ੍ਰਯੋਗ 1 / 5":"CLASS 9 · ELECTRICITY LAB · EXPERIMENT 1 / 5")+'</div><h2>'+title+'</h2><p class="aim"><b>'+tr("aim")+':</b> '+aim+'</p><p class="helper">'+(pa?"ਸੂਚੀ ਵਿੱਚੋਂ ਕਣ ਚੁਣੋ ਅਤੇ ਪਰਮਾਣੂ ਦੇ ਮਾਡਲ ਵਿੱਚ ਉਸਦੀ ਸਥਿਤੀ ਤੇ ਚਾਰਜ ਵੇਖੋ।":"Select a particle to highlight its position and charge in the atom model.")+'</p><div class="c9-atom-controls"><label>'+(pa?"ਉਪ-ਪਰਮਾਣੂ ਕਣ ਚੁਣੋ":"Select a subatomic particle")+'<select id="atomicParticle"><option value="proton">'+(pa?"ਪ੍ਰੋਟਾਨ":"Proton")+'</option><option value="neutron">'+(pa?"ਨਿਊਟ੍ਰਾਨ":"Neutron")+'</option><option value="electron">'+(pa?"ਇਲੈਕਟ੍ਰਾਨ":"Electron")+'</option></select></label></div><div class="c9-atom-layout"><div class="c9-atom-visual" id="atomicVisual"></div><div id="atomicParticleResult"></div></div><div class="c9-atom-key"><span><i class="proton-key"></i>'+(pa?"ਪ੍ਰੋਟਾਨ · +":"Proton · +")+'</span><span><i class="neutron-key"></i>'+(pa?"ਨਿਊਟ੍ਰਾਨ · 0":"Neutron · 0")+'</span><span><i class="electron-key"></i>'+(pa?"ਇਲੈਕਟ੍ਰਾਨ · −":"Electron · −")+'</span></div><p class="safety-note">'+(pa?"ਇਹ ਪਰਮਾਣੂ ਦੀ ਸਮਝ ਲਈ ਬਣਾਇਆ ਗਿਆ ਚਿੱਤਰਕ ਮਾਡਲ ਹੈ।":"Illustrative model only; particle sizes, spacing and shell paths are not to scale.")+'</p><div class="navigation"><button id="prev" class="back-button">'+tr("previous")+'</button><button id="next" class="primary-button">'+tr("next")+' →</button></div></section>';
+ $("#back").onclick=home;
+ $("#cl").onchange=ev=>{cls=+ev.target.value;exp=0;choice="";draw()};
+ $("#ex").onchange=ev=>{exp=+ev.target.value;choice="";draw()};
+ $("#atomicParticle").onchange=ev=>{particle=ev.target.value;render()};
+ $("#prev").onclick=()=>{if(exp>0){exp--;choice="";draw()}};
+ $("#next").onclick=()=>{if(exp<list().length-1){exp++;choice="";draw()}};
+ render();
+}
+
 function draw(){
+ if(lab==="electricity"&&cls===9&&exp===0){class9AtomicStructureLab();return}
  if(lab==="electricity"&&cls===8&&exp===0){liquidConductivityLab();return}
  if(lab==="electricity"&&cls===8&&exp===1){chemicalEffectsLab();return}
  if(lab==="electricity"&&cls===8&&exp===2){class8ElectroplatingLab();return}
