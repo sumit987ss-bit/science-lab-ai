@@ -761,10 +761,52 @@ function class9SeriesParallelLab(){
 }
 
 
+
+function class10BarMagnetFieldLab(){
+ const pa=lang==="pa";
+ const c=pa?{
+  title:"ਡੰਡਾ ਚੁੰਬਕ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਚੁੰਬਕੀ ਖੇਤਰ ਰੇਖਾਵਾਂ",
+  aim:"ਡੰਡਾ ਚੁੰਬਕ ਦੇ ਅੰਦਰ ਅਤੇ ਬਾਹਰ ਚੁੰਬਕੀ ਖੇਤਰ ਦੀ ਦਿਸ਼ਾ ਅਤੇ ਬੰਦ ਲੂਪਾਂ ਨੂੰ ਵੇਖੋ।",
+  outside:"ਚੁੰਬਕ ਦੇ ਬਾਹਰ ਖੇਤਰ ਰੇਖਾਵਾਂ ਉੱਤਰੀ ਧਰੁਵ (N) ਤੋਂ ਦੱਖਣੀ ਧਰੁਵ (S) ਵੱਲ ਜਾਂਦੀਆਂ ਹਨ।",
+  inside:"ਚੁੰਬਕ ਦੇ ਅੰਦਰ ਇਹ ਦੱਖਣੀ ਧਰੁਵ (S) ਤੋਂ ਉੱਤਰੀ ਧਰੁਵ (N) ਵੱਲ ਮੁੜਦੀਆਂ ਹਨ। ਇਸ ਤਰ੍ਹਾਂ ਹਰ ਰੇਖਾ ਇੱਕ ਲਗਾਤਾਰ ਬੰਦ ਲੂਪ ਬਣਾਉਂਦੀ ਹੈ।",
+  rule:"ਚੁੰਬਕੀ ਖੇਤਰ ਰੇਖਾਵਾਂ ਕਦੇ ਇੱਕ-ਦੂਜੇ ਨੂੰ ਨਹੀਂ ਕੱਟਦੀਆਂ। ਧਰੁਵਾਂ ਨੇੜੇ ਰੇਖਾਵਾਂ ਵੱਧ ਸੰਘਣੀਆਂ ਹੁੰਦੀਆਂ ਹਨ, ਇਸ ਲਈ ਖੇਤਰ ਉੱਥੇ ਵੱਧ ਮਜ਼ਬੂਤ ਹੁੰਦਾ ਹੈ।",
+  outsideLabel:"ਬਾਹਰ: N → S",insideLabel:"ਅੰਦਰ: S → N",safe:"ਇਹ ਚੁੰਬਕੀ ਖੇਤਰ ਦਾ ਵਰਚੁਅਲ ਵਿਗਿਆਨਕ ਮਾਡਲ ਹੈ।"
+ }:{
+  title:"Magnetic Field Lines Around a Bar Magnet",
+  aim:"Observe the direction and closed-loop nature of the magnetic field both outside and inside a bar magnet.",
+  outside:"Outside the magnet, field lines travel from the North pole (N) to the South pole (S).",
+  inside:"Inside the magnet, they return from the South pole (S) to the North pole (N). Each field line therefore forms a continuous closed loop.",
+  rule:"Magnetic field lines never intersect. They are more closely spaced near the poles, indicating a stronger field there.",
+  outsideLabel:"OUTSIDE: N → S",insideLabel:"INSIDE: S → N",safe:"Scientific virtual model of a bar magnet's magnetic field."
+ };
+ const svg='<svg viewBox="0 0 720 440" role="img" aria-label="'+c.title+'" style="width:100%;height:auto;display:block">'+
+ '<defs><marker id="fieldArrow10" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 Z" fill="#16a6a1"/></marker><marker id="insideArrow10" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 Z" fill="#fbbf24"/></marker></defs>'+
+ '<rect x="8" y="8" width="704" height="424" rx="20" fill="#f5f9ff"/>'+
+ '<g fill="none" stroke="#16a6a1" stroke-width="3.2" marker-end="url(#fieldArrow10)">'+
+ '<path d="M245 190 C190 150 190 55 350 42 C510 30 530 120 475 190"/>'+
+ '<path d="M245 190 C145 145 115 90 180 48 C245 8 475 8 540 48 C605 90 575 145 475 190"/>'+
+ '<path d="M245 250 C190 290 190 385 350 398 C510 410 530 320 475 250"/>'+
+ '<path d="M245 250 C145 295 115 350 180 392 C245 432 475 432 540 392 C605 350 575 295 475 250"/>'+
+ '</g>'+
+ '<rect x="245" y="178" width="230" height="84" rx="10" fill="#fff" stroke="#193b58" stroke-width="3"/>'+
+ '<path d="M255 181 H360 V259 H255 Q245 259 245 249 V191 Q245 181 255 181Z" fill="#d9434b"/>'+
+ '<path d="M360 181 H465 Q475 181 475 191 V249 Q475 259 465 259 H360Z" fill="#2877c7"/>'+
+ '<path d="M360 184 V256" stroke="#fff" stroke-width="2" opacity=".8"/>'+
+ '<g font-family="Arial,sans-serif" font-weight="900" text-anchor="middle" fill="#fff"><text x="303" y="229" font-size="35">N</text><text x="417" y="229" font-size="35">S</text></g>'+
+ '<path d="M452 220 H390" stroke="#fbbf24" stroke-width="4" marker-end="url(#insideArrow10)"/>'+
+ '<path d="M420 220 H390" stroke="#fbbf24" stroke-width="4" marker-end="url(#insideArrow10)"/>'+
+ '<g font-family="Arial,sans-serif" font-size="15" font-weight="900" fill="#0f766e"><text x="360" y="25" text-anchor="middle">'+c.outsideLabel+'</text></g>'+
+ '<g font-family="Arial,sans-serif" font-size="15" font-weight="900" fill="#a16207"><text x="360" y="285" text-anchor="middle">'+c.insideLabel+'</text></g>'+
+ '<g font-family="Arial,sans-serif" font-size="13" font-weight="800" fill="#334155"><text x="360" y="163" text-anchor="middle">'+(pa?"ਡੰਡਾ ਚੁੰਬਕ":"BAR MAGNET")+'</text><text x="360" y="420" text-anchor="middle">'+(pa?"ਬੰਦ ਲੂਪ: ਬਾਹਰ N ਤੋਂ S, ਅੰਦਰ S ਤੋਂ N":"CLOSED LOOP: N TO S OUTSIDE, S TO N INSIDE")+'</text></g></svg>';
+ $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+tr("back")+'</button><div class="lab-top-name"><span>🧲</span><div><strong>'+tr("electricity")+'</strong><small>'+(pa?"ਜਮਾਤਾਂ 6–10 · ਬਿਜਲੀ ਲੈਬ":"Classes 6–10 · Electricity Lab")+'</small></div></div></section><section class="lab-selectors"><label>'+tr("chooseClass")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option '+(cls===n?"selected":"")+' value="'+n+'">'+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+tr("chooseExperiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+esc(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section><section class="experiment-card"><div class="experiment-meta">'+(pa?"ਜਮਾਤ 10 · ਬਿਜਲੀ ਲੈਬ · ਪ੍ਰਯੋਗ 4 / 5":"CLASS 10 · ELECTRICITY LAB · EXPERIMENT 4 / 5")+'</div><h2>'+c.title+'</h2><p class="aim"><b>'+tr("aim")+':</b> '+c.aim+'</p><div class="visual-panel" style="margin:18px 0;padding:12px"><h3>'+(pa?"ਚੁੰਬਕੀ ਖੇਤਰ ਦਾ ਚਿੱਤਰ":"MAGNETIC FIELD VISUAL")+'</h3>'+svg+'</div><div class="conclusion"><b>'+(pa?"ਬਾਹਰ ਦੀ ਦਿਸ਼ਾ":"OUTSIDE THE MAGNET")+'</b><p>'+c.outside+'</p><b>'+(pa?"ਅੰਦਰ ਦੀ ਦਿਸ਼ਾ":"INSIDE THE MAGNET")+'</b><p>'+c.inside+'</p></div><div class="conclusion"><b>'+tr("conclusion")+':</b> '+c.rule+'</div><p class="safety-note">'+c.safe+'</p><div class="navigation"><button class="back-button" id="prev">'+tr("previous")+'</button><button class="primary-button" id="next">'+tr("next")+' →</button></div></section>';
+ $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};$("#prev").onclick=()=>{if(exp>0){exp--;choice="";draw()}};$("#next").onclick=()=>{if(exp<4){exp++;choice="";draw()}};
+}
+
 function draw(){
  if(lab==="electricity"&&cls===10&&exp===0){class10OhmsLawLab();return}
  if(lab==="electricity"&&cls===10&&exp===1){class10SeriesParallelLab();return}
  if(lab==="electricity"&&cls===10&&exp===2){class10ResistanceCombinationLab();return}
+ if(lab==="electricity"&&cls===10&&exp===3){class10BarMagnetFieldLab();return}
  if(lab==="electricity"&&cls===9&&exp===0){class9AtomicStructureLab();return}
  if(lab==="electricity"&&cls===9&&exp===1){class9VoltageCurrentResistanceLab();return}
  if(lab==="electricity"&&cls===9&&exp===2){class9SeriesParallelLab();return}
