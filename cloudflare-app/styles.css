@@ -204,3 +204,24 @@
 .c8-fact-strip>b{font-size:12px;letter-spacing:.07em}
 .c8-fact-strip p{margin:5px 0 0;font-size:13px;line-height:1.55;font-weight:750}
 @media(max-width:600px){.c8-visual-panel{padding:10px}.c8-visual-heading{font-size:12px}.c8-observation{padding:11px}.c8-observation p{font-size:12px}}
+
+/* Class 9 Electricity Experiment 1: interactive atomic structure model */
+.c9-atom-controls{margin:16px 0;padding:16px;border:1px solid #55cddd66;border-radius:15px;background:linear-gradient(145deg,#102f4c,#0b223a);color:#effaff}
+.c9-atom-controls label{display:grid;gap:9px;font-weight:900}
+.c9-atom-controls select{width:100%;min-height:50px;padding:10px;border:2px solid #55cddd;border-radius:10px;background:#071e35;color:#fff;font:inherit;font-weight:850}
+.c9-atom-layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(220px,.8fr);gap:14px;align-items:center;margin:14px 0}
+.c9-atom-visual{min-width:0;padding:8px;border:1px solid #8acbd6;border-radius:15px;background:#f8fbff;box-shadow:0 5px 18px #0f385515}
+.c9-atom-svg{display:block;width:100%;height:auto}
+.c9-particle-result{display:flex;gap:13px;align-items:center;min-height:132px;padding:16px;border:2px solid;border-radius:14px}
+.c9-particle-result.proton{background:#fff1e8;border-color:#ea580c;color:#9a3412}
+.c9-particle-result.neutron{background:#e0f2fe;border-color:#0284c7;color:#075985}
+.c9-particle-result.electron{background:#e0e7ff;border-color:#4f46e5;color:#312e81}
+.c9-particle-symbol{display:grid;place-items:center;flex:0 0 52px;width:52px;height:52px;border-radius:50%;background:#fff;font-size:30px;font-weight:1000}
+.c9-particle-result strong{font-size:10px;letter-spacing:.1em}
+.c9-particle-result h3{margin:4px 0;font-size:21px;font-weight:950}
+.c9-particle-result p{margin:0;font-size:13px;font-weight:800;line-height:1.5}
+.c9-atom-key{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.c9-atom-key span{display:flex;align-items:center;gap:7px;padding:9px 12px;border-radius:9px;background:#eff6ff;color:#173b55;font-size:12px;font-weight:850}
+.c9-atom-key i{width:13px;height:13px;border-radius:50%;display:inline-block}
+.c9-atom-key .proton-key{background:#ef8b35}.c9-atom-key .neutron-key{background:#64748b}.c9-atom-key .electron-key{background:#2563eb}
+@media(max-width:650px){.c9-atom-layout{grid-template-columns:1fr}.c9-atom-controls{padding:12px}.c9-particle-result{min-height:110px;padding:12px}}
