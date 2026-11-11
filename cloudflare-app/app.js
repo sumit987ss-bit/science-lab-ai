@@ -719,6 +719,40 @@ function class9StaticElectricityLab(){
 }
 
 
+
+function class6LightShadowLab(){
+ const pa=lang==="pa";const t=(e,p)=>pa?p:e;
+ let object="Ball",light="Far";let playing=true;
+ const objects=[
+  {id:"Ball",en:"Ball (opaque)",pa:"ਗੇਂਦ (ਅਪਾਰਦਰਸ਼ੀ)",type:"ball",kind:"sharp"},
+  {id:"Cube",en:"Cube (opaque)",pa:"ਘਣ (ਅਪਾਰਦਰਸ਼ੀ)",type:"cube",kind:"sharp"},
+  {id:"Tree",en:"Tree (opaque)",pa:"ਰੁੱਖ (ਅਪਾਰਦਰਸ਼ੀ)",type:"tree",kind:"sharp"},
+  {id:"Glass",en:"Clear glass",pa:"ਸਾਫ਼ ਕੱਚ",type:"glass",kind:"weak"},
+  {id:"Frosted sheet",en:"Translucent sheet",pa:"ਧੁੰਦਲੀ ਪਾਰਦਰਸ਼ੀ ਚਾਦਰ",type:"sheet",kind:"soft"}
+ ];
+ const current=()=>objects.find(o=>o.id===object)||objects[0];
+ function render(){
+  const o=current(),near=light==="Near",sx=near?45:95,ox=205,screen=350;
+  const factor=(screen-sx)/(ox-sx),scale=Math.min(2.65,Math.max(1.35,factor));
+  const cx=ox,cy=128;
+  let shape="",shadow="";
+  if(o.type==="ball"){shape='<circle cx="'+cx+'" cy="'+cy+'" r="25" fill="#f59e0b" stroke="#92400e" stroke-width="3"/><path d="M188 110 Q205 128 188 146 M222 110 Q205 128 222 146" fill="none" stroke="#fff7ed" stroke-width="2"/>';shadow='<circle cx="350" cy="128" r="'+(25*scale).toFixed(1)+'" />';}
+  if(o.type==="cube"){shape='<path d="M180 105 L205 91 L230 105 L230 151 L205 165 L180 151Z" fill="#38bdf8" stroke="#075985" stroke-width="3"/><path d="M180 105 L205 120 L230 105 M205 120 V165" fill="none" stroke="#e0f2fe" stroke-width="2"/>';const w=50*scale,h=60*scale;shadow='<rect x="'+(350-w/2).toFixed(1)+'" y="'+(128-h/2).toFixed(1)+'" width="'+w.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="3"/>';}
+  if(o.type==="tree"){shape='<path d="M198 145 L198 116 L187 116 L205 87 L223 116 L212 116 L212 145Z" fill="#16a34a" stroke="#166534" stroke-width="2"/><rect x="201" y="145" width="8" height="23" fill="#92400e"/>';shadow='<path d="M'+(350-18*scale).toFixed(1)+' '+(128+18*scale).toFixed(1)+' L'+(350-18*scale).toFixed(1)+' '+(128-12*scale).toFixed(1)+' L'+(350-30*scale).toFixed(1)+' '+(128-12*scale).toFixed(1)+' L350 '+(128-48*scale).toFixed(1)+' L'+(350+30*scale).toFixed(1)+' '+(128-12*scale).toFixed(1)+' L'+(350+18*scale).toFixed(1)+' '+(128-12*scale).toFixed(1)+' L'+(350+18*scale).toFixed(1)+' '+(128+18*scale).toFixed(1)+'Z"/>';}
+  if(o.type==="glass"){shape='<rect x="193" y="86" width="24" height="84" rx="4" fill="#bae6fd" fill-opacity=".38" stroke="#0284c7" stroke-width="3"/><path d="M199 92 V164" stroke="#fff" stroke-width="4" opacity=".9"/>';shadow='<rect x="334" y="93" width="32" height="70" rx="7" fill="#334155" opacity=".10"/>';}
+  if(o.type==="sheet"){shape='<rect x="193" y="86" width="24" height="84" rx="3" fill="#94a3b8" fill-opacity=".38" stroke="#64748b" stroke-width="3"/>';shadow='<rect x="326" y="87" width="48" height="82" rx="5" fill="#334155" opacity=".24" filter="url(#blurShadow)"/>';}
+  const shadowOpacity=o.kind==="sharp"?.78:o.type==="glass"?.10:.28;
+  const rayColor="#e6a23c";
+  const rays=o.kind==="sharp"?'<path d="M'+sx+' 128 L'+(ox-25)+' '+(o.type==="ball"?103:o.type==="cube"?105:87)+' L350 '+(o.type==="ball"?74:o.type==="cube"?78:22)+' L350 128Z" fill="#fbbf24" opacity=".10"/><path d="M'+sx+' 128 L'+(ox-25)+' '+(o.type==="ball"?153:o.type==="cube"?165:160)+' L350 '+(o.type==="ball"?182:o.type==="cube"?178:234)+'" stroke="'+rayColor+'" stroke-width="2" stroke-dasharray="6 5" fill="none"/>' : '<path d="M'+sx+' 128 L350 76 M'+sx+' 128 L350 180" stroke="'+rayColor+'" stroke-width="2" stroke-dasharray="6 5" opacity=".6"/>';
+  const obs=o.kind==="sharp"?t("A clear, dark shadow forms because the opaque object blocks light.","ਅਪਾਰਦਰਸ਼ੀ ਵਸਤੂ ਰੋਸ਼ਨੀ ਰੋਕਦੀ ਹੈ, ਇਸ ਲਈ ਸਾਫ਼ ਗੂੜ੍ਹਾ ਪਰਛਾਵਾਂ ਬਣਦਾ ਹੈ।"):o.type==="glass"?t("Clear glass transmits most light, so its shadow is very faint.","ਸਾਫ਼ ਕੱਚ ਵਿੱਚੋਂ ਜ਼ਿਆਦਾਤਰ ਰੋਸ਼ਨੀ ਲੰਘਦੀ ਹੈ, ਇਸ ਲਈ ਪਰਛਾਵਾਂ ਬਹੁਤ ਹਲਕਾ ਹੁੰਦਾ ਹੈ।"):t("A translucent sheet scatters some light, producing a soft, faint shadow.","ਧੁੰਦਲੀ ਚਾਦਰ ਕੁਝ ਰੋਸ਼ਨੀ ਖਿਲਾਰਦੀ ਹੈ, ਇਸ ਲਈ ਹਲਕਾ ਅਤੇ ਧੁੰਦਲਾ ਪਰਛਾਵਾਂ ਬਣਦਾ ਹੈ।");
+  const size=near?t("Larger shadow: light is closer to the object.","ਵੱਡਾ ਪਰਛਾਵਾਂ: ਰੋਸ਼ਨੀ ਵਸਤੂ ਦੇ ਨੇੜੇ ਹੈ।"):t("Smaller shadow: light is farther from the object.","ਛੋਟਾ ਪਰਛਾਵਾਂ: ਰੋਸ਼ਨੀ ਵਸਤੂ ਤੋਂ ਦੂਰ ਹੈ।");
+  const svg='<svg viewBox="0 0 400 250" role="img" aria-label="Light source, selected object and its shadow on a screen"><defs><filter id="blurShadow"><feGaussianBlur stdDeviation="5"/></filter></defs><rect x="8" y="8" width="384" height="234" rx="16" fill="#f8fbff"/><rect x="322" y="34" width="56" height="188" rx="5" fill="#e2e8f0" stroke="#64748b" stroke-width="4"/><rect x="329" y="42" width="42" height="172" rx="2" fill="#fff"/><text x="350" y="24" text-anchor="middle" font-size="11" fill="#334155" font-weight="700">'+t("SCREEN","ਪਰਦਾ")+'</text><circle cx="'+sx+'" cy="128" r="23" fill="#fde047" stroke="#d97706" stroke-width="3"/><path d="M'+(sx-12)+' 128 H'+(sx+12)+' M'+sx+' 116 V140" stroke="#fff7ed" stroke-width="3"/><text x="'+sx+'" y="169" text-anchor="middle" font-size="11" fill="#92400e" font-weight="700">'+t("LIGHT","ਰੋਸ਼ਨੀ")+'</text>'+rays+'<path d="M'+(ox-35)+' 190 H'+(ox+35)+'" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4 4"/>'+shape+'<text x="'+ox+'" y="205" text-anchor="middle" font-size="11" fill="#334155" font-weight="700">'+t("OBJECT","ਵਸਤੂ")+'</text><g fill="#172554" opacity="'+shadowOpacity+'">'+shadow+'</g><text x="350" y="232" text-anchor="middle" font-size="10" fill="#334155">'+t("SHADOW","ਪਰਛਾਵਾਂ")+'</text></svg>';
+  $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="zback">'+tr("back")+'</button><div class="lab-top-name"><span>🚀</span><div><strong>'+tr("physics")+'</strong><small>CLASS 6 · EXPERIMENT 4 / 5</small></div></div></section><section class="lab-selectors"><label>'+tr("chooseClass")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option value="'+n+'" '+(n===6?"selected":"")+'>'+t("Class "+n,n+"ਵੀਂ ਜਮਾਤ")+'</option>').join("")+'</select></label><label>'+tr("chooseExperiment")+'<select id="ex">'+list().map((x,i)=>'<option value="'+i+'" '+(i===3?"selected":"")+'>'+(i+1)+". "+esc(pa?x.title_pa:x.title)+'</option>').join("")+'</select></label></section><section class="experiment-card"><div class="experiment-meta">'+t("CLASS 6 · EXPERIMENT 4 / 5","ਜਮਾਤ 6 · ਪ੍ਰਯੋਗ 4 / 5")+'</div><h2>'+t("Light and Shadows","ਰੋਸ਼ਨੀ ਅਤੇ ਪਰਛਾਵੇਂ")+'</h2><p class="aim"><b>'+tr("aim")+':</b> '+t("Compare shadows formed by different objects and observe how light distance changes shadow size.","ਵੱਖ-ਵੱਖ ਵਸਤੂਆਂ ਦੇ ਪਰਛਾਵਿਆਂ ਦੀ ਤੁਲਨਾ ਕਰੋ ਅਤੇ ਰੋਸ਼ਨੀ ਦੀ ਦੂਰੀ ਨਾਲ ਆਕਾਰ ਵਿੱਚ ਤਬਦੀਲੀ ਵੇਖੋ।")+'</p><div class="c6shadow-controls"><label>'+t("Choose an object","ਵਸਤੂ ਚੁਣੋ")+'<select id="shadowObject">'+objects.map(x=>'<option value="'+x.id+'" '+(x.id===object?"selected":"")+'>'+t(x.en,x.pa)+'</option>').join("")+'</select></label><label>'+t("Light position","ਰੋਸ਼ਨੀ ਦੀ ਸਥਿਤੀ")+'<select id="shadowLight"><option value="Far" '+(!near?"selected":"")+'>'+t("Far from object","ਵਸਤੂ ਤੋਂ ਦੂਰ")+'</option><option value="Near" '+(near?"selected":"")+'>'+t("Near the object","ਵਸਤੂ ਦੇ ਨੇੜੇ")+'</option></select></label></div><div class="c6shadow-diagram">'+svg+'</div><div class="c6shadow-result"><b>'+t("What do you observe?","ਤੁਸੀਂ ਕੀ ਵੇਖਦੇ ਹੋ?")+'</b><p>'+obs+'</p><p>'+size+'</p></div><div class="c6shadow-key"><span><i class="light-dot"></i>'+t("Light source","ਰੋਸ਼ਨੀ ਦਾ ਸਰੋਤ")+'</span><span><i class="object-dot"></i>'+t("Object","ਵਸਤੂ")+'</span><span><i class="shadow-dot"></i>'+t("Shadow on screen","ਪਰਦੇ ਉੱਤੇ ਪਰਛਾਵਾਂ")+'</span></div><p class="helper">'+t("A shadow forms when an opaque object blocks light. It appears on the side opposite the light source.","ਜਦੋਂ ਅਪਾਰਦਰਸ਼ੀ ਵਸਤੂ ਰੋਸ਼ਨੀ ਰੋਕਦੀ ਹੈ ਤਾਂ ਪਰਛਾਵਾਂ ਬਣਦਾ ਹੈ। ਇਹ ਰੋਸ਼ਨੀ ਦੇ ਸਰੋਤ ਦੇ ਉਲਟ ਪਾਸੇ ਬਣਦਾ ਹੈ।")+'</p></section>';
+  $("#zback").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};$("#shadowObject").onchange=e=>{object=e.target.value;render()};$("#shadowLight").onchange=e=>{light=e.target.value;render()};
+ }
+ render();
+}
+
 function class6FastSlowMotionLab(){
  let mode="Slow motion",playing=true;const pa=lang==="pa",t=(e,p)=>pa?p:e;
  function render(){const fast=mode==="Fast motion",d=fast?240:60,v=d/4;
@@ -879,6 +913,7 @@ function draw(){
  if(lab==="electricity"&&cls===8&&exp===0){liquidConductivityLab();return}
  if(lab==="physics"&&cls===6&&exp===1){class6FastSlowMotionLab();return}
  if(lab==="physics"&&cls===6&&exp===2){class6PushPullLab();return}
+ if(lab==="physics"&&cls===6&&exp===3){class6LightShadowLab();return}
  if(lab==="electricity"&&cls===8&&exp===1){chemicalEffectsLab();return}
  if(lab==="electricity"&&cls===8&&exp===2){class8ElectroplatingLab();return}
  if(lab==="electricity"&&cls===8&&exp===3){class8ElectromagnetLab();return}
