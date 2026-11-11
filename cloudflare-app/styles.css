@@ -294,3 +294,42 @@
 .c9-atom-key span{border:2px solid transparent;transition:border-color .2s ease,background .2s ease}
 .c9-atom-key span.selected{border-color:#0ea5e9;background:#dbeafe;box-shadow:0 0 0 2px #0ea5e922}
 @media(max-width:650px){.c9-atom-controls{padding:12px}.c9-atom-controls select{font-size:16px;min-height:54px}.c9-atom-visual{padding:4px}.c9-atom-key{display:grid;grid-template-columns:1fr;gap:7px}.c9-atom-key span{font-size:13px}}
+
+
+/* Class 9 Electricity Lab — consistent, mobile-first dropdowns across all five experiments */
+.c9-atom-controls select.c9-dropdown,
+.c9-vcr-controls select.c9-dropdown,
+.c9-sp-controls select.c9-dropdown,
+.c9-pe-controls select.c9-dropdown,
+.c9-se-controls select.c9-dropdown{
+ display:block;width:100%;min-width:0;min-height:50px;
+ padding:11px 48px 11px 14px;
+ border:2px solid #55cddd;border-radius:11px;
+ background-color:#071e35;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%237ef0d0' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+ background-repeat:no-repeat;background-position:right 14px center;background-size:20px;
+ color:#f3fbff;font:inherit;font-size:16px;font-weight:850;
+ line-height:1.35;appearance:none;-webkit-appearance:none;
+ box-shadow:inset 0 1px 0 #ffffff0d,0 3px 10px #0002;
+ cursor:pointer;touch-action:manipulation;
+}
+.c9-atom-controls select.c9-dropdown option,
+.c9-vcr-controls select.c9-dropdown option,
+.c9-sp-controls select.c9-dropdown option,
+.c9-pe-controls select.c9-dropdown option,
+.c9-se-controls select.c9-dropdown option{
+ background:#0d2945;color:#f3fbff;font-size:16px;
+}
+.c9-atom-controls select.c9-dropdown:focus-visible,
+.c9-vcr-controls select.c9-dropdown:focus-visible,
+.c9-sp-controls select.c9-dropdown:focus-visible,
+.c9-pe-controls select.c9-dropdown:focus-visible,
+.c9-se-controls select.c9-dropdown:focus-visible{
+ outline:3px solid #7ef0d0;outline-offset:3px;border-color:#7ef0d0;
+}
+.c9-vcr-controls label,.c9-sp-controls label,.c9-pe-controls label,.c9-se-controls label{width:100%;min-width:0}
+@media(max-width:520px){
+ .c9-atom-controls,.c9-vcr-controls,.c9-sp-controls,.c9-pe-controls,.c9-se-controls{padding:13px;margin:13px 0}
+ .c9-atom-controls label,.c9-vcr-controls label,.c9-sp-controls label,.c9-pe-controls label,.c9-se-controls label{width:100%;font-size:14px}
+ .c9-atom-controls select.c9-dropdown,.c9-vcr-controls select.c9-dropdown,.c9-sp-controls select.c9-dropdown,.c9-pe-controls select.c9-dropdown,.c9-se-controls select.c9-dropdown{min-height:52px;font-size:16px}
+}
