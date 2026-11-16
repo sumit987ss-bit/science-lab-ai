@@ -1,4 +1,4 @@
-const MODEL = "gemini-3.8-flash";
+const MODEL = "gemini-3.5-flash-lite";
 
 function json(status, data) {
   return new Response(JSON.stringify(data), {
@@ -69,7 +69,7 @@ export async function onRequestPost({ request, env }) {
           contents: [{ role: "user", parts: [{ text }] }],
           generationConfig: {
             temperature: 0.25,
-            maxOutputTokens: 1800,
+            maxOutputTokens: 800,
             responseMimeType: "text/plain"
           }
         })
