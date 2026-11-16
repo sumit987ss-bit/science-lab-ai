@@ -4,7 +4,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
-const MODEL = process.env.GEMINI_MODEL || "gemini-3.8-flash";
+const MODEL = process.env.GEMINI_MODEL || "gemini-3.5-flash-lite";
 const PORT = Number(process.env.PORT || 10000);
 const MIME = {
   ".html": "text/html; charset=utf-8",
@@ -70,7 +70,7 @@ async function callGemini(question, language, instructionOverride) {
         contents: [{ role: "user", parts: [{ text: question }] }],
         generationConfig: {
           temperature: 0.25,
-          maxOutputTokens: 1800,
+          maxOutputTokens: 800,
           responseMimeType: "text/plain"
         }
       })
