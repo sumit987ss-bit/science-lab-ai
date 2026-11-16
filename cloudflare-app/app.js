@@ -1211,14 +1211,14 @@ $("#ask").onclick=async()=>{
    if(check.ok&&status.ok){
     serverCheck=status.configured
      ? (lang==="pa"?"ਸਰਵਰ ਜਾਂਚ: API ਰੂਟ ਚੱਲ ਰਿਹਾ ਹੈ ਅਤੇ Gemini Key ਮੌਜੂਦ ਹੈ।":"Server check: API route is online and the Gemini key is present.")
-     : (lang==="pa"?"ਸਰਵਰ ਜਾਂਚ: Gemini Key Render ਵਿੱਚ ਸੈੱਟ ਨਹੀਂ ਹੈ।":"Server check: GEMINI_API_KEY is not configured in Render.");
+     : (lang==="pa"?"ਸਰਵਰ ਜਾਂਚ: Gemini Key Cloudflare Pages ਵਿੱਚ ਸੈੱਟ ਨਹੀਂ ਹੈ।":"Server check: GEMINI_API_KEY is not configured in Cloudflare Pages.");
    }else{
     serverCheck=lang==="pa"?"ਸਰਵਰ ਜਾਂਚ: API ਰੂਟ ਨੇ HTTP "+check.status+" ਦਿੱਤਾ।":"Server check: API route returned HTTP "+check.status+".";
    }
   }catch{
    serverCheck=lang==="pa"
-    ?"ਸਰਵਰ ਜਾਂਚ: /api/mentor ਰੂਟ ਤੱਕ ਪਹੁੰਚ ਨਹੀਂ ਹੋਈ। Render deployment ਜਾਂ ਪੁਰਾਣੇ ਕੈਸ਼ ਦੀ ਜਾਂਚ ਲੋੜੀਂਦੀ ਹੈ।"
-    :"Server check: /api/mentor could not be reached. Check the Render deployment or cached app.";
+    ?"ਸਰਵਰ ਜਾਂਚ: /api/mentor ਰੂਟ ਤੱਕ ਪਹੁੰਚ ਨਹੀਂ ਹੋਈ। Cloudflare Pages deployment ਜਾਂ ਪੁਰਾਣੇ ਕੈਸ਼ ਦੀ ਜਾਂਚ ਲੋੜੀਂਦੀ ਹੈ।"
+    :"Server check: /api/mentor could not be reached. Check the Cloudflare Pages deployment or cached app.";
   }
   out.innerHTML="<h3>"+(lang==="pa"?"ਆਨਲਾਈਨ AI ਜਵਾਬ ਨਹੀਂ ਮਿਲਿਆ":"Online AI response unavailable")+"</h3><p>"+(lang==="pa"?"ਕਾਰਨ: ":"Reason: ")+esc(reason)+"</p><p>"+esc(serverCheck)+"</p><div class=\"offline-answer\"><p>"+esc(local)+"</p></div>";
  }finally{
