@@ -7,32 +7,6 @@ import time
 
 st.set_page_config(page_title="Pocket Science Lab", page_icon="🧪", layout="wide", initial_sidebar_state="collapsed")
 
-# Competition access gate. Configure LAB_ACCESS_PASSWORD in Streamlit Secrets.
-import hmac
-_access_password = ""
-try:
-    _access_password = str(st.secrets.get("LAB_ACCESS_PASSWORD", ""))
-except Exception:
-    _access_password = ""
-
-if not st.session_state.get("lab_access_granted", False):
-    st.markdown("""
-    <style>
-    .block-container {max-width: 650px; padding-top: 3rem;}
-    </style>
-    """, unsafe_allow_html=True)
-    st.markdown("""
-    <div style="background:linear-gradient(135deg,#071b35,#0e4966,#0b7c78);padding:2rem;border-radius:22px;color:white;text-align:center">
-      <div style="font-size:3rem">🧪</div>
-      <h1 style="color:white;margin-bottom:.3rem">POCKET SCIENCE LAB</h1>
-      <p style="color:#d8f4ff">Explore • Experiment • Understand</p>
-      <h3 style="color:white;margin-top:1.2rem">🔒 Protected Laboratory</h3>
-      <p style="color:#e5f6ff">Enter the access password to continue.</p>
-    </div>
-    """, unsafe_allow_html=True)
-    if not _access_password:
-        st.error("Access protection is not configured yet. The administrator must add LAB_ACCESS_PASSWORD in Streamlit Secrets.")
-        st.stop()
     with st.form("lab_access_form"):
         _entered_password = st.text_input("Access password", type="password")
         _unlock = st.form_submit_button("UNLOCK SCIENCE LAB", type="primary", use_container_width=True)
