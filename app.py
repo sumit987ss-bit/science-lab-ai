@@ -7,17 +7,6 @@ import time
 
 st.set_page_config(page_title="Pocket Science Lab", page_icon="🧪", layout="wide", initial_sidebar_state="collapsed")
 
-    with st.form("lab_access_form"):
-        _entered_password = st.text_input("Access password", type="password")
-        _unlock = st.form_submit_button("UNLOCK SCIENCE LAB", type="primary", use_container_width=True)
-    if _unlock:
-        if hmac.compare_digest(_entered_password, _access_password):
-            st.session_state.lab_access_granted = True
-            st.rerun()
-        else:
-            st.error("Incorrect password. Please try again.")
-    st.stop()
-
 st.markdown("""
 <style>
 .block-container{padding-top:2.4rem;padding-bottom:1.1rem;max-width:1000px}
