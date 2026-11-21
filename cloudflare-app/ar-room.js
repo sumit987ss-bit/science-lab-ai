@@ -65,3 +65,8 @@ $("#rotateModel").addEventListener("click",()=>{if(model)model.rotation.y+=Math.
 $("#placeModel").addEventListener("click",()=>{if(model){model.position.set(0,0,-2);model.rotation.set(0,0,0);status.textContent="Model reset to the centre of the view."; }});
 $("#stopAR").addEventListener("click",async()=>{if(session)await session.end();if(previewStream){previewStream.getTracks().forEach(t=>t.stop());previewStream=null;}camera.style.display="none";$("#stopAR").disabled=true;$("#placeModel").disabled=true;$("#rotateModel").disabled=true;hint.hidden=false;status.textContent="Experience ended.";});
 setup();changeModel();
+let dragging=false,lastX=0,lastY=0;
+renderer.domElement.addEventListener("pointerdown",e=>{if(!previewMode)return;dragging=true;lastX=e.clientX;lastY=e.clientY;renderer.domElement.setPointerCapture?.(e.pointerId);});
+renderer.domElement.addEventListener("pointermove",e=>{if(!dragging||!model)return;const dx=e.clientX-lastX,dy=e.clientY-lastY;model.rotation.y+=dx*.009;model.rotation.x+=dy*.009;lastX=e.clientX;lastY=e.clientY;});
+renderer.domElement.addEventListener("pointerup",()=>{dragging=false;});
+renderer.domElement.addEventListener("pointercancel",()=>{dragging=false;});
