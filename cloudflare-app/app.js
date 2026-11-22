@@ -1166,6 +1166,10 @@ function subjectVisual(it){
 }
 function visual(it){
  const k=it.kind,pa=lang==="pa";let art="";
+ if(lab==="physics"&&cls===9&&exp===1&&k==="newton"){
+  const force=a*b;
+  return '<div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:12px;padding:10px"><svg viewBox="0 0 400 190" role="img" aria-label="Newton second law force calculation"><rect x="10" y="10" width="380" height="170" rx="14" fill="#fff"/><text x="200" y="38" text-anchor="middle" font-size="18" font-weight="900" fill="#075985">F = m × a</text><rect x="145" y="85" width="110" height="65" rx="10" fill="#38bdf8" stroke="#075985" stroke-width="3"/><text x="200" y="111" text-anchor="middle" font-size="17" font-weight="900" fill="#083344">'+a+' kg</text><text x="200" y="132" text-anchor="middle" font-size="11" fill="#083344">MASS</text><path d="M255 117 H350 l-13 -9 m13 9 -13 9" stroke="#16a34a" stroke-width="5" fill="none"/><text x="302" y="97" text-anchor="middle" font-size="12" font-weight="800" fill="#166534">a = '+b+' m/s²</text><text x="200" y="65" text-anchor="middle" font-size="13" fill="#334155">'+a+' × '+b+' = '+force+' N</text></svg><div style="background:#dcfce7;border-radius:10px;padding:12px;text-align:center;margin-top:6px"><div style="font-size:12px;font-weight:800;color:#166534">'+(pa?"ਗਣਨਾ ਕੀਤਾ ਬਲ":"CALCULATED FORCE")+'</div><div style="font-size:28px;font-weight:1000;color:#14532d">'+force+' N</div></div></div>';
+ }
  if(lab==="physics"&&cls===9&&exp===0&&k==="acceleration"){
   const inc=choice==="Increasing velocity",dec=choice==="Decreasing velocity",dt=Math.max(1,a),dv=inc?Math.min(20,b*.4):dec?-Math.min(20,b*.4):0,v0=20,v1=Math.max(0,v0+dv),acc=dv/dt,carX=dec?210:inc?105:155;
   const arrow=(x,y,len,color,dir)=>dir<0?'<path d="M'+x+' '+y+' h-'+len+' m12 -8 l-12 8 12 8" fill="none" stroke="'+color+'" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>':'<path d="M'+x+' '+y+' h'+len+' m-12 -8 l12 8 -12 8" fill="none" stroke="'+color+'" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>';
@@ -1238,6 +1242,12 @@ function visual(it){
 }
 function subjectObservation(it){
  const k=it.kind,pa=lang==="pa",v=(en,pu)=>pa?pu:en;
+ if(lab==="physics"&&cls===9&&exp===1&&k==="newton")return v("Newton’s second law: F = m × a = "+a+" kg × "+b+" m/s² = "+(a*b)+" N. The net force is "+(a*b)+" newtons. For a fixed mass, increasing acceleration increases the net force.","ਨਿਊਟਨ ਦਾ ਦੂਜਾ ਨਿਯਮ: F = m × a = "+a+" kg × "+b+" m/s² = "+(a*b)+" N। ਨੈੱਟ ਬਲ "+(a*b)+" ਨਿਊਟਨ ਹੈ। ਸਥਿਰ ਪੁੰਜ ਲਈ ਤਵਰਣ ਵਧਾਉਣ ਨਾਲ ਨੈੱਟ ਬਲ ਵਧਦਾ ਹੈ।");
+ if(lab==="physics"&&cls===9&&exp===2&&k==="work"){
+  const noWork=choice.startsWith("Pushing a wall")||choice.startsWith("Holding")||choice.startsWith("Studying");
+  if(noWork)return v("NO WORK IS DONE in the physics sense because displacement is zero. Pushing a wall that does not move or holding a load still involves force but no displacement, so W = F × s = 0. Studying involves mental effort, but no mechanical work is done on an object in this example.","ਭੌਤਿਕ ਵਿਗਿਆਨ ਅਨੁਸਾਰ ਕੋਈ ਮਕੈਨੀਕੀ ਕੰਮ ਨਹੀਂ ਹੁੰਦਾ ਕਿਉਂਕਿ ਵਿਸਥਾਪਨ ਸਿਫ਼ਰ ਹੈ। ਨਾ ਹਿੱਲਦੀ ਕੰਧ ਨੂੰ ਧੱਕਣ ਜਾਂ ਭਾਰ ਸਥਿਰ ਰੱਖਣ ਸਮੇਂ ਬਲ ਲੱਗਦਾ ਹੈ ਪਰ ਵਿਸਥਾਪਨ ਨਹੀਂ ਹੁੰਦਾ, ਇਸ ਲਈ W = F × s = 0। ਪੜ੍ਹਾਈ ਵਿੱਚ ਮਾਨਸਿਕ ਮਿਹਨਤ ਹੁੰਦੀ ਹੈ, ਪਰ ਇੱਥੇ ਕਿਸੇ ਵਸਤੂ ਉੱਤੇ ਮਕੈਨੀਕੀ ਕੰਮ ਨਹੀਂ ਹੁੰਦਾ।");
+  return v("WORK IS DONE because the object moves in the direction of the applied force. Lifting a schoolbag moves it upward; pushing a trolley or pulling a suitcase moves it forward. For force along displacement, W = F × s.","ਕੰਮ ਹੁੰਦਾ ਹੈ ਕਿਉਂਕਿ ਵਸਤੂ ਲਗਾਏ ਬਲ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ਵਿਸਥਾਪਿਤ ਹੁੰਦੀ ਹੈ। ਬੈਗ ਚੁੱਕਣ ਨਾਲ ਉਹ ਉੱਪਰ ਜਾਂਦਾ ਹੈ ਅਤੇ ਟਰਾਲੀ ਧੱਕਣ ਜਾਂ ਸੂਟਕੇਸ ਖਿੱਚਣ ਨਾਲ ਉਹ ਅੱਗੇ ਵਧਦਾ ਹੈ। ਇੱਕੋ ਦਿਸ਼ਾ ਵਿੱਚ ਬਲ ਅਤੇ ਵਿਸਥਾਪਨ ਹੋਣ ਤੇ W = F × s।");
+ }
  if(lab==="physics"&&cls===9&&exp===0&&k==="acceleration"){
   const inc=choice==="Increasing velocity",dec=choice==="Decreasing velocity",dt=Math.max(1,a),dv=inc?Math.min(20,b*.4):dec?-Math.min(20,b*.4):0,final=Math.max(0,20+dv),acc=dv/dt;
   if(inc)return v("The vehicle speeds up from 20.0 m/s to "+final.toFixed(1)+" m/s in "+dt+" s. Its positive acceleration is "+acc.toFixed(2)+" m/s². For the same time interval, a larger increase in velocity gives a larger acceleration.","ਵਾਹਨ "+dt+" ਸਕਿੰਟਾਂ ਵਿੱਚ 20.0 m/s ਤੋਂ "+final.toFixed(1)+" m/s ਤੱਕ ਤੇਜ਼ ਹੁੰਦਾ ਹੈ। ਇਸ ਦਾ ਧਨਾਤਮਕ ਤਵਰਣ "+acc.toFixed(2)+" m/s² ਹੈ। ਇੱਕੋ ਸਮੇਂ ਵਿੱਚ ਵੇਗ ਦੀ ਵੱਡੀ ਤਬਦੀਲੀ ਨਾਲ ਤਵਰਣ ਵੱਧ ਹੁੰਦਾ ਹੈ।");
