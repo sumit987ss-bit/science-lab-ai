@@ -86,65 +86,65 @@ function makeCircuit(g){
  g.userData={kind:"circuit",bulbMaterial:bulbGlass,bulbGlow:glow,lever,circuitOn:true};setCircuitState(true,g);
 }
 function makeMagnetic(g){
- const magnet=new THREE.Mesh(new THREE.BoxGeometry(1.55,.34,.38),material(0x245b9a,{metalness:.28}));g.add(magnet);
- const n=new THREE.Mesh(new THREE.BoxGeometry(.76,.36,.4),material(0xd94e55));n.position.x=-.395;g.add(n);
- const south=new THREE.Mesh(new THREE.BoxGeometry(.76,.36,.4),material(0x397fd0));south.position.x=.395;g.add(south);
- const nl=label("N");nl.scale.set(.3,.2,1);nl.position.set(-.4,.04,.23);g.add(nl);
- const sl=label("S");sl.scale.set(.3,.2,1);sl.position.set(.4,.04,.23);g.add(sl);
+ // Horizontal bar magnet with correctly directed closed magnetic field loops.
+ const magnet=new THREE.Mesh(new THREE.BoxGeometry(1.5,.34,.38),material(0x263f58,{metalness:.25}));
+ g.add(magnet);
+ const north=new THREE.Mesh(new THREE.BoxGeometry(.75,.36,.4),material(0xd94e55));north.position.x=-.375;g.add(north);
+ const south=new THREE.Mesh(new THREE.BoxGeometry(.75,.36,.4),material(0x397fd0));south.position.x=.375;g.add(south);
+ const poleTag=(txt,pos)=>{const t=label(txt);t.scale.set(.28,.17,1);t.position.set(...pos);g.add(t);};
+ poleTag("N",[-.38,.02,.23]);poleTag("S",[.38,.02,.23]);
+ // Closed loops outside run N to S; inside magnet direction is S to N.
  for(let i=0;i<5;i++){
-  const y=.18+i*.16,z=(i-2)*.13,lift=.48+i*.13;
-  tube(g,[[-.78,y,z],[-.88,lift,z],[-.48,lift+.18,z],[0,lift+.22,z],[.48,lift+.18,z],[.88,lift,z],[.78,y,z]],0x62d9f2,.009);
-  tube(g,[[.78,y,z],[.48,-.2-i*.025,z],[0,-.23-i*.025,z],[-.48,-.2-i*.025,z],[-.78,y,z]],0x62d9f2,.009);
+  const y=.22+i*.12,z=(i-2)*.11,h=.48+i*.13;
+  tube(g,[[-.72,y,z],[-.9,h,z],[-.55,h+.16,z],[0,h+.19,z],[.55,h+.16,z],[.9,h,z],[.72,y,z]],0x62d9f2,.009);
  }
- // Direction arrows: outside N to S; inside S to N.
- const arrow=(x,y,z,dir)=>{const a=new THREE.Mesh(new THREE.ConeGeometry(.035,.12,12),new THREE.MeshBasicMaterial({color:0x9ceafa}));a.position.set(x,y,z);a.rotation.z=dir>0?-Math.PI/2:Math.PI/2;g.add(a);};
- arrow(.12,.82,0,1);arrow(-.12,-.27,0,-1);
- callout(g,"NORTH POLE (N)",[-.72,0,.2],[-1.3,.55,.2],1.15);
- callout(g,"SOUTH POLE (S)",[.72,0,.2],[1.3,.55,.2],1.15);
- callout(g,"FIELD OUTSIDE: N → S",[.15,.78,0],[0,1.25,.1],1.55);
- callout(g,"FIELD INSIDE: S → N",[0,-.25,0],[0,-.78,.1],1.55);
-}
-function makeRefraction(g){
- const glass=new THREE.Mesh(new THREE.BoxGeometry(1.18,.78,.42),new THREE.MeshPhysicalMaterial({color:0x75c9ef,transparent:true,opacity:.2,roughness:.08,metalness:0,side:THREE.DoubleSide}));g.add(glass);
- const edges=new THREE.LineSegments(new THREE.EdgesGeometry(glass.geometry),new THREE.LineBasicMaterial({color:0x8fe5ff}));g.add(edges);
- // Parallel-sided block: the emergent ray is parallel to the incident ray.
- tube(g,[[-1.12,.53,.28],[-.59,.28,.28]],0xffc95e,.018);
- tube(g,[[-.59,.28,.28],[.59,-.10,.28]],0xffc95e,.018);
- tube(g,[[.59,-.10,.28],[1.12,-.35,.28]],0xffc95e,.018);
- const normal=(x,y)=>{const line=new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x-.34,y,.32),new THREE.Vector3(x+.34,y,.32)]),new THREE.LineDashedMaterial({color:0xe7f5ff,dashSize:.06,gapSize:.04}));line.computeLineDistances();g.add(line);};
- normal(-.59,.28);normal(.59,-.10);
- callout(g,"INCIDENT RAY",[ -.9,.43,.28],[-1.12,.9,.4],1.08);
- callout(g,"REFRACTED RAY",[0,.09,.28],[0,-.48,.42],1.12);
- callout(g,"EMERGENT RAY",[.9,-.25,.28],[1.12,-.7,.4],1.08);
- callout(g,"GLASS BLOCK",[0,.36,.0],[0,.83,.12],1.0);
- const air1=label("AIR");air1.scale.set(.42,.18,1);air1.position.set(-.9,-.05,.36);g.add(air1);
- const air2=label("AIR");air2.scale.set(.42,.18,1);air2.position.set(.9,.05,.36);g.add(air2);
-}
-function makeCell(g){
- const wall=new THREE.Mesh(new THREE.BoxGeometry(1.8,1.05,.82),material(0x7acb79,{transparent:true,opacity:.2,side:THREE.DoubleSide}));g.add(wall);
- const edge=new THREE.LineSegments(new THREE.EdgesGeometry(wall.geometry),new THREE.LineBasicMaterial({color:0x83e59a}));g.add(edge);
- const membrane=new THREE.Mesh(new THREE.BoxGeometry(1.68,.93,.72),material(0x63b8a1,{transparent:true,opacity:.14,side:THREE.DoubleSide}));g.add(membrane);
- const cytoplasm=new THREE.Mesh(new THREE.BoxGeometry(1.58,.84,.64),material(0x9bdc85,{transparent:true,opacity:.08,side:THREE.DoubleSide}));g.add(cytoplasm);
- const vac=new THREE.Mesh(new THREE.BoxGeometry(.72,.65,.48),material(0x65b9e8,{transparent:true,opacity:.48}));vac.position.set(.25,-.05,0);g.add(vac);
- const nucleus=new THREE.Mesh(new THREE.SphereGeometry(.22,32,24),material(0xb38be8));nucleus.position.set(-.48,.1,.08);g.add(nucleus);
- const nucleolus=new THREE.Mesh(new THREE.SphereGeometry(.08,24,18),material(0x684a9c));nucleolus.position.set(-.45,.1,.25);g.add(nucleolus);
- for(let i=0;i<7;i++){const chlor=new THREE.Mesh(new THREE.SphereGeometry(.085,20,16),material(0x3fbd73));chlor.scale.set(1.35,.72,.75);chlor.position.set(-.62+(i%3)*.48,-.32+Math.floor(i/3)*.3,.2);g.add(chlor);}
- const mitoMat=material(0xe7a45c);for(let i=0;i<3;i++){const m=new THREE.Mesh(new THREE.SphereGeometry(.11,20,14),mitoMat);m.scale.set(1.7,.75,.8);m.position.set(-.12+i*.35,.34,.18);g.add(m);}
- callout(g,"CELL WALL",[-.82,.38,0],[-1.42,.82,.25],.95);
- callout(g,"CELL MEMBRANE",[-.76,.2,.36],[-1.42,.12,.58],1.22);
- callout(g,"NUCLEUS",[-.48,.1,.3],[-1.28,-.48,.55],.88);
- callout(g,"NUCLEOLUS",[-.45,.1,.25],[-.28,-.82,.6],1.02);
- callout(g,"CENTRAL VACUOLE",[.25,-.05,.25],[1.38,-.52,.5],1.35);
- callout(g,"CHLOROPLAST",[.34,-.32,.2],[1.38,.48,.5],1.05);
- callout(g,"MITOCHONDRION",[.23,.34,.18],[.45,1.0,.55],1.22);
- callout(g,"CYTOPLASM",[-.68,-.3,.12],[-.65,-.95,.55],.95);
-}
-function makeModel(kind){const g=new THREE.Group();g.userData.arExperimentRoot=true;if(kind==="atom")makeAtom(g);else if(kind==="circuit")makeCircuit(g);else if(kind==="magnetic")makeMagnetic(g);else if(kind==="refraction")makeRefraction(g);else if(kind==="cell")makeCell(g);return g;}
+ // Arrowheads on the external upper loop show N -> S.
+ const arrow=new THREE.Mesh(new THREE.ConeGeometry(.035,.12,12),new THREE.MeshBasicMaterial({color:0x9ceafa}));
+ arrow.position.set(.12,.82,0);arrow.rotation.z=-Math.PI/2;g.add(arrow);
+}function makeRefraction(g){
+ // Parallel-sided glass slab. Ray enters from air, bends toward the normal,
+ // exits bending away, and emerges parallel to the incident ray.
+ const glassMat=new THREE.MeshPhysicalMaterial({color:0x75c9ef,transparent:true,opacity:.2,roughness:.08,metalness:0,side:THREE.DoubleSide});
+ const slab=new THREE.Mesh(new THREE.BoxGeometry(1.18,.9,.42),glassMat);g.add(slab);
+ const edges=new THREE.LineSegments(new THREE.EdgesGeometry(slab.geometry),new THREE.LineBasicMaterial({color:0x8fe5ff}));g.add(edges);
+ // Entry/exit faces are vertical: their normal is horizontal.
+ tube(g,[[-1.22,.55,.28],[-.59,.24,.28]],0xffc95e,.018);
+ tube(g,[[-.59,.24,.28],[.59,-.06,.28]],0xffc95e,.018);
+ tube(g,[[.59,-.06,.28],[1.22,-.37,.28]],0xffc95e,.018);
+ const normal=(x)=>{const line=new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x,-.56,.32),new THREE.Vector3(x,.56,.32)]),new THREE.LineDashedMaterial({color:0xe7f5ff,dashSize:.06,gapSize:.04}));line.computeLineDistances();g.add(line);};
+ normal(-.59);normal(.59);
+ const tag=label("GLASS");tag.scale.set(.34,.17,1);tag.position.set(0,-.4,.24);g.add(tag);
+}function makeCell(g){
+ // Plant cell: rounded outline, cell wall, membrane, nucleus, chloroplasts,
+ // large central vacuole, mitochondria and cytoplasm.
+ const outer=new THREE.Mesh(new THREE.SphereGeometry(1,40,32),material(0x70b96d,{transparent:true,opacity:.25,side:THREE.DoubleSide}));
+ outer.scale.set(1.08,.68,.48);g.add(outer);
+ const edge=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.SphereGeometry(1,32,24)),new THREE.LineBasicMaterial({color:0x83e59a,transparent:true,opacity:.6}));
+ edge.scale.set(1.08,.68,.48);g.add(edge);
+ const membrane=new THREE.Mesh(new THREE.SphereGeometry(.96,36,28),material(0x63b8a1,{transparent:true,opacity:.13,side:THREE.DoubleSide}));
+ membrane.scale.set(1.06,.66,.46);g.add(membrane);
+ const cytoplasm=new THREE.Mesh(new THREE.SphereGeometry(.91,32,24),material(0x9bdc85,{transparent:true,opacity:.08,side:THREE.DoubleSide}));
+ cytoplasm.scale.set(1.04,.64,.44);g.add(cytoplasm);
+ const vac=new THREE.Mesh(new THREE.SphereGeometry(1,32,24),material(0x65b9e8,{transparent:true,opacity:.48}));
+ vac.scale.set(.48,.43,.30);vac.position.set(.28,-.02,.03);g.add(vac);
+ const nucleus=new THREE.Mesh(new THREE.SphereGeometry(.22,32,24),material(0xb38be8));nucleus.position.set(-.53,.12,.16);g.add(nucleus);
+ const nucleolus=new THREE.Mesh(new THREE.SphereGeometry(.08,24,18),material(0x684a9c));nucleolus.position.set(-.50,.12,.25);g.add(nucleolus);
+ // Chloroplasts distributed around the cytoplasm (not inside the vacuole).
+ const chlorMat=material(0x3fbd73);
+ [[-.68,.38,.13],[-.18,.45,.13],[-.70,-.12,.13],[-.20,-.42,.13],[.72,.34,.13],[.72,-.36,.13]].forEach(p=>{
+  const c=new THREE.Mesh(new THREE.SphereGeometry(.09,20,16),chlorMat);c.scale.set(1.45,.72,.8);c.position.set(...p);g.add(c);
+ });
+ // Mitochondria are small elongated bodies with folded inner-membrane hints.
+ const mitoMat=material(0xe7a45c);
+ [[-.20,.62,.12],[.35,.55,.12],[-.74,.5,.12]].forEach(p=>{
+  const m=new THREE.Mesh(new THREE.SphereGeometry(.105,20,14),mitoMat);m.scale.set(1.65,.75,.8);m.position.set(...p);g.add(m);
+ });
+}function makeModel(kind){const g=new THREE.Group();g.userData.arExperimentRoot=true;if(kind==="atom")makeAtom(g);else if(kind==="circuit")makeCircuit(g);else if(kind==="magnetic")makeMagnetic(g);else if(kind==="refraction")makeRefraction(g);else if(kind==="cell")makeCell(g);return g;}
 function setCircuitState(on,target=model){if(!target||target.userData?.kind!=="circuit")return;target.userData.circuitOn=!!on;target.userData.bulbMaterial.emissiveIntensity=on?.95:.035;target.userData.bulbMaterial.emissive.setHex(on?0xffa92e:0x3b2b16);target.userData.bulbGlow.intensity=on?1.8:0;target.userData.lever.rotation.z=on?0:-.48;}
 function setup(){if(renderer&&renderer.domElement?.isConnected){stage.querySelectorAll("canvas").forEach((c,i)=>{if(c!==renderer.domElement)c.remove();});return;}stage.querySelectorAll("canvas").forEach(c=>c.remove());renderer=new THREE.WebGLRenderer({alpha:true,antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.setSize(stage.clientWidth,stage.clientHeight);renderer.xr.enabled=true;renderer.domElement.dataset.arRenderer="primary";stage.appendChild(renderer.domElement);scene=new THREE.Scene();camera3d=new THREE.PerspectiveCamera(55,stage.clientWidth/stage.clientHeight,.01,30);scene.add(new THREE.HemisphereLight(0xffffff,0x34516b,2));const light=new THREE.DirectionalLight(0xffffff,2);light.position.set(1,3,2);scene.add(light);changeModel();renderer.setAnimationLoop(()=>renderer.render(scene,camera3d));window.addEventListener("resize",resize);}
 function resize(){if(!renderer)return;renderer.setSize(stage.clientWidth,stage.clientHeight);camera3d.aspect=stage.clientWidth/stage.clientHeight;camera3d.updateProjectionMatrix();}
-function changeModel(){if(!scene)return;scene.children.filter(o=>o.userData?.arExperimentRoot||o.name==="active-scientific-model").forEach(o=>{scene.remove(o);o.traverse(n=>{if(n.geometry)n.geometry.dispose();if(n.material)(Array.isArray(n.material)?n.material:[n.material]).forEach(m=>{if(m.map)m.map.dispose();m.dispose();});});});if(model&&model.parent)scene.remove(model);const id=$("#modelSelect").value,d=catalogue[id];model=makeModel(d.kind);model.name="active-scientific-model";scene.add(model);model.position.set(0,0,-2);if(d.kind==="atom"||d.kind==="circuit")model.scale.setScalar(.65);$("#modelTitle").textContent=d.title;$("#modelInfo").textContent=d.info;$("#modelMeta").textContent=d.subject+"  •  "+d.grade;$("#modelFacts").innerHTML=d.facts.map(x=>"<li>"+x+"</li>").join("");}
-async function startAR(){if(session){status.textContent="An AR session is already running. Exit it before starting another.";return;}setup();if(!navigator.xr){status.textContent="WebXR AR is unavailable in this browser. Try Camera Preview.";return;}try{if(!await navigator.xr.isSessionSupported("immersive-ar")){status.textContent="This device/browser does not support immersive AR. Try Camera Preview.";return;}session=await navigator.xr.requestSession("immersive-ar",{requiredFeatures:["hit-test"],optionalFeatures:["local-floor","dom-overlay"],domOverlay:{root:document.body}});let refType=null;for(const candidate of ["local-floor","local"]){try{await session.requestReferenceSpace(candidate);refType=candidate;break;}catch(_){}}if(!refType)throw new Error("No supported local reference space was found.");renderer.xr.setReferenceSpaceType(refType);await renderer.xr.setSession(session);refSpace=renderer.xr.getReferenceSpace();if(!refSpace)throw new Error("Three.js could not access the active AR reference space.");const viewer=await session.requestReferenceSpace("viewer");hitSource=await session.requestHitTestSource({space:viewer});const reticle=new THREE.Mesh(new THREE.RingGeometry(.08,.11,32),new THREE.MeshBasicMaterial({color:0x70edbd,side:THREE.DoubleSide}));reticle.rotation.x=-Math.PI/2;reticle.matrixAutoUpdate=false;reticle.visible=false;scene.add(reticle);let placed=false;const controller=renderer.xr.getController(0);scene.add(controller);const raycaster=new THREE.Raycaster();controller.addEventListener("select",()=>{if(model?.userData.kind==="circuit"){raycaster.setFromXRController(controller);if(raycaster.intersectObject(model.userData.lever).length){setCircuitState(!model.userData.circuitOn,model);status.textContent=model.userData.circuitOn?"Switch closed: bulb ON.":"Switch open: bulb OFF.";return;}}if(reticle.visible&&!placed){model.position.setFromMatrixPosition(reticle.matrix);model.quaternion.setFromRotationMatrix(reticle.matrix);if($("#modelSelect").value==="atom"||$("#modelSelect").value==="circuit")model.scale.setScalar(.65);placed=true;reticle.visible=false;status.textContent="Model placed once. Move around it to observe different sides.";}});renderer.setAnimationLoop((time,frame)=>{if(frame&&hitSource){const hits=frame.getHitTestResults(hitSource);if(hits.length&&!placed){const pose=hits[0].getPose(refSpace);reticle.visible=true;reticle.matrix.fromArray(pose.transform.matrix);}else reticle.visible=false;}renderer.render(scene,camera3d);});session.addEventListener("end",()=>{session=null;hitSource=null;refSpace=null;reticle.visible=false;scene.remove(reticle);scene.remove(controller);document.body.classList.remove("ar-active");resize();renderer.setAnimationLoop(()=>renderer.render(scene,camera3d));status.textContent="AR session ended.";$("#stopAR").disabled=true;});$("#stopAR").disabled=false;$("#placeModel").disabled=false;$("#rotateModel").disabled=false;hint.hidden=true;document.body.classList.add("ar-active");resize();status.textContent="Move your phone slowly to find a surface. Tap to place the model.";}catch(e){if(session){try{await session.end();}catch(_){}session=null;}hitSource=null;refSpace=null;status.textContent="Could not start true surface AR: "+(e.message||"AR setup failed")+". Camera Preview remains available.";}}
+function changeModel(){if(!scene)return;scene.children.filter(o=>o.userData?.arExperimentRoot||o.name==="active-scientific-model").forEach(o=>{scene.remove(o);o.traverse(n=>{if(n.geometry)n.geometry.dispose();if(n.material)(Array.isArray(n.material)?n.material:[n.material]).forEach(m=>{if(m.map)m.map.dispose();m.dispose();});});});if(model&&model.parent)scene.remove(model);const id=$("#modelSelect").value,d=catalogue[id];model=makeModel(d.kind);model.name="active-scientific-model";scene.add(model);model.position.set(0,0,-2);model.scale.setScalar(.65);$("#modelTitle").textContent=d.title;$("#modelInfo").textContent=d.info;$("#modelMeta").textContent=d.subject+"  •  "+d.grade;$("#modelFacts").innerHTML=d.facts.map(x=>"<li>"+x+"</li>").join("");}
+async function startAR(){if(session){status.textContent="An AR session is already running. Exit it before starting another.";return;}setup();if(!navigator.xr){status.textContent="WebXR AR is unavailable in this browser. Try Camera Preview.";return;}try{if(!await navigator.xr.isSessionSupported("immersive-ar")){status.textContent="This device/browser does not support immersive AR. Try Camera Preview.";return;}session=await navigator.xr.requestSession("immersive-ar",{requiredFeatures:["hit-test"],optionalFeatures:["local-floor","dom-overlay"],domOverlay:{root:document.body}});let refType=null;for(const candidate of ["local-floor","local"]){try{await session.requestReferenceSpace(candidate);refType=candidate;break;}catch(_){}}if(!refType)throw new Error("No supported local reference space was found.");renderer.xr.setReferenceSpaceType(refType);await renderer.xr.setSession(session);refSpace=renderer.xr.getReferenceSpace();if(!refSpace)throw new Error("Three.js could not access the active AR reference space.");const viewer=await session.requestReferenceSpace("viewer");hitSource=await session.requestHitTestSource({space:viewer});const reticle=new THREE.Mesh(new THREE.RingGeometry(.08,.11,32),new THREE.MeshBasicMaterial({color:0x70edbd,side:THREE.DoubleSide}));reticle.rotation.x=-Math.PI/2;reticle.matrixAutoUpdate=false;reticle.visible=false;scene.add(reticle);let placed=false;const controller=renderer.xr.getController(0);scene.add(controller);const raycaster=new THREE.Raycaster();controller.addEventListener("select",()=>{if(model?.userData.kind==="circuit"){raycaster.setFromXRController(controller);if(raycaster.intersectObject(model.userData.lever).length){setCircuitState(!model.userData.circuitOn,model);status.textContent=model.userData.circuitOn?"Switch closed: bulb ON.":"Switch open: bulb OFF.";return;}}if(reticle.visible&&!placed){model.position.setFromMatrixPosition(reticle.matrix);model.quaternion.setFromRotationMatrix(reticle.matrix);model.scale.setScalar(.65);placed=true;reticle.visible=false;status.textContent="Model placed once. Move around it to observe different sides.";}});renderer.setAnimationLoop((time,frame)=>{if(frame&&hitSource){const hits=frame.getHitTestResults(hitSource);if(hits.length&&!placed){const pose=hits[0].getPose(refSpace);reticle.visible=true;reticle.matrix.fromArray(pose.transform.matrix);}else reticle.visible=false;}renderer.render(scene,camera3d);});session.addEventListener("end",()=>{session=null;hitSource=null;refSpace=null;reticle.visible=false;scene.remove(reticle);scene.remove(controller);document.body.classList.remove("ar-active");resize();renderer.setAnimationLoop(()=>renderer.render(scene,camera3d));status.textContent="AR session ended.";$("#stopAR").disabled=true;});$("#stopAR").disabled=false;$("#placeModel").disabled=false;$("#rotateModel").disabled=false;hint.hidden=true;document.body.classList.add("ar-active");resize();status.textContent="Move your phone slowly to find a surface. Tap to place the model.";}catch(e){if(session){try{await session.end();}catch(_){}session=null;}hitSource=null;refSpace=null;status.textContent="Could not start true surface AR: "+(e.message||"AR setup failed")+". Camera Preview remains available.";}}
 async function startPreview(){setup();previewMode=true;try{previewStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:"environment"}},audio:false});camera.srcObject=previewStream;await camera.play();document.body.classList.add("preview-active");camera.style.display="block";stage.style.background="transparent";hint.hidden=true;renderer.setAnimationLoop(()=>renderer.render(scene,camera3d));model.position.set(0,0,-2);status.textContent="Camera preview shows a draggable 3D model overlay; it does not automatically detect surfaces.";$("#placeModel").disabled=false;$("#rotateModel").disabled=false;$("#stopAR").disabled=false;}catch(e){status.textContent="Camera access was not granted. Allow camera permission and reload.";}}
 $("#modelSelect").addEventListener("change",changeModel);$("#startAR").addEventListener("click",startAR);$("#cameraMode").addEventListener("click",startPreview);$("#rotateModel").addEventListener("click",()=>{if(model)model.rotation.y+=Math.PI/4;});$("#placeModel").addEventListener("click",()=>{if(model){model.position.set(0,0,-2);model.rotation.set(0,0,0);status.textContent="Model reset to the view."; }});
 $("#stopAR").addEventListener("click",async()=>{if(session)await session.end();if(previewStream){previewStream.getTracks().forEach(t=>t.stop());previewStream=null;}camera.style.display="none";document.body.classList.remove("ar-active","preview-active");resize();previewMode=false;$("#stopAR").disabled=true;$("#placeModel").disabled=true;$("#rotateModel").disabled=true;hint.hidden=false;status.textContent="Experience ended.";});
