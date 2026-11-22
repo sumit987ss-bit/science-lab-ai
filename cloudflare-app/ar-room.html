@@ -2,24 +2,30 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#071b35"><meta name="description" content="Explore science in your real room with Pocket Science Lab AR Room.">
+<meta name="theme-color" content="#071b35"><meta name="description" content="Explore scientific 3D models in your room with Pocket Science Lab AR Room.">
 <link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icons/pocket-science-lab.svg">
 <link rel="stylesheet" href="./ar-room.css"><title>AR Room · POCKET Science Lab</title>
 </head>
 <body>
-<header class="ar-top"><a href="./" class="back">← Pocket Science Lab</a><span>✦ AR ROOM</span><span class="pill">AI + AR</span></header>
+<header class="ar-top"><a href="./" class="back">← Pocket Science Lab</a><span>✦ AR ROOM</span><span class="pill">SCIENTIFIC 3D</span></header>
 <main>
-<section class="intro"><p class="eyebrow">YOUR ROOM. YOUR LABORATORY.</p><h1>Bring science<br><em>into your room.</em></h1><p>Choose a model, point your phone at a clear surface, and explore science in augmented reality.</p></section>
+<section class="intro"><p class="eyebrow">POCKET SCIENCE LAB · IMMERSIVE LEARNING</p><h1>Explore science<br><em>in 3D.</em></h1><p>Choose an experiment, place its model in your space, and study the scientific structures from different angles.</p></section>
 <section class="controls">
-<label for="modelSelect">Choose a 3D science model</label>
-<select id="modelSelect"><option value="atom">Structure of an Atom · Class 9</option><option value="circuit">Electric Circuit · Class 6</option><option value="solar">Solar System</option></select>
+<label for="modelSelect">Experiment catalogue</label>
+<select id="modelSelect">
+<option value="atom">Structure of an Atom · Chemistry · Class 9</option>
+<option value="circuit">Electric Circuit · Physics · Class 6</option>
+<option value="magnetic">Magnetic Field Around a Bar Magnet · Physics · Class 10</option>
+<option value="refraction">Refraction Through a Glass Block · Physics · Class 9</option>
+<option value="cell">Plant Cell: Structure and Organelles · Biology · Class 9</option>
+</select>
 <div class="actions"><button id="startAR" class="primary">Start AR experience</button><button id="cameraMode" class="secondary">Camera preview</button></div>
-<p id="status" role="status">For true surface placement, use an ARCore-compatible Android phone with Chrome and allow camera access.</p>
+<p id="status" role="status">For true surface placement, use a compatible Android phone and Chrome, then allow camera access.</p>
 </section>
-<section class="stage-wrap"><div id="stage"><div class="stage-hint" id="stageHint"><span>✦</span><b>Your experiment will appear here</b><small>Choose a model and start the experience</small></div></div><video id="camera" playsinline muted></video><canvas id="overlay"></canvas></section>
-<section class="model-tools"><button id="placeModel" class="secondary" disabled>Place / reset model</button><button id="rotateModel" class="secondary" disabled>Rotate model</button></section>
-<section class="explain"><div><span class="eyebrow">LEARN WHILE YOU EXPLORE</span><h2 id="modelTitle">Structure of an Atom</h2><p id="modelInfo">Explore a simplified atom model. The nucleus contains protons and neutrons; electrons occupy regions around it.</p></div><div class="mentor"><b>AI Science Mentor</b><p>Ask your mentor about the model from the main Pocket Science Lab AI Mentor. This first AR prototype focuses on placing and exploring the 3D model.</p><a href="./">Open Pocket Science Lab →</a></div></section>
-<p class="safety">Educational visualisation only. 3D models are simplified and not to scale. Move carefully while using your phone; stay aware of your surroundings.</p>
+<section class="stage-wrap"><div id="stage"><div class="stage-hint" id="stageHint"><span>✦</span><b>Your 3D experiment will appear here</b><small>Select an experiment and start the experience</small></div></div><video id="camera" playsinline muted></video></section>
+<section class="model-tools"><button id="placeModel" class="secondary" disabled>Reset model</button><button id="rotateModel" class="secondary" disabled>Rotate model</button></section>
+<section class="explain"><div class="model-explanation"><span class="eyebrow" id="modelMeta">CHEMISTRY · CLASS 9</span><h2 id="modelTitle">Structure of an Atom</h2><p id="modelInfo">A simplified atomic model.</p><h3>Scientific observations</h3><ul id="modelFacts"></ul></div><div class="mentor"><b>Learn with your Science Mentor</b><p>Study the model here, then ask the Pocket Science Lab AI Science Mentor to explore the concept further.</p><a href="./">Open Pocket Science Lab →</a></div></section>
+<p class="safety">Educational 3D visualisations; structures and dimensions are simplified and not to scale. Use AR while standing still and remain aware of your surroundings.</p>
 </main>
 <div id="arHud" role="group" aria-label="AR controls"><button id="stopAR" type="button" disabled>Exit AR</button></div>
 <script type="module" src="./ar-room.js"></script>
