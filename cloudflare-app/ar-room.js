@@ -23,9 +23,10 @@ function makeModel(kind){
   cylinder(.195,.195,.035,mat(0x1b2c3c),-.83,.66,0);
   cylinder(.075,.075,.075,copper,-.83,.715,0);
   cylinder(.075,.075,.075,metal,-.83,.715,.18);
-  const plus=box(.16,.035,.035,redWire,-.83,.76,-.09);plus.rotation.z=0;
-  // Cell labels.
-  const cellLabel=new THREE.Group();cellLabel.position.set(-.83,.36,.205);cellLabel.rotation.y=0;group.add(cellLabel);
+  // Raised polarity marks on the visible face of the cell.
+  box(.025,.105,.018,metal,-.83,.43,.196);
+  box(.085,.025,.018,metal,-.83,.43,.196);
+  box(.085,.025,.018,metal,-.83,.24,.196);
   // Bulb holder, metal screw base, glass envelope and visible filament.
   cylinder(.17,.19,.12,mat(0x34495e),.82,.10,0);
   cylinder(.105,.105,.20,metal,.82,.25,0);
@@ -98,8 +99,8 @@ async function startAR(){
    if(reticle.visible){model.position.setFromMatrixPosition(reticle.matrix);model.quaternion.setFromRotationMatrix(reticle.matrix);placed=true;status.textContent="Model placed. Walk around it or drag to rotate."; }
   });
   renderer.setAnimationLoop((time,frame)=>{if(frame&&hitSource){const hits=frame.getHitTestResults(hitSource);if(hits.length){const pose=hits[0].getPose(refSpace);reticle.visible=true;reticle.matrix.fromArray(pose.transform.matrix);if(!placed){model.position.setFromMatrixPosition(reticle.matrix);model.quaternion.setFromRotationMatrix(reticle.matrix);}}else reticle.visible=false;}renderer.render(scene,camera3d);});
-  session.addEventListener("end",()=>{session=null;hitSource=null;reticle.visible=false;document.body.classList.remove("ar-active");renderer.setAnimationLoop(()=>{if(model){model.rotation.y+=.004;}renderer.render(scene,camera3d);});status.textContent="AR session ended.";$("#stopAR").disabled=true;});
-  $("#stopAR").disabled=false;$("#placeModel").disabled=false;$("#rotateModel").disabled=false;hint.hidden=true;document.body.classList.add("ar-active");status.textContent="Move your phone slowly to find a surface. Tap the screen to place the model."; 
+  session.addEventListener("end",()=>{session=null;hitSource=null;reticle.visible=false;document.body.classList.remove("ar-active");resize();renderer.setAnimationLoop(()=>{if(model){model.rotation.y+=.004;}renderer.render(scene,camera3d);});status.textContent="AR session ended.";$("#stopAR").disabled=true;});
+  $("#stopAR").disabled=false;$("#placeModel").disabled=false;$("#rotateModel").disabled=false;hint.hidden=true;document.body.classList.add("ar-active");resize();status.textContent="Move your phone slowly to find a surface. Tap the screen to place the model."; 
  }catch(e){
   if(session){try{await session.end();}catch(_){}session=null;}
   hitSource=null;refSpace=null;
@@ -107,8 +108,8 @@ async function startAR(){
  }
 }
 async function startPreview(){
- setup();previewMode=true;document.body.classList.add("preview-active");
- try{previewStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:"environment"}},audio:false});camera.srcObject=previewStream;await camera.play();camera.style.display="block";renderer.domElement.style.background="transparent";stage.style.background="transparent";hint.hidden=true;
+ setup();previewMode=true;
+ try{previewStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:"environment"}},audio:false});camera.srcObject=previewStream;await camera.play();document.body.classList.add("preview-active");camera.style.display="block";renderer.domElement.style.background="transparent";stage.style.background="transparent";hint.hidden=true;
  // Camera preview is a live camera view with a draggable 3D model overlay; it is not plane-tracked AR.
  renderer.setAnimationLoop(()=>{renderer.render(scene,camera3d);});model.position.set(0,0,-2);status.textContent="Camera preview is active. Drag on the 3D model area to rotate it. This preview does not automatically detect walls or floors.";
  $("#placeModel").disabled=false;$("#rotateModel").disabled=false;$("#stopAR").disabled=false;
@@ -116,8 +117,9 @@ async function startPreview(){
 $("#modelSelect").addEventListener("change",changeModel);
 $("#startAR").addEventListener("click",startAR);
 $("#cameraMode").addEventListener("click",startPreview);
-$("#rotateModel").addEventListener("click",()=>{if(model)model.rotation.y+=Math.PI/4;});\n$("#placeModel").addEventListener("click",()=>{if(model){model.position.set(0,0,-2);model.rotation.set(0,0,0);status.textContent="Model reset to the centre of the view."; }});
-$("#stopAR").addEventListener("click",async()=>{if(session)await session.end();if(previewStream){previewStream.getTracks().forEach(t=>t.stop());previewStream=null;}camera.style.display="none";document.body.classList.remove("ar-active","preview-active");previewMode=false;$("#stopAR").disabled=true;$("#placeModel").disabled=true;$("#rotateModel").disabled=true;hint.hidden=false;status.textContent="Experience ended.";});
+$("#rotateModel").addEventListener("click",()=>{if(model)model.rotation.y+=Math.PI/4;});
+$("#placeModel").addEventListener("click",()=>{if(model){model.position.set(0,0,-2);model.rotation.set(0,0,0);status.textContent="Model reset to the centre of the view."; }});
+$("#stopAR").addEventListener("click",async()=>{if(session)await session.end();if(previewStream){previewStream.getTracks().forEach(t=>t.stop());previewStream=null;}camera.style.display="none";document.body.classList.remove("ar-active","preview-active");resize();previewMode=false;$("#stopAR").disabled=true;$("#placeModel").disabled=true;$("#rotateModel").disabled=true;hint.hidden=false;status.textContent="Experience ended.";});
 setup();changeModel();
 renderer.domElement.style.touchAction="none";
 renderer.domElement.addEventListener("pointerdown",e=>{if(!previewMode&&!session)return;dragging=true;lastX=e.clientX;lastY=e.clientY;renderer.domElement.setPointerCapture?.(e.pointerId);});
