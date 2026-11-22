@@ -61,7 +61,7 @@ function makeCircuit(g){
  tube(g,[[.82,.30,0],[.82,.79,.55],[0,.79,.62],[-.83,.70,.18]],0x4f9be8,.025);
  const glow=new THREE.PointLight(0xffc35b,0,.9);glow.position.set(.82,.52,0);g.add(glow);
  g.userData={kind:"circuit",bulbMaterial:glass,bulbGlow:glow,lever,circuitOn:true};setCircuitState(true,g);
- const l=label("CELL  •  SWITCH  •  BULB");l.position.set(0,.98,0);g.add(l);
+ [["DRY CELL",-.83,.91,.08],["OPEN / CLOSED SWITCH",0,.48,-.48],["BULB",.82,.78,.08]].forEach(([t,x,y,z])=>{const l=label(t);l.scale.set(.9,.2,1);l.position.set(x,y,z);g.add(l);});
 }
 function makeMagnetic(g){
  const magnet=new THREE.Mesh(new THREE.BoxGeometry(1.55,.34,.38),material(0x245b9a,{metalness:.28}));g.add(magnet);
@@ -86,9 +86,10 @@ function makeRefraction(g){
  tube(g,[[.15,.04,.28],[.59,-.10,.28],[1.12,-.35,.28]],0xffc95e,.018);
  const normal1=new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-.59,-.48,.31),new THREE.Vector3(-.59,.72,.31)]),new THREE.LineDashedMaterial({color:0xe7f5ff,dashSize:.06,gapSize:.04}));normal1.computeLineDistances();g.add(normal1);
  const normal2=new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(.59,-.48,.31),new THREE.Vector3(.59,.72,.31)]),new THREE.LineDashedMaterial({color:0xe7f5ff,dashSize:.06,gapSize:.04}));normal2.computeLineDistances();g.add(normal2);
- const a=label("AIR");a.scale.set(.45,.2,1);a.position.set(-.9,-.03,.34);g.add(a);
- const b=label("GLASS BLOCK");b.scale.set(.95,.2,1);b.position.set(0,.55,.34);g.add(b);
- const c=label("AIR");c.scale.set(.45,.2,1);c.position.set(.9,-.03,.34);g.add(c);
+ const a=label("AIR");a.scale.set(.42,.18,1);a.position.set(-.91,-.04,.36);g.add(a);
+ const b=label("GLASS");b.scale.set(.58,.18,1);b.position.set(0,.56,.36);g.add(b);
+ const c=label("AIR");c.scale.set(.42,.18,1);c.position.set(.91,-.04,.36);g.add(c);
+ [["INCIDENT RAY",-.92,.67,.37],["REFRACTED RAY",0,-.28,.37],["EMERGENT RAY",.94,-.55,.37]].forEach(([t,x,y,z])=>{const l=label(t);l.scale.set(.86,.18,1);l.position.set(x,y,z);g.add(l);});
 }
 function makeCell(g){
  const wall=new THREE.Mesh(new THREE.BoxGeometry(1.8,1.05,.82),material(0x7acb79,{transparent:true,opacity:.2,side:THREE.DoubleSide}));g.add(wall);
@@ -99,7 +100,7 @@ function makeCell(g){
  const nucleolus=new THREE.Mesh(new THREE.SphereGeometry(.08,24,18),material(0x684a9c));nucleolus.position.set(-.45,.1,.25);g.add(nucleolus);
  for(let i=0;i<7;i++){const chlor=new THREE.Mesh(new THREE.SphereGeometry(.085,20,16),material(0x3fbd73));chlor.scale.set(1.35,.72,.75);chlor.position.set(-.62+(i%3)*.48,-.32+Math.floor(i/3)*.3,.2);g.add(chlor);}
  const mitoMat=material(0xe7a45c);for(let i=0;i<3;i++){const m=new THREE.Mesh(new THREE.SphereGeometry(.11,20,14),mitoMat);m.scale.set(1.7,.75,.8);m.position.set(-.12+i*.35,.34,.18);g.add(m);}
- const labels=[["CELL WALL",-.1,.72,.0],["NUCLEUS",-.82,.42,.2],["LARGE VACUOLE",.3,-.53,.2],["CHLOROPLASTS",.55,.43,.2]];
+ const labels=[["CELL WALL",-.1,.72,.0],["CELL MEMBRANE",.25,.56,.38],["NUCLEUS",-.82,.42,.2],["LARGE CENTRAL VACUOLE",.3,-.53,.2],["CHLOROPLASTS",.55,.43,.2],["MITOCHONDRIA",-.15,.55,-.3],["CYTOPLASM",-.65,-.55,.25]];
  labels.forEach(([t,x,y,z])=>{const l=label(t);l.scale.set(.82,.2,1);l.position.set(x,y,z);g.add(l);});
 }
 function makeModel(kind){const g=new THREE.Group();if(kind==="atom")makeAtom(g);else if(kind==="circuit")makeCircuit(g);else if(kind==="magnetic")makeMagnetic(g);else if(kind==="refraction")makeRefraction(g);else if(kind==="cell")makeCell(g);return g;}
