@@ -40,16 +40,28 @@ async function startAR(){
  try{
   const supported=await navigator.xr.isSessionSupported("immersive-ar");
   if(!supported){status.textContent="This phone/browser does not support immersive AR. Try Camera Preview.";return;}
-  session=await navigator.xr.requestSession("immersive-ar",{requiredFeatures:["hit-test"],optionalFeatures:["dom-overlay"],domOverlay:{root:document.body}});
-  await renderer.xr.setSession(session);refSpace=await session.requestReferenceSpace("viewer");hitSource=await session.requestHitTestSource({space:refSpace});
-  const local=await session.requestReferenceSpace("local");
+  session=await navigator.xr.requestSession("immersive-ar",{requiredFeatures:["hit-test"],optionalFeatures:["local-floor","dom-overlay"],domOverlay:{root:document.body}});
+  // Pick a stable world reference space supported by this AR runtime before Three.js starts its XR renderer.
+  let referenceType=null;
+  for(const candidate of ["local-floor","local"]){
+   try{refSpace=await session.requestReferenceSpace(candidate);referenceType=candidate;break;}catch(_){}
+  }
+  if(!referenceType)throw new Error("This AR runtime does not provide a stable local reference space for surface placement.");
+  renderer.xr.setReferenceSpaceType(referenceType);
+  await renderer.xr.setSession(session);
+  const viewerSpace=await session.requestReferenceSpace("viewer");
+  hitSource=await session.requestHitTestSource({space:viewerSpace});
   const reticle=new THREE.Mesh(new THREE.RingGeometry(.08,.11,32),new THREE.MeshBasicMaterial({color:0x70edbd,side:THREE.DoubleSide}));reticle.rotation.x=-Math.PI/2;reticle.matrixAutoUpdate=false;reticle.visible=false;scene.add(reticle);
   const controller=renderer.xr.getController(0);scene.add(controller);let placed=false;
   controller.addEventListener("select",()=>{if(reticle.visible){model.position.setFromMatrixPosition(reticle.matrix);model.quaternion.setFromRotationMatrix(reticle.matrix);placed=true;status.textContent="Model placed. Move your phone carefully to explore it."; }});
-  renderer.setAnimationLoop((time,frame)=>{if(frame&&hitSource){const hits=frame.getHitTestResults(hitSource);if(hits.length){const pose=hits[0].getPose(local);reticle.visible=true;reticle.matrix.fromArray(pose.transform.matrix);if(!placed){model.position.setFromMatrixPosition(reticle.matrix);model.quaternion.setFromRotationMatrix(reticle.matrix);}}else reticle.visible=false;}renderer.render(scene,camera3d);});
+  renderer.setAnimationLoop((time,frame)=>{if(frame&&hitSource){const hits=frame.getHitTestResults(hitSource);if(hits.length){const pose=hits[0].getPose(refSpace);reticle.visible=true;reticle.matrix.fromArray(pose.transform.matrix);if(!placed){model.position.setFromMatrixPosition(reticle.matrix);model.quaternion.setFromRotationMatrix(reticle.matrix);}}else reticle.visible=false;}renderer.render(scene,camera3d);});
   session.addEventListener("end",()=>{session=null;hitSource=null;reticle.visible=false;renderer.setAnimationLoop(()=>{if(model){model.rotation.y+=.004;}renderer.render(scene,camera3d);});status.textContent="AR session ended.";$("#stopAR").disabled=true;});
   $("#stopAR").disabled=false;$("#placeModel").disabled=false;$("#rotateModel").disabled=false;hint.hidden=true;status.textContent="Move your phone slowly to find a surface. Tap the screen to place the model."; 
- }catch(e){status.textContent="Could not start AR: "+(e.message||"camera or AR permission was denied")+". You can use Camera Preview instead.";}
+ }catch(e){
+  if(session){try{await session.end();}catch(_){}session=null;}
+  hitSource=null;refSpace=null;
+  status.textContent="Could not start true surface AR: "+(e.message||"AR setup failed")+". Camera Preview remains available.";
+ }
 }
 async function startPreview(){
  setup();previewMode=true;
