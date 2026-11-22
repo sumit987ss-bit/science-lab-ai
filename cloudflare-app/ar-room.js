@@ -15,7 +15,7 @@ const material=(color,extra={})=>new THREE.MeshStandardMaterial({color,roughness
 function label(text,color="#eaf7ff"){
  const c=document.createElement("canvas");c.width=768;c.height=160;const ctx=c.getContext("2d");
  ctx.fillStyle="rgba(4,20,37,.88)";ctx.strokeStyle="rgba(111,220,235,.9)";ctx.lineWidth=5;
- ctx.beginPath();ctx.roundRect(5,5,502,118,22);ctx.fill();ctx.stroke();
+ ctx.beginPath();ctx.roundRect(5,5,758,150,24);ctx.fill();ctx.stroke();
  ctx.font="700 40px Arial, sans-serif";ctx.fillStyle=color;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(text,384,82,710);
  const texture=new THREE.CanvasTexture(c);texture.colorSpace=THREE.SRGBColorSpace;
  const sprite=new THREE.Sprite(new THREE.SpriteMaterial({map:texture,transparent:true,depthTest:true,depthWrite:false}));
@@ -27,10 +27,20 @@ function tube(group,points,color,r=.012){
  group.add(mesh);return mesh;
 }
 function makeAtom(g){
- const sphere=(r,color,x,y,z)=>{const m=new THREE.Mesh(new THREE.SphereGeometry(r,32,24),material(color,{emissive:color,emissiveIntensity:.08}));m.position.set(x,y,z);g.add(m);return m;};
- sphere(.17,0xffa64d,0,0,0);sphere(.12,0x5bc9ef,.09,.08,.02);sphere(.11,0xe87991,-.1,-.06,.04);
- const core=label("NUCLEUS");core.position.set(0,.34,0);g.add(core);
- for(let i=0;i<3;i++){const ring=new THREE.Mesh(new THREE.TorusGeometry(.62+i*.12,.009,8,100),new THREE.MeshBasicMaterial({color:[0x66d9ef,0x7fe2b2,0xb89aff][i]}));ring.rotation.set(i*.9,.4+i*.7,0);g.add(ring);const e=sphere(.055,0x7ee6bd,Math.cos(i*2)*(.62+i*.12),Math.sin(i*2)*(.62+i*.12),.08);e.userData.orbit=i;}
+ // Carbon-12 teaching model: 6 protons, 6 neutrons and 6 electrons (2,4).
+ const proton=material(0xe66a70,{emissive:0x5b1018,emissiveIntensity:.12});
+ const neutron=material(0x5d9ed6,{emissive:0x102e55,emissiveIntensity:.12});
+ const electron=material(0x63e0bd,{emissive:0x145b49,emissiveIntensity:.22});
+ const positions=[[0,0,0],[.12,0,.08],[-.12,.08,0],[0,-.12,.08],[.08,.12,-.08],[-.08,-.08,-.1],[.04,-.1,-.12],[-.1,.02,.12],[.12,.1,.02],[0,.12,.12],[-.12,-.1,0],[.1,-.04,-.12]];
+ positions.forEach((p,i)=>{const m=new THREE.Mesh(new THREE.SphereGeometry(.105,24,18),i<6?proton:neutron);m.position.set(...p);g.add(m);});
+ const nucleus=label("CARBON-12 NUCLEUS");nucleus.scale.set(1.35,.28,1);nucleus.position.set(0,.38,0);g.add(nucleus);
+ // Two schematic shells: 2 electrons in the first shell, 4 in the second.
+ [.48,.82].forEach((r,i)=>{const ring=new THREE.Mesh(new THREE.SphereGeometry(r,40,28),new THREE.MeshBasicMaterial({color:i?0x65b8f0:0x72dfb3,wireframe:true,transparent:true,opacity:.22}));ring.scale.set(1,1,.72);g.add(ring);});
+ const electronPositions=[[0,.48,0],[0,-.48,0],[.82,0,0],[-.82,0,0],[0,0,.59],[0,0,-.59]];
+ electronPositions.forEach((p,i)=>{const e=new THREE.Mesh(new THREE.SphereGeometry(.055,20,16),electron);e.position.set(...p);g.add(e);});
+ const inner=label("1st SHELL: 2 e⁻");inner.scale.set(1.1,.22,1);inner.position.set(0,-.68,.05);g.add(inner);
+ const outer=label("2nd SHELL: 4 e⁻");outer.scale.set(1.1,.22,1);outer.position.set(0,-1.02,.05);g.add(outer);
+ const key=label("6 PROTONS  •  6 NEUTRONS");key.scale.set(1.65,.24,1);key.position.set(0,1.08,0);g.add(key);
 }
 function makeCircuit(g){
  const dark=material(0x18334a),copper=material(0xd98b45,{metalness:.78,roughness:.28}),red=material(0xe65d58),blue=material(0x4f9be8),metal=material(0xc4d1dc),glass=new THREE.MeshPhysicalMaterial({color:0xffe8a6,emissive:0xffbd45,emissiveIntensity:.04,transparent:true,opacity:.58,roughness:.12});
