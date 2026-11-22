@@ -128,31 +128,75 @@ function makeMagnetic(g){
  normal(-.59);normal(.59);
  const tag=label("GLASS");tag.scale.set(.34,.17,1);tag.position.set(0,-.4,.24);g.add(tag);
 }function makeCell(g){
- // Plant cell: rounded outline, cell wall, membrane, nucleus, chloroplasts,
- // large central vacuole, mitochondria and cytoplasm.
- const outer=new THREE.Mesh(new THREE.SphereGeometry(1,40,32),material(0x70b96d,{transparent:true,opacity:.25,side:THREE.DoubleSide}));
- outer.scale.set(1.08,.68,.48);g.add(outer);
- const edge=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.SphereGeometry(1,32,24)),new THREE.LineBasicMaterial({color:0x83e59a,transparent:true,opacity:.6}));
- edge.scale.set(1.08,.68,.48);g.add(edge);
- const membrane=new THREE.Mesh(new THREE.SphereGeometry(.96,36,28),material(0x63b8a1,{transparent:true,opacity:.13,side:THREE.DoubleSide}));
- membrane.scale.set(1.06,.66,.46);g.add(membrane);
- const cytoplasm=new THREE.Mesh(new THREE.SphereGeometry(.91,32,24),material(0x9bdc85,{transparent:true,opacity:.08,side:THREE.DoubleSide}));
- cytoplasm.scale.set(1.04,.64,.44);g.add(cytoplasm);
- const vac=new THREE.Mesh(new THREE.SphereGeometry(1,32,24),material(0x65b9e8,{transparent:true,opacity:.48}));
- vac.scale.set(.48,.43,.30);vac.position.set(.28,-.02,.03);g.add(vac);
- const nucleus=new THREE.Mesh(new THREE.SphereGeometry(.22,32,24),material(0xb38be8));nucleus.position.set(-.53,.12,.16);g.add(nucleus);
- const nucleolus=new THREE.Mesh(new THREE.SphereGeometry(.08,24,18),material(0x684a9c));nucleolus.position.set(-.50,.12,.25);g.add(nucleolus);
- // Chloroplasts distributed around the cytoplasm (not inside the vacuole).
- const chlorMat=material(0x3fbd73);
- [[-.68,.38,.13],[-.18,.45,.13],[-.70,-.12,.13],[-.20,-.42,.13],[.72,.34,.13],[.72,-.36,.13]].forEach(p=>{
-  const c=new THREE.Mesh(new THREE.SphereGeometry(.09,20,16),chlorMat);c.scale.set(1.45,.72,.8);c.position.set(...p);g.add(c);
+ // Cutaway plant cell: rigid, rounded-rectangular cell wall with a visible
+ // membrane and distinct organelles arranged in the cytoplasm.
+ const rounded=(w,h,r)=>{
+  const s=new THREE.Shape();
+  s.moveTo(-w/2+r,-h/2);s.lineTo(w/2-r,-h/2);s.quadraticCurveTo(w/2,-h/2,w/2,-h/2+r);
+  s.lineTo(w/2,h/2-r);s.quadraticCurveTo(w/2,h/2,w/2-r,h/2);
+  s.lineTo(-w/2+r,h/2);s.quadraticCurveTo(-w/2,h/2,-w/2,h/2-r);
+  s.lineTo(-w/2,-h/2+r);s.quadraticCurveTo(-w/2,-h/2,-w/2+r,-h/2);return s;
+ };
+ const plate=(w,h,r,d,mat,x=0,y=0,z=0)=>{
+  const geo=new THREE.ExtrudeGeometry(rounded(w,h,r),{depth:d,bevelEnabled:true,bevelSegments:3,steps:1,bevelSize:.025,bevelThickness:.025,curveSegments:10});
+  geo.translate(0,0,-d/2);
+  const mesh=new THREE.Mesh(geo,mat);mesh.position.set(x,y,z);g.add(mesh);return mesh;
+ };
+ // Thick cellulose wall and the thinner plasma membrane just inside it.
+ plate(2.25,1.55,.22,.72,material(0x70bd69,{transparent:true,opacity:.24,side:THREE.DoubleSide}));
+ plate(2.13,1.43,.19,.66,material(0x9be58b,{transparent:true,opacity:.10,side:THREE.DoubleSide}));
+ plate(2.08,1.38,.17,.58,material(0x55c5a2,{transparent:true,opacity:.10,side:THREE.DoubleSide}));
+ // Cytoplasm is a subtle interior volume, leaving the organelles visible.
+ plate(2.02,1.32,.15,.48,material(0xb7df8d,{transparent:true,opacity:.08,side:THREE.DoubleSide}),0,0,.015);
+ // Large central vacuole with a distinct tonoplast boundary.
+ plate(1.02,1.02,.19,.34,material(0x55b9e8,{transparent:true,opacity:.35,side:THREE.DoubleSide}),.30,-.015,.02);
+ plate(.96,.96,.17,.30,material(0x9bdcf5,{transparent:true,opacity:.16,side:THREE.DoubleSide}),.30,-.015,.035);
+ // Nucleus and nucleolus, positioned to one side of the vacuole.
+ const nucleus=new THREE.Mesh(new THREE.SphereGeometry(.235,32,24),material(0x9870cf));nucleus.scale.set(1,1,.72);nucleus.position.set(-.66,.27,.06);g.add(nucleus);
+ const nucleolus=new THREE.Mesh(new THREE.SphereGeometry(.085,24,18),material(0x573b91));nucleolus.position.set(-.61,.27,.205);g.add(nucleolus);
+ // Rough and smooth endoplasmic reticulum: folded membranes around nucleus.
+ const tube=(points,r,color)=>{
+  const curve=new THREE.CatmullRomCurve3(points.map(p=>new THREE.Vector3(...p)));
+  const mesh=new THREE.Mesh(new THREE.TubeGeometry(curve,48,r,8,false),material(color));g.add(mesh);return mesh;
+ };
+ for(let i=0;i<4;i++){
+  const y=.52-i*.105, x=-.68;
+  tube([[x-.29,y,.12],[x-.20,y+.055,.12],[x-.08,y-.025,.12],[x+.03,y+.035,.12],[x+.12,y-.045,.12]],.018,0x8c6acb);
+ }
+ for(let i=0;i<3;i++){
+  const y=.47-i*.10;
+  tube([[-.91,y,.02],[-.84,y-.05,.02],[-.76,y+.04,.02],[-.67,y-.035,.02],[-.58,y+.035,.02]],.014,0x57b9a2);
+ }
+ // Chloroplasts (plastids): green oval bodies with visible thylakoid/grana stacks.
+ const chlorPositions=[[-.83,-.43],[-.22,-.54],[-.91,.13],[.91,.48],[.91,-.48]];
+ chlorPositions.forEach(([x,y],i)=>{
+  const z=.12;
+  const body=new THREE.Mesh(new THREE.SphereGeometry(.115,24,18),material(0x269b58));
+  body.scale.set(1.45,.72,.72);body.position.set(x,y,z);g.add(body);
+  for(let k=-1;k<=1;k++){
+   const stack=new THREE.Mesh(new THREE.CylinderGeometry(.027,.027,.105,12),material(0x9add70));
+   stack.rotation.z=Math.PI/2;stack.position.set(x+k*.055,y,z+.075);g.add(stack);
+  }
  });
- // Mitochondria are small elongated bodies with folded inner-membrane hints.
- const mitoMat=material(0xe7a45c);
- [[-.20,.62,.12],[.35,.55,.12],[-.74,.5,.12]].forEach(p=>{
-  const m=new THREE.Mesh(new THREE.SphereGeometry(.105,20,14),mitoMat);m.scale.set(1.65,.75,.8);m.position.set(...p);g.add(m);
+ // Mitochondria: elongated double-membrane bodies with folded cristae.
+ [[-.17,.53],[.83,-.08],[-.92,-.12]].forEach(([x,y])=>{
+  const body=new THREE.Mesh(new THREE.SphereGeometry(.105,24,18),material(0xe69a4f));
+  body.scale.set(1.7,.72,.72);body.position.set(x,y,.17);g.add(body);
+  tube([[x-.13,y,.235],[x-.07,y+.035,.24],[x-.01,y-.035,.24],[x+.05,y+.035,.24],[x+.13,y,.235]],.012,0x8b4d35);
  });
-}function makeModel(kind){const g=new THREE.Group();g.userData.arExperimentRoot=true;if(kind==="atom")makeAtom(g);else if(kind==="circuit")makeCircuit(g);else if(kind==="magnetic")makeMagnetic(g);else if(kind==="refraction")makeRefraction(g);else if(kind==="cell")makeCell(g);return g;}
+ // Small lysosomes/vesicles in the cytoplasm.
+ [[-.42,-.48,.17],[.02,.49,.17],[.72,.23,.17],[-.98,.40,.17]].forEach(p=>{
+  const v=new THREE.Mesh(new THREE.SphereGeometry(.045,16,12),material(0xd9a2d9));v.position.set(...p);g.add(v);
+ });
+ // Numerous tiny ribosomes, including dots on rough ER and free in cytoplasm.
+ const riboMat=material(0x4b5360);
+ const ribosomes=[[-.96,.57,.20],[-.84,.62,.20],[-.72,.59,.20],[-.60,.62,.20],[-.49,.57,.20],
+ [-.95,.49,.20],[-.82,.48,.20],[-.69,.49,.20],[-.56,.48,.20],
+ [-.48,-.28,.20],[-.35,-.48,.20],[-.08,-.58,.20],[.64,.59,.20],[.76,.58,.20],
+ [.98,.31,.20],[.98,-.29,.20],[-.99,-.36,.20],[-.72,-.58,.20],[.50,-.59,.20]];
+ ribosomes.forEach(p=>{const r=new THREE.Mesh(new THREE.SphereGeometry(.018,10,8),riboMat);r.position.set(...p);g.add(r);});
+}
+function makeModel(kind){const g=new THREE.Group();g.userData.arExperimentRoot=true;if(kind==="atom")makeAtom(g);else if(kind==="circuit")makeCircuit(g);else if(kind==="magnetic")makeMagnetic(g);else if(kind==="refraction")makeRefraction(g);else if(kind==="cell")makeCell(g);return g;}
 function setCircuitState(on,target=model){if(!target||target.userData?.kind!=="circuit")return;target.userData.circuitOn=!!on;target.userData.bulbMaterial.emissiveIntensity=on?.95:.035;target.userData.bulbMaterial.emissive.setHex(on?0xffa92e:0x3b2b16);target.userData.bulbGlow.intensity=on?1.8:0;target.userData.lever.rotation.z=on?0:-.48;}
 function setup(){if(renderer&&renderer.domElement?.isConnected){stage.querySelectorAll("canvas").forEach((c,i)=>{if(c!==renderer.domElement)c.remove();});return;}stage.querySelectorAll("canvas").forEach(c=>c.remove());renderer=new THREE.WebGLRenderer({alpha:true,antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.setSize(stage.clientWidth,stage.clientHeight);renderer.xr.enabled=true;renderer.domElement.dataset.arRenderer="primary";stage.appendChild(renderer.domElement);scene=new THREE.Scene();camera3d=new THREE.PerspectiveCamera(55,stage.clientWidth/stage.clientHeight,.01,30);scene.add(new THREE.HemisphereLight(0xffffff,0x34516b,2));const light=new THREE.DirectionalLight(0xffffff,2);light.position.set(1,3,2);scene.add(light);changeModel();renderer.setAnimationLoop(()=>renderer.render(scene,camera3d));window.addEventListener("resize",resize);}
 function resize(){if(!renderer)return;renderer.setSize(stage.clientWidth,stage.clientHeight);camera3d.aspect=stage.clientWidth/stage.clientHeight;camera3d.updateProjectionMatrix();}
