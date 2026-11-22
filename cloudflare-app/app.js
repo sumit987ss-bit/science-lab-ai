@@ -1168,6 +1168,16 @@ function subjectVisual(it){
 }
 function visual(it){
  const k=it.kind,pa=lang==="pa";let art="";
+ if(lab==="physics"&&cls===9&&exp===3&&k==="refraction"){
+  const dense=choice==="Air to glass"||choice==="Air to water",toward=dense,water=choice.includes("water"),medium=water?"WATER":"GLASS",left=choice.startsWith("Air")?"AIR":medium,right=choice.endsWith("air")?"AIR":medium;
+  const y0=55,yhit=130,normalX=200,x0=55,xhit=200,xout=345;
+  const incomingY= dense?75:185,outY=dense?185:75;
+  return '<div><svg viewBox="0 0 400 250" role="img" aria-label="Refraction '+esc(choice)+'"><rect x="8" y="8" width="384" height="234" rx="14" fill="#f8fafc"/><rect x="10" y="130" width="380" height="110" fill="'+(water?"#bfdbfe":"#dbeafe")+'" opacity=".65"/><path d="M10 130 H390" stroke="#64748b" stroke-width="3"/><path d="M200 25 V225" stroke="#64748b" stroke-width="3" stroke-dasharray="8 6"/><text x="30" y="32" font-size="14" font-weight="900" fill="#334155">'+(dense?"AIR":"GLASS / WATER")+'</text><text x="30" y="225" font-size="14" font-weight="900" fill="#334155">'+(dense?"GLASS / WATER":"AIR")+'</text><path d="M70 70 L200 130 L'+(dense?'275 205':'310 70')+'" stroke="#f59e0b" stroke-width="5" fill="none"/><circle cx="200" cy="130" r="5" fill="#334155"/><text x="225" y="45" font-size="11" font-weight="800" fill="#64748b">NORMAL</text><text x="220" y="110" font-size="11" font-weight="900" fill="#b45309">'+(toward?"TOWARDS NORMAL":"AWAY FROM NORMAL")+'</text></svg><div style="text-align:center;background:'+(toward?"#dcfce7":"#fef3c7")+';padding:10px;border-radius:10px;font-weight:1000;color:'+(toward?"#166534":"#92400e")+'">'+(toward?(pa?"ਰੈਰਰ ਤੋਂ ਸੰਘਣੇ ਮਾਧਿਅਮ ਵੱਲ — ਨਾਰਮਲ ਵੱਲ ਮੁੜਦਾ ਹੈ":"RARER → DENSER: bends TOWARDS the normal"):(pa?"ਸੰਘਣੇ ਤੋਂ ਰੈਰਰ ਮਾਧਿਅਮ ਵੱਲ — ਨਾਰਮਲ ਤੋਂ ਦੂਰ ਮੁੜਦਾ ਹੈ":"DENSER → RARER: bends AWAY from the normal"))+'</div></div>';
+ }
+ if(lab==="physics"&&cls===9&&exp===4&&k==="potential"){
+  const h=Math.max(1,b),m=2,g=10,pe=m*g*h,y=Math.max(35,190-h*14);
+  return '<div><svg viewBox="0 0 400 250" role="img" aria-label="Potential energy at height '+h+' metres"><rect x="8" y="8" width="384" height="234" rx="14" fill="#f0f9ff"/><path d="M30 210 H370" stroke="#64748b" stroke-width="4"/><rect x="150" y="'+y+'" width="70" height="42" rx="8" fill="#f59e0b" stroke="#92400e" stroke-width="3"/><path d="M140 210 V'+(y+20)+' M140 210 l-7 -10 m7 10 l7 -10" stroke="#16a34a" stroke-width="3" fill="none"/><text x="235" y="'+(y+22)+'" font-size="12" font-weight="900" fill="#334155">m = 2 kg</text><text x="32" y="32" font-size="13" font-weight="900" fill="#075985">HEIGHT = '+h+' m</text><path d="M95 210 V'+y+' M87 '+y+' h16 M87 210 h16" stroke="#0284c7" stroke-width="3" fill="none"/><text x="70" y="'+(y+10)+'" font-size="12" font-weight="900" fill="#0284c7">h</text></svg><div style="text-align:center;background:#dcfce7;border-radius:10px;padding:10px"><div style="font-size:12px;font-weight:800;color:#166534">GRAVITATIONAL POTENTIAL ENERGY (mgh)</div><div style="font-size:26px;font-weight:1000;color:#14532d">'+pe+' J</div><small>m = 2 kg · g = 10 m/s² · h = '+h+' m</small></div></div>';
+ }
  if(lab==="physics"&&cls===9&&exp===2&&k==="work"){
   const noWork=choice.startsWith("Pushing a wall")||choice.startsWith("Holding")||choice.startsWith("Studying");
   let scene="";
