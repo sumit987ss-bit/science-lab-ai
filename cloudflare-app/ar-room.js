@@ -16,7 +16,7 @@ function label(text,color="#eaf7ff"){
  const c=document.createElement("canvas");c.width=768;c.height=160;const ctx=c.getContext("2d");
  ctx.fillStyle="rgba(4,20,37,.88)";ctx.strokeStyle="rgba(111,220,235,.9)";ctx.lineWidth=5;
  ctx.beginPath();ctx.roundRect(5,5,758,150,24);ctx.fill();ctx.stroke();
- ctx.font="700 40px Arial, sans-serif";ctx.fillStyle=color;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(text,384,82,710);
+ const fontSize=Math.max(25,Math.min(40,Math.floor(700/(text.length*.57))));ctx.font="700 "+fontSize+"px Arial, sans-serif";ctx.fillStyle=color;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(text,384,82,710);
  const texture=new THREE.CanvasTexture(c);texture.colorSpace=THREE.SRGBColorSpace;
  const sprite=new THREE.Sprite(new THREE.SpriteMaterial({map:texture,transparent:true,depthTest:true,depthWrite:false}));
  sprite.scale.set(1.18,.25,1);sprite.userData.isLabel=true;sprite.renderOrder=2;return sprite;
@@ -26,24 +26,30 @@ function tube(group,points,color,r=.012){
  const mesh=new THREE.Mesh(new THREE.TubeGeometry(curve,48,r,8,false),new THREE.MeshBasicMaterial({color}));
  group.add(mesh);return mesh;
 }
+function callout(group,text,anchor,position,width=1.12){
+ const a=new THREE.Vector3(...anchor),p=new THREE.Vector3(...position);
+ const line=new THREE.Line(new THREE.BufferGeometry().setFromPoints([a,p]),new THREE.LineBasicMaterial({color:0x9bd9e8,transparent:true,opacity:.9,depthTest:true}));
+ line.renderOrder=1;group.add(line);
+ const dot=new THREE.Mesh(new THREE.SphereGeometry(.025,12,10),new THREE.MeshBasicMaterial({color:0x9bd9e8}));dot.position.copy(a);group.add(dot);
+ const tag=label(text);tag.scale.set(width,width*.22,1);tag.position.copy(p);group.add(tag);return tag;
+}
 function makeAtom(g){
- // Carbon-12 teaching model: 6 protons, 6 neutrons and 6 electrons (2,4).
+ // Carbon-12: 6 protons, 6 neutrons; electron arrangement 2,4.
  const proton=material(0xe66a70,{emissive:0x5b1018,emissiveIntensity:.12});
  const neutron=material(0x5d9ed6,{emissive:0x102e55,emissiveIntensity:.12});
  const electron=material(0x63e0bd,{emissive:0x145b49,emissiveIntensity:.22});
  const positions=[[0,0,0],[.12,0,.08],[-.12,.08,0],[0,-.12,.08],[.08,.12,-.08],[-.08,-.08,-.1],[.04,-.1,-.12],[-.1,.02,.12],[.12,.1,.02],[0,.12,.12],[-.12,-.1,0],[.1,-.04,-.12]];
  positions.forEach((p,i)=>{const m=new THREE.Mesh(new THREE.SphereGeometry(.105,24,18),i<6?proton:neutron);m.position.set(...p);g.add(m);});
- const nucleus=label("CARBON-12 NUCLEUS");nucleus.scale.set(1.35,.28,1);nucleus.position.set(0,.38,0);g.add(nucleus);
- // Two schematic shells: 2 electrons in the first shell, 4 in the second.
  [.48,.82].forEach((r,i)=>{const ring=new THREE.Mesh(new THREE.SphereGeometry(r,40,28),new THREE.MeshBasicMaterial({color:i?0x65b8f0:0x72dfb3,wireframe:true,transparent:true,opacity:.22}));ring.scale.set(1,1,.72);g.add(ring);});
- const electronPositions=[[0,.48,0],[0,-.48,0],[.82,0,0],[-.82,0,0],[0,0,.59],[0,0,-.59]];
- electronPositions.forEach((p,i)=>{const e=new THREE.Mesh(new THREE.SphereGeometry(.055,20,16),electron);e.position.set(...p);g.add(e);});
- const inner=label("1st SHELL: 2 e⁻");inner.scale.set(1.1,.22,1);inner.position.set(0,-.68,.05);g.add(inner);
- const outer=label("2nd SHELL: 4 e⁻");outer.scale.set(1.1,.22,1);outer.position.set(0,-1.02,.05);g.add(outer);
- const key=label("6 PROTONS  •  6 NEUTRONS");key.scale.set(1.65,.24,1);key.position.set(0,1.08,0);g.add(key);
+ [[0,.48,0],[0,-.48,0],[.82,0,0],[-.82,0,0],[0,0,.59],[0,0,-.59]].forEach(p=>{const e=new THREE.Mesh(new THREE.SphereGeometry(.055,20,16),electron);e.position.set(...p);g.add(e);});
+ callout(g,"NUCLEUS: 6p⁺ + 6n⁰",[0,.08,.08],[0,1.25,.1],1.55);
+ callout(g,"1st SHELL: 2 e⁻",[0,.48,0],[-1.25,.55,.1],1.15);
+ callout(g,"2nd SHELL: 4 e⁻",[.82,0,0],[1.28,-.05,.1],1.15);
+ callout(g,"PROTON (+)",[-.12,.08,0],[-1.18,-.75,.15],.95);
+ callout(g,"NEUTRON (0)",[.12,.1,.02],[1.18,-.75,.15],1.05);
 }
 function makeCircuit(g){
- const dark=material(0x18334a),copper=material(0xd98b45,{metalness:.78,roughness:.28}),red=material(0xe65d58),blue=material(0x4f9be8),metal=material(0xc4d1dc),glass=new THREE.MeshPhysicalMaterial({color:0xffe8a6,emissive:0xffbd45,emissiveIntensity:.04,transparent:true,opacity:.58,roughness:.12});
+ const dark=material(0x18334a),copper=material(0xd98b45,{metalness:.78,roughness:.28}),metal=material(0xc4d1dc),glass=new THREE.MeshPhysicalMaterial({color:0xffe8a6,emissive:0xffbd45,emissiveIntensity:.04,transparent:true,opacity:.58,roughness:.12});
  const box=(w,h,d,m,x,y,z)=>{const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);o.position.set(x,y,z);g.add(o);return o;};
  const cyl=(rt,rb,h,m,x,y,z)=>{const o=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,28),m);o.position.set(x,y,z);g.add(o);return o;};
  box(2.35,.09,1.48,dark,0,-.055,0);
@@ -61,47 +67,64 @@ function makeCircuit(g){
  tube(g,[[.82,.30,0],[.82,.79,.55],[0,.79,.62],[-.83,.70,.18]],0x4f9be8,.025);
  const glow=new THREE.PointLight(0xffc35b,0,.9);glow.position.set(.82,.52,0);g.add(glow);
  g.userData={kind:"circuit",bulbMaterial:glass,bulbGlow:glow,lever,circuitOn:true};setCircuitState(true,g);
- [["DRY CELL",-.83,.91,.08],["OPEN / CLOSED SWITCH",0,.48,-.48],["BULB",.82,.78,.08]].forEach(([t,x,y,z])=>{const l=label(t);l.scale.set(.9,.2,1);l.position.set(x,y,z);g.add(l);});
+ callout(g,"DRY CELL",[ -.83,.70,0],[-1.2,1.05,.25],.9);
+ callout(g,"SWITCH",[0,.25,-.48],[0,.78,-.72],.8);
+ callout(g,"BULB",[.82,.47,0],[1.2,.88,.2],.72);
+ callout(g,"CONNECTING WIRES",[0,.79,.62],[0,1.22,.72],1.25);
 }
 function makeMagnetic(g){
  const magnet=new THREE.Mesh(new THREE.BoxGeometry(1.55,.34,.38),material(0x245b9a,{metalness:.28}));g.add(magnet);
  const n=new THREE.Mesh(new THREE.BoxGeometry(.76,.36,.4),material(0xd94e55));n.position.x=-.395;g.add(n);
- const s=new THREE.Mesh(new THREE.BoxGeometry(.76,.36,.4),material(0x397fd0));s.position.x=.395;g.add(s);
- const nl=label("N", "#ffd9d9");nl.scale.set(.32,.22,1);nl.position.set(-.4,.25,0);g.add(nl);
- const sl=label("S");sl.scale.set(.32,.22,1);sl.position.set(.4,.25,0);g.add(sl);
- // Closed-loop field lines: outer arcs return through the magnet's interior.
+ const south=new THREE.Mesh(new THREE.BoxGeometry(.76,.36,.4),material(0x397fd0));south.position.x=.395;g.add(south);
+ const nl=label("N");nl.scale.set(.3,.2,1);nl.position.set(-.4,.04,.23);g.add(nl);
+ const sl=label("S");sl.scale.set(.3,.2,1);sl.position.set(.4,.04,.23);g.add(sl);
  for(let i=0;i<5;i++){
-  const y=.18+i*.16,z=(i-2)*.13, lift=.48+i*.13;
+  const y=.18+i*.16,z=(i-2)*.13,lift=.48+i*.13;
   tube(g,[[-.78,y,z],[-.88,lift,z],[-.48,lift+.18,z],[0,lift+.22,z],[.48,lift+.18,z],[.88,lift,z],[.78,y,z]],0x62d9f2,.009);
   tube(g,[[.78,y,z],[.48,-.2-i*.025,z],[0,-.23-i*.025,z],[-.48,-.2-i*.025,z],[-.78,y,z]],0x62d9f2,.009);
  }
- const note=label("FIELD LINES: N → S OUTSIDE");note.scale.set(1.5,.25,1);note.position.set(0,.95,.05);g.add(note);
+ // Direction arrows: outside N to S; inside S to N.
+ const arrow=(x,y,z,dir)=>{const a=new THREE.Mesh(new THREE.ConeGeometry(.035,.12,12),new THREE.MeshBasicMaterial({color:0x9ceafa}));a.position.set(x,y,z);a.rotation.z=dir>0?-Math.PI/2:Math.PI/2;g.add(a);};
+ arrow(.12,.82,0,1);arrow(-.12,-.27,0,-1);
+ callout(g,"NORTH POLE (N)",[-.72,0,.2],[-1.3,.55,.2],1.15);
+ callout(g,"SOUTH POLE (S)",[.72,0,.2],[1.3,.55,.2],1.15);
+ callout(g,"FIELD OUTSIDE: N → S",[.15,.78,0],[0,1.25,.1],1.55);
+ callout(g,"FIELD INSIDE: S → N",[0,-.25,0],[0,-.78,.1],1.55);
 }
 function makeRefraction(g){
  const glass=new THREE.Mesh(new THREE.BoxGeometry(1.18,.78,.42),new THREE.MeshPhysicalMaterial({color:0x75c9ef,transparent:true,opacity:.2,roughness:.08,metalness:0,side:THREE.DoubleSide}));g.add(glass);
  const edges=new THREE.LineSegments(new THREE.EdgesGeometry(glass.geometry),new THREE.LineBasicMaterial({color:0x8fe5ff}));g.add(edges);
- // Incident, refracted and emergent ray, drawn in the front plane for clear observation.
+ // Parallel-sided block: the emergent ray is parallel to the incident ray.
  tube(g,[[-1.12,.53,.28],[-.59,.28,.28]],0xffc95e,.018);
- tube(g,[[-.59,.28,.28],[.15,.04,.28]],0xffc95e,.018);
- tube(g,[[.15,.04,.28],[.59,-.10,.28],[1.12,-.35,.28]],0xffc95e,.018);
- const normal1=new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-.59,-.48,.31),new THREE.Vector3(-.59,.72,.31)]),new THREE.LineDashedMaterial({color:0xe7f5ff,dashSize:.06,gapSize:.04}));normal1.computeLineDistances();g.add(normal1);
- const normal2=new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(.59,-.48,.31),new THREE.Vector3(.59,.72,.31)]),new THREE.LineDashedMaterial({color:0xe7f5ff,dashSize:.06,gapSize:.04}));normal2.computeLineDistances();g.add(normal2);
- const a=label("AIR");a.scale.set(.42,.18,1);a.position.set(-.91,-.04,.36);g.add(a);
- const b=label("GLASS");b.scale.set(.58,.18,1);b.position.set(0,.56,.36);g.add(b);
- const c=label("AIR");c.scale.set(.42,.18,1);c.position.set(.91,-.04,.36);g.add(c);
- [["INCIDENT RAY",-.92,.67,.37],["REFRACTED RAY",0,-.28,.37],["EMERGENT RAY",.94,-.55,.37]].forEach(([t,x,y,z])=>{const l=label(t);l.scale.set(.86,.18,1);l.position.set(x,y,z);g.add(l);});
+ tube(g,[[-.59,.28,.28],[.59,-.10,.28]],0xffc95e,.018);
+ tube(g,[[.59,-.10,.28],[1.12,-.35,.28]],0xffc95e,.018);
+ const normal=(x,y)=>{const line=new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x-.34,y,.32),new THREE.Vector3(x+.34,y,.32)]),new THREE.LineDashedMaterial({color:0xe7f5ff,dashSize:.06,gapSize:.04}));line.computeLineDistances();g.add(line);};
+ normal(-.59,.28);normal(.59,-.10);
+ callout(g,"INCIDENT RAY",[ -.9,.43,.28],[-1.12,.9,.4],1.08);
+ callout(g,"REFRACTED RAY",[0,.09,.28],[0,-.48,.42],1.12);
+ callout(g,"EMERGENT RAY",[.9,-.25,.28],[1.12,-.7,.4],1.08);
+ callout(g,"GLASS BLOCK",[0,.36,.0],[0,.83,.12],1.0);
+ const air1=label("AIR");air1.scale.set(.42,.18,1);air1.position.set(-.9,-.05,.36);g.add(air1);
+ const air2=label("AIR");air2.scale.set(.42,.18,1);air2.position.set(.9,.05,.36);g.add(air2);
 }
 function makeCell(g){
  const wall=new THREE.Mesh(new THREE.BoxGeometry(1.8,1.05,.82),material(0x7acb79,{transparent:true,opacity:.2,side:THREE.DoubleSide}));g.add(wall);
  const edge=new THREE.LineSegments(new THREE.EdgesGeometry(wall.geometry),new THREE.LineBasicMaterial({color:0x83e59a}));g.add(edge);
  const membrane=new THREE.Mesh(new THREE.BoxGeometry(1.68,.93,.72),material(0x63b8a1,{transparent:true,opacity:.14,side:THREE.DoubleSide}));g.add(membrane);
+ const cytoplasm=new THREE.Mesh(new THREE.BoxGeometry(1.58,.84,.64),material(0x9bdc85,{transparent:true,opacity:.08,side:THREE.DoubleSide}));g.add(cytoplasm);
  const vac=new THREE.Mesh(new THREE.BoxGeometry(.72,.65,.48),material(0x65b9e8,{transparent:true,opacity:.48}));vac.position.set(.25,-.05,0);g.add(vac);
  const nucleus=new THREE.Mesh(new THREE.SphereGeometry(.22,32,24),material(0xb38be8));nucleus.position.set(-.48,.1,.08);g.add(nucleus);
  const nucleolus=new THREE.Mesh(new THREE.SphereGeometry(.08,24,18),material(0x684a9c));nucleolus.position.set(-.45,.1,.25);g.add(nucleolus);
  for(let i=0;i<7;i++){const chlor=new THREE.Mesh(new THREE.SphereGeometry(.085,20,16),material(0x3fbd73));chlor.scale.set(1.35,.72,.75);chlor.position.set(-.62+(i%3)*.48,-.32+Math.floor(i/3)*.3,.2);g.add(chlor);}
  const mitoMat=material(0xe7a45c);for(let i=0;i<3;i++){const m=new THREE.Mesh(new THREE.SphereGeometry(.11,20,14),mitoMat);m.scale.set(1.7,.75,.8);m.position.set(-.12+i*.35,.34,.18);g.add(m);}
- const labels=[["CELL WALL",-.1,.72,.0],["CELL MEMBRANE",.25,.56,.38],["NUCLEUS",-.82,.42,.2],["LARGE CENTRAL VACUOLE",.3,-.53,.2],["CHLOROPLASTS",.55,.43,.2],["MITOCHONDRIA",-.15,.55,-.3],["CYTOPLASM",-.65,-.55,.25]];
- labels.forEach(([t,x,y,z])=>{const l=label(t);l.scale.set(.82,.2,1);l.position.set(x,y,z);g.add(l);});
+ callout(g,"CELL WALL",[-.82,.38,0],[-1.42,.82,.25],.95);
+ callout(g,"CELL MEMBRANE",[-.76,.2,.36],[-1.42,.12,.58],1.22);
+ callout(g,"NUCLEUS",[-.48,.1,.3],[-1.28,-.48,.55],.88);
+ callout(g,"NUCLEOLUS",[-.45,.1,.25],[-.28,-.82,.6],1.02);
+ callout(g,"CENTRAL VACUOLE",[.25,-.05,.25],[1.38,-.52,.5],1.35);
+ callout(g,"CHLOROPLAST",[.34,-.32,.2],[1.38,.48,.5],1.05);
+ callout(g,"MITOCHONDRION",[.23,.34,.18],[.45,1.0,.55],1.22);
+ callout(g,"CYTOPLASM",[-.68,-.3,.12],[-.65,-.95,.55],.95);
 }
 function makeModel(kind){const g=new THREE.Group();if(kind==="atom")makeAtom(g);else if(kind==="circuit")makeCircuit(g);else if(kind==="magnetic")makeMagnetic(g);else if(kind==="refraction")makeRefraction(g);else if(kind==="cell")makeCell(g);return g;}
 function setCircuitState(on,target=model){if(!target||target.userData?.kind!=="circuit")return;target.userData.circuitOn=!!on;target.userData.bulbMaterial.emissiveIntensity=on?.95:.035;target.userData.bulbMaterial.emissive.setHex(on?0xffa92e:0x3b2b16);target.userData.bulbGlow.intensity=on?1.8:0;target.userData.lever.rotation.z=on?0:-.48;}
