@@ -72,7 +72,7 @@ function makeRefraction(g){
  // Incident, refracted and emergent ray, drawn in the front plane for clear observation.
  tube(g,[[-1.12,.53,.28],[-.59,.28,.28]],0xffc95e,.018);
  tube(g,[[-.59,.28,.28],[.15,.04,.28]],0xffc95e,.018);
- tube(g,[[.15,.04,.28],[1.12,-.28,.28]],0xffc95e,.018);
+ tube(g,[[.15,.04,.28],[.59,-.10,.28],[1.12,-.35,.28]],0xffc95e,.018);
  const normal1=new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-.59,-.48,.31),new THREE.Vector3(-.59,.72,.31)]),new THREE.LineDashedMaterial({color:0xe7f5ff,dashSize:.06,gapSize:.04}));normal1.computeLineDistances();g.add(normal1);
  const normal2=new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(.59,-.48,.31),new THREE.Vector3(.59,.72,.31)]),new THREE.LineDashedMaterial({color:0xe7f5ff,dashSize:.06,gapSize:.04}));normal2.computeLineDistances();g.add(normal2);
  const a=label("AIR");a.scale.set(.45,.2,1);a.position.set(-.9,-.03,.34);g.add(a);
