@@ -1166,6 +1166,13 @@ function subjectVisual(it){
 }
 function visual(it){
  const k=it.kind,pa=lang==="pa";let art="";
+ if(lab==="physics"&&cls===9&&exp===0&&k==="acceleration"){
+  const inc=choice==="Increasing velocity",dec=choice==="Decreasing velocity",dt=Math.max(1,a),dv=inc?Math.min(20,b*.4):dec?-Math.min(20,b*.4):0,v0=20,v1=Math.max(0,v0+dv),acc=dv/dt,carX=dec?210:inc?105:155;
+  const arrow=(x,y,len,color)=>'<path d="M'+x+' '+y+' h'+len+' m-12 -8 l12 8 -12 8" fill="none" stroke="'+color+'" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>';
+  const bar=(y,val,color,label)=>'<text x="20" y="'+(y+5)+'" font-size="11" font-weight="800" fill="#334155">'+label+'</text><rect x="112" y="'+(y-10)+'" width="218" height="17" rx="8" fill="#e2e8f0"/><rect x="112" y="'+(y-10)+'" width="'+(218*val/40)+'" height="17" rx="8" fill="'+color+'"/><text x="338" y="'+(y+5)+'" font-size="11" font-weight="900" fill="#0f172a">'+val.toFixed(1)+' m/s</text>';
+  const status=inc?(pa?"ਵੇਗ ਵਧ ਰਿਹਾ ਹੈ":"SPEEDING UP"):dec?(pa?"ਵੇਗ ਘਟ ਰਿਹਾ ਹੈ":"SLOWING DOWN"):(pa?"ਸਥਿਰ ਵੇਗ":"CONSTANT VELOCITY"),color=inc?"#16a34a":dec?"#ea580c":"#64748b";
+  return '<div><svg viewBox="0 0 400 300" role="img" aria-label="Vehicle acceleration simulator showing initial and final velocity"><defs><linearGradient id="accCar" x2="0" y2="1"><stop stop-color="#38bdf8"/><stop offset="1" stop-color="#0369a1"/></linearGradient></defs><rect x="7" y="7" width="386" height="286" rx="16" fill="#f0f9ff" stroke="#bae6fd"/><text x="200" y="28" text-anchor="middle" font-size="13" font-weight="900" fill="#075985">'+status+'</text><path d="M20 177 H380 M20 187 H380" stroke="#64748b" stroke-width="3" stroke-dasharray="12 8"/><g transform="translate('+carX+' 0)"><path d="M0 151 L10 128 Q15 118 29 118 H76 Q87 118 95 132 L105 151Z" fill="url(#accCar)" stroke="#075985" stroke-width="2"/><path d="M29 121 H72 Q80 121 86 135 H20 L26 125Z" fill="#dbeafe" stroke="#075985"/><circle cx="23" cy="153" r="10" fill="#1e293b"/><circle cx="82" cy="153" r="10" fill="#1e293b"/><circle cx="23" cy="153" r="4" fill="#cbd5e1"/><circle cx="82" cy="153" r="4" fill="#cbd5e1"/></g>'+arrow(carX+105,135,Math.max(20,v1*2.4),color)+'<text x="200" y="211" text-anchor="middle" font-size="11" font-weight="900" fill="#0f172a">VELOCITY CHANGE IN '+dt.toFixed(0)+' s</text>'+bar(237,v0,"#0ea5e9",pa?"ਸ਼ੁਰੂਆਤੀ":"INITIAL")+bar(270,v1,color,pa?"ਅੰਤਿਮ":"FINAL")+'</svg><div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:8px"><div style="background:#e0f2fe;border-radius:9px;padding:8px;text-align:center"><b style="font-size:17px;color:#075985">'+v0.toFixed(1)+'</b><small style="display:block">m/s · '+(pa?"ਸ਼ੁਰੂ":"START")+'</small></div><div style="background:#dcfce7;border-radius:9px;padding:8px;text-align:center"><b style="font-size:17px;color:#166534">'+v1.toFixed(1)+'</b><small style="display:block">m/s · '+(pa?"ਅੰਤ":"FINAL")+'</small></div><div style="background:#fef3c7;border-radius:9px;padding:8px;text-align:center"><b style="font-size:17px;color:#92400e">'+acc.toFixed(2)+'</b><small style="display:block">m/s² · a</small></div></div><p style="font-size:12px">'+(pa?"ਤਵਰਣ = ਵੇਗ ਵਿੱਚ ਤਬਦੀਲੀ ÷ ਸਮਾਂ":"Acceleration = change in velocity ÷ time")+'</p></div>';
+ }
  if(lab==="physics"&&cls===8&&exp===2){
   const metal=choice==="Steel plate"||choice==="Copper plate",copper=choice==="Copper plate",wood=choice==="Wooden plate";
   const plateColor=copper?"#c87945":wood?"#b98552":choice==="Plastic plate"?"#7398c9":"#9aa8b5";
@@ -1231,6 +1238,12 @@ function visual(it){
 }
 function subjectObservation(it){
  const k=it.kind,pa=lang==="pa",v=(en,pu)=>pa?pu:en;
+ if(lab==="physics"&&cls===9&&exp===0&&k==="acceleration"){
+  const inc=choice==="Increasing velocity",dec=choice==="Decreasing velocity",dt=Math.max(1,a),dv=inc?Math.min(20,b*.4):dec?-Math.min(20,b*.4):0,final=Math.max(0,20+dv),acc=dv/dt;
+  if(inc)return v("The vehicle speeds up from 20.0 m/s to "+final.toFixed(1)+" m/s in "+dt+" s. Its positive acceleration is "+acc.toFixed(2)+" m/s². For the same time interval, a larger increase in velocity gives a larger acceleration.","ਵਾਹਨ "+dt+" ਸਕਿੰਟਾਂ ਵਿੱਚ 20.0 m/s ਤੋਂ "+final.toFixed(1)+" m/s ਤੱਕ ਤੇਜ਼ ਹੁੰਦਾ ਹੈ। ਇਸ ਦਾ ਧਨਾਤਮਕ ਤਵਰਣ "+acc.toFixed(2)+" m/s² ਹੈ। ਇੱਕੋ ਸਮੇਂ ਵਿੱਚ ਵੇਗ ਦੀ ਵੱਡੀ ਤਬਦੀਲੀ ਨਾਲ ਤਵਰਣ ਵੱਧ ਹੁੰਦਾ ਹੈ।");
+  if(dec)return v("The vehicle slows from 20.0 m/s to "+final.toFixed(1)+" m/s in "+dt+" s. Its acceleration is negative ("+acc.toFixed(2)+" m/s²), opposite to its direction of motion. A larger decrease in the same time means a greater magnitude of acceleration.","ਵਾਹਨ "+dt+" ਸਕਿੰਟਾਂ ਵਿੱਚ 20.0 m/s ਤੋਂ ਘਟ ਕੇ "+final.toFixed(1)+" m/s ਹੋ ਜਾਂਦਾ ਹੈ। ਇਸ ਦਾ ਤਵਰਣ ਰਿਣਾਤਮਕ ("+acc.toFixed(2)+" m/s²) ਹੈ ਅਤੇ ਗਤੀ ਦੀ ਉਲਟ ਦਿਸ਼ਾ ਵਿੱਚ ਹੈ।");
+  return v("The vehicle continues at a constant velocity of 20.0 m/s. Since its velocity does not change, acceleration is zero. A vehicle can move fast without accelerating if its velocity remains constant.","ਵਾਹਨ 20.0 m/s ਦੇ ਸਥਿਰ ਵੇਗ ਨਾਲ ਚੱਲਦਾ ਹੈ। ਵੇਗ ਵਿੱਚ ਤਬਦੀਲੀ ਨਾ ਹੋਣ ਕਰਕੇ ਤਵਰਣ ਸਿਫ਼ਰ ਹੈ। ਜੇ ਵੇਗ ਸਥਿਰ ਰਹੇ ਤਾਂ ਤੇਜ਼ ਚੱਲਦਾ ਵਾਹਨ ਵੀ ਤਵਰਿਤ ਨਹੀਂ ਹੁੰਦਾ।");
+ }
 
   if(cls===8&&exp===2){
    const metal=choice==="Steel plate"||choice==="Copper plate";
@@ -1418,5 +1431,5 @@ if(installControl){
   window.addEventListener("appinstalled",()=>{installControl.hidden=true;deferredInstallPrompt=null;});
 }
 $("#languageToggle").onclick=()=>{lang=lang==="en"?"pa":"en";document.documentElement.lang=lang==="pa"?"pa":"en";$("#languageToggle").textContent=lang==="en"?"ਪੰਜਾਬੀ":"English";lab?draw():home()};
-if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?release=29",{updateViaCache:"none"}).then(reg=>reg.update()).catch(()=>{}));
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?release=30",{updateViaCache:"none"}).then(reg=>reg.update()).catch(()=>{}));
 home();
