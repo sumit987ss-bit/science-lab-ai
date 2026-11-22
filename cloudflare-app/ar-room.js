@@ -1,6 +1,6 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
 const $=s=>document.querySelector(s), stage=$("#stage"), hint=$("#stageHint"), status=$("#status"), camera=$("#camera"), overlay=$("#overlay");
-let renderer,scene,camera3d,model,session,hitSource,refSpace,previewStream,previewMode=false,turn=0,circuitOn=true,dragging=false,lastX=0,lastY=0;
+let renderer,scene,camera3d,model,session,hitSource,refSpace,previewStream,previewMode=false,turn=0,circuitOn=true,dragging=false,lastX=0,lastY=0,dragStartX=0,dragStartY=0;
 const descriptions={atom:["Structure of an Atom","A simplified atom model: a central nucleus contains protons and neutrons, while electrons occupy regions around it."],circuit:["Electric Circuit","A simplified closed circuit contains a cell, connecting wires, a switch and a bulb. The bulb glows when the path is complete."],solar:["Solar System","Explore a simplified arrangement of the Sun and planets. Distances and sizes are not to scale."]};
 function makeModel(kind){
  const group=new THREE.Group();
@@ -122,7 +122,7 @@ $("#placeModel").addEventListener("click",()=>{if(model){model.position.set(0,0,
 $("#stopAR").addEventListener("click",async()=>{if(session)await session.end();if(previewStream){previewStream.getTracks().forEach(t=>t.stop());previewStream=null;}camera.style.display="none";document.body.classList.remove("ar-active","preview-active");resize();previewMode=false;$("#stopAR").disabled=true;$("#placeModel").disabled=true;$("#rotateModel").disabled=true;hint.hidden=false;status.textContent="Experience ended.";});
 setup();changeModel();
 renderer.domElement.style.touchAction="none";
-renderer.domElement.addEventListener("pointerdown",e=>{if(!previewMode&&!session)return;dragging=true;lastX=e.clientX;lastY=e.clientY;renderer.domElement.setPointerCapture?.(e.pointerId);});
+renderer.domElement.addEventListener("pointerdown",e=>{if(!previewMode&&!session)return;dragging=true;lastX=e.clientX;lastY=e.clientY;dragStartX=e.clientX;dragStartY=e.clientY;renderer.domElement.setPointerCapture?.(e.pointerId);});
 renderer.domElement.addEventListener("pointermove",e=>{if(!dragging||!model)return;const dx=e.clientX-lastX,dy=e.clientY-lastY;if(Math.abs(dx)+Math.abs(dy)>2){model.rotation.y+=dx*.009;model.rotation.x+=dy*.006;}lastX=e.clientX;lastY=e.clientY;});
-renderer.domElement.addEventListener("pointerup",e=>{if(dragging&&model?.userData.kind==="circuit"&&Math.abs(e.clientX-lastX)+Math.abs(e.clientY-lastY)<7&&!session){const rect=renderer.domElement.getBoundingClientRect();const pointer=new THREE.Vector2(((e.clientX-rect.left)/rect.width)*2-1,-((e.clientY-rect.top)/rect.height)*2+1);const ray=new THREE.Raycaster();ray.setFromCamera(pointer,camera3d);if(ray.intersectObject(model.userData.lever,true).length)setCircuitState(!model.userData.circuitOn,model);}dragging=false;});
+renderer.domElement.addEventListener("pointerup",e=>{if(dragging&&model?.userData.kind==="circuit"&&Math.hypot(e.clientX-dragStartX,e.clientY-dragStartY)<8&&!session){const rect=renderer.domElement.getBoundingClientRect();const pointer=new THREE.Vector2(((e.clientX-rect.left)/rect.width)*2-1,-((e.clientY-rect.top)/rect.height)*2+1);const ray=new THREE.Raycaster();ray.setFromCamera(pointer,camera3d);if(ray.intersectObject(model.userData.lever,true).length)setCircuitState(!model.userData.circuitOn,model);}dragging=false;});
 renderer.domElement.addEventListener("pointercancel",()=>{dragging=false;});
