@@ -57,7 +57,7 @@ function makeModel(kind){
 function setCircuitState(on,target=model){
  if(!target||target.userData?.kind!=="circuit")return;
  target.userData.circuitOn=!!on;
- target.userData.bulbMaterial.emissiveIntensity=on?.95:.035;
+ target.userData.bulbMaterial.emissiveIntensity=on ? 0.95 : 0.035;
  target.userData.bulbMaterial.emissive.setHex(on?0xffa92e:0x3b2b16);
  target.userData.bulbGlow.intensity=on?1.8:0;
  target.userData.lever.rotation.z=on?0:-.48;
