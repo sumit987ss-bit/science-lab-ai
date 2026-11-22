@@ -61,7 +61,6 @@ function setCircuitState(on,target=model){
  target.userData.bulbMaterial.emissive.setHex(on?0xffa92e:0x3b2b16);
  target.userData.bulbGlow.intensity=on?1.8:0;
  target.userData.lever.rotation.z=on?0:-.48;
- const b=$("#circuitToggle");if(b){b.textContent=on?"Key: ON":"Key: OFF";b.setAttribute("aria-pressed",String(on));b.hidden=$("#modelSelect").value!=="circuit";}
  circuitOn=!!on;
 }
 function setup(){
@@ -74,7 +73,7 @@ function setup(){
  window.addEventListener("resize",resize);
 }
 function resize(){if(!renderer)return;renderer.setSize(stage.clientWidth,stage.clientHeight);camera3d.aspect=stage.clientWidth/stage.clientHeight;camera3d.updateProjectionMatrix();}
-function changeModel(){if(model)scene.remove(model);model=makeModel($("#modelSelect").value);scene.add(model);model.position.set(0,0,-2);const d=descriptions[$("#modelSelect").value];$("#modelTitle").textContent=d[0];$("#modelInfo").textContent=d[1];if(model.userData.kind==="circuit")setCircuitState(true,model);else $("#circuitToggle").hidden=true;}
+function changeModel(){if(model)scene.remove(model);model=makeModel($("#modelSelect").value);scene.add(model);model.position.set(0,0,-2);const d=descriptions[$("#modelSelect").value];$("#modelTitle").textContent=d[0];$("#modelInfo").textContent=d[1];if(model.userData.kind==="circuit")setCircuitState(true,model);}
 async function startAR(){
  setup();
  if(!navigator.xr){status.textContent="WebXR AR is not available in this browser. Try Camera Preview.";return;}
@@ -93,11 +92,14 @@ async function startAR(){
   const viewerSpace=await session.requestReferenceSpace("viewer");
   hitSource=await session.requestHitTestSource({space:viewerSpace});
   const reticle=new THREE.Mesh(new THREE.RingGeometry(.08,.11,32),new THREE.MeshBasicMaterial({color:0x70edbd,side:THREE.DoubleSide}));reticle.rotation.x=-Math.PI/2;reticle.matrixAutoUpdate=false;reticle.visible=false;scene.add(reticle);
-  const controller=renderer.xr.getController(0);scene.add(controller);let placed=false;
-  controller.addEventListener("select",()=>{if(reticle.visible){model.position.setFromMatrixPosition(reticle.matrix);model.quaternion.setFromRotationMatrix(reticle.matrix);placed=true;status.textContent="Model placed. Move your phone carefully to explore it."; }});
+  const controller=renderer.xr.getController(0);scene.add(controller);let placed=false;const xrRaycaster=new THREE.Raycaster();
+  controller.addEventListener("select",()=>{
+   if(model?.userData.kind==="circuit"&&model.userData.lever){xrRaycaster.setFromXRController(controller);const switchHits=xrRaycaster.intersectObject(model.userData.lever,true);if(switchHits.length){setCircuitState(!model.userData.circuitOn,model);status.textContent=model.userData.circuitOn?"Switch closed: bulb ON.":"Switch open: bulb OFF.";return;}}
+   if(reticle.visible){model.position.setFromMatrixPosition(reticle.matrix);model.quaternion.setFromRotationMatrix(reticle.matrix);placed=true;status.textContent="Model placed. Walk around it or drag to rotate."; }
+  });
   renderer.setAnimationLoop((time,frame)=>{if(frame&&hitSource){const hits=frame.getHitTestResults(hitSource);if(hits.length){const pose=hits[0].getPose(refSpace);reticle.visible=true;reticle.matrix.fromArray(pose.transform.matrix);if(!placed){model.position.setFromMatrixPosition(reticle.matrix);model.quaternion.setFromRotationMatrix(reticle.matrix);}}else reticle.visible=false;}renderer.render(scene,camera3d);});
   session.addEventListener("end",()=>{session=null;hitSource=null;reticle.visible=false;document.body.classList.remove("ar-active");renderer.setAnimationLoop(()=>{if(model){model.rotation.y+=.004;}renderer.render(scene,camera3d);});status.textContent="AR session ended.";$("#stopAR").disabled=true;});
-  $("#stopAR").disabled=false;$("#placeModel").disabled=false;$("#rotateModel").disabled=false;hint.hidden=true;document.body.classList.add("ar-active");$("#circuitToggle").hidden=$("#modelSelect").value!=="circuit";status.textContent="Move your phone slowly to find a surface. Tap the screen to place the model."; 
+  $("#stopAR").disabled=false;$("#placeModel").disabled=false;$("#rotateModel").disabled=false;hint.hidden=true;document.body.classList.add("ar-active");status.textContent="Move your phone slowly to find a surface. Tap the screen to place the model."; 
  }catch(e){
   if(session){try{await session.end();}catch(_){}session=null;}
   hitSource=null;refSpace=null;
@@ -105,7 +107,7 @@ async function startAR(){
  }
 }
 async function startPreview(){
- setup();previewMode=true;
+ setup();previewMode=true;document.body.classList.add("preview-active");
  try{previewStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:"environment"}},audio:false});camera.srcObject=previewStream;await camera.play();camera.style.display="block";renderer.domElement.style.background="transparent";stage.style.background="transparent";hint.hidden=true;
  // Camera preview is a live camera view with a draggable 3D model overlay; it is not plane-tracked AR.
  renderer.setAnimationLoop(()=>{renderer.render(scene,camera3d);});model.position.set(0,0,-2);status.textContent="Camera preview is active. Drag on the 3D model area to rotate it. This preview does not automatically detect walls or floors.";
@@ -114,12 +116,11 @@ async function startPreview(){
 $("#modelSelect").addEventListener("change",changeModel);
 $("#startAR").addEventListener("click",startAR);
 $("#cameraMode").addEventListener("click",startPreview);
-$("#rotateModel").addEventListener("click",()=>{if(model)model.rotation.y+=Math.PI/4;});\n$("#circuitToggle").addEventListener("click",()=>{if(model?.userData.kind==="circuit")setCircuitState(!model.userData.circuitOn,model);});
-$("#placeModel").addEventListener("click",()=>{if(model){model.position.set(0,0,-2);model.rotation.set(0,0,0);status.textContent="Model reset to the centre of the view."; }});
-$("#stopAR").addEventListener("click",async()=>{if(session)await session.end();if(previewStream){previewStream.getTracks().forEach(t=>t.stop());previewStream=null;}camera.style.display="none";document.body.classList.remove("ar-active");$("#stopAR").disabled=true;$("#placeModel").disabled=true;$("#rotateModel").disabled=true;hint.hidden=false;status.textContent="Experience ended.";});
+$("#rotateModel").addEventListener("click",()=>{if(model)model.rotation.y+=Math.PI/4;});\n$("#placeModel").addEventListener("click",()=>{if(model){model.position.set(0,0,-2);model.rotation.set(0,0,0);status.textContent="Model reset to the centre of the view."; }});
+$("#stopAR").addEventListener("click",async()=>{if(session)await session.end();if(previewStream){previewStream.getTracks().forEach(t=>t.stop());previewStream=null;}camera.style.display="none";document.body.classList.remove("ar-active","preview-active");previewMode=false;$("#stopAR").disabled=true;$("#placeModel").disabled=true;$("#rotateModel").disabled=true;hint.hidden=false;status.textContent="Experience ended.";});
 setup();changeModel();
 renderer.domElement.style.touchAction="none";
 renderer.domElement.addEventListener("pointerdown",e=>{if(!previewMode&&!session)return;dragging=true;lastX=e.clientX;lastY=e.clientY;renderer.domElement.setPointerCapture?.(e.pointerId);});
 renderer.domElement.addEventListener("pointermove",e=>{if(!dragging||!model)return;const dx=e.clientX-lastX,dy=e.clientY-lastY;if(Math.abs(dx)+Math.abs(dy)>2){model.rotation.y+=dx*.009;model.rotation.x+=dy*.006;}lastX=e.clientX;lastY=e.clientY;});
-renderer.domElement.addEventListener("pointerup",()=>{dragging=false;});
+renderer.domElement.addEventListener("pointerup",e=>{if(dragging&&model?.userData.kind==="circuit"&&Math.abs(e.clientX-lastX)+Math.abs(e.clientY-lastY)<7&&!session){const rect=renderer.domElement.getBoundingClientRect();const pointer=new THREE.Vector2(((e.clientX-rect.left)/rect.width)*2-1,-((e.clientY-rect.top)/rect.height)*2+1);const ray=new THREE.Raycaster();ray.setFromCamera(pointer,camera3d);if(ray.intersectObject(model.userData.lever,true).length)setCircuitState(!model.userData.circuitOn,model);}dragging=false;});
 renderer.domElement.addEventListener("pointercancel",()=>{dragging=false;});
