@@ -86,21 +86,34 @@ function makeCircuit(g){
  g.userData={kind:"circuit",bulbMaterial:bulbGlass,bulbGlow:glow,lever,circuitOn:true};setCircuitState(true,g);
 }
 function makeMagnetic(g){
- // Horizontal bar magnet with correctly directed closed magnetic field loops.
- const magnet=new THREE.Mesh(new THREE.BoxGeometry(1.5,.34,.38),material(0x263f58,{metalness:.25}));
- g.add(magnet);
+ // Bar magnet: red North pole on the left, blue South pole on the right.
+ const magnet=new THREE.Mesh(new THREE.BoxGeometry(1.5,.34,.38),material(0x263f58,{metalness:.25}));g.add(magnet);
  const north=new THREE.Mesh(new THREE.BoxGeometry(.75,.36,.4),material(0xd94e55));north.position.x=-.375;g.add(north);
  const south=new THREE.Mesh(new THREE.BoxGeometry(.75,.36,.4),material(0x397fd0));south.position.x=.375;g.add(south);
- const poleTag=(txt,pos)=>{const t=label(txt);t.scale.set(.28,.17,1);t.position.set(...pos);g.add(t);};
- poleTag("N",[-.38,.02,.23]);poleTag("S",[.38,.02,.23]);
- // Closed loops outside run N to S; inside magnet direction is S to N.
- for(let i=0;i<5;i++){
-  const y=.22+i*.12,z=(i-2)*.11,h=.48+i*.13;
-  tube(g,[[-.72,y,z],[-.9,h,z],[-.55,h+.16,z],[0,h+.19,z],[.55,h+.16,z],[.9,h,z],[.72,y,z]],0x62d9f2,.009);
+ // Pole labels sit directly on the front faces of their respective magnet halves.
+ const poleTag=(txt,pos)=>{const t=label(txt);t.scale.set(.22,.13,1);t.position.set(...pos);g.add(t);};
+ poleTag("N",[-.38,0,.215]);poleTag("S",[.38,0,.215]);
+ // Each field line is a complete closed loop: outside N -> S, inside S -> N.
+ const arrow=(position,direction)=>{
+  const head=new THREE.Mesh(new THREE.ConeGeometry(.026,.095,12),new THREE.MeshBasicMaterial({color:0xb8f4ff}));
+  head.position.set(...position);
+  // Cone's local +Y axis is rotated to point along the path direction.
+  head.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),new THREE.Vector3(...direction).normalize());
+  g.add(head);
+ };
+ for(let i=0;i<4;i++){
+  const lift=.43+i*.19,depth=(i-1.5)*.075;
+  const top=[[-.75,0,depth],[-.88,lift*.72,depth],[-.58,lift,depth],[0,lift+.08,depth],[.58,lift,depth],[.88,lift*.72,depth],[.75,0,depth],[.48,-.035,depth],[0,-.045,depth],[-.48,-.035,depth],[-.75,0,depth]];
+  tube(g,top,0x62d9f2,.009);
+  // Upper outside segment points left-to-right; inside segment points right-to-left.
+  arrow([.36,lift+.035,depth],[1,0,0]);
+  arrow([-.25,-.045,depth],[-1,0,0]);
+  const lower=[[-.75,0,depth],[-.88,-lift*.72,depth],[-.58,-lift,depth],[0,-lift-.08,depth],[.58,-lift,depth],[.88,-lift*.72,depth],[.75,0,depth],[.48,.035,depth],[0,.045,depth],[-.48,.035,depth],[-.75,0,depth]];
+  tube(g,lower,0x62d9f2,.009);
+  // Lower outside segment points left-to-right; lower internal return points right-to-left.
+  arrow([.36,-lift-.035,depth],[1,0,0]);
+  arrow([-.25,.045,depth],[-1,0,0]);
  }
- // Arrowheads on the external upper loop show N -> S.
- const arrow=new THREE.Mesh(new THREE.ConeGeometry(.035,.12,12),new THREE.MeshBasicMaterial({color:0x9ceafa}));
- arrow.position.set(.12,.82,0);arrow.rotation.z=-Math.PI/2;g.add(arrow);
 }function makeRefraction(g){
  // Parallel-sided glass slab. Ray enters from air, bends toward the normal,
  // exits bending away, and emerges parallel to the incident ray.
