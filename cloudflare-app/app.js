@@ -2241,6 +2241,58 @@ function class7FlowerPartsLab(){
  $("#maleFocus").onclick=()=>focus(true,false);$("#femaleFocus").onclick=()=>focus(false,true);$("#allFocus").onclick=()=>{$("#maleGroup").style.opacity="1";$("#femaleGroup").style.opacity="1";$("#petalGroup").style.opacity="1";$("#sepalGroup").style.opacity="1";};
 }
 
+
+function class8MicrobesLab(){
+ const pa=lang==="pa";
+ const options=[
+  {key:"yeast",en:"Yeast in bread making",pu:"ਡਬਲ ਰੋਟੀ ਬਣਾਉਣ ਵਿੱਚ ਖਮੀਰ"},
+  {key:"curd",en:"Lactobacillus in curd",pu:"ਦਹੀਂ ਬਣਾਉਣ ਵਿੱਚ ਲੈਕਟੋਬੈਸਿਲਸ"},
+  {key:"pathogen",en:"Disease-causing microbes",pu:"ਰੋਗ ਪੈਦਾ ਕਰਨ ਵਾਲੇ ਸੂਖਮ ਜੀਵ"},
+  {key:"decomposer",en:"Decomposer microbes",pu:"ਵਿਘਟਕ ਸੂਖਮ ਜੀਵ"}
+ ];
+ let selected="yeast";
+ const escm=x=>String(x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+ const scenes={
+ yeast:{
+  title:"YEAST CELLS · BREAD MAKING",titlePa:"ਖਮੀਰ ਦੇ ਸੂਖਮ ਜੀਵ · ਡਬਲ ਰੋਟੀ",
+  desc:"Yeast uses sugars in dough and releases carbon dioxide. Gas bubbles get trapped, making the dough rise. Baking sets the airy structure into bread.",
+  descPa:"ਖਮੀਰ ਆਟੇ ਵਿੱਚ ਮੌਜੂਦ ਸ਼ੱਕਰ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ ਛੱਡਦਾ ਹੈ। ਗੈਸ ਦੇ ਬੁਲਬੁਲੇ ਆਟੇ ਵਿੱਚ ਫਸ ਕੇ ਉਸਨੂੰ ਫੁਲਾਉਂਦੇ ਹਨ। ਪਕਾਉਣ ਨਾਲ ਇਹ ਬਣਤਰ ਡਬਲ ਰੋਟੀ ਬਣ ਜਾਂਦੀ ਹੈ।",
+  svg:"<rect x='15' y='15' width='300' height='245' rx='22' fill='#fff7e8' stroke='#e8c99c' stroke-width='3'/><text x='165' y='45' text-anchor='middle' font-size='17' font-weight='900' fill='#74451e'>BUDDING YEAST CELLS</text><g fill='#f4c7a1' stroke='#9b5d46' stroke-width='3'><ellipse cx='90' cy='105' rx='32' ry='23' transform='rotate(-25 90 105)'/><ellipse cx='205' cy='105' rx='29' ry='21' transform='rotate(20 205 105)'/><ellipse cx='145' cy='190' rx='31' ry='22'/></g><g fill='#f8e3c8' stroke='#9b5d46' stroke-width='2'><circle cx='118' cy='90' r='12'/><circle cx='228' cy='91' r='10'/><circle cx='174' cy='176' r='11'/></g><g stroke='#9b5d46' stroke-width='3' fill='none'><path d='M118 84Q130 67 143 82M228 85Q240 68 250 83M174 170Q188 152 199 168'/></g><text x='165' y='240' text-anchor='middle' font-size='13' fill='#74451e'>Microscopic view</text><path d='M330 140H375M365 128L378 140L365 152' stroke='#0f766e' stroke-width='5' fill='none'/><rect x='395' y='15' width='290' height='245' rx='22' fill='#fff8ed' stroke='#e7bd7e' stroke-width='3'/><text x='540' y='45' text-anchor='middle' font-size='17' font-weight='900' fill='#74451e'>DOUGH RISES → BREAD</text><path d='M430 145Q425 92 485 83Q545 65 602 87Q652 105 640 151Q628 179 540 180Q448 180 430 145Z' fill='#f3c77e' stroke='#b77935' stroke-width='4'/><g fill='#fff4d7'><circle cx='480' cy='119' r='9'/><circle cx='525' cy='99' r='10'/><circle cx='570' cy='126' r='8'/><circle cx='610' cy='105' r='9'/><circle cx='550' cy='151' r='8'/></g><text x='540' y='202' text-anchor='middle' font-size='13' font-weight='800' fill='#08765c'>CO₂ bubbles expand the dough</text><path d='M450 226Q450 193 485 190Q540 171 595 190Q630 197 630 226Z' fill='#c47a32' stroke='#8b451d' stroke-width='4'/><path d='M470 201Q540 183 610 201' fill='none' stroke='#ffe0a3' stroke-width='5'/><text x='540' y='249' text-anchor='middle' font-size='13' font-weight='900' fill='#74451e'>Baked porous loaf</text>"
+ },
+ curd:{
+  title:"LACTOBACILLUS · CURD",titlePa:"ਲੈਕਟੋਬੈਸਿਲਸ · ਦਹੀਂ",
+  desc:"Lactobacillus bacteria convert lactose (milk sugar) into lactic acid. The acid makes milk proteins coagulate and form curd.",
+  descPa:"ਲੈਕਟੋਬੈਸਿਲਸ ਬੈਕਟੀਰੀਆ ਦੁੱਧ ਦੀ ਸ਼ੱਕਰ ਲੈਕਟੋਜ਼ ਨੂੰ ਲੈਕਟਿਕ ਐਸਿਡ ਵਿੱਚ ਬਦਲਦੇ ਹਨ। ਐਸਿਡ ਨਾਲ ਦੁੱਧ ਦੇ ਪ੍ਰੋਟੀਨ ਜੰਮ ਕੇ ਦਹੀਂ ਬਣਾਉਂਦੇ ਹਨ।",
+  svg:"<rect x='15' y='15' width='300' height='245' rx='22' fill='#f0fbff' stroke='#a5d9e8' stroke-width='3'/><text x='165' y='45' text-anchor='middle' font-size='17' font-weight='900' fill='#155e75'>LACTOBACILLUS</text><g fill='#f1a86d' stroke='#9a4e2c' stroke-width='3'><rect x='55' y='92' width='90' height='24' rx='12' transform='rotate(-22 100 104)'/><rect x='170' y='95' width='92' height='24' rx='12' transform='rotate(18 216 107)'/><rect x='85' y='170' width='95' height='24' rx='12' transform='rotate(12 132 182)'/><rect x='195' y='180' width='75' height='22' rx='11' transform='rotate(-28 232 191)'/></g><g stroke='#9a4e2c' stroke-width='3'><path d='M65 90l-7 -9m28 4l-3 -10m70 13l7 -8m30 8l-4 -10m54 17l8 -8'/></g><text x='165' y='240' text-anchor='middle' font-size='13' fill='#155e75'>Rod-shaped bacteria</text><path d='M330 140H375M365 128L378 140L365 152' stroke='#0f766e' stroke-width='5' fill='none'/><rect x='395' y='15' width='290' height='245' rx='22' fill='#fffaf0' stroke='#e8d8b7' stroke-width='3'/><text x='540' y='45' text-anchor='middle' font-size='17' font-weight='900' fill='#854d0e'>MILK → CURD</text><path d='M455 78H625L610 218Q607 236 590 236H490Q473 236 470 218Z' fill='#e6f4fa' stroke='#7898a8' stroke-width='4'/><path d='M470 133Q540 123 610 133L601 215Q598 224 587 224H493Q482 224 479 215Z' fill='#fffdf2'/><g fill='#f5e6bb'><circle cx='505' cy='170' r='11'/><circle cx='540' cy='190' r='13'/><circle cx='575' cy='166' r='12'/><circle cx='590' cy='207' r='8'/></g><text x='540' y='253' text-anchor='middle' font-size='13' font-weight='900' fill='#854d0e'>Thick curd forms</text>"
+ },
+ pathogen:{
+  title:"DISEASE-CAUSING MICROORGANISMS",titlePa:"ਰੋਗ ਪੈਦਾ ਕਰਨ ਵਾਲੇ ਸੂਖਮ ਜੀਵ",
+  desc:"Some bacteria, viruses and fungi are pathogens. They may spread through contaminated food or water, droplets, or contact. Hygiene and vaccination help prevent infections.",
+  descPa:"ਕੁਝ ਬੈਕਟੀਰੀਆ, ਵਾਇਰਸ ਅਤੇ ਫੰਗਸ ਰੋਗ ਪੈਦਾ ਕਰ ਸਕਦੇ ਹਨ। ਇਹ ਦੂਸ਼ਿਤ ਭੋਜਨ ਜਾਂ ਪਾਣੀ, ਬੂੰਦਾਂ ਜਾਂ ਸੰਪਰਕ ਰਾਹੀਂ ਫੈਲ ਸਕਦੇ ਹਨ। ਸਫ਼ਾਈ ਅਤੇ ਟੀਕਾਕਰਨ ਬਚਾਅ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ।",
+  svg:"<rect x='15' y='15' width='670' height='245' rx='22' fill='#fff7f7' stroke='#f3b5b5' stroke-width='3'/><text x='350' y='45' text-anchor='middle' font-size='17' font-weight='900' fill='#9f1239'>EXAMPLES OF PATHOGENS · NOT TO SCALE</text><g transform='translate(155 135)'><circle r='42' fill='#fda4af' stroke='#9f1239' stroke-width='4'/><g stroke='#9f1239' stroke-width='4'><path d='M0 -58V-47M0 47V58M-58 0H-47M47 0H58M-41 -41L-33 -33M33 33L41 41M41 -41L33 -33M-33 33L-41 41'/></g><circle cx='-13' cy='-8' r='5' fill='#881337'/><circle cx='13' cy='9' r='6' fill='#881337'/><text x='0' y='75' text-anchor='middle' font-size='15' font-weight='900' fill='#881337'>Virus</text></g><g transform='translate(350 135)'><rect x='-53' y='-23' width='106' height='46' rx='23' fill='#fbbf24' stroke='#92400e' stroke-width='4' transform='rotate(-20)'/><path d='M-34 -33l-10 -13m32 7l-2 -16m30 20l8 -13M-32 29l-9 13m35 -6l-2 15m31 -22l12 10' stroke='#92400e' stroke-width='4'/><circle cx='-17' cy='-5' r='5' fill='#78350f'/><circle cx='15' cy='4' r='5' fill='#78350f'/><text x='0' y='75' text-anchor='middle' font-size='15' font-weight='900' fill='#92400e'>Bacterium</text></g><g transform='translate(545 135)'><path d='M-45 25Q-65 -18 -30 -40Q0 -60 30 -40Q65 -18 45 25Q20 53 -15 42Z' fill='#c4b5fd' stroke='#6d28d9' stroke-width='4'/><g fill='#7c3aed'><circle cx='-20' cy='-15' r='6'/><circle cx='12' cy='-24' r='5'/><circle cx='22' cy='8' r='7'/><circle cx='-13' cy='19' r='5'/></g><text x='0' y='75' text-anchor='middle' font-size='15' font-weight='900' fill='#6d28d9'>Fungus</text></g><text x='350' y='238' text-anchor='middle' font-size='13' font-weight='800' fill='#9f1239'>Different shapes and structures</text>"
+ },
+ decomposer:{
+  title:"DECOMPOSERS · NUTRIENT RECYCLING",titlePa:"ਵਿਘਟਕ · ਪੋਸ਼ਕ ਤੱਤਾਂ ਦੀ ਮੁੜ ਵਰਤੋਂ",
+  desc:"Bacteria and fungi break down dead plants and other organic matter. Nutrients return to the soil and can be reused by growing plants.",
+  descPa:"ਬੈਕਟੀਰੀਆ ਅਤੇ ਫੰਗਸ ਮਰੇ ਹੋਏ ਪੌਦਿਆਂ ਅਤੇ ਹੋਰ ਜੈਵਿਕ ਪਦਾਰਥਾਂ ਨੂੰ ਤੋੜਦੇ ਹਨ। ਪੋਸ਼ਕ ਤੱਤ ਮਿੱਟੀ ਵਿੱਚ ਵਾਪਸ ਆ ਜਾਂਦੇ ਹਨ ਅਤੇ ਪੌਦੇ ਉਨ੍ਹਾਂ ਦੀ ਮੁੜ ਵਰਤੋਂ ਕਰਦੇ ਹਨ।",
+  svg:"<rect x='15' y='15' width='670' height='245' rx='22' fill='#f5fbef' stroke='#c5dfae' stroke-width='3'/><text x='350' y='45' text-anchor='middle' font-size='17' font-weight='900' fill='#365314'>NATURE'S RECYCLING SYSTEM</text><path d='M45 205Q170 185 280 205T655 205V245H45Z' fill='#9a7046'/><path d='M45 205Q170 185 280 205T655 205' fill='none' stroke='#6b4423' stroke-width='5'/><g transform='translate(145 145)'><path d='M0 45Q-65 5 -38 -35Q-5 -45 0 0Q25 -50 54 -25Q62 18 0 45Z' fill='#78a84b' stroke='#3f6212' stroke-width='3'/><path d='M-40 -24L0 35L45 -18' fill='none' stroke='#e5f4c8' stroke-width='3'/><text x='0' y='72' text-anchor='middle' font-size='14' font-weight='900' fill='#365314'>Dead leaves</text></g><path d='M220 150H275M265 138L280 150L265 162' stroke='#a16207' stroke-width='4' fill='none'/><g transform='translate(370 145)'><path d='M-40 25Q-42 -12 -20 -28Q-5 -40 5 -18Q20 -42 35 -25Q55 -3 40 25Z' fill='#f1e6d2' stroke='#8b6b45' stroke-width='3'/><path d='M-20 -20Q-30 -55 -5 -55Q15 -55 5 -20M15 -20Q28 -52 45 -43Q58 -33 35 -15' fill='#fff7ed' stroke='#8b6b45' stroke-width='3'/><text x='0' y='72' text-anchor='middle' font-size='14' font-weight='900' fill='#365314'>Fungi</text></g><path d='M445 150H505M495 138L510 150L495 162' stroke='#a16207' stroke-width='4' fill='none'/><g fill='#d6b46b' stroke='#76552e' stroke-width='2'><circle cx='545' cy='185' r='9'/><circle cx='575' cy='205' r='8'/><circle cx='610' cy='180' r='10'/><circle cx='635' cy='207' r='7'/></g><text x='590' y='238' text-anchor='middle' font-size='14' font-weight='900' fill='#365314'>Nutrients in soil</text>"
+ }
+ };
+ const render=()=>{
+  const o=options.find(x=>x.key===selected)||options[0],v=scenes[selected];
+  $("#microbeVisual").innerHTML="<svg viewBox='0 0 700 280' role='img' aria-label='"+escm(o.en)+" illustration' style='display:block;width:100%;height:auto'>"+v.svg+"</svg>";
+  $("#microbeTitle").textContent=pa?v.titlePa:v.title;
+  $("#microbeDescription").textContent=pa?v.descPa:v.desc;
+  $("#microbeResult").innerHTML="<div style='border-radius:15px;background:#eff6ff;border:1px solid #bfdbfe;padding:14px'><b style='display:block;color:#17446a;margin-bottom:5px'>"+(pa?"ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ":"WHAT IS HAPPENING?")+"</b><span>"+(pa?v.descPa:v.desc)+"</span></div>";
+ };
+ $("#app").innerHTML="<section class='lab-top'><button class='back-button' id='back'>"+tr("back")+"</button><div class='lab-top-name'><span>"+ICON.biology+"</span><div><strong>"+tr("biology")+"</strong><small>"+(pa?"ਜਮਾਤ 8 · ਜੀਵ ਵਿਗਿਆਨ":"Class 8 · Biology Lab")+"</small></div></div></section><section class='lab-selectors'><label>"+tr("chooseClass")+"<select id='cl'>"+[6,7,8,9,10].map(n=>"<option "+(cls===n?"selected":"")+" value='"+n+"'>"+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+"</option>").join("")+"</select></label><label>"+tr("chooseExperiment")+"<select id='ex'>"+list().map((v,i)=>"<option value='"+i+"' "+(i===exp?"selected":"")+">"+(i+1)+". "+esc(pa?v.title_pa:v.title)+"</option>").join("")+"</select></label></section><section class='experiment-card'><div class='experiment-meta'>"+(pa?"ਜਮਾਤ 8 · ਜੀਵ ਵਿਗਿਆਨ · ਪ੍ਰਯੋਗ 1 / 5":"CLASS 8 · BIOLOGY · EXPERIMENT 1 / 5")+"</div><h2>"+(pa?"ਲਾਭਦਾਇਕ ਅਤੇ ਹਾਨੀਕਾਰਕ ਸੂਖਮ ਜੀਵ":"Helpful and Harmful Microorganisms")+"</h2><p class='aim'><b>"+tr("aim")+":</b> "+(pa?"ਭੋਜਨ ਬਣਾਉਣ, ਰੋਗ ਪੈਦਾ ਕਰਨ ਅਤੇ ਵਿਘਟਨ ਵਿੱਚ ਸੂਖਮ ਜੀਵਾਂ ਦੀ ਭੂਮਿਕਾ ਸਮਝੋ।":"Explore how microorganisms help make food, can cause disease, and recycle nutrients.")+"</p><div class='control-panel' style='margin:14px 0'><label style='font-weight:900;display:block'>"+(pa?"ਸੂਖਮ ਜੀਵਾਂ ਦੀ ਭੂਮਿਕਾ ਚੁਣੋ":"SELECT A MICROORGANISM / ITS ROLE")+"<select id='microbeSelect' style='width:100%;margin-top:8px'>"+options.map(o=>"<option value='"+o.key+"'>"+(pa?o.pu:o.en)+"</option>").join("")+"</select></label></div><div class='visual-panel' style='padding:12px'><h3 id='microbeTitle' style='text-align:center;color:#173b55;font-weight:950'></h3><div id='microbeVisual'></div><div id='microbeResult' style='margin-top:12px'></div></div><p id='microbeDescription' style='margin:14px 2px;color:#334155;font-weight:650;line-height:1.6'></p><div class='conclusion'><b>"+(pa?"ਮੁੱਖ ਗੱਲ":"KEY IDEA")+"</b>: "+(pa?"ਸਾਰੇ ਸੂਖਮ ਜੀਵ ਹਾਨੀਕਾਰਕ ਨਹੀਂ ਹੁੰਦੇ—ਕਈ ਭੋਜਨ ਬਣਾਉਣ ਅਤੇ ਕੁਦਰਤ ਵਿੱਚ ਪੋਸ਼ਕ ਤੱਤਾਂ ਦੀ ਮੁੜ ਵਰਤੋਂ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ।":"Microorganisms are not all harmful: many are useful in food production and nutrient recycling.")+"</div></section>";
+ $("#back").onclick=home;
+ $("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};
+ $("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};
+ $("#microbeSelect").onchange=e=>{selected=e.target.value;render()};
+ render();
+}
+
 function draw(){
  const selectedExperiment=lab==="chemistry"&&cls===10?item():null;
  // Stable catalogue-position routing protects the two key Class 10 practicals
@@ -2304,6 +2356,7 @@ function draw(){
  if(lab==="biology"&&cls===7&&exp===2){class7HumanRespirationLab();return}
  if(lab==="biology"&&cls===7&&exp===3){class7PlantXylemLab();return}
  if(lab==="biology"&&cls===7&&exp===4){class7FlowerPartsLab();return}
+ if(lab==="biology"&&cls===8&&exp===0){class8MicrobesLab();return}
   if(lab==="chemistry"&&cls===6&&exp===0){class6MaterialsSortingLab();return}
  if(lab==="chemistry"&&cls===6&&exp===1){solubilityLab();return}
  if(lab==="chemistry"&&cls===6&&exp===2){class6MixtureSeparationLab();return}
