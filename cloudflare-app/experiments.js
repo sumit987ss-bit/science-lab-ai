@@ -635,13 +635,13 @@ window.LAB_DATA = {
       "class": 8
     },
     {
-      "title": "Metals and Non-metals",
-      "title_pa": "ਧਾਤਾਂ ਅਤੇ ਅਧਾਤਾਂ",
-      "aim": "Compare typical physical properties of metals and non-metals.",
-      "aim_pa": "ਧਾਤਾਂ ਅਤੇ ਅਧਾਤਾਂ ਦੇ ਆਮ ਭੌਤਿਕ ਗੁਣਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
-      "kind": "metals",
-      "note": "Metals are often lustrous and good conductors; exceptions exist.",
-      "note_pa": "ਧਾਤਾਂ ਆਮ ਤੌਰ ਤੇ ਚਮਕਦਾਰ ਅਤੇ ਚੰਗੀਆਂ ਚਾਲਕ ਹੁੰਦੀਆਂ ਹਨ; ਅਪਵਾਦ ਵੀ ਹਨ।",
+      "title": "Rusting of Iron",
+      "title_pa": "ਲੋਹੇ ਨੂੰ ਜੰਗ ਲੱਗਣਾ",
+      "aim": "Observe how iron slowly corrodes when exposed to both oxygen in air and moisture.",
+      "aim_pa": "ਵੇਖੋ ਕਿ ਹਵਾ ਦੀ ਆਕਸੀਜਨ ਅਤੇ ਨਮੀ ਦੇ ਸੰਪਰਕ ਵਿੱਚ ਲੋਹੇ ਨੂੰ ਹੌਲੀ-ਹੌਲੀ ਜੰਗ ਕਿਵੇਂ ਲੱਗਦੀ ਹੈ।",
+      "kind": "iron_rusting",
+      "note": "Rust is mainly hydrated iron(III) oxide; both oxygen and water are needed for rusting.",
+      "note_pa": "ਜੰਗ ਮੁੱਖ ਤੌਰ ਤੇ ਜਲਯੁਕਤ ਲੋਹਾ(III) ਆਕਸਾਈਡ ਹੁੰਦੀ ਹੈ; ਜੰਗ ਲਈ ਆਕਸੀਜਨ ਅਤੇ ਪਾਣੀ ਦੋਵੇਂ ਲੋੜੀਂਦੇ ਹਨ।",
       "class": 8
     },
     {
