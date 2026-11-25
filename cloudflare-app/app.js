@@ -823,6 +823,57 @@ function chemicalEffectsLab(){
 
 
 
+
+function class9SolutionSuspensionColloidLab(){
+ const pa=lang==="pa";
+ const mixtures=[
+  {id:"salt",en:"Salt + water",pu:"ਨਮਕ + ਪਾਣੀ",type:"solution",name:"True solution",namePa:"ਅਸਲੀ ਘੋਲ",desc:"Salt dissolves completely and forms a uniform, transparent mixture.",descPa:"ਨਮਕ ਪੂਰੀ ਤਰ੍ਹਾਂ ਘੁਲ ਕੇ ਇਕਸਾਰ ਅਤੇ ਪਾਰਦਰਸ਼ੀ ਮਿਸ਼ਰਣ ਬਣਾਉਂਦਾ ਹੈ।",features:["Homogeneous mixture","Transparent; particles are not visible","Does not settle on standing","Does not show the Tyndall effect"],featuresPa:["ਇਕਸਾਰ ਮਿਸ਼ਰਣ","ਪਾਰਦਰਸ਼ੀ; ਕਣ ਦਿਖਾਈ ਨਹੀਂ ਦਿੰਦੇ","ਰੱਖਣ ਨਾਲ ਕਣ ਹੇਠਾਂ ਨਹੀਂ ਬੈਠਦੇ","ਟਿੰਡਲ ਪ੍ਰਭਾਵ ਨਹੀਂ ਦਿਖਾਉਂਦਾ"],appearance:"clear",particle:"tiny",ray:false},
+  {id:"sugar",en:"Sugar + water",pu:"ਖੰਡ + ਪਾਣੀ",type:"solution",name:"True solution",namePa:"ਅਸਲੀ ਘੋਲ",desc:"Sugar dissolves to form a uniform solution.",descPa:"ਖੰਡ ਘੁਲ ਕੇ ਇਕਸਾਰ ਘੋਲ ਬਣਾਉਂਦੀ ਹੈ।",features:["Homogeneous mixture","Transparent","Particles do not settle","No Tyndall effect"],featuresPa:["ਇਕਸਾਰ ਮਿਸ਼ਰਣ","ਪਾਰਦਰਸ਼ੀ","ਕਣ ਹੇਠਾਂ ਨਹੀਂ ਬੈਠਦੇ","ਟਿੰਡਲ ਪ੍ਰਭਾਵ ਨਹੀਂ"],appearance:"clear",particle:"tiny",ray:false},
+  {id:"cuso4",en:"Copper sulphate + water",pu:"ਕਾਪਰ ਸਲਫੇਟ + ਪਾਣੀ",type:"solution",name:"True solution",namePa:"ਅਸਲੀ ਘੋਲ",desc:"Copper sulphate dissolves and gives a uniform blue solution.",descPa:"ਕਾਪਰ ਸਲਫੇਟ ਘੁਲ ਕੇ ਇਕਸਾਰ ਨੀਲਾ ਘੋਲ ਬਣਾਉਂਦਾ ਹੈ।",features:["Homogeneous mixture","Uniform blue and transparent","Does not settle","No Tyndall effect"],featuresPa:["ਇਕਸਾਰ ਮਿਸ਼ਰਣ","ਇਕਸਾਰ ਨੀਲਾ ਅਤੇ ਪਾਰਦਰਸ਼ੀ","ਕਣ ਹੇਠਾਂ ਨਹੀਂ ਬੈਠਦੇ","ਟਿੰਡਲ ਪ੍ਰਭਾਵ ਨਹੀਂ"],appearance:"blue",particle:"tiny",ray:false},
+  {id:"mud",en:"Muddy water",pu:"ਚਿੱਕੜ ਵਾਲਾ ਪਾਣੀ",type:"suspension",name:"Suspension",namePa:"ਨਿਲੰਬਨ",desc:"Large soil particles remain dispersed for a while, then settle at the bottom.",descPa:"ਮਿੱਟੀ ਦੇ ਵੱਡੇ ਕਣ ਕੁਝ ਸਮੇਂ ਲਈ ਪਾਣੀ ਵਿੱਚ ਫੈਲੇ ਰਹਿੰਦੇ ਹਨ, ਫਿਰ ਹੇਠਾਂ ਬੈਠ ਜਾਂਦੇ ਹਨ।",features:["Heterogeneous mixture","Cloudy or opaque","Particles settle on standing","Can be separated by ordinary filtration"],featuresPa:["ਬੇਇਕਸਾਰ ਮਿਸ਼ਰਣ","ਧੁੰਦਲਾ ਜਾਂ ਅਪਾਰਦਰਸ਼ੀ","ਰੱਖਣ ਨਾਲ ਕਣ ਹੇਠਾਂ ਬੈਠ ਜਾਂਦੇ ਹਨ","ਸਧਾਰਨ ਛਾਣਨ ਨਾਲ ਵੱਖ ਕੀਤੇ ਜਾ ਸਕਦੇ ਹਨ"],appearance:"muddy",particle:"large",ray:false},
+  {id:"chalk",en:"Chalk powder + water",pu:"ਚਾਕ ਪਾਊਡਰ + ਪਾਣੀ",type:"suspension",name:"Suspension",namePa:"ਨਿਲੰਬਨ",desc:"Chalk does not dissolve; visible particles make the water cloudy and later settle.",descPa:"ਚਾਕ ਪਾਣੀ ਵਿੱਚ ਨਹੀਂ ਘੁਲਦਾ; ਦਿਖਣ ਵਾਲੇ ਕਣ ਪਾਣੀ ਨੂੰ ਧੁੰਦਲਾ ਕਰਦੇ ਹਨ ਅਤੇ ਬਾਅਦ ਵਿੱਚ ਬੈਠ ਜਾਂਦੇ ਹਨ।",features:["Heterogeneous mixture","Cloudy appearance","Particles settle with time","Can be filtered"],featuresPa:["ਬੇਇਕਸਾਰ ਮਿਸ਼ਰਣ","ਧੁੰਦਲਾ ਦਿੱਖ","ਸਮੇਂ ਨਾਲ ਕਣ ਹੇਠਾਂ ਬੈਠਦੇ ਹਨ","ਛਾਣਿਆ ਜਾ ਸਕਦਾ ਹੈ"],appearance:"cloudy",particle:"large",ray:false},
+  {id:"flour",en:"Flour + water",pu:"ਆਟਾ + ਪਾਣੀ",type:"suspension",name:"Suspension",namePa:"ਨਿਲੰਬਨ",desc:"Flour particles do not dissolve completely and make the mixture cloudy.",descPa:"ਆਟੇ ਦੇ ਕਣ ਪੂਰੀ ਤਰ੍ਹਾਂ ਨਹੀਂ ਘੁਲਦੇ ਅਤੇ ਮਿਸ਼ਰਣ ਨੂੰ ਧੁੰਦਲਾ ਕਰਦੇ ਹਨ।",features:["Heterogeneous mixture","Cloudy mixture","Particles may settle on standing","Can be separated by filtration"],featuresPa:["ਬੇਇਕਸਾਰ ਮਿਸ਼ਰਣ","ਧੁੰਦਲਾ ਮਿਸ਼ਰਣ","ਰੱਖਣ ਨਾਲ ਕਣ ਹੇਠਾਂ ਬੈਠ ਸਕਦੇ ਹਨ","ਛਾਣਨ ਨਾਲ ਵੱਖ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ"],appearance:"cloudy",particle:"large",ray:false},
+  {id:"milk",en:"Milk",pu:"ਦੁੱਧ",type:"colloid",name:"Colloid",namePa:"ਕੋਲਾਇਡ",desc:"Tiny fat droplets are dispersed throughout water; milk looks uniform but is a colloid.",descPa:"ਚਰਬੀ ਦੀਆਂ ਬਹੁਤ ਛੋਟੀਆਂ ਬੂੰਦਾਂ ਪਾਣੀ ਵਿੱਚ ਫੈਲੀਆਂ ਹੁੰਦੀਆਂ ਹਨ; ਦੁੱਧ ਇਕਸਾਰ ਦਿਸਦਾ ਹੈ ਪਰ ਕੋਲਾਇਡ ਹੈ।",features:["Appears homogeneous but is microscopically heterogeneous","Shows the Tyndall effect","Particles do not settle on standing","Not separated by ordinary filtration"],featuresPa:["ਦਿੱਖ ਵਿੱਚ ਇਕਸਾਰ ਪਰ ਸੂਖਮ ਪੱਧਰ ਤੇ ਬੇਇਕਸਾਰ","ਟਿੰਡਲ ਪ੍ਰਭਾਵ ਦਿਖਾਉਂਦਾ ਹੈ","ਕਣ ਆਮ ਤੌਰ ਤੇ ਹੇਠਾਂ ਨਹੀਂ ਬੈਠਦੇ","ਸਧਾਰਨ ਛਾਣਨ ਨਾਲ ਵੱਖ ਨਹੀਂ ਹੁੰਦੇ"],appearance:"milk",particle:"medium",ray:true},
+  {id:"fog",en:"Fog (water droplets in air)",pu:"ਧੁੰਦ (ਹਵਾ ਵਿੱਚ ਪਾਣੀ ਦੀਆਂ ਬੂੰਦਾਂ)",type:"colloid",name:"Colloid",namePa:"ਕੋਲਾਇਡ",desc:"Tiny liquid water droplets are dispersed in air, forming an aerosol colloid.",descPa:"ਪਾਣੀ ਦੀਆਂ ਬਹੁਤ ਛੋਟੀਆਂ ਤਰਲ ਬੂੰਦਾਂ ਹਵਾ ਵਿੱਚ ਫੈਲੀਆਂ ਹੁੰਦੀਆਂ ਹਨ; ਇਹ ਐਰੋਸੋਲ ਕੋਲਾਇਡ ਹੈ।",features:["Liquid dispersed in gas","Scatters light (Tyndall effect)","Droplets remain dispersed for a time","Not separated by ordinary filtration"],featuresPa:["ਗੈਸ ਵਿੱਚ ਤਰਲ ਫੈਲਿਆ ਹੁੰਦਾ ਹੈ","ਰੌਸ਼ਨੀ ਖਿਲਾਰਦਾ ਹੈ (ਟਿੰਡਲ ਪ੍ਰਭਾਵ)","ਬੂੰਦਾਂ ਕੁਝ ਸਮੇਂ ਤੱਕ ਫੈਲੀਆਂ ਰਹਿੰਦੀਆਂ ਹਨ","ਸਧਾਰਨ ਛਾਣਨ ਨਾਲ ਵੱਖ ਨਹੀਂ ਹੁੰਦੀਆਂ"],appearance:"fog",particle:"medium",ray:true},
+  {id:"gel",en:"Jelly",pu:"ਜੈਲੀ",type:"colloid",name:"Colloid",namePa:"ਕੋਲਾਇਡ",desc:"A gel: liquid is dispersed in a solid network.",descPa:"ਜੈਲੀ ਇੱਕ ਜੈਲ ਹੈ: ਤਰਲ ਪਦਾਰਥ ਠੋਸ ਜਾਲੀਦਾਰ ਬਣਤਰ ਵਿੱਚ ਫੈਲਿਆ ਹੁੰਦਾ ਹੈ।",features:["A type of colloid (gel)","Does not flow like an ordinary liquid","Dispersed particles are very small","Does not separate by ordinary filtration"],featuresPa:["ਕੋਲਾਇਡ ਦੀ ਇੱਕ ਕਿਸਮ (ਜੈਲ)","ਆਮ ਤਰਲ ਵਾਂਗ ਨਹੀਂ ਵਗਦੀ","ਫੈਲੇ ਹੋਏ ਕਣ ਬਹੁਤ ਛੋਟੇ ਹੁੰਦੇ ਹਨ","ਸਧਾਰਨ ਛਾਣਨ ਨਾਲ ਵੱਖ ਨਹੀਂ ਹੁੰਦੀ"],appearance:"jelly",particle:"medium",ray:false}
+ ];
+ let selected="salt";
+ const esc=x=>String(x).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+ const names={solution:pa?"ਘੋਲ":"SOLUTION",suspension:pa?"ਨਿਲੰਬਨ":"SUSPENSION",colloid:pa?"ਕੋਲਾਇਡ":"COLLOID"};
+ const art=m=>{
+  let liquid="#9bd8f5",extra="";
+  if(m.appearance==="blue")liquid="#3c86d8";
+  if(m.appearance==="muddy")liquid="#9b7954";
+  if(m.appearance==="cloudy")liquid="#cbd5d9";
+  if(m.appearance==="milk")liquid="#fffdf4";
+  if(m.appearance==="jelly")liquid="#ed91ae";
+  if(m.appearance==="fog")liquid="#dce7ef";
+  if(m.appearance==="fog")extra="<path d='M55 72Q95 45 140 72T250 72M45 112Q95 85 145 112T255 112M55 155Q105 128 155 155T260 155' fill='none' stroke='#fff' stroke-width='14' opacity='.75'/>";
+  if(m.appearance==="jelly")extra="<path d='M75 115Q160 85 245 115L232 190Q160 215 88 190Z' fill='#ed91ae' stroke='#b45375' stroke-width='3'/>";
+  if(m.appearance==="muddy"||m.appearance==="cloudy")extra="<path d='M78 174Q160 160 242 174V205H78Z' fill='#80664f' opacity='.8'/>";
+  let beam=m.ray?"<path d='M35 85L270 170' stroke='#facc15' stroke-width='13' opacity='.23'/><path d='M35 85L270 170' stroke='#eab308' stroke-width='3' stroke-dasharray='8 7'/>":"";
+  let dots=Array.from({length:38},(_,i)=>{
+   let x=85+(i*37)%150,y=95+(i*29)%85,r=m.particle==="tiny"?1.5:m.particle==="medium"?3.5:6;
+   let fill=m.appearance==="blue"?"#dbeafe":m.appearance==="milk"?"#d6d3d1":m.appearance==="muddy"||m.appearance==="cloudy"?"#725b48":"#fff";
+   if(m.particle==="large"&&i>22)return "";
+   return "<circle cx='"+x+"' cy='"+y+"' r='"+r+"' fill='"+fill+"' opacity='.9'/>";
+  }).join("");
+  let settle=(m.type==="suspension")?"<path d='M82 188Q160 178 238 188L232 203H88Z' fill='#71553c' opacity='.9'/>":"";
+  return "<svg viewBox='0 0 320 250' role='img' aria-label='"+esc(m.en)+" mixture visual' style='width:100%;max-width:390px;display:block;margin:auto'><path d='M78 45H242L230 205Q160 224 90 205Z' fill='#dbeafe' fill-opacity='.25' stroke='#64748b' stroke-width='7'/><path d='M85 105H235L226 198Q160 214 94 198Z' fill='"+liquid+"' opacity='.88'/>"+extra+beam+"<g>"+dots+"</g>"+settle+"<path d='M83 105Q160 96 237 105' fill='none' stroke='#fff' stroke-width='4' opacity='.8'/><text x='160' y='238' text-anchor='middle' font-size='12' font-weight='900' fill='#475569'>"+(pa?"ਮਿਸ਼ਰਣ ਦਾ ਦ੍ਰਿਸ਼ ਮਾਡਲ":"MIXTURE SAMPLE • MODEL")+"</text></svg>";
+ };
+ const render=()=>{
+  const m=mixtures.find(x=>x.id===selected);
+  const col=m.type==="solution"?"#047857":m.type==="suspension"?"#b45309":"#6d28d9";
+  const bg=m.type==="solution"?"#ecfdf5":m.type==="suspension"?"#fff7ed":"#f5f3ff";
+  $("#sscVisual").innerHTML=art(m);
+  $("#sscResult").innerHTML="<div style='padding:16px;border-radius:16px;background:"+bg+";border:2px solid "+col+"'><div style='font-size:12px;font-weight:900;letter-spacing:1.3px;color:#475569'>"+(pa?"ਪਛਾਣ ਦਾ ਨਤੀਜਾ":"IDENTIFIED AS")+"</div><div style='font-size:clamp(24px,5vw,31px);font-weight:1000;color:"+col+";margin:4px 0'>"+names[m.type]+"</div><div style='font-weight:800;color:#334155;margin-bottom:8px'>"+(pa?"ਨਮੂਨਾ: ":"Sample: ")+esc(pa?m.pu:m.en)+"</div><p style='margin:0 0 10px;color:#334155;font-weight:650'>"+(pa?m.descPa:m.desc)+"</p><div style='font-weight:950;color:#263b50;margin-bottom:6px'>"+(pa?"ਮੁੱਖ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ":"KEY FEATURES")+"</div><ul style='margin:0;padding-left:20px;color:#334155;font-weight:650;line-height:1.6'>"+(pa?m.featuresPa:m.features).map(x=>"<li>"+esc(x)+"</li>").join("")+"</ul></div>";
+  $("#sscTag").innerHTML="<span style='display:inline-block;padding:7px 12px;border-radius:30px;background:#e0f2fe;color:#075985;font-size:12px;font-weight:900'>"+(pa?"ਪ੍ਰਯੋਗਸ਼ਾਲਾ ਨਿਰੀਖਣ":"LAB OBSERVATION")+" · "+(pa?"ਨਮੂਨਾ":"SAMPLE")+" "+(mixtures.indexOf(m)+1)+" / "+mixtures.length+"</span>";
+ };
+ const title=pa?"ਘੋਲ, ਨਿਲੰਬਨ ਅਤੇ ਕੋਲਾਇਡ":"Solutions, Suspensions and Colloids";
+ $("#app").innerHTML="<section class='lab-top'><button class='back-button' id='back'>← "+(pa?"ਵਾਪਸ":"Back")+"</button><div class='lab-selectors'><label>"+(pa?"ਜਮਾਤ":"Class")+"<select id='cl'>"+[6,7,8,9,10].map(n=>"<option "+(cls===n?"selected":"")+" value='"+n+"'>"+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+"</option>").join("")+"</select></label><label>"+(pa?"ਪ੍ਰਯੋਗ":"Experiment")+"<select id='ex'>"+list().map((v,i)=>"<option value='"+i+"' "+(i===exp?"selected":"")+">"+(i+1)+". "+esc(pa?v.title_pa:v.title)+"</option>").join("")+"</select></label></div></section><section class='experiment-card'><h2 style='font-size:26px;font-weight:1000;color:#173b55;margin:8px 0'>"+title+"</h2><p style='color:#475569;font-weight:650'>"+(pa?"ਮਿਸ਼ਰਣ ਚੁਣੋ। ਦ੍ਰਿਸ਼ ਮਾਡਲ ਵੇਖੋ ਅਤੇ ਇਸ ਦੀ ਕਿਸਮ ਤੇ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਪੜ੍ਹੋ।":"Select a mixture. Observe its visual model and discover its type and characteristic properties.")+"</p><label style='display:block;font-weight:900;margin:16px 0 8px'>"+(pa?"ਮਿਸ਼ਰਣ ਚੁਣੋ":"SELECT A MIXTURE")+"<select id='sscSelect' style='width:100%;padding:14px;border:2px solid #7dd3fc;border-radius:13px;font-size:16px;font-weight:850;background:#f0f9ff'>"+mixtures.map(m=>"<option value='"+m.id+"'>"+esc(pa?m.pu:m.en)+"</option>").join("")+"</select></label><div id='sscTag' style='margin:10px 0'></div><div style='display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;align-items:center'><div id='sscVisual' style='background:linear-gradient(145deg,#f8fafc,#e0f2fe);border:1px solid #cbd5e1;border-radius:18px;padding:12px;min-height:220px;display:grid;place-items:center'></div><div id='sscResult'></div></div><div style='margin-top:14px;padding:13px;border-radius:14px;background:#f1f5f9;color:#475569;font-size:13px;font-weight:650'><b>"+(pa?"ਵਿਗਿਆਨਕ ਨੋਟ":"SCIENCE NOTE")+"</b><br>"+(pa?"ਟਿੰਡਲ ਪ੍ਰਭਾਵ ਵਿੱਚ ਕੋਲਾਇਡ ਦੇ ਕਣ ਰੌਸ਼ਨੀ ਨੂੰ ਖਿਲਾਰਦੇ ਹਨ। ਘੋਲ ਦੇ ਕਣ ਬਹੁਤ ਛੋਟੇ ਹੁੰਦੇ ਹਨ ਅਤੇ ਰੌਸ਼ਨੀ ਨਹੀਂ ਖਿਲਾਰਦੇ।":"In the Tyndall effect, colloidal particles scatter a beam of light. True-solution particles are too small to scatter light visibly.")+"</div></section>";
+ $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;draw()};$("#ex").onchange=e=>{exp=+e.target.value;draw()};$("#sscSelect").onchange=e=>{selected=e.target.value;render()};render();
+}
+
 function class9PureMixturesLab(){
  const pa=lang==="pa";
  const samples=[
@@ -1700,6 +1751,7 @@ function class7RustingLab(){
 }
 
 function draw(){
+ if(lab==="chemistry"&&cls===9&&exp===3){class9SolutionSuspensionColloidLab();return}
  if(lab==="chemistry"&&cls===9&&exp===2){class9PureMixturesLab();return}
  if(lab==="chemistry"&&cls===9&&exp===1){class9ParticleArrangementLab();return}
  if(lab==="chemistry"&&cls===9&&exp===0){class9StatesOfMatterLab();return}
