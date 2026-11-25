@@ -2596,3 +2596,5 @@ if(installControl){
 $("#languageToggle").onclick=()=>{lang=lang==="en"?"pa":"en";document.documentElement.lang=lang==="pa"?"pa":"en";$("#languageToggle").textContent=lang==="en"?"ਪੰਜਾਬੀ":"English";lab?draw():home()};
 if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?release=36",{updateViaCache:"none"}).then(reg=>reg.update()).catch(()=>{}));
 home();
+
+/* deployment refresh: Class 6 Biology Experiment 1 food nutrient test */
