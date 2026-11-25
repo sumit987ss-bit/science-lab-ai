@@ -2418,6 +2418,28 @@ function subjectVisual(it){
  }
  if(lab==="biology"){
   if(k==="plant_parts"||k==="plant_needs"||k==="photosynthesis"||k==="transport_plant"||k==="crop"||k==="germination"||k==="flower")return svg('<path d="M200 185 V80" stroke="#47864f" stroke-width="10"/><path d="M200 125 Q125 50 80 95 Q115 155 200 125 M200 105 Q275 35 320 80 Q285 135 200 105" fill="#54a96b" stroke="#397b48" stroke-width="3"/><path d="M200 185 Q160 205 135 225 M200 185 Q240 205 265 225 M200 185 V230" stroke="#bd9868" stroke-width="5" fill="none"/>'+circle(200,65,22,"#f0bd56")+'<text x="200" y="30" text-anchor="middle" fill="#28485b">'+(k==="photosynthesis"?"LIGHT + CO₂ + WATER":"PLANT STRUCTURE")+'</text>');
+  if(k==="food_chain"){
+   const chains={
+    "Grass → grasshopper → frog → snake":[["🌱","Grass","ਉਤਪਾਦਕ"],["🦗","Grasshopper","ਪਹਿਲਾ ਖਪਤਕਾਰ"],["🐸","Frog","ਦੂਜਾ ਖਪਤਕਾਰ"],["🐍","Snake","ਤੀਜਾ ਖਪਤਕਾਰ"]],
+    "Wheat → mouse → owl":[["🌾","Wheat","Producer"],["🐭","Mouse","Primary consumer"],["🦉","Owl","Secondary consumer"]],
+    "Leaves → caterpillar → bird":[["🍃","Leaves","Producer"],["🐛","Caterpillar","Primary consumer"],["🐦","Bird","Secondary consumer"]],
+    "Grass → Grasshopper → Frog → Snake":[["🌱","Grass","Producer"],["🦗","Grasshopper","Primary consumer"],["🐸","Frog","Secondary consumer"],["🐍","Snake","Tertiary consumer"]],
+    "Plants → Deer → Tiger":[["🌿","Plants","Producer"],["🦌","Deer","Primary consumer"],["🐅","Tiger","Secondary consumer"]]
+   };
+   const stages=chains[choice]||chains["Grass → grasshopper → frog → snake"];
+   const n=stages.length, gap=340/n, start=200-gap*(n-1)/2;
+   const nodes=stages.map((v,i)=>{
+    const x=start+i*gap;
+    return '<g><rect x="'+(x-43)+'" y="88" width="86" height="112" rx="14" fill="'+(i===0?"#dcfce7":"#eff6ff")+'" stroke="'+(i===0?"#16a34a":"#5b8aa8")+'" stroke-width="2"/><text x="'+x+'" y="132" text-anchor="middle" font-size="34">'+v[0]+'</text><text x="'+x+'" y="157" text-anchor="middle" font-size="'+(v[1].length>10?9:11)+'" font-weight="900" fill="#18364b">'+v[1]+'</text><text x="'+x+'" y="178" text-anchor="middle" font-size="8" fill="#486477">'+(i===0?"PRODUCER":"CONSUMER "+i)+'</text></g>';
+   }).join("");
+   const arrows=stages.slice(0,-1).map((v,i)=>{
+    const x=start+i*gap+45;
+    return '<path d="M'+x+' 142 h'+(gap-92)+' l-9 -7 m9 7 l-9 7" stroke="#0d9b66" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>';
+   }).join("");
+   const title=pa?"ਚੁਣੀ ਹੋਈ ਭੋਜਨ ਲੜੀ":"SELECTED FOOD CHAIN";
+   const caption=pa?"ਤੀਰ ਭੋਜਨ ਤੋਂ ਖਾਣ ਵਾਲੇ ਜੀਵ ਵੱਲ ਊਰਜਾ ਦਾ ਵਹਾਅ ਦਿਖਾਉਂਦਾ ਹੈ":"Arrows show the direction of energy flow — from food to the organism that eats it";
+   return '<div style="background:#f0f9ed;border:1px solid #bbd9ad;border-radius:14px;padding:8px"><svg viewBox="0 0 400 235" role="img" aria-label="'+esc(choice)+'"><rect x="5" y="5" width="390" height="225" rx="12" fill="#f7fff4"/><text x="200" y="32" text-anchor="middle" font-size="14" font-weight="900" fill="#205b38">'+title+'</text>'+arrows+nodes+'<text x="200" y="218" text-anchor="middle" font-size="10" font-weight="700" fill="#42634c">'+caption+'</text></svg><div style="text-align:center;font-size:18px;font-weight:1000;color:#166534;padding:8px">'+esc(choice)+'</div></div>';
+  }
   if(k==="food_chain"||k==="ecosystem"||k==="biodiversity"||k==="adaptation")return svg('<rect x="40" y="185" width="320" height="25" rx="8" fill="#86b66b"/><text x="80" y="155" font-size="36">🌿</text><text x="160" y="155" font-size="32">🐛</text><text x="235" y="155" font-size="32">🐸</text><text x="310" y="155" font-size="32">🐍</text>'+[90,170,245].map(x=>'<path d="M'+x+' 120 h35 l-10 -9 m10 9 l-10 9" stroke="#16a34a" stroke-width="4" fill="none"/>').join("")+'<text x="200" y="60" text-anchor="middle" fill="#28485b">ENERGY FLOW IN HABITAT</text>');
   if(k==="digestion"||k==="respiration"||k==="circulation"||k==="excretion")return svg('<circle cx="200" cy="48" r="25" fill="#f1c7a5" stroke="#b77956" stroke-width="3"/><path d="M200 75 V205 M200 100 L130 150 M200 100 L270 150" stroke="#b77956" stroke-width="12" stroke-linecap="round"/><path d="M200 105 Q150 105 160 155 Q180 175 200 150 Q220 175 240 155 Q250 105 200 105Z" fill="'+(k==="respiration"?"#fca5a5":k==="circulation"?"#ef4444":"#e9a17f")+'" stroke="#9f4b4b" stroke-width="3"/><text x="200" y="230" text-anchor="middle" fill="#28485b">'+k.toUpperCase()+'</text>');
   if(k==="cell"||k==="organelles")return svg('<rect x="55" y="55" width="290" height="150" rx="'+(choice==="Plant cell"?18:65)+'" fill="#d6efcf" stroke="#438a55" stroke-width="'+(choice==="Plant cell"?9:4)+'"/><ellipse cx="125" cy="130" rx="30" ry="25" fill="#aa8bcf"/><circle cx="125" cy="130" r="10" fill="#72519c"/><rect x="190" y="95" width="95" height="70" rx="16" fill="#9ed9eb"/><text x="125" y="175" text-anchor="middle" fill="#28485b">NUCLEUS</text><text x="237" y="135" text-anchor="middle" fill="#28485b">VACUOLE</text>');
