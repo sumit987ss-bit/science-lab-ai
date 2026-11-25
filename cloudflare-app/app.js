@@ -1889,6 +1889,52 @@ function class10MagnesiumCombustionLab(){
 
 
 
+function class10WaterElectrolysisLab(){
+ const pa=lang==="pa";let on=false,progress=0;
+ const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+ const list=()=>window.LAB_DATA.chemistry.filter(x=>x.class===cls);
+ function visual(){
+  const h=on?Math.round(progress*66):0,o=on?Math.round(progress*33):0;
+  const bubbles=on?Array.from({length:Math.max(3,Math.round(progress*18))},(_,i)=>{const x=[218,238,255,478,500,520][i%6],y=265-((i*29+progress*190)%165);return '<circle cx="'+x+'" cy="'+y+'" r="'+(3+i%4)+'" fill="#e0faff" opacity=".9"><animate attributeName="opacity" values=".3;1;.3" dur="'+(1+i%3)+'s" repeatCount="indefinite"/></circle>'}).join(""):"";
+  const svg='<svg viewBox="0 0 740 440" role="img" aria-label="Virtual electrolysis of water showing twice as much hydrogen as oxygen" style="display:block;width:100%;height:auto;border-radius:16px;background:linear-gradient(#10283e,#1d4660)">'+
+  '<defs><linearGradient id="ewater" x2="0" y2="1"><stop stop-color="#7dd3fc" stop-opacity=".8"/><stop offset="1" stop-color="#0284c7" stop-opacity=".9"/></linearGradient><linearGradient id="eglass" x2="1" y2="0"><stop stop-color="#fff" stop-opacity=".1"/><stop offset=".5" stop-color="#e0f2fe" stop-opacity=".28"/><stop offset="1" stop-color="#fff" stop-opacity=".08"/></linearGradient></defs>'+
+  '<path d="M0 370H740V440H0Z" fill="#17384e"/><path d="M0 370H740" stroke="#55768c" stroke-width="3"/>'+
+  '<g stroke="#dbeafe" stroke-width="3" fill="none"><path d="M112 80V45H628V80"/><path d="M112 45V28H190V45"/><path d="M550 45H628V28"/></g>'+
+  '<g transform="translate(60 20)"><rect x="0" y="0" width="104" height="55" rx="9" fill="#334155" stroke="#cbd5e1" stroke-width="3"/><rect x="12" y="10" width="80" height="35" rx="5" fill="#fef3c7"/><text x="52" y="33" text-anchor="middle" font-size="15" font-weight="bold" fill="#78350f">DC</text><text x="52" y="72" text-anchor="middle" font-size="13" fill="#e2e8f0">POWER SOURCE</text></g>'+
+  '<g><rect x="330" y="16" width="82" height="39" rx="8" fill="'+(on?"#166534":"#475569")+'" stroke="#cbd5e1" stroke-width="2"/><circle cx="350" cy="35" r="7" fill="'+(on?"#4ade80":"#94a3b8")+'"/><path d="M362 35H394" stroke="#f8fafc" stroke-width="4" stroke-linecap="round"/><text x="371" y="72" text-anchor="middle" font-size="14" font-weight="bold" fill="#f8fafc">'+(on?"SWITCH ON":"SWITCH OFF")+'</text></g>'+
+  '<path d="M164 45H330M412 45H628V100H545" stroke="#fbbf24" stroke-width="5" fill="none"/><path d="M112 75V104H210V155M628 75V104H530V155" stroke="#fbbf24" stroke-width="5" fill="none"/>'+
+  '<path d="M90 155H650L625 345Q370 372 115 345Z" fill="url(#eglass)" stroke="#b6d8e8" stroke-width="5"/><path d="M108 202H632L612 333Q370 355 128 333Z" fill="url(#ewater)"/><path d="M108 202Q370 190 632 202" fill="none" stroke="#bae6fd" stroke-width="4"/>'+
+  '<g stroke="#e2e8f0" stroke-width="8" stroke-linecap="round"><path d="M240 140V290"/><path d="M500 140V290"/></g><g stroke="#fbbf24" stroke-width="5" fill="none"><path d="M210 155V125H112V75"/><path d="M530 155V125H628V75"/></g>'+
+  '<g><path d="M180 90V238Q180 254 198 254H278Q296 254 296 238V90" fill="url(#eglass)" stroke="#dbeafe" stroke-width="4"/><path d="M184 90H292V235Q292 250 278 250H198Q184 250 184 235Z" fill="none"/><path d="M184 90H292V'+(on?Math.max(95,225-h):235)+'H184Z" fill="url(#ewater)" opacity=".92"/><path d="M184 90H292" stroke="#e0f2fe" stroke-width="3"/><text x="238" y="78" text-anchor="middle" fill="#f8fafc" font-size="18" font-weight="900">H₂</text><text x="238" y="115" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">'+(on?"2 VOLUMES":"")+'</text></g>'+
+  '<g><path d="M440 90V238Q440 254 458 254H538Q556 254 556 238V90" fill="url(#eglass)" stroke="#dbeafe" stroke-width="4"/><path d="M444 90H552V235Q552 250 538 250H458Q444 250 444 235Z" fill="none"/><path d="M444 90H552V'+(on?Math.max(95,225-o):235)+'H444Z" fill="url(#ewater)" opacity=".92"/><path d="M444 90H552" stroke="#e0f2fe" stroke-width="3"/><text x="498" y="78" text-anchor="middle" fill="#f8fafc" font-size="18" font-weight="900">O₂</text><text x="498" y="115" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">'+(on?"1 VOLUME":"")+'</text></g>'+
+  bubbles+
+  '<g font-size="15" font-weight="bold" fill="#f8fafc"><text x="238" y="285" text-anchor="middle">CATHODE (−)</text><text x="498" y="285" text-anchor="middle">ANODE (+)</text></g>'+
+  '<text x="370" y="405" text-anchor="middle" font-size="18" font-weight="900" fill="#e0f2fe">WATER  →  HYDROGEN + OXYGEN</text></svg>';
+  document.getElementById("waterElectrolysisVisual").innerHTML=svg;
+  document.getElementById("waterElectrolysisState").innerHTML=on?
+   '<div style="background:#dcfce7;color:#14532d;padding:13px;border-radius:12px;text-align:center;font-weight:900"><div style="font-size:20px">ELECTROLYSIS IN PROGRESS</div><div>Hydrogen (H₂): <b>2 volumes</b> &nbsp; | &nbsp; Oxygen (O₂): <b>1 volume</b></div><div style="margin-top:6px">Hydrogen collected is twice the volume of oxygen.</div></div>':
+   '<div style="background:#e0f2fe;color:#075985;padding:13px;border-radius:12px;text-align:center;font-weight:800">Switch is OFF — no electrolysis is shown. Turn the virtual switch ON to observe gas collection.</div>';
+  document.getElementById("waterElectrolysisControls").innerHTML='<button id="waterSwitch" style="border:0;border-radius:12px;padding:13px 20px;background:'+(on?"#475569":"#15803d")+';color:white;font-size:16px;font-weight:900">'+(on?"⏻ SWITCH OFF":"⚡ SWITCH ON")+'</button><button id="waterReset" style="border:0;border-radius:12px;padding:13px 20px;background:#334155;color:white;font-size:16px;font-weight:800">↺ RESET</button>';
+  document.getElementById("waterSwitch").onclick=()=>{on=!on;progress=on?1:0;visual()};
+  document.getElementById("waterReset").onclick=()=>{on=false;progress=0;visual()};
+ }
+ function render(){
+  const app=document.getElementById("app");
+  app.innerHTML='<section class="lab-topbar"><button id="back" class="back-btn">← '+(pa?"ਲੈਬ ਵੱਲ ਵਾਪਸ":"Back to laboratories")+'</button><div class="lab-top-name"><span>🧪</span><div><strong>POCKET Science Lab</strong><small>'+(pa?"ਜਮਾਤ 10 · ਰਸਾਇਣ ਵਿਗਿਆਨ":"Class 10 · Chemistry Lab")+'</small></div></div></section>'+
+  '<section class="lab-selectors"><label>'+(pa?"ਜਮਾਤ ਚੁਣੋ":"Select class")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option '+(cls===n?"selected":"")+' value="'+n+'">'+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+(pa?"ਪ੍ਰਯੋਗ ਚੁਣੋ":"Select experiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+esc(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section>'+
+  '<section class="experiment-card" style="overflow:hidden"><div class="experiment-meta">'+(pa?"ਵਰਚੁਅਲ ਰਸਾਇਣ ਵਿਗਿਆਨ · ਪ੍ਰਯੋਗ 5":"VIRTUAL CHEMISTRY LAB · EXPERIMENT 5")+'</div><h2 style="font-size:clamp(1.35rem,4vw,2rem);margin:8px 0">⚡ '+(pa?"ਪਾਣੀ ਦਾ ਬਿਜਲਈ ਵਿਘਟਨ":"Electrolysis of Water")+'</h2><p class="aim">'+(pa?"ਸਵਿੱਚ ਚਾਲੂ ਕਰੋ ਅਤੇ ਵੇਖੋ ਕਿ ਪਾਣੀ ਤੋਂ ਹਾਈਡਰੋਜਨ ਅਤੇ ਆਕਸੀਜਨ ਗੈਸਾਂ ਬਣਦੀਆਂ ਹਨ।":"Turn on the virtual switch and observe water separating into hydrogen and oxygen gases.")+'</p>'+
+  '<div id="waterElectrolysisVisual" style="margin-top:14px"></div><div id="waterElectrolysisControls" style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:14px 0"></div><div id="waterElectrolysisState"></div>'+
+  '<div style="margin-top:14px;padding:16px;border-radius:14px;background:#0f172a;color:#f8fafc;text-align:center"><div style="font-size:12px;font-weight:900;color:#93c5fd">BALANCED CHEMICAL EQUATION</div><div style="font-size:clamp(20px,4vw,27px);font-weight:950;margin:10px 0">2H₂O(l) → 2H₂(g) + O₂(g)</div><div style="font-size:15px;font-weight:900;color:#fde68a">HYDROGEN : OXYGEN = 2 : 1 (BY VOLUME)</div></div>'+
+  '<div style="margin-top:14px;padding:14px;border-radius:12px;background:#eff6ff;color:#1e3a8a"><b>OBSERVATION:</b> The hydrogen tube contains about twice the gas volume, so its remaining water level is lower. The oxygen tube collects about half as much gas.</div>'+
+  '<p style="margin-top:14px;color:#64748b;font-size:13px">'+(pa?"ਇਹ ਸਿਰਫ਼ ਧਾਰਣਾਤਮਕ ਵਰਚੁਅਲ ਮਾਡਲ ਹੈ। ਅਸਲ ਇਲੈਕਟ੍ਰੋਲਾਈਸਿਸ ਜਾਂ ਬਣੀਆਂ ਗੈਸਾਂ ਨੂੰ ਇਕੱਠਾ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਨਾ ਕਰੋ।":"Conceptual virtual model only. Do not attempt real electrolysis or collect the gases; gas production and electrical equipment require specialist supervision and controls.")+'</p></section>';
+  $("#back").onclick=home;
+  $("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";render()};
+  $("#ex").onchange=e=>{exp=+e.target.value;choice="";render()};
+  visual();
+ }
+ render();
+}
+
 function class10NeutralisationLab(){
  const pa=lang==="pa";
  const acids=[
@@ -1995,6 +2041,7 @@ function class10AcidMetalNonmetalLab(){
 
 
 function draw(){
+ if(lab==="chemistry"&&cls===10&&exp===4){class10WaterElectrolysisLab();return}
  if(lab==="chemistry"&&cls===10&&exp===3){class10NeutralisationLab();return}
  if(lab==="chemistry"&&cls===10&&exp===2){class10AcidMetalNonmetalLab();return}
  if(lab==="chemistry"&&cls===10&&exp===1){class10MagnesiumCombustionLab();return}
