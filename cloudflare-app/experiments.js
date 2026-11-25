@@ -655,13 +655,13 @@ window.LAB_DATA = {
       "class": 8
     },
     {
-      "title": "Prepare and Observe a Mixture and a Compound",
-      "title_pa": "ਮਿਸ਼ਰਣ ਅਤੇ ਯੋਗਿਕ ਦੀ ਤਿਆਰੀ ਤੇ ਨਿਰੀਖਣ",
-      "aim": "Compare a physical mixture with a substance formed by chemical combination.",
-      "aim_pa": "ਭੌਤਿਕ ਮਿਸ਼ਰਣ ਅਤੇ ਰਸਾਇਣਕ ਮਿਲਾਪ ਨਾਲ ਬਣੇ ਪਦਾਰਥ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
-      "kind": "mixture_compound",
-      "note": "Mixture components retain their identity and may be separated physically; compounds have a fixed composition.",
-      "note_pa": "ਮਿਸ਼ਰਣ ਦੇ ਅੰਸ਼ ਆਪਣੀ ਪਛਾਣ ਰੱਖਦੇ ਹਨ ਅਤੇ ਭੌਤਿਕ ਤਰੀਕੇ ਨਾਲ ਵੱਖ ਹੋ ਸਕਦੇ ਹਨ; ਯੋਗਿਕ ਦੀ ਬਣਤਰ ਨਿਰਧਾਰਤ ਹੁੰਦੀ ਹੈ।",
+      "title": "Arrangement of Atoms in Solids, Liquids and Gases",
+      "title_pa": "ਠੋਸ, ਤਰਲ ਅਤੇ ਗੈਸਾਂ ਵਿੱਚ ਪਰਮਾਣੂਆਂ ਦੀ ਵਿਵਸਥਾ",
+      "aim": "Compare particle arrangements in solids, liquids and gases using a labelled particle model.",
+      "aim_pa": "ਲੇਬਲ ਵਾਲੇ ਕਣ ਮਾਡਲ ਰਾਹੀਂ ਠੋਸ, ਤਰਲ ਅਤੇ ਗੈਸਾਂ ਵਿੱਚ ਕਣਾਂ ਦੀ ਵਿਵਸਥਾ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+      "kind": "particle_arrangement",
+      "note": "Solid particles are closely packed in an orderly pattern; liquid particles are close but irregular; gas particles are far apart and spread through the container.",
+      "note_pa": "ਠੋਸ ਦੇ ਕਣ ਨੇੜੇ ਅਤੇ ਨਿਯਮਤ ਕ੍ਰਮ ਵਿੱਚ ਹੁੰਦੇ ਹਨ; ਤਰਲ ਦੇ ਕਣ ਨੇੜੇ ਪਰ ਬੇਤਰਤੀਬ ਹੁੰਦੇ ਹਨ; ਗੈਸ ਦੇ ਕਣ ਦੂਰ-ਦੂਰ ਅਤੇ ਭਾਂਡੇ ਵਿੱਚ ਫੈਲੇ ਹੁੰਦੇ ਹਨ।",
       "class": 9
     },
     {
