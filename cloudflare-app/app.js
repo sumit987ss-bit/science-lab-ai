@@ -1046,8 +1046,32 @@ function class10ConcaveMirrorLab(){
  $("#cmBack").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};$("#cmPosition").onchange=e=>{choice=positions[Number(e.target.value)][pa?"pa":"en"];class10ConcaveMirrorLab()};$("#prev").onclick=()=>{if(exp>0){exp--;choice="";draw()}};$("#next").onclick=()=>{if(exp<4){exp++;choice="";draw()}};
 }
 
+
+function class10MirrorFRLab(){
+ const pa=lang==="pa";
+ const values=[2,4,6,8,10,12,14,16,18,20];
+ let selectedType="f",selectedValue=2;
+ const labels=pa?{f:"ਫੋਕਸ ਦੂਰੀ (f)",r:"ਵਕਰਤਾ ਅਰਧ-ਵਿਆਸ (R)"}:{f:"Focal length (f)",r:"Radius of curvature (R)"};
+ const title=pa?"ਗੋਲਾਕਾਰ ਦਰਪਣ ਦੀ ਫੋਕਸ ਦੂਰੀ ਅਤੇ ਵਕਰਤਾ ਅਰਧ-ਵਿਆਸ ਵਿਚਕਾਰ ਸਬੰਧ":"Relation Between Focal Length and Radius of Curvature of a Spherical Mirror";
+ const aim=pa?"ਫੋਕਸ ਦੂਰੀ ਜਾਂ ਵਕਰਤਾ ਅਰਧ-ਵਿਆਸ ਚੁਣੋ ਅਤੇ ਦੂਜਾ ਮੁੱਲ ਗਣਨਾ ਕਰੋ।":"Choose either focal length or radius of curvature and calculate the corresponding value.";
+ const calculate=()=>{
+  const input=selectedValue,output=selectedType==="f"?2*input:input/2;
+  const resultLabel=selectedType==="f"?labels.r:labels.f;
+  const formula=selectedType==="f"?"R = 2f":"f = R ÷ 2";
+  const p=550,scale=8,F=p-output*scale,C=p-2*output*scale;
+  const diagram='<svg viewBox="0 0 680 245" style="display:block;width:100%;height:auto;background:#081d30;border-radius:14px"><path d="M55 150 H625" stroke="#a9bdcc" stroke-width="2"/><path d="M560 55 Q535 150 560 225" stroke="#67e8f9" stroke-width="10" fill="none"/><path d="M570 55 Q545 150 570 225" stroke="#bae6fd" stroke-width="2" fill="none"/><g stroke="#93c5fd" stroke-width="2"><path d="M'+F+' 140 V160"/><path d="M'+C+' 140 V160"/><path d="M550 140 V160"/></g><g fill="#e5f3ff" font-size="14" font-weight="800" text-anchor="middle"><text x="'+F+'" y="181">F</text><text x="'+C+'" y="181">C (2F)</text><text x="550" y="181">P</text></g><path d="M'+F+' 150 H550 M'+C+' 150 H'+F+'" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5 4"/><text x="'+F+'" y="112" fill="#fcd34d" font-size="13" text-anchor="middle">f = '+output+' cm</text><text x="'+C+'" y="205" fill="#7dd3fc" font-size="13" text-anchor="middle">R = '+(2*output)+' cm</text><text x="340" y="30" fill="#e2e8f0" font-size="16" text-anchor="middle" font-weight="800">POLE (P) · FOCUS (F) · CENTRE OF CURVATURE (C)</text></svg>';
+  $("#mirrorFRResult").innerHTML='<div class="mfr-answer"><small>'+(pa?"ਗਣਨਾ ਕੀਤਾ ਨਤੀਜਾ":"CALCULATED RESULT")+'</small><strong>'+resultLabel+' = '+output+' cm</strong></div><div class="mfr-formula"><span>'+(pa?"ਸਬੰਧ":"RELATION")+'</span><strong>'+formula+'</strong><p>'+(pa?"ਗੋਲਾਕਾਰ ਦਰਪਣ ਲਈ ਵਕਰਤਾ ਅਰਧ-ਵਿਆਸ, ਫੋਕਸ ਦੂਰੀ ਦਾ ਦੁੱਗਣਾ ਹੁੰਦਾ ਹੈ।":"The radius of curvature of a spherical mirror is twice its focal length.")+'</p><b>R = 2f</b></div>'+diagram;
+ };
+ $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="mfrBack">'+tr("back")+'</button><div class="lab-top-name"><span>🔭</span><div><strong>'+tr("physics")+'</strong><small>CLASS 10 · EXPERIMENT 4 / 5</small></div></div></section><section class="lab-selectors"><label>'+tr("chooseClass")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option value="'+n+'" '+(cls===n?"selected":"")+'>'+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+tr("chooseExperiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+esc(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section><section class="experiment-card"><div class="experiment-meta">CLASS 10 · PHYSICS · EXPERIMENT 4 / 5</div><h2>'+title+'</h2><p class="aim"><b>'+tr("aim")+':</b> '+aim+'</p><div class="mfr-controls"><label><b>'+(pa?"ਮੁੱਲ ਦੀ ਕਿਸਮ ਚੁਣੋ":"Select quantity")+'</b><select id="mfrType"><option value="f">'+labels.f+'</option><option value="r">'+labels.r+'</option></select></label><label><b>'+(pa?"ਮੁੱਲ ਚੁਣੋ":"Select value")+'</b><select id="mfrValue">'+values.map(v=>'<option value="'+v+'">'+v+' cm</option>').join("")+'</select></label></div><div id="mirrorFRResult"></div><div class="navigation"><button class="back-button" id="prev">'+tr("previous")+'</button><button class="primary-button" id="next">'+tr("next")+' →</button></div><style>.mfr-controls{display:grid;gap:16px;margin:20px 0}.mfr-controls label{display:grid;gap:9px}.mfr-controls select{padding:14px;border-radius:12px;background:#10233b;color:#fff;border:1px solid #5794c9;font-size:16px}.mfr-answer,.mfr-formula{padding:18px;border-radius:16px;background:rgba(30,100,160,.16);margin:14px 0;display:grid;gap:9px}.mfr-answer small,.mfr-formula span{font-size:12px;font-weight:800;opacity:.8}.mfr-answer strong{font-size:25px;color:#7dd3fc}.mfr-formula strong,.mfr-formula b{font-size:22px;color:#fcd34d}.mfr-formula p{margin:0;line-height:1.5}</style></section>';
+ const update=()=>{selectedType=$("#mfrType").value;selectedValue=Number($("#mfrValue").value);calculate()};
+ $("#mfrBack").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};$("#mfrType").onchange=update;$("#mfrValue").onchange=update;
+ $("#prev").onclick=()=>{if(exp>0){exp--;choice="";draw()}};$("#next").onclick=()=>{if(exp<4){exp++;choice="";draw()}};
+ calculate();
+}
+
 function draw(){
  if(lab==="physics"&&cls===10&&exp===2){class10ConcaveMirrorLab();return}
+ if(lab==="physics"&&cls===10&&exp===3){class10MirrorFRLab();return}
  if(lab==="electricity"&&cls===10&&exp===0){class10OhmsLawLab();return}
  if(lab==="electricity"&&cls===10&&exp===1){class10SeriesParallelLab();return}
  if(lab==="electricity"&&cls===10&&exp===2){class10ResistanceCombinationLab();return}
