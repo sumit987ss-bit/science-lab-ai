@@ -1036,7 +1036,7 @@ function class10ConcaveMirrorLab(){
  const object='<g><path d="M'+ox+' '+axis+' V'+(axis-h)+'" stroke="#60a5fa" stroke-width="5"/><path d="M'+ox+' '+(axis-h)+' l-10 16 h20Z" fill="#60a5fa"/><text x="'+ox+'" y="'+(axis-h-14)+'" font-size="12" font-weight="900" fill="#60a5fa" text-anchor="middle">CANDLE</text></g>';
  let image="";
  if(p.mode==="infinity") image='<circle cx="'+F+'" cy="'+axis+'" r="5" fill="#ef4444"/><text x="'+F+'" y="'+(axis-16)+'" font-size="12" fill="#fca5a5" text-anchor="middle" font-weight="900">IMAGE AT F</text>';
- else if(p.mode==="atf") image='<path d="M620 220 H650" stroke="#ef4444" stroke-width="3" stroke-dasharray="5 5"/><text x="620" y="200" font-size="12" fill="#fca5a5" text-anchor="middle" font-weight="900">IMAGE AT ∞</text>';
+ else if(p.mode==="atf") image='<text x="125" y="104" font-size="12" fill="#fca5a5" text-anchor="middle" font-weight="900">IMAGE AT ∞</text>';
  else{
   const virtual=p.mode==="inside",col=virtual?"#c084fc":"#ef4444";
   image='<g><path d="M'+imageX+' '+axis+' V'+imageY+'" stroke="'+col+'" stroke-width="4" '+(virtual?'stroke-dasharray="6 5"':'')+'/><path d="M'+imageX+' '+imageY+' l-9 '+(imageY<axis?15:-15)+' h18Z" fill="'+col+'"/><text x="'+imageX+'" y="'+(imageY<axis?imageY-10:imageY+22)+'" font-size="11" text-anchor="middle" font-weight="900" fill="'+col+'">'+(virtual?"VIRTUAL IMAGE":"IMAGE")+'</text></g>';
