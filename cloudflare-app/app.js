@@ -153,6 +153,78 @@ function foodTestLab(){
  $("#foodReset").onclick=()=>{added[active]=[];paperApplied=false;fillChoices();updateView()};
  fillChoices();updateView();
 }
+
+function class6MaterialsSortingLab(){
+ const pa=lang==="pa";
+ const title=pa?"ਪਦਾਰਥਾਂ ਦੀ ਛਾਂਟੀ":"Sorting Materials";
+ const mixedLabel=pa?"ਸਾਰੇ ਪਦਾਰਥ ਬਿਨਾਂ ਛਾਂਟੀ ਦੇ ਮਿਲੇ ਹੋਏ":"All materials mixed together (unsorted)";
+ const sortedLabel=pa?"ਪਦਾਰਥਾਂ ਦੀ ਵੱਖ-ਵੱਖ ਸਮੂਹਾਂ ਵਿੱਚ ਛਾਂਟੀ":"All materials sorted into groups";
+ const groups=[
+  {id:"metal",en:"METAL",pa:"ਧਾਤ",color:"#aab7c4",items:["Iron nail","Iron bolt"]},
+  {id:"paper",en:"PAPER",pa:"ਕਾਗਜ਼",color:"#f4d58d",items:["Paper sheet","Card"]},
+  {id:"cloth",en:"CLOTH",pa:"ਕੱਪੜਾ",color:"#d9a5e8",items:["Cotton cloth","Fabric piece"]},
+  {id:"glass",en:"GLASS",pa:"ਕੱਚ",color:"#80d5e8",items:["Glass tumbler","Glass piece"]},
+  {id:"wood",en:"WOOD",pa:"ਲੱਕੜ",color:"#c58b56",items:["Wood block","Wooden stick"]}
+ ];
+ const names={
+  "Iron nail":"ਲੋਹੇ ਦੀ ਕਿੱਲ" ,"Iron bolt":"ਲੋਹੇ ਦਾ ਬੋਲਟ",
+  "Paper sheet":"ਕਾਗਜ਼ ਦੀ ਸ਼ੀਟ","Card":"ਗੱਤਾ",
+  "Cotton cloth":"ਸੂਤੀ ਕੱਪੜਾ","Fabric piece":"ਕੱਪੜੇ ਦਾ ਟੁਕੜਾ",
+  "Glass tumbler":"ਕੱਚ ਦਾ ਗਿਲਾਸ","Glass piece":"ਕੱਚ ਦਾ ਟੁਕੜਾ",
+  "Wood block":"ਲੱਕੜ ਦਾ ਟੁਕੜਾ","Wooden stick":"ਲੱਕੜੀ ਦੀ ਛੜੀ"
+ };
+ const escx=x=>String(x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+ function shape(id,x,y,scale,label){
+  const t={
+   metal:'<path d="M-5 -23 L5 -23 L5 13 L10 18 L-10 18 L-5 13Z" fill="#aeb8c3" stroke="#536272" stroke-width="2"/><path d="M-7 -17H7 M-7 -10H7 M-7 -3H7" stroke="#657487" stroke-width="2"/><ellipse cy="-23" rx="7" ry="4" fill="#dbe2e8" stroke="#536272" stroke-width="2"/>',
+   paper:'<path d="M-25 -25 L15 -25 L25 -15 L25 25 L-25 25Z" fill="#fffdf4" stroke="#c5a96a" stroke-width="2"/><path d="M15 -25V-15H25 M-16 -8H15 M-16 0H15 M-16 8H10" stroke="#d7c99e" stroke-width="2"/>',
+   cloth:'<path d="M-26 -17 Q-13 -29 0 -17 Q13 -29 26 -17 L22 20 Q0 30 -22 20Z" fill="#c58ad7" stroke="#85539a" stroke-width="2"/><path d="M-18 -10Q-5 0 -16 14 M0 -16Q12 -2 3 18 M15 -12Q4 0 18 13" fill="none" stroke="#f3dafa" stroke-width="3"/>',
+   glass:'<path d="M-18 -24 L18 -24 L14 20 Q0 28 -14 20Z" fill="#9de8f4" fill-opacity=".45" stroke="#368ca4" stroke-width="3"/><path d="M-15 3Q0 8 15 3" fill="none" stroke="#62bfd2" stroke-width="3"/><path d="M-12 -19V10" stroke="#fff" stroke-width="3" opacity=".9"/>',
+   wood:'<path d="M-25 -19 L18 -19 L25 -11 L25 20 L-18 20 L-25 12Z" fill="#bd8753" stroke="#80532f" stroke-width="2"/><path d="M-17 -10Q-2 -18 16 -8 M-17 1Q0 -6 18 4 M-15 12Q0 7 17 14" fill="none" stroke="#e3b27d" stroke-width="2"/>'
+  }[id];
+  return '<g transform="translate('+x+' '+y+') scale('+scale+')">'+t+'</g>';
+ }
+ function art(sorted){
+  let out='<svg viewBox="0 0 760 410" role="img" aria-label="'+escx(sorted?sortedLabel:mixedLabel)+'"><defs><linearGradient id="sortDesk" x2="0" y2="1"><stop stop-color="#f8fafc"/><stop offset="1" stop-color="#dbe6ee"/></linearGradient><filter id="sortShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#334155" flood-opacity=".16"/></filter></defs><rect x="8" y="8" width="744" height="394" rx="22" fill="url(#sortDesk)" stroke="#cbd5e1" stroke-width="2"/>';
+  if(!sorted){
+   out+='<text x="380" y="42" text-anchor="middle" font-size="19" font-weight="800" fill="#334155">'+(pa?"ਮਿਲੇ ਹੋਏ ਪਦਾਰਥ":"MIXED MATERIALS")+'</text><rect x="38" y="65" width="684" height="300" rx="18" fill="#c5d0d9" fill-opacity=".3" stroke="#a6b4c1" stroke-dasharray="7 6"/>';
+   const positions=[
+    ["metal",130,135,.95],["paper",300,130,1],["cloth",505,132,.95],["glass",650,145,.95],
+    ["wood",205,285,1.05],["metal",435,285,.85],["paper",625,280,.72],["cloth",90,265,.7],["glass",340,225,.7],["wood",555,225,.75]
+   ];
+   positions.forEach((p,i)=>{out+=shape(p[0],p[1],p[2],p[3]);});
+   out+='<text x="380" y="387" text-anchor="middle" font-size="13" fill="#475569">'+(pa?"ਵੱਖ-ਵੱਖ ਪਦਾਰਥ ਇਕੱਠੇ ਮਿਲੇ ਹੋਏ ਹਨ":"Different materials are together without classification")+'</text>';
+  }else{
+   out+='<text x="380" y="38" text-anchor="middle" font-size="19" font-weight="800" fill="#334155">'+(pa?"ਛਾਂਟੇ ਹੋਏ ਪਦਾਰਥ":"SORTED MATERIAL GROUPS")+'</text>';
+   const xs=[82,230,378,526,674];
+   groups.forEach((g,i)=>{
+    const x=xs[i];
+    out+='<g filter="url(#sortShadow)"><rect x="'+(x-65)+'" y="70" width="130" height="270" rx="14" fill="#fff" stroke="'+g.color+'" stroke-width="3"/><path d="M'+(x-65)+' 110H'+(x+65)+'" stroke="'+g.color+'" stroke-width="2"/><rect x="'+(x-65)+'" y="70" width="130" height="40" rx="12" fill="'+g.color+'" fill-opacity=".28"/></g>';
+    out+='<text x="'+x+'" y="96" text-anchor="middle" font-size="13" font-weight="900" fill="#263746">'+(pa?g.pa:g.en)+'</text>';
+    if(i===0){out+=shape("metal",x,170,.8)+shape("metal",x,250,.72);}
+    if(i===1){out+=shape("paper",x,170,.8)+shape("paper",x,250,.72);}
+    if(i===2){out+=shape("cloth",x,170,.8)+shape("cloth",x,250,.72);}
+    if(i===3){out+=shape("glass",x,170,.8)+shape("glass",x,250,.72);}
+    if(i===4){out+=shape("wood",x,170,.8)+shape("wood",x,250,.72);}
+    out+='<text x="'+x+'" y="322" text-anchor="middle" font-size="10" fill="#475569">'+(pa?g.pa:g.en)+'</text>';
+   });
+   out+='<text x="380" y="378" text-anchor="middle" font-size="13" fill="#475569">'+(pa?"ਇੱਕੋ ਜਿਹੇ ਪਦਾਰਥਾਂ ਨੂੰ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਰੱਖਿਆ ਗਿਆ ਹੈ":"Similar material types are placed together in separate groups")+'</text>';
+  }
+  return out+'</svg>';
+ }
+ function render(){
+  const sorted=$("#materialSortMode").value==="sorted";
+  $("#materialSortVisual").innerHTML=art(sorted);
+  $("#materialSortResult").innerHTML=sorted
+   ?'<div class="conclusion"><b style="font-size:1.12rem;font-weight:900;color:#087443">'+(pa?"ਪਦਾਰਥ ਸਫਲਤਾਪੂਰਵਕ ਸਮੂਹਾਂ ਵਿੱਚ ਛਾਂਟੇ ਗਏ":"Materials are sorted into groups")+'</b><p>'+(pa?"ਲੋਹਾ ਧਾਤਾਂ ਵਿੱਚ, ਕਾਗਜ਼ ਕਾਗਜ਼ੀ ਪਦਾਰਥਾਂ ਵਿੱਚ, ਕੱਪੜਾ ਕੱਪੜਿਆਂ ਵਿੱਚ, ਕੱਚ ਕੱਚ ਦੇ ਪਦਾਰਥਾਂ ਵਿੱਚ ਅਤੇ ਲੱਕੜ ਲੱਕੜ ਦੇ ਪਦਾਰਥਾਂ ਵਿੱਚ ਰੱਖੇ ਗਏ ਹਨ।":"Iron objects are grouped as metal, paper items as paper, cloth items as fabric, glass items as glass, and wooden items as wood.")+'</p></div>'
+   :'<div class="conclusion"><b style="font-size:1.12rem;font-weight:900;color:#a35a13">'+(pa?"ਸਾਰੇ ਪਦਾਰਥ ਮਿਲੇ ਹੋਏ ਹਨ":"All materials are mixed together")+'</b><p>'+(pa?"ਵੱਖ-ਵੱਖ ਪਦਾਰਥ ਇਕੱਠੇ ਹਨ ਅਤੇ ਹਾਲੇ ਉਨ੍ਹਾਂ ਦੀ ਛਾਂਟੀ ਨਹੀਂ ਕੀਤੀ ਗਈ।":"Different materials are together and have not yet been separated into groups.")+'</p></div>';
+ }
+ const it=item(),aim=it?(pa?it.aim_pa:it.aim):"Compare and sort everyday materials.";
+ $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+(pa?"← ਲੈਬ ਵੱਲ ਵਾਪਸ":"← Back to laboratories")+'</button><div class="lab-top-name"><span>🧪</span><div><strong>POCKET Science Lab</strong><small>'+(pa?"ਜਮਾਤ 6 · ਰਸਾਇਣ ਵਿਗਿਆਨ":"Class 6 · Chemistry Lab")+'</small></div></div></section><section class="lab-selectors"><label>'+(pa?"ਜਮਾਤ ਚੁਣੋ":"Select class")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option '+(cls===n?"selected":"")+' value="'+n+'">'+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+(pa?"ਪ੍ਰਯੋਗ ਚੁਣੋ":"Select experiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+escx(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section><section class="experiment-card"><div class="experiment-meta">'+(pa?"ਜਮਾਤ 6 · ਰਸਾਇਣ ਵਿਗਿਆਨ ਪ੍ਰਯੋਗ 1":"CLASS 6 · CHEMISTRY EXPERIMENT 1")+'</div><h2>'+escx(title)+'</h2><p class="aim"><b>'+(pa?"ਉਦੇਸ਼":"Aim")+':</b> '+escx(aim)+'</p><div class="experiment-grid"><div class="control-panel"><label><b>'+(pa?"ਪਦਾਰਥਾਂ ਦੀ ਸਥਿਤੀ ਚੁਣੋ":"Select material arrangement")+'</b><select id="materialSortMode"><option value="mixed">'+escx(mixedLabel)+'</option><option value="sorted">'+escx(sortedLabel)+'</option></select></label><p class="helper">'+(pa?"ਦੋ ਵਿਕਲਪਾਂ ਵਿੱਚੋਂ ਚੁਣੋ ਅਤੇ ਪਦਾਰਥਾਂ ਦੀ ਵਿਵਸਥਾ ਵੇਖੋ।":"Choose either arrangement to compare the materials.")+'</p></div><div class="visual-panel"><h3>'+(pa?"ਪਦਾਰਥਾਂ ਦਾ ਦ੍ਰਿਸ਼":"Materials view")+'</h3><div id="materialSortVisual">'+art(false)+'</div><div id="materialSortResult"></div></div></div><p class="safety-note">'+(pa?"ਇਹ ਪਦਾਰਥਾਂ ਦੇ ਵਰਗੀਕਰਨ ਦਾ ਵਰਚੁਅਲ ਮਾਡਲ ਹੈ।":"This is a virtual model for observing and classifying everyday materials.")+'</p><div class="navigation"><button class="back-button" id="prev" disabled>'+(pa?"ਪਿਛਲਾ ਪ੍ਰਯੋਗ":"Previous experiment")+'</button><button class="primary-button" id="next">'+(pa?"ਅਗਲਾ ਪ੍ਰਯੋਗ":"Next experiment")+' →</button></div></section>';
+ $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};$("#next").onclick=()=>{if(exp<4){exp++;choice="";draw()}};
+ $("#materialSortMode").onchange=render;render();
+}
+
 function solubilityLab(){
  const pa=lang==="pa";
  const materials=[
@@ -1130,6 +1202,7 @@ function draw(){
  if(lab==="electricity"&&cls===6&&item()?.kind==="conductors"){conductorTesterLab();return}
  if(lab==="mentor"){mentor();return}
  if(lab==="biology"&&cls===6&&exp===0){foodTestLab();return}
+ if(lab==="chemistry"&&cls===6&&exp===0){class6MaterialsSortingLab();return}
  if(lab==="chemistry"&&cls===6&&exp===1){solubilityLab();return}
  const it=item();if(!it){home();return}
  const os=opts(it.kind);if(!os.includes(choice))choice=os[0];const cn=controlNames(it);
