@@ -177,6 +177,82 @@ function foodTestLab(){
  fillChoices();updateView();
 }
 
+
+function class6SeedGerminationLab(){
+ const pa=lang==="pa";
+ const words=pa?{
+ back:"ਵਾਪਸ",title:"ਬੀਜ ਦਾ ਅੰਕੁਰਣ",aim:"ਅਨੁਕੂਲ ਹਾਲਤਾਂ ਵਿੱਚ ਬੀਜ ਕਿਵੇਂ ਅੰਕੁਰਦਾ ਹੈ, ਕਦਮ-ਦਰ-ਕਦਮ ਵੇਖੋ।",
+ stages:["ਸੁੱਤਾ ਹੋਇਆ ਬੀਜ","ਪਾਣੀ ਦਾ ਅਵਸ਼ੋਸ਼ਣ","ਜੜ੍ਹਿਕਾ ਬਾਹਰ ਆਉਂਦੀ ਹੈ","ਤਣਾ ਅਤੇ ਪੱਤੇ ਨਿਕਲਦੇ ਹਨ","ਨਿੱਕਾ ਪੌਦਾ"],
+ desc:[
+ "ਸੁੱਕੇ ਬੀਜ ਵਿੱਚ ਭ੍ਰੂਣ ਜੀਵਤ ਹੁੰਦਾ ਹੈ ਪਰ ਵਾਧਾ ਬਹੁਤ ਹੌਲੀ ਹੁੰਦਾ ਹੈ।",
+ "ਬੀਜ ਪਾਣੀ ਸੋਖ ਕੇ ਫੁੱਲਦਾ ਹੈ। ਬੀਜ ਦਾ ਛਿਲਕਾ ਨਰਮ ਹੋ ਜਾਂਦਾ ਹੈ ਅਤੇ ਅੰਦਰਲੀਆਂ ਕਿਰਿਆਵਾਂ ਸ਼ੁਰੂ ਹੁੰਦੀਆਂ ਹਨ।",
+ "ਸਭ ਤੋਂ ਪਹਿਲਾਂ ਜੜ੍ਹਿਕਾ (radicle) ਬਾਹਰ ਨਿਕਲਦੀ ਹੈ ਅਤੇ ਹੇਠਾਂ ਵੱਲ ਵਧਦੀ ਹੈ। ਇਹ ਅੱਗੇ ਜੜ੍ਹ ਬਣਦੀ ਹੈ।",
+ "ਫਿਰ ਪ੍ਰਰੋਹ (plumule) ਉੱਪਰ ਵੱਲ ਵਧਦਾ ਹੈ। ਬੀਜ-ਪੱਤੇ ਪੋਸ਼ਣ ਦਿੰਦੇ ਹਨ ਅਤੇ ਪਹਿਲੇ ਪੱਤੇ ਖੁਲ੍ਹਣ ਲੱਗਦੇ ਹਨ।",
+ "ਜੜ੍ਹਾਂ ਪਾਣੀ ਤੇ ਖਣਿਜ ਲੈਂਦੀਆਂ ਹਨ ਅਤੇ ਹਰੇ ਪੱਤੇ ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਸ਼ੁਰੂ ਕਰਦੇ ਹਨ। ਹੁਣ ਇਹ ਨਵਾਂ ਪੌਦਾ ਹੈ।"
+ ],
+ need:"ਅੰਕੁਰਣ ਲਈ ਲੋੜੀਂਦੀਆਂ ਹਾਲਤਾਂ",water:"ਪਾਣੀ",air:"ਹਵਾ / ਆਕਸੀਜਨ",warm:"ਢੁਕਵਾਂ ਤਾਪਮਾਨ",sun:"ਸੂਰਜ ਦੀ ਰੋਸ਼ਨੀ",
+ sunNote:"ਬੀਜ ਦੇ ਅੰਕੁਰਣ ਦੀ ਸ਼ੁਰੂਆਤ ਲਈ ਸੂਰਜ ਦੀ ਰੋਸ਼ਨੀ ਲਾਜ਼ਮੀ ਨਹੀਂ। ਹਰੇ ਪੱਤੇ ਬਣਨ ਤੋਂ ਬਾਅਦ ਪੌਦੇ ਦੇ ਵਾਧੇ ਲਈ ਰੋਸ਼ਨੀ ਜ਼ਰੂਰੀ ਹੈ।",
+ prev:"ਪਿਛਲਾ ਪੜਾਅ",next:"ਅਗਲਾ ਪੜਾਅ",restart:"ਮੁੜ ਸ਼ੁਰੂ ਕਰੋ",complete:"ਅੰਕੁਰਣ ਦੇ ਮੁੱਖ ਪੜਾਅ ਪੂਰੇ ਹੋਏ!",tip:"ਯਾਦ ਰੱਖੋ",tipText:"ਜੜ੍ਹਿਕਾ ਪਹਿਲਾਂ ਨਿਕਲਦੀ ਹੈ ਅਤੇ ਹੇਠਾਂ ਵਧਦੀ ਹੈ; ਪ੍ਰਰੋਹ ਉੱਪਰ ਵਧਦਾ ਹੈ।",
+ progress:"ਪੜਾਅ",seed:"ਬੀਜ",root:"ਜੜ੍ਹ",shoot:"ਪ੍ਰਰੋਹ",leaf:"ਪੱਤਾ",soil:"ਮਿੱਟੀ"
+ }:{
+ back:"Back",title:"How a Seed Germinates",aim:"Explore how a seed germinates under suitable conditions, one stage at a time.",
+ stages:["Dormant seed","Water absorption","Radicle emerges","Shoot and leaves emerge","Young seedling"],
+ desc:[
+ "A dry seed contains a living embryo. Its growth is very slow while it remains dormant.",
+ "The seed absorbs water and swells. Its coat softens and internal activities become active.",
+ "The radicle emerges first and grows downward. It develops into the primary root.",
+ "The plumule grows upward. Seed leaves provide stored food as the first leaves begin to open.",
+ "Roots absorb water and minerals. Green leaves begin photosynthesis and the seedling grows into a young plant."
+ ],
+ need:"Conditions needed for germination",water:"Water",air:"Air / oxygen",warm:"Suitable warmth",sun:"Sunlight",
+ sunNote:"Sunlight is not essential for the initial germination of most seeds. Light becomes important for healthy growth after green leaves develop.",
+ prev:"Previous stage",next:"Next stage",restart:"Restart",complete:"You have explored all main stages of germination!",tip:"Remember",tipText:"The radicle emerges first and grows downward; the plumule grows upward.",
+ progress:"Stage",seed:"Seed",root:"Root",shoot:"Shoot",leaf:"Leaf",soil:"Soil"
+ };
+ let stage=0,conditions={water:true,air:true,warm:true};
+ const stageFacts=[
+  "","", "", "", ""
+ ];
+ const escText=x=>String(x).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+ function illustration(n){
+  const seedBase='<ellipse cx="240" cy="205" rx="43" ry="27" fill="#c58a45" stroke="#75451f" stroke-width="4"/><path d="M210 202 Q238 175 270 202" fill="none" stroke="#f0c47b" stroke-width="4"/>';
+  let body="";
+  if(n===0)body=seedBase+'<ellipse cx="240" cy="205" rx="12" ry="8" fill="#f5e6a8"/>';
+  if(n===1)body='<ellipse cx="240" cy="205" rx="53" ry="36" fill="#d9a45d" stroke="#75451f" stroke-width="4"/><path d="M208 202 Q240 171 272 202" fill="none" stroke="#f8d99a" stroke-width="5"/><path d="M240 190 Q230 202 241 215" stroke="#78b96b" stroke-width="5" fill="none"/><g fill="#60c5eb"><path d="M105 70 q-13 17 0 25 q13-8 0-25"/><path d="M360 90 q-13 17 0 25 q13-8 0-25"/></g>';
+  if(n===2)body='<ellipse cx="240" cy="205" rx="48" ry="33" fill="#d9a45d" stroke="#75451f" stroke-width="4"/><path d="M240 220 C240 255 225 278 238 315 C245 335 265 340 266 360" fill="none" stroke="#f4e7c0" stroke-width="13" stroke-linecap="round"/><path d="M240 220 C240 255 225 278 238 315 C245 335 265 340 266 360" fill="none" stroke="#9b7c4c" stroke-width="2"/>';
+  if(n===3)body='<ellipse cx="240" cy="205" rx="43" ry="28" fill="#c58a45" stroke="#75451f" stroke-width="4"/><path d="M240 220 C240 265 220 290 235 345" fill="none" stroke="#f4e7c0" stroke-width="12" stroke-linecap="round"/><path d="M240 200 C240 160 240 126 242 80" stroke="#67b86a" stroke-width="12" fill="none" stroke-linecap="round"/><path d="M240 115 Q190 68 165 103 Q177 143 240 135Z" fill="#55b96b" stroke="#267a43" stroke-width="3"/><path d="M242 105 Q290 58 320 93 Q304 135 242 126Z" fill="#70cf78" stroke="#267a43" stroke-width="3"/>';
+  if(n===4)body='<path d="M240 220 C240 270 210 300 220 360 M240 260 C270 285 280 315 292 345 M222 300 L190 330 M250 310 L255 350" stroke="#ead9ae" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M240 210 L240 65" stroke="#48a95b" stroke-width="12" fill="none" stroke-linecap="round"/><path d="M240 115 Q175 45 145 92 Q165 155 240 137Z" fill="#49b95f" stroke="#247b3b" stroke-width="3"/><path d="M242 95 Q310 25 344 77 Q324 145 242 125Z" fill="#73d477" stroke="#247b3b" stroke-width="3"/><path d="M240 65 Q212 25 195 42 Q200 80 240 86Z" fill="#58c56d" stroke="#247b3b" stroke-width="3"/>';
+  return '<svg viewBox="0 0 480 390" role="img" aria-label="'+escText(words.stages[n])+'" style="width:100%;max-width:520px;height:auto;display:block;margin:auto"><defs><linearGradient id="seedSky" x2="0" y2="1"><stop stop-color="#bdeaff"/><stop offset="1" stop-color="#eefaff"/></linearGradient></defs><rect x="0" y="0" width="480" height="390" rx="22" fill="url(#seedSky)"/><path d="M0 230 Q100 215 190 230 T480 225 L480 390 L0 390Z" fill="#9b7047"/><path d="M0 230 Q100 215 190 230 T480 225" fill="none" stroke="#6d4b31" stroke-width="7"/><g opacity=".45" fill="#68452f"><circle cx="50" cy="275" r="5"/><circle cx="110" cy="335" r="6"/><circle cx="390" cy="290" r="5"/><circle cx="430" cy="350" r="6"/></g>'+body+'<text x="240" y="375" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">'+escText(words.soil)+'</text></svg>';
+ }
+ function render(){
+  const ready=conditions.water&&conditions.air&&conditions.warm;
+  $("#germStageTitle").textContent=words.stages[stage];
+  $("#germStageDesc").textContent=words.desc[stage];
+  $("#germArt").innerHTML=illustration(stage);
+  $("#germCount").textContent=(stage+1)+" / "+words.stages.length;
+  $("#germProgress").style.width=((stage+1)/words.stages.length*100)+"%";
+  $("#germPrev").disabled=stage===0;
+  $("#germNext").disabled=stage===words.stages.length-1;
+  $("#germNext").textContent=stage===words.stages.length-1?words.complete:words.next;
+  $("#germStatus").textContent=ready?(pa?"ਅੰਕੁਰਣ ਲਈ ਹਾਲਤਾਂ ਢੁਕਵੀਆਂ ਹਨ":"Conditions are suitable for germination"):(pa?"ਕੁਝ ਲੋੜੀਂਦੀਆਂ ਹਾਲਤਾਂ ਪੂਰੀਆਂ ਨਹੀਂ":"One or more essential conditions are missing");
+  $("#germStatus").style.color=ready?"#58d6a0":"#ffc66d";
+  $("#germWater").checked=conditions.water;$("#germAir").checked=conditions.air;$("#germWarm").checked=conditions.warm;
+  $("#germStageButtons").innerHTML=words.stages.map((x,i)=>'<button type="button" class="germ-stage-btn" data-stage="'+i+'" aria-pressed="'+(i===stage)+'">'+(i+1)+'. '+escText(x)+'</button>').join("");
+  document.querySelectorAll(".germ-stage-btn").forEach(btn=>btn.onclick=()=>{stage=Number(btn.dataset.stage);render()});
+ }
+ $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="germBack">'+words.back+'</button><div class="lab-top-name"><span>🌱</span><div><strong>Biology Lab</strong><small>'+(pa?'ਜਮਾਤ 6 · ਜੀਵ ਵਿਗਿਆਨ':'Class 6 · Biology')+'</small></div></div></section><section class="lab-selectors"><label>'+tr("chooseClass")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option '+(cls===n?"selected":"")+' value="'+n+'">'+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+tr("chooseExperiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+esc(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section><section class="experiment-card" style="border:1px solid #2d5870"><div class="experiment-meta">'+(pa?"ਜਮਾਤ 6 · ਜੀਵ ਵਿਗਿਆਨ ਪ੍ਰਯੋਗ 2":"CLASS 6 · BIOLOGY EXPERIMENT 2")+'</div><h2>'+words.title+'</h2><p class="aim">'+words.aim+'</p><div style="background:#102e42;border:1px solid #34718a;border-radius:16px;padding:14px;margin:16px 0"><b>'+words.need+'</b><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px"><label><input type="checkbox" id="germWater" checked> '+words.water+'</label><label><input type="checkbox" id="germAir" checked> '+words.air+'</label><label><input type="checkbox" id="germWarm" checked> '+words.warm+'</label></div><p id="germStatus" style="font-weight:800;margin:10px 0 0"></p></div><div style="background:#0b2136;border-radius:18px;padding:14px"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><h3 id="germStageTitle" style="margin:4px 0"></h3><b id="germCount"></b></div><div style="height:8px;background:#24445a;border-radius:9px;overflow:hidden;margin:10px 0 14px"><div id="germProgress" style="height:100%;width:20%;background:linear-gradient(90deg,#27c6b5,#83d96b);transition:width .25s"></div></div><div id="germArt"></div><p id="germStageDesc" style="font-size:1.05em;line-height:1.65"></p><div id="germStageButtons" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:8px"></div><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px"><button type="button" class="back-button" id="germPrev">'+words.prev+'</button><button type="button" class="primary-button" id="germNext">'+words.next+'</button><button type="button" class="back-button" id="germRestart">'+words.restart+'</button></div></div><div style="background:#163d36;border:1px solid #4b9c79;border-radius:14px;padding:14px;margin-top:16px"><b>'+words.tip+'</b><p style="margin:6px 0 0">'+words.tipText+'</p><p style="margin:8px 0 0">'+words.sunNote+'</p></div></section>';
+ $("#germBack").onclick=home;
+ $("#cl").onchange=e=>{cls=Number(e.target.value);exp=0;choice="";draw()};
+ $("#ex").onchange=e=>{exp=Number(e.target.value);choice="";draw()};
+ $("#germPrev").onclick=()=>{stage=Math.max(0,stage-1);render()};
+ $("#germNext").onclick=()=>{if(stage<words.stages.length-1){stage++;render()}};
+ $("#germRestart").onclick=()=>{stage=0;conditions={water:true,air:true,warm:true};render()};
+ $("#germWater").onchange=e=>{conditions.water=e.target.checked;render()};
+ $("#germAir").onchange=e=>{conditions.air=e.target.checked;render()};
+ $("#germWarm").onchange=e=>{conditions.warm=e.target.checked;render()};
+ render();
+}
+
 function class6MaterialsSortingLab(){
  const pa=lang==="pa";
  const title=pa?"ਪਦਾਰਥਾਂ ਦੀ ਛਾਂਟੀ":"Sorting Materials";
@@ -2120,6 +2196,7 @@ function draw(){
  if(lab==="electricity"&&cls===6&&item()?.kind==="conductors"){conductorTesterLab();return}
  if(lab==="mentor"){mentor();return}
  if(lab==="biology"&&cls===6&&exp===0){foodTestLab();return}
+ if(lab==="biology"&&cls===6&&exp===1){class6SeedGerminationLab();return}
   if(lab==="chemistry"&&cls===6&&exp===0){class6MaterialsSortingLab();return}
  if(lab==="chemistry"&&cls===6&&exp===1){solubilityLab();return}
  if(lab==="chemistry"&&cls===6&&exp===2){class6MixtureSeparationLab();return}
