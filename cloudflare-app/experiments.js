@@ -665,6 +665,16 @@ window.LAB_DATA = {
       "class": 9
     },
     {
+      "title": "Pure Substances and Mixtures",
+      "title_pa": "ਸ਼ੁੱਧ ਪਦਾਰਥ ਅਤੇ ਮਿਸ਼ਰਣ",
+      "aim": "Identify everyday samples as pure substances or mixtures using their composition.",
+      "aim_pa": "ਰੋਜ਼ਾਨਾ ਦੇ ਨਮੂਨਿਆਂ ਦੀ ਬਣਤਰ ਦੇ ਆਧਾਰ ਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਸ਼ੁੱਧ ਪਦਾਰਥ ਜਾਂ ਮਿਸ਼ਰਣ ਵਜੋਂ ਪਛਾਣੋ।",
+      "kind": "pure_mixtures",
+      "note": "A pure substance contains one element or compound; a mixture contains two or more substances. Air, milk, soil, brass and tap water are mixtures.",
+      "note_pa": "ਸ਼ੁੱਧ ਪਦਾਰਥ ਵਿੱਚ ਇੱਕ ਤੱਤ ਜਾਂ ਯੋਗਿਕ ਹੁੰਦਾ ਹੈ; ਮਿਸ਼ਰਣ ਵਿੱਚ ਦੋ ਜਾਂ ਵੱਧ ਪਦਾਰਥ ਹੁੰਦੇ ਹਨ। ਹਵਾ, ਦੁੱਧ, ਮਿੱਟੀ, ਪੀਤਲ ਅਤੇ ਨਲਕੇ ਦਾ ਪਾਣੀ ਮਿਸ਼ਰਣ ਹਨ।",
+      "class": 9
+    },
+    {
       "title": "Atoms, Molecules and Particle Models",
       "title_pa": "ਪਰਮਾਣੂ, ਅਣੂ ਅਤੇ ਕਣ ਮਾਡਲ",
       "aim": "Explore how atoms combine into molecules using particle diagrams.",
