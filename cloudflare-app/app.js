@@ -2102,10 +2102,10 @@ function draw(){
  if(lab==="chemistry"&&cls===6&&exp===2){class6MixtureSeparationLab();return}
  if(lab==="chemistry"&&cls===6&&exp===3){class6SeparatingMixturesLab();return}
  if(lab==="chemistry"&&cls===6&&exp===4){class6TransparencyLab();return}
- if(lab==="chemistry"&&cls===6&&exp===1){solubilityLab();return}
- if(lab==="chemistry"&&cls===6&&exp===2){class6MixtureSeparationLab();return}
- if(lab==="chemistry"&&cls===6&&exp===3){class6SeparatingMixturesLab();return}
- if(lab==="chemistry"&&cls===6&&exp===4){class6TransparencyLab();return}
+
+
+
+
  if(lab==="chemistry"&&cls===7&&exp===0){class7IndicatorsLab();return}
  if(lab==="chemistry"&&cls===7&&exp===1){class7ChangesLab();return}
  if(lab==="chemistry"&&cls===7&&exp===2){class7PhysicalChemicalLab();return}
