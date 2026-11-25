@@ -2043,6 +2043,10 @@ function class10AcidMetalNonmetalLab(){
 
 function draw(){
  const selectedExperiment=lab==="chemistry"&&cls===10?item():null;
+ // Stable catalogue-position routing protects the two key Class 10 practicals
+ // even if an older cached catalogue omits or mislabels the experiment kind.
+ if(lab==="chemistry"&&cls===10&&exp===1){class10MagnesiumCombustionLab();return}
+ if(lab==="chemistry"&&cls===10&&exp===4){class10WaterElectrolysisLab();return}
  if(selectedExperiment?.kind==="water_electrolysis"){class10WaterElectrolysisLab();return}
  if(selectedExperiment?.kind==="neutralisation"){class10NeutralisationLab();return}
  if(selectedExperiment?.kind==="acid_metal_nonmetal"){class10AcidMetalNonmetalLab();return}
