@@ -483,13 +483,13 @@ window.LAB_DATA = {
       "class": 10
     },
     {
-      "title": "Work, Power and Energy",
-      "title_pa": "ਕੰਮ, ਸ਼ਕਤੀ ਅਤੇ ਊਰਜਾ",
-      "aim": "Calculate work and average power in a simple model.",
-      "aim_pa": "ਸਧਾਰਨ ਮਾਡਲ ਵਿੱਚ ਕੰਮ ਅਤੇ ਔਸਤ ਸ਼ਕਤੀ ਦੀ ਗਣਨਾ ਕਰੋ।",
-      "kind": "work",
-      "note": "Work = force × distance; average power = work ÷ time.",
-      "note_pa": "ਕੰਮ = ਬਲ × ਦੂਰੀ; ਔਸਤ ਸ਼ਕਤੀ = ਕੰਮ ÷ ਸਮਾਂ।",
+      "title": "Relation Between Focal Length and Radius of Curvature",
+      "title_pa": "ਫੋਕਸ ਦੂਰੀ ਅਤੇ ਵਕਰਤਾ ਅਰਧ-ਵਿਆਸ ਵਿਚਕਾਰ ਸਬੰਧ",
+      "aim": "Select either focal length or radius of curvature, choose a value, and calculate the corresponding value for a spherical mirror.",
+      "aim_pa": "ਫੋਕਸ ਦੂਰੀ ਜਾਂ ਵਕਰਤਾ ਅਰਧ-ਵਿਆਸ ਚੁਣੋ, ਮੁੱਲ ਚੁਣੋ ਅਤੇ ਗੋਲਾਕਾਰ ਦਰਪਣ ਲਈ ਦੂਜਾ ਮੁੱਲ ਗਣਨਾ ਕਰੋ।",
+      "kind": "mirror_fr",
+      "note": "For a spherical mirror, the radius of curvature is twice the focal length: R = 2f.",
+      "note_pa": "ਗੋਲਾਕਾਰ ਦਰਪਣ ਲਈ ਵਕਰਤਾ ਅਰਧ-ਵਿਆਸ ਫੋਕਸ ਦੂਰੀ ਦਾ ਦੁੱਗਣਾ ਹੁੰਦਾ ਹੈ: R = 2f।",
       "class": 10
     },
     {
