@@ -827,8 +827,8 @@ window.LAB_DATA = {
       "class": 7
     },
     {
-      "title": "Breathing and Respiration",
-      "title_pa": "ਸਾਹ ਲੈਣਾ ਅਤੇ ਸ਼ਵਾਸ ਕਿਰਿਆ",
+      "title": "Respiration in Humans",
+      "title_pa": "ਮਨੁੱਖਾਂ ਵਿੱਚ ਸਾਹ ਕਿਰਿਆ",
       "aim": "Distinguish breathing from the release of energy in cells.",
       "aim_pa": "ਸਾਹ ਲੈਣ ਅਤੇ ਕੋਸ਼ਾਂ ਵਿੱਚ ਊਰਜਾ ਮੁਕਤ ਹੋਣ ਦਾ ਫਰਕ ਸਮਝੋ।",
       "kind": "respiration",
