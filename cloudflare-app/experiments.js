@@ -525,13 +525,13 @@ window.LAB_DATA = {
       "class": 6
     },
     {
-      "title": "Separate Sand from Water",
-      "title_pa": "ਪਾਣੀ ਵਿੱਚੋਂ ਰੇਤ ਵੱਖ ਕਰਨਾ",
-      "aim": "Model settling and filtration to separate an insoluble solid.",
-      "aim_pa": "ਅਘੁਲਣਸ਼ੀਲ ਠੋਸ ਨੂੰ ਵੱਖ ਕਰਨ ਲਈ ਤਲਛਟ ਅਤੇ ਛਾਣਨ ਦਾ ਮਾਡਲ ਵੇਖੋ।",
-      "kind": "filtration",
-      "note": "Settling and filtration separate insoluble particles from water.",
-      "note_pa": "ਤਲਛਟ ਅਤੇ ਛਾਣਨ ਨਾਲ ਪਾਣੀ ਵਿੱਚੋਂ ਅਘੁਲਣਸ਼ੀਲ ਕਣ ਵੱਖ ਕੀਤੇ ਜਾਂਦੇ ਹਨ।",
+      "title": "Objects Sink and Float in Water",
+      "title_pa": "ਪਾਣੀ ਵਿੱਚ ਵਸਤੂਆਂ ਦਾ ਤੈਰਨਾ ਅਤੇ ਡੁੱਬਣਾ",
+      "aim": "Observe which everyday objects sink to the bottom or float on the surface of water.",
+      "aim_pa": "ਵੇਖੋ ਕਿ ਰੋਜ਼ਾਨਾ ਵਰਤੋਂ ਦੀਆਂ ਕਿਹੜੀਆਂ ਵਸਤੂਆਂ ਪਾਣੀ ਦੇ ਤਲ ਵਿੱਚ ਡੁੱਬਦੀਆਂ ਹਨ ਅਤੇ ਕਿਹੜੀਆਂ ਸਤ੍ਹਾ ਉੱਤੇ ਤੈਰਦੀਆਂ ਹਨ।",
+      "kind": "sink_float",
+      "note": "An object's average density compared with water helps determine whether it sinks or floats.",
+      "note_pa": "ਵਸਤੂ ਦੀ ਔਸਤ ਘਣਤਾ ਦੀ ਪਾਣੀ ਨਾਲ ਤੁਲਨਾ ਇਹ ਨਿਰਧਾਰਤ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ ਕਿ ਉਹ ਡੁੱਬੇਗੀ ਜਾਂ ਤੈਰੇਗੀ।",
       "class": 6
     },
     {
