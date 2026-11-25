@@ -725,13 +725,13 @@ window.LAB_DATA = {
       "class": 9
     },
     {
-      "title": "Test Acids and Bases with Indicators",
-      "title_pa": "ਸੂਚਕਾਂ ਨਾਲ ਤੇਜ਼ਾਬ ਅਤੇ ਖਾਰ ਦੀ ਜਾਂਚ",
-      "aim": "Compare indicator colours for acidic, neutral and basic samples.",
-      "aim_pa": "ਤੇਜ਼ਾਬੀ, ਉਦਾਸੀਨ ਅਤੇ ਖਾਰੀ ਨਮੂਨਿਆਂ ਦੇ ਸੂਚਕ ਰੰਗਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
-      "kind": "ph",
-      "note": "Indicator colours help classify a solution; pH values are included only as a chemistry concept.",
-      "note_pa": "ਸੂਚਕਾਂ ਦੇ ਰੰਗ ਘੋਲ ਦੀ ਕਿਸਮ ਪਛਾਣਨ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ; pH ਮੁੱਲ ਰਸਾਇਣਕ ਧਾਰਨਾ ਵਜੋਂ ਵਰਤੇ ਜਾਂਦੇ ਹਨ।",
+      "title": "Acids and Bases with Indicators",
+      "title_pa": "ਸੂਚਕਾਂ ਨਾਲ ਤੇਜ਼ਾਬਾਂ ਅਤੇ ਖਾਰਾਂ ਦੀ ਪਛਾਣ",
+      "aim": "Identify acidic, basic and neutral samples by observing colour changes with litmus, China rose, turmeric and phenolphthalein indicators.",
+      "aim_pa": "ਲਿਟਮਸ, ਗੁੜਹਲ, ਹਲਦੀ ਅਤੇ ਫੀਨੋਲਫਥੈਲੀਨ ਸੂਚਕਾਂ ਦੇ ਰੰਗਾਂ ਦੀ ਤਬਦੀਲੀ ਨਾਲ ਤੇਜ਼ਾਬੀ, ਖਾਰੀ ਅਤੇ ਨਿਰਪੱਖ ਨਮੂਨਿਆਂ ਦੀ ਪਛਾਣ ਕਰੋ।",
+      "kind": "acid_base_indicators",
+      "note": "Indicator colour changes depend on the nature and pH of the sample. Approximate pH values are illustrative and can vary with concentration.",
+      "note_pa": "ਸੂਚਕਾਂ ਦੇ ਰੰਗ ਨਮੂਨੇ ਦੀ ਪ੍ਰਕਿਰਤੀ ਅਤੇ pH ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੇ ਹਨ। pH ਦੇ ਅੰਦਾਜ਼ਨ ਮੁੱਲ ਸੰਘਣਤਾ ਅਨੁਸਾਰ ਬਦਲ ਸਕਦੇ ਹਨ।",
       "class": 10
     },
     {
