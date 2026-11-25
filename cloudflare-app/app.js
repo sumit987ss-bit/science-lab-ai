@@ -2622,3 +2622,5 @@ home();
 /* deployment refresh: Class 6 Biology Experiment 1 food nutrient test */
 
 /* deployment refresh: Class 6 Biology food sample dropdown population */
+
+/* deploy trigger: Biology lab class-navigation repair */
