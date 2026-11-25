@@ -822,6 +822,37 @@ function chemicalEffectsLab(){
 
 
 
+function class9StatesOfMatterLab(){
+ const pa=lang==="pa";
+ const groups=[
+  {key:"solid",en:"SOLIDS",pu:"ਠੋਸ",desc:"Fixed shape and fixed volume. Particles are closely packed and vibrate about fixed positions.",descPa:"ਨਿਸ਼ਚਿਤ ਆਕਾਰ ਅਤੇ ਆਇਤਨ। ਕਣ ਨੇੜੇ-ਨੇੜੇ ਹੁੰਦੇ ਹਨ ਅਤੇ ਆਪਣੀ ਥਾਂ ਤੇ ਕੰਬਦੇ ਹਨ।",items:[["Ice","ਬਰਫ਼","ice"],["Rock","ਚੱਟਾਨ","rock"],["Iron block","ਲੋਹੇ ਦਾ ਟੁਕੜਾ","iron"]]},
+  {key:"liquid",en:"LIQUIDS",pu:"ਤਰਲ",desc:"Fixed volume but no fixed shape. Liquids flow and take the shape of their container.",descPa:"ਨਿਸ਼ਚਿਤ ਆਇਤਨ ਪਰ ਨਿਸ਼ਚਿਤ ਆਕਾਰ ਨਹੀਂ। ਤਰਲ ਵਗਦੇ ਹਨ ਅਤੇ ਭਾਂਡੇ ਦਾ ਆਕਾਰ ਲੈਂਦੇ ਹਨ।",items:[["Water","ਪਾਣੀ","water"],["Milk","ਦੁੱਧ","milk"],["Cooking oil","ਖਾਣ ਵਾਲਾ ਤੇਲ","oil"]]},
+  {key:"gas",en:"GASES",pu:"ਗੈਸਾਂ",desc:"No fixed shape or volume. Gases spread out and fill the available space.",descPa:"ਨਿਸ਼ਚਿਤ ਆਕਾਰ ਜਾਂ ਆਇਤਨ ਨਹੀਂ। ਗੈਸਾਂ ਫੈਲ ਕੇ ਉਪਲਬਧ ਥਾਂ ਭਰ ਦਿੰਦੀਆਂ ਹਨ।",items:[["Oxygen","ਆਕਸੀਜਨ","oxygen"],["Carbon dioxide","ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ","co2"],["Water vapour","ਜਲ ਵਾਸ਼ਪ","vapour"]]}
+ ];
+ let selected="solid";
+ const escx=x=>String(x).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+ const art=(type,label)=>{let shape="";
+  if(type==="ice")shape="<path d='M65 80 L125 42 190 78 190 158 125 196 65 158Z' fill='#b9e8ff' stroke='#4b9fc9' stroke-width='5'/><path d='M125 42V118L190 78M125 118L65 80M125 118V196' fill='none' stroke='#e8fbff' stroke-width='5'/>";
+  if(type==="rock")shape="<path d='M48 150 L70 82 122 48 184 68 210 128 170 180 85 184Z' fill='#858b91' stroke='#4b5563' stroke-width='5'/><path d='M70 82L125 112 184 68M125 112L170 180' fill='none' stroke='#cbd5e1' stroke-width='5'/>";
+  if(type==="iron")shape="<path d='M55 95 L80 55 185 55 210 95 185 165 80 165Z' fill='url(#metalGrad)' stroke='#64748b' stroke-width='5'/><path d='M80 72H185' stroke='#fff' stroke-width='7' opacity='.8'/>";
+  if(["water","milk","oil"].includes(type)){let fill=type==="water"?"#38a9e8":type==="milk"?"#f8fafc":"#e9b949";shape="<path d='M75 48H185L174 174Q130 195 86 174Z' fill='#fff' fill-opacity='.3' stroke='#64748b' stroke-width='6'/><path d='M83 112H177L171 170Q130 184 89 170Z' fill='"+fill+"' fill-opacity='.9'/><path d='M83 112Q130 100 177 112' fill='none' stroke='"+fill+"' stroke-width='7'/><path d='M91 58L99 160' stroke='#fff' stroke-width='6' opacity='.65'/>";}
+  if(type==="oxygen"||type==="co2"){let col=type==="oxygen"?"#60a5fa":"#a78bfa";shape="<g fill='"+col+"' fill-opacity='.8' stroke='#475569' stroke-width='3'><circle cx='80' cy='90' r='23'/><circle cx='150' cy='70' r='23'/><circle cx='190' cy='135' r='23'/><circle cx='105' cy='160' r='23'/><circle cx='155' cy='125' r='23'/></g>";}
+  if(type==="vapour")shape="<g fill='none' stroke='#94a3b8' stroke-width='12' stroke-linecap='round' opacity='.8'><path d='M85 170Q55 125 95 95Q125 70 100 40'/><path d='M145 170Q115 125 155 95Q185 70 160 40'/><path d='M195 170Q165 125 205 95'/></g>";
+  return "<svg viewBox='0 0 260 220' role='img' aria-label='"+escx(label)+"' style='width:100%;height:150px'><defs><linearGradient id='metalGrad' x2='0' y2='1'><stop stop-color='#f8fafc'/><stop offset='.5' stop-color='#94a3b8'/><stop offset='1' stop-color='#475569'/></linearGradient></defs><ellipse cx='130' cy='190' rx='90' ry='12' fill='#cbd5e1' opacity='.5'/>"+shape+"</svg>";
+ };
+ const render=()=>{const g=groups.find(x=>x.key===selected);const name=pa?g.pu:g.en;
+  $("#stateMatterVisual").innerHTML="<div style='display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px'>"+g.items.map(it=>"<div style='background:#fff;border:1px solid #dbe4ee;border-radius:16px;padding:10px;text-align:center;box-shadow:0 5px 16px #0f172a0d'>"+art(it[2],pa?it[1]:it[0])+"<div style='font-size:17px;font-weight:900;color:#173b55'>"+(pa?it[1]:it[0])+"</div><div style='font-size:11px;font-weight:800;color:#64748b;letter-spacing:1px'>"+name+"</div></div>").join("")+"</div>";
+  $("#stateMatterInfo").innerHTML="<div style='padding:16px;border-radius:15px;background:#eff6ff;border:2px solid #bfdbfe'><div style='font-size:23px;font-weight:1000;color:#1d4ed8'>"+name+"</div><div style='font-size:15px;font-weight:700;color:#334155;margin-top:6px'>"+(pa?g.descPa:g.desc)+"</div></div>";
+ };
+ const title=pa?"ਪਦਾਰਥ ਦੀਆਂ ਅਵਸਥਾਵਾਂ":"States of Matter";
+ $("#app").innerHTML="<section class='lab-top'><button class='back-button' id='back'>← "+(pa?"ਵਾਪਸ":"Back")+"</button><div class='lab-selectors'><label>"+(pa?"ਜਮਾਤ":"Class")+"<select id='cl'>"+[6,7,8,9,10].map(n=>"<option "+(cls===n?"selected":"")+" value='"+n+"'>"+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+"</option>").join("")+"</select></label><label>"+(pa?"ਪ੍ਰਯੋਗ":"Experiment")+"<select id='ex'>"+list().map((v,i)=>"<option value='"+i+"' "+(i===exp?"selected":"")+">"+(i+1)+". "+escx(pa?v.title_pa:v.title)+"</option>").join("")+"</select></label></div></section><section class='experiment-card'><h2 style='font-size:27px;font-weight:1000;color:#173b55;margin:8px 0'>"+title+"</h2><p style='color:#475569;font-weight:650'>"+(pa?"ਠੋਸ, ਤਰਲ ਜਾਂ ਗੈਸ ਚੁਣੋ ਅਤੇ ਰੋਜ਼ਾਨਾ ਜੀਵਨ ਦੀਆਂ ਉਦਾਹਰਨਾਂ ਵੇਖੋ।":"Choose solids, liquids or gases to see labelled everyday examples.")+"</p><label style='display:block;font-weight:900;margin:16px 0 8px'>"+(pa?"ਪਦਾਰਥ ਦੀ ਅਵਸਥਾ ਚੁਣੋ":"SELECT STATE OF MATTER")+"<select id='stateMatterSelect' style='width:100%;padding:13px;border:2px solid #93c5fd;border-radius:12px;font-size:17px;font-weight:800'><option value='solid'>"+(pa?"ਠੋਸ (Solids)":"Solids")+"</option><option value='liquid'>"+(pa?"ਤਰਲ (Liquids)":"Liquids")+"</option><option value='gas'>"+(pa?"ਗੈਸਾਂ (Gases)":"Gases")+"</option></select></label><div id='stateMatterInfo' style='margin:14px 0'></div><div id='stateMatterVisual'></div></section>";
+ $("#back").onclick=()=>{if(typeof showHome==="function")showHome();else if(typeof home==="function")home();};
+ $("#cl").onchange=e=>{cls=+e.target.value;exp=0;draw()};
+ $("#ex").onchange=e=>{exp=+e.target.value;draw()};
+ $("#stateMatterSelect").onchange=e=>{selected=e.target.value;render()};
+ render();
+}
+
 function class8MetalsNonMetalsLab(){
  const pa=lang==="pa";
  const materials=[
@@ -1607,6 +1638,7 @@ function class7RustingLab(){
 }
 
 function draw(){
+ if(lab==="chemistry"&&cls===9&&exp===0){class9StatesOfMatterLab();return}
  if(lab==="chemistry"&&cls===8&&exp===4){class8MetalsNonMetalsLab();return}
  if(lab==="chemistry"&&cls===8&&exp===3){class8RustingIronLab();return}
  if(lab==="chemistry"&&cls===8&&exp===2){class8CoalTypesLab();return}
