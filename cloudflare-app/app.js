@@ -1069,9 +1069,35 @@ function class10MirrorFRLab(){
  calculate();
 }
 
+
+function class10LensPowerLab(){
+ const pa=lang==="pa";
+ const focalValues=[2,4,6,8,10,12,14,16,18,20];
+ const powerValues=[10,20,30,40,50,60,70,80,90,100];
+ const labels=pa?{f:"ਫੋਕਸ ਦੂਰੀ (f)",p:"ਲੈਂਸ ਦੀ ਸ਼ਕਤੀ (P)"}:{f:"Focal length (f)",p:"Power of lens (P)"};
+ const title=pa?"ਲੈਂਸ ਦੀ ਫੋਕਸ ਦੂਰੀ ਅਤੇ ਸ਼ਕਤੀ ਵਿਚਕਾਰ ਸਬੰਧ":"Relation Between Focal Length and Power of a Lens";
+ const aim=pa?"ਫੋਕਸ ਦੂਰੀ ਜਾਂ ਲੈਂਸ ਦੀ ਸ਼ਕਤੀ ਚੁਣੋ ਅਤੇ ਦੂਜਾ ਮੁੱਲ ਗਣਨਾ ਕਰੋ।":"Select focal length or lens power, choose a value, and calculate the corresponding quantity.";
+ let quantity="f",value=2;
+ const fmt=n=>Number(n.toFixed(4)).toString();
+ const render=()=>{
+  const f=quantity==="f"?value:1/value;
+  const power=1/f;
+  const result=quantity==="f"?labels.p+" = "+fmt(power)+" D":labels.f+" = "+fmt(f)+" m";
+  const relation=quantity==="f"?"P = 1/f":"f = 1/P";
+  $("#lensPowerResult").innerHTML='<div class="lpr-answer"><small>'+(pa?"ਗਣਨਾ ਕੀਤਾ ਨਤੀਜਾ":"CALCULATED RESULT")+'</small><strong>'+result+'</strong></div><div class="lpr-formula"><span>'+(pa?"ਸਬੰਧ":"RELATION")+'</span><strong>P = 1/f</strong><p>'+(pa?"ਲੈਂਸ ਦੀ ਸ਼ਕਤੀ, ਮੀਟਰ ਵਿੱਚ ਫੋਕਸ ਦੂਰੀ ਦੇ ਉਲਟ ਅਨੁਪਾਤੀ ਹੁੰਦੀ ਹੈ।":"The power of a lens is the reciprocal of its focal length in metres.")+'</p><b>'+relation+'</b></div><div class="lpr-facts"><div><small>'+(pa?"ਫੋਕਸ ਦੂਰੀ":"FOCAL LENGTH")+'</small><strong>'+fmt(f)+' m</strong></div><div><small>'+(pa?"ਲੈਂਸ ਦੀ ਸ਼ਕਤੀ":"LENS POWER")+'</small><strong>'+fmt(power)+' D</strong></div></div><p class="lpr-note">'+(pa?"ਨੋਟ: ਇਹ ਧਨਾਤਮਕ ਮੁੱਲ ਇਕੱਠਾ ਕਰਨ ਵਾਲੇ (ਉੱਤਲ) ਲੈਂਸ ਲਈ ਹਨ।":"Note: These positive values represent a converging (convex) lens. A diverging (concave) lens has negative focal length and negative power.")+'</p>';
+ };
+ const options=()=> (quantity==="f"?focalValues.map(v=>'<option value="'+v+'" '+(v===value?"selected":"")+'>'+v+' m</option>'):powerValues.map(v=>'<option value="'+v+'" '+(v===value?"selected":"")+'>'+v+' D</option>')).join("");
+ $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="lpBack">'+tr("back")+'</button><div class="lab-top-name"><span>🔭</span><div><strong>'+tr("physics")+'</strong><small>CLASS 10 · EXPERIMENT 5 / 5</small></div></div></section><section class="lab-selectors"><label>'+tr("chooseClass")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option value="'+n+'" '+(cls===n?"selected":"")+'>'+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+tr("chooseExperiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+esc(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section><section class="experiment-card"><div class="experiment-meta">CLASS 10 · PHYSICS · EXPERIMENT 5 / 5</div><h2>'+title+'</h2><p class="aim"><b>'+tr("aim")+':</b> '+aim+'</p><div class="lp-controls"><label><b>'+(pa?"ਮਾਤਰਾ ਚੁਣੋ":"Select quantity")+'</b><select id="lpQuantity"><option value="f">'+labels.f+'</option><option value="p">'+labels.p+'</option></select></label><label><b>'+(pa?"ਮੁੱਲ ਚੁਣੋ":"Select value")+'</b><select id="lpValue">'+options()+'</select></label></div><div id="lensPowerResult"></div><div class="navigation"><button class="back-button" id="prev">'+tr("previous")+'</button><button class="primary-button" id="next">'+tr("next")+' →</button></div><style>.lp-controls{display:grid;gap:16px;margin:20px 0}.lp-controls label{display:grid;gap:9px}.lp-controls select{padding:14px;border-radius:12px;background:#10233b;color:#fff;border:1px solid #5794c9;font-size:16px}.lpr-answer,.lpr-formula{padding:18px;border-radius:16px;background:rgba(30,100,160,.16);margin:14px 0;display:grid;gap:9px}.lpr-answer small,.lpr-formula span,.lpr-facts small{font-size:12px;font-weight:800;opacity:.8}.lpr-answer strong{font-size:25px;color:#7dd3fc}.lpr-formula strong,.lpr-formula b{font-size:22px;color:#fcd34d}.lpr-formula p,.lpr-note{margin:0;line-height:1.5}.lpr-facts{display:grid;grid-template-columns:1fr 1fr;gap:10px}.lpr-facts>div{padding:15px;border-radius:14px;background:rgba(30,100,160,.12);display:grid;gap:7px}.lpr-facts strong{font-size:20px;color:#a7f3d0}.lpr-note{font-size:13px;opacity:.8;margin-top:12px}</style></section>';
+ const changeQuantity=()=>{quantity=$("#lpQuantity").value;value=quantity==="f"?focalValues[0]:powerValues[0];$("#lpValue").innerHTML=options();render()};
+ $("#lpBack").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};$("#lpQuantity").onchange=changeQuantity;$("#lpValue").onchange=e=>{value=Number(e.target.value);render()};
+ $("#prev").onclick=()=>{if(exp>0){exp--;choice="";draw()}};$("#next").onclick=()=>{if(exp<4){exp++;choice="";draw()}};
+ render();
+}
+
 function draw(){
  if(lab==="physics"&&cls===10&&exp===2){class10ConcaveMirrorLab();return}
  if(lab==="physics"&&cls===10&&exp===3){class10MirrorFRLab();return}
+ if(lab==="physics"&&cls===10&&exp===4){class10LensPowerLab();return}
  if(lab==="electricity"&&cls===10&&exp===0){class10OhmsLawLab();return}
  if(lab==="electricity"&&cls===10&&exp===1){class10SeriesParallelLab();return}
  if(lab==="electricity"&&cls===10&&exp===2){class10ResistanceCombinationLab();return}
