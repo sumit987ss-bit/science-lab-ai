@@ -817,8 +817,8 @@ window.LAB_DATA = {
       "class": 7
     },
     {
-      "title": "Nutrition in Animals",
-      "title_pa": "ਜਾਨਵਰਾਂ ਵਿੱਚ ਪੋਸ਼ਣ",
+      "title": "Digestion in Humans",
+      "title_pa": "ਮਨੁੱਖਾਂ ਵਿੱਚ ਭੋਜਨ ਦਾ ਪਚਣ",
       "aim": "Follow food through the main stages of digestion.",
       "aim_pa": "ਭੋਜਨ ਦੇ ਪਚਣ ਦੇ ਮੁੱਖ ਪੜਾਅ ਵੇਖੋ।",
       "kind": "digestion",
