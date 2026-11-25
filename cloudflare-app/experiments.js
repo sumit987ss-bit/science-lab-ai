@@ -535,13 +535,13 @@ window.LAB_DATA = {
       "class": 6
     },
     {
-      "title": "Explore Changes in Materials",
-      "title_pa": "ਪਦਾਰਥਾਂ ਵਿੱਚ ਤਬਦੀਲੀਆਂ",
-      "aim": "Compare a change of state with a change that forms a new substance.",
-      "aim_pa": "ਅਵਸਥਾ ਬਦਲਣ ਅਤੇ ਨਵਾਂ ਪਦਾਰਥ ਬਣਨ ਵਾਲੀ ਤਬਦੀਲੀ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
-      "kind": "changes",
-      "note": "A physical change does not form a new substance; a chemical change does.",
-      "note_pa": "ਭੌਤਿਕ ਤਬਦੀਲੀ ਵਿੱਚ ਨਵਾਂ ਪਦਾਰਥ ਨਹੀਂ ਬਣਦਾ; ਰਸਾਇਣਕ ਤਬਦੀਲੀ ਵਿੱਚ ਬਣ ਸਕਦਾ ਹੈ।",
+      "title": "Separating the Mixtures",
+      "title_pa": "ਮਿਸ਼ਰਣਾਂ ਨੂੰ ਵੱਖ ਕਰਨਾ",
+      "aim": "Identify suitable methods to separate sand and water, stones and rice, iron filings from soil or sand, and oil and water.",
+      "aim_pa": "ਰੇਤ ਅਤੇ ਪਾਣੀ, ਕੰਕਰ ਅਤੇ ਚੌਲ, ਮਿੱਟੀ ਜਾਂ ਰੇਤ ਵਿੱਚੋਂ ਲੋਹੇ ਦਾ ਬੁਰਾਦਾ ਅਤੇ ਤੇਲ ਤੇ ਪਾਣੀ ਨੂੰ ਵੱਖ ਕਰਨ ਦੀਆਂ ਢੁੱਕਵੀਆਂ ਵਿਧੀਆਂ ਦੀ ਪਛਾਣ ਕਰੋ।",
+      "kind": "mixture_separation",
+      "note": "Different mixtures can be separated using sedimentation and decantation, handpicking, magnetic separation, or a separating funnel.",
+      "note_pa": "ਵੱਖ-ਵੱਖ ਮਿਸ਼ਰਣਾਂ ਨੂੰ ਤਲਛਟੀਕਰਨ ਅਤੇ ਨਿਤਾਰਨ, ਹੱਥਾਂ ਨਾਲ ਚੁਗਣ, ਚੁੰਬਕੀ ਵਿਧੀ ਜਾਂ ਵਿਭਾਜਕ ਫਨਲ ਨਾਲ ਵੱਖ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।",
       "class": 6
     },
     {
