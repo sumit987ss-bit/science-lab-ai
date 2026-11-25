@@ -2848,3 +2848,5 @@ home();
 // Class 7 digestion animation path ends at the rectum within the labelled anatomy view.
 
 // Trigger production deployment for Class 7 human respiration experiment.
+
+// Trigger production deployment for Class 7 xylem water transport visual.
