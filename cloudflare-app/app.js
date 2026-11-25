@@ -1792,6 +1792,62 @@ function class9TyndallEffectLab(){
  $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;draw()};$("#ex").onchange=e=>{exp=+e.target.value;draw()};$("#tySelect").onchange=e=>{selected=e.target.value;render()};render();
 }
 
+function class10AcidBaseIndicatorsLab(){
+ const pa=lang==="pa";
+ const samples=[
+  {en:"Lemon juice (acidic)",pu:"ਨਿੰਬੂ ਦਾ ਰਸ (ਤੇਜ਼ਾਬੀ)",nature:"acid",ph:"2–3"},
+  {en:"Vinegar (acidic)",pu:"ਸਿਰਕਾ (ਤੇਜ਼ਾਬੀ)",nature:"acid",ph:"2–3"},
+  {en:"Soap solution (basic)",pu:"ਸਾਬਣ ਦਾ ਘੋਲ (ਖਾਰੀ)",nature:"base",ph:"9–10"},
+  {en:"Baking soda solution (basic)",pu:"ਖਾਣ ਵਾਲੇ ਸੋਡੇ ਦਾ ਘੋਲ (ਖਾਰੀ)",nature:"base",ph:"8–9"},
+  {en:"Water (neutral)",pu:"ਪਾਣੀ (ਨਿਰਪੱਖ)",nature:"neutral",ph:"7"},
+  {en:"Sugar solution (neutral)",pu:"ਚੀਨੀ ਦਾ ਘੋਲ (ਨਿਰਪੱਖ)",nature:"neutral",ph:"≈7"}
+ ];
+ const indicators=[
+  {en:"Litmus paper",pu:"ਲਿਟਮਸ ਪੇਪਰ",kind:"litmus"},
+  {en:"China rose",pu:"ਗੁੜਹਲ ਦਾ ਸੂਚਕ",kind:"china"},
+  {en:"Turmeric powder",pu:"ਹਲਦੀ ਦਾ ਪਾਊਡਰ",kind:"turmeric"},
+  {en:"Phenolphthalein",pu:"ਫੀਨੋਲਫਥੈਲੀਨ",kind:"phenol"}
+ ];
+ let sampleIndex=0,indicatorIndex=0;
+ const escx=x=>String(x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+ function outcome(sample,indicator){
+  if(indicator.kind==="litmus"){
+   if(sample.nature==="acid")return {before:"#2563eb",after:"#dc2626",label:pa?"ਨੀਲਾ ਲਿਟਮਸ ਲਾਲ ਹੋ ਜਾਂਦਾ ਹੈ":"BLUE LITMUS TURNS RED",desc:pa?"ਤੇਜ਼ਾਬੀ ਘੋਲ ਨੀਲੇ ਲਿਟਮਸ ਨੂੰ ਲਾਲ ਕਰਦਾ ਹੈ।":"Acids turn blue litmus paper red."};
+   if(sample.nature==="base")return {before:"#dc2626",after:"#2563eb",label:pa?"ਲਾਲ ਲਿਟਮਸ ਨੀਲਾ ਹੋ ਜਾਂਦਾ ਹੈ":"RED LITMUS TURNS BLUE",desc:pa?"ਖਾਰੀ ਘੋਲ ਲਾਲ ਲਿਟਮਸ ਨੂੰ ਨੀਲਾ ਕਰਦਾ ਹੈ।":"Bases turn red litmus paper blue."};
+   return {before:"#7c3aed",after:"#7c3aed",label:pa?"ਲਿਟਮਸ ਦੇ ਰੰਗ ਵਿੱਚ ਤਬਦੀਲੀ ਨਹੀਂ":"NO COLOUR CHANGE",desc:pa?"ਨਿਰਪੱਖ ਘੋਲ ਲਿਟਮਸ ਦਾ ਰੰਗ ਨਹੀਂ ਬਦਲਦਾ।":"A neutral solution does not change litmus colour."};
+  }
+  if(indicator.kind==="china"){
+   if(sample.nature==="acid")return {before:"#8b5cf6",after:"#e11d74",label:pa?"ਗੁੜਹਲ ਦਾ ਸੂਚਕ ਗੂੜ੍ਹਾ ਗੁਲਾਬੀ ਹੋ ਜਾਂਦਾ ਹੈ":"CHINA ROSE TURNS DARK PINK",desc:pa?"ਤੇਜ਼ਾਬ ਵਿੱਚ ਗੁੜਹਲ ਦਾ ਸੂਚਕ ਗੂੜ੍ਹਾ ਗੁਲਾਬੀ/ਮੈਜੈਂਟਾ ਹੁੰਦਾ ਹੈ।":"In an acidic solution, China rose indicator turns dark pink or magenta."};
+   if(sample.nature==="base")return {before:"#8b5cf6",after:"#16a34a",label:pa?"ਗੁੜਹਲ ਦਾ ਸੂਚਕ ਹਰਾ ਹੋ ਜਾਂਦਾ ਹੈ":"CHINA ROSE TURNS GREEN",desc:pa?"ਖਾਰੀ ਘੋਲ ਵਿੱਚ ਗੁੜਹਲ ਦਾ ਸੂਚਕ ਹਰਾ ਹੋ ਜਾਂਦਾ ਹੈ।":"In a basic solution, China rose indicator turns green."};
+   return {before:"#8b5cf6",after:"#8b5cf6",label:pa?"ਖਾਸ ਰੰਗ ਤਬਦੀਲੀ ਨਹੀਂ":"NO DISTINCT COLOUR CHANGE",desc:pa?"ਨਿਰਪੱਖ ਘੋਲ ਵਿੱਚ ਸੂਚਕ ਦਾ ਰੰਗ ਲਗਭਗ ਜਾਮਨੀ ਰਹਿੰਦਾ ਹੈ।":"In a neutral solution, the indicator remains close to its original purple colour."};
+  }
+  if(indicator.kind==="turmeric"){
+   if(sample.nature==="base")return {before:"#eab308",after:"#a16207",label:pa?"ਹਲਦੀ ਲਾਲ-ਭੂਰੀ ਹੋ ਜਾਂਦੀ ਹੈ":"TURMERIC TURNS REDDISH-BROWN",desc:pa?"ਖਾਰੀ ਘੋਲ ਹਲਦੀ ਨੂੰ ਲਾਲ-ਭੂਰਾ ਕਰ ਦਿੰਦਾ ਹੈ।":"A basic solution turns yellow turmeric reddish-brown."};
+   return {before:"#eab308",after:"#eab308",label:pa?"ਹਲਦੀ ਪੀਲੀ ਹੀ ਰਹਿੰਦੀ ਹੈ":"TURMERIC REMAINS YELLOW",desc:pa?"ਤੇਜ਼ਾਬੀ ਅਤੇ ਨਿਰਪੱਖ ਘੋਲ ਵਿੱਚ ਹਲਦੀ ਪੀਲੀ ਰਹਿੰਦੀ ਹੈ।":"Turmeric remains yellow in acidic and neutral solutions."};
+  }
+  if(sample.nature==="base")return {before:"#f8fafc",after:"#ec4899",label:pa?"ਫੀਨੋਲਫਥੈਲੀਨ ਗੁਲਾਬੀ ਹੋ ਜਾਂਦੀ ਹੈ":"PHENOLPHTHALEIN TURNS PINK",desc:pa?"ਖਾਰੀ ਘੋਲ ਵਿੱਚ ਫੀਨੋਲਫਥੈਲੀਨ ਗੁਲਾਬੀ ਹੋ ਜਾਂਦੀ ਹੈ।":"Phenolphthalein turns pink in a basic solution."};
+  return {before:"#f8fafc",after:"#f8fafc",label:pa?"ਰੰਗਹੀਣ ਹੀ ਰਹਿੰਦਾ ਹੈ":"REMAINS COLOURLESS",desc:pa?"ਤੇਜ਼ਾਬੀ ਅਤੇ ਨਿਰਪੱਖ ਘੋਲ ਵਿੱਚ ਫੀਨੋਲਫਥੈਲੀਨ ਰੰਗਹੀਣ ਰਹਿੰਦੀ ਹੈ।":"Phenolphthalein remains colourless in acidic and neutral solutions."};
+ }
+ function visual(sample,indicator,res){
+  const isPaper=indicator.kind==="litmus"||indicator.kind==="turmeric";
+  const stripLabel=indicator.kind==="litmus"?(sample.nature==="acid"?"BLUE LITMUS":"RED LITMUS"):indicator.kind==="turmeric"?"TURMERIC PAPER":indicator.kind==="china"?"CHINA ROSE EXTRACT":"PHENOLPHTHALEIN";
+  const before=isPaper?'<rect x="145" y="77" width="38" height="105" rx="5" fill="'+res.before+'" stroke="#64748b" stroke-width="2"/>':'<path d="M140 68H188L183 190H145Z" fill="'+res.before+'" stroke="#64748b" stroke-width="3" opacity=".95"/>';
+  const after=isPaper?'<rect x="260" y="77" width="38" height="105" rx="5" fill="'+res.after+'" stroke="#64748b" stroke-width="2"/>':'<path d="M255 68H303L298 190H260Z" fill="'+res.after+'" stroke="#64748b" stroke-width="3" opacity=".95"/>';
+  return '<svg viewBox="0 0 430 250" role="img" aria-label="'+escx(indicator.en)+' tested with '+escx(sample.en)+'"><rect x="8" y="8" width="414" height="234" rx="16" fill="#f6faff"/><text x="164" y="35" text-anchor="middle" font-size="13" font-weight="800" fill="#334155">'+(pa?"ਪਹਿਲਾਂ":"BEFORE")+'</text><text x="281" y="35" text-anchor="middle" font-size="13" font-weight="800" fill="#334155">'+(pa?"ਬਾਅਦ":"AFTER")+'</text>'+before+after+'<path d="M196 128H244M235 119L244 128L235 137" fill="none" stroke="#475569" stroke-width="3" stroke-linecap="round"/><path d="M330 85H380L374 192H336Z" fill="#d9f4ff" stroke="#6b9db1" stroke-width="3"/><path d="M334 125H376L373 188H337Z" fill="'+(sample.nature==="acid"?"#f5b6a8":sample.nature==="base"?"#b9e3b5":"#b9dded")+'" opacity=".9"/><text x="355" y="211" text-anchor="middle" font-size="11" font-weight="800" fill="#334155">'+(pa?"ਨਮੂਨਾ":"SAMPLE")+'</text><text x="164" y="207" text-anchor="middle" font-size="10" font-weight="700" fill="#475569">'+escx(stripLabel)+'</text><text x="281" y="207" text-anchor="middle" font-size="10" font-weight="700" fill="#475569">'+(pa?"ਬਦਲਿਆ ਰੰਗ":"CHANGED COLOUR")+'</text><text x="215" y="232" text-anchor="middle" font-size="11" fill="#64748b">'+escx(sample.en)+'</text></svg>';
+ }
+ function render(){
+  const sample=samples[sampleIndex],indicator=indicators[indicatorIndex],res=outcome(sample,indicator);
+  $("#indicatorVisual").innerHTML=visual(sample,indicator,res);
+  $("#indicatorResult").innerHTML='<div style="padding:1rem;border-radius:14px;border:2px solid #7c9fbd;background:#fff;text-align:center"><strong style="display:block;font-size:1.45rem;line-height:1.3;font-weight:950;color:#173e59">'+escx(res.label)+'</strong><p style="margin:.5rem 0 0">'+escx(res.desc)+'</p><div style="margin:12px auto 7px;max-width:330px;padding:9px 12px;border-radius:12px;background:linear-gradient(90deg,#fca5a5,#fde68a,#86efac,#93c5fd);color:#173e59;font-size:13px;font-weight:950"><span style="display:block">'+(pa?'ਅੰਦਾਜ਼ਨ pH':'APPROXIMATE pH')+' · '+escx(sample.ph)+'</span><span style="display:flex;justify-content:space-between;font-size:10px;margin-top:5px"><i>0 · '+(pa?'ਤੇਜ਼ਾਬੀ':'ACID')+'</i><i>7 · '+(pa?'ਨਿਰਪੱਖ':'NEUTRAL')+'</i><i>14 · '+(pa?'ਖਾਰੀ':'BASE')+'</i></span></div><div style="margin-top:.6rem;font-size:.9rem;font-weight:800;color:#334155">'+escx(pa?sample.pu:sample.en)+' + '+escx(pa?indicator.pu:indicator.en)+'</div></div>';
+ }
+ const title=pa?"ਤੇਜ਼ਾਬਾਂ ਅਤੇ ਖਾਰਾਂ ਦੀ ਸੂਚਕਾਂ ਨਾਲ ਪਛਾਣ":"Acids and Bases with Indicators";
+ const aim=pa?"ਵੱਖ-ਵੱਖ ਨਮੂਨਿਆਂ ਨੂੰ ਚਾਰ ਸੂਚਕਾਂ ਨਾਲ ਜਾਂਚ ਕੇ ਰੰਗਾਂ ਦੀ ਤਬਦੀਲੀ ਵੇਖੋ।":"Test different solutions with four indicators and observe their colour changes.";
+ $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+(pa?"← ਲੈਬ ਵੱਲ ਵਾਪਸ":"← Back to laboratories")+'</button><div class="lab-top-name"><span>🧪</span><div><strong>POCKET Science Lab</strong><small>'+(pa?"ਜਮਾਤ 10 · ਰਸਾਇਣ ਵਿਗਿਆਨ":"Class 10 · Chemistry Lab")+'</small></div></div></section><section class="lab-selectors"><label>'+(pa?"ਜਮਾਤ ਚੁਣੋ":"Select class")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option '+(cls===n?"selected":"")+' value="'+n+'">'+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+(pa?"ਪ੍ਰਯੋਗ ਚੁਣੋ":"Select experiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+escx(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section><section class="experiment-card"><div class="experiment-meta">'+(pa?"ਜਮਾਤ 10 · ਰਸਾਇਣ ਵਿਗਿਆਨ ਪ੍ਰਯੋਗ 1":"CLASS 10 · CHEMISTRY EXPERIMENT 1")+'</div><h2>🧪 '+title+'</h2><div style="display:flex;gap:7px;flex-wrap:wrap;margin:8px 0 12px"><span style="background:#fee2e2;color:#991b1b;padding:6px 10px;border-radius:20px;font-size:11px;font-weight:900">ACID · RED</span><span style="background:#dbeafe;color:#1e40af;padding:6px 10px;border-radius:20px;font-size:11px;font-weight:900">BASE · BLUE</span><span style="background:#dcfce7;color:#166534;padding:6px 10px;border-radius:20px;font-size:11px;font-weight:900">NEUTRAL · NO CHANGE</span></div><p class="aim"><b>'+(pa?"ਉਦੇਸ਼":"Aim")+':</b> '+aim+'</p><div class="experiment-grid"><div class="control-panel"><label><b>'+(pa?"ਨਮੂਨਾ ਚੁਣੋ":"Select a sample")+'</b><select id="indicatorSample">'+samples.map((v,i)=>'<option value="'+i+'">'+escx(pa?v.pu:v.en)+'</option>').join("")+'</select></label><label style="margin-top:1rem"><b>'+(pa?"ਸੂਚਕ ਚੁਣੋ":"Select an indicator")+'</b><select id="indicatorChoice">'+indicators.map((v,i)=>'<option value="'+i+'">'+escx(pa?v.pu:v.en)+'</option>').join("")+'</select></label><p class="helper">'+(pa?"ਨਮੂਨਾ ਅਤੇ ਸੂਚਕ ਚੁਣੋ; ਰੰਗ ਦੀ ਤਬਦੀਲੀ ਵੇਖੋ।":"Choose a sample and an indicator to observe the colour change.")+'</p></div><div class="visual-panel"><h3>'+(pa?"ਰੰਗ ਦੀ ਤਬਦੀਲੀ":"Observed colour change")+'</h3><div id="indicatorVisual"></div><div id="indicatorResult"></div></div></div><p class="safety-note">'+(pa?"ਇਹ ਵਰਚੁਅਲ ਪ੍ਰਯੋਗ ਹੈ। ਰਸਾਇਣਾਂ ਨੂੰ ਕਦੇ ਨਾ ਚੱਖੋ ਅਤੇ ਅਸਲ ਸੂਚਕਾਂ ਨੂੰ ਅਧਿਆਪਕ ਦੀ ਨਿਗਰਾਨੀ ਹੇਠ ਹੀ ਵਰਤੋ।":"Virtual demonstration. Never taste chemicals; use real indicators only with teacher supervision.")+'</p><div class="navigation"><button class="back-button" id="prev" '+(exp===0?"disabled":"")+'>'+(pa?"ਪਿਛਲਾ ਪ੍ਰਯੋਗ":"Previous experiment")+'</button><button class="primary-button" id="next">'+(pa?"ਅਗਲਾ ਪ੍ਰਯੋਗ":"Next experiment")+' →</button></div></section>';
+ $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};$("#prev").onclick=()=>{if(exp>0){exp--;choice="";draw()}};$("#next").onclick=()=>{if(exp<4){exp++;choice="";draw()}};
+ $("#indicatorSample").onchange=e=>{sampleIndex=+e.target.value;render()};$("#indicatorChoice").onchange=e=>{indicatorIndex=+e.target.value;render()};render();
+}
+
+
 function draw(){
  if(lab==="chemistry"&&cls===10&&exp===0){class10AcidBaseIndicatorsLab();return}
  if(lab==="chemistry"&&cls===9&&exp===4){class9TyndallEffectLab();return}
