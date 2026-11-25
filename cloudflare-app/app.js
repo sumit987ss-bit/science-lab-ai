@@ -2701,3 +2701,5 @@ home();
 /* deployment refresh: Class 6 Biology food sample dropdown population */
 
 /* deploy trigger: Biology lab class-navigation repair */
+
+/* deployment trigger: Class 6 Biology seed germination interactive stages */
