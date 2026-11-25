@@ -735,6 +735,16 @@ window.LAB_DATA = {
       "class": 10
     },
     {
+      {
+      "title": "Combustion of Magnesium Ribbon in Air",
+      "title_pa": "ਹਵਾ ਵਿੱਚ ਮੈਗਨੀਸ਼ੀਅਮ ਰਿਬਨ ਦਾ ਦਹਿਨ",
+      "aim": "Observe the dazzling white light produced when magnesium burns in oxygen, identify the white magnesium oxide product, and test its basic nature.",
+      "aim_pa": "ਮੈਗਨੀਸ਼ੀਅਮ ਦੇ ਆਕਸੀਜਨ ਵਿੱਚ ਜਲਣ ਨਾਲ ਬਣਦੀ ਚਮਕਦਾਰ ਚਿੱਟੀ ਰੌਸ਼ਨੀ ਵੇਖੋ, ਚਿੱਟੇ ਮੈਗਨੀਸ਼ੀਅਮ ਆਕਸਾਈਡ ਦੀ ਪਛਾਣ ਕਰੋ ਅਤੇ ਇਸ ਦੇ ਖਾਰੀ ਸੁਭਾਅ ਦੀ ਜਾਂਚ ਕਰੋ।",
+      "kind": "magnesium_combustion",
+      "note": "2Mg + O₂ → 2MgO. The reaction is exothermic. Magnesium oxide reacts with water to form a small amount of magnesium hydroxide, which is alkaline. Virtual observation only; any real demonstration requires trained-teacher supervision and suitable safety controls.",
+      "note_pa": "2Mg + O₂ → 2MgO। ਇਹ ਉਸ਼ਮਾਖੇਪੀ ਕਿਰਿਆ ਹੈ। ਮੈਗਨੀਸ਼ੀਅਮ ਆਕਸਾਈਡ ਪਾਣੀ ਨਾਲ ਕਿਰਿਆ ਕਰਕੇ ਥੋੜ੍ਹਾ ਮੈਗਨੀਸ਼ੀਅਮ ਹਾਈਡਰਾਕਸਾਈਡ ਬਣਾਉਂਦਾ ਹੈ, ਜੋ ਖਾਰੀ ਹੈ। ਇਹ ਵਰਚੁਅਲ ਨਿਰੀਖਣ ਹੈ; ਅਸਲ ਪ੍ਰਦਰਸ਼ਨ ਕੇਵਲ ਤਰਬੀਅਤਯਾਫ਼ਤਾ ਅਧਿਆਪਕ ਵੱਲੋਂ ਢੁੱਕਵੇਂ ਸੁਰੱਖਿਆ ਪ੍ਰਬੰਧਾਂ ਨਾਲ ਕੀਤਾ ਜਾਣਾ ਚਾਹੀਦਾ ਹੈ।",
+      "class": 10
+    },
       "title": "Observe a Chemical Reaction",
       "title_pa": "ਰਸਾਇਣਕ ਕਿਰਿਆ ਦਾ ਨਿਰੀਖਣ",
       "aim": "Identify evidence such as gas formation, colour change or precipitate in a reaction model.",
