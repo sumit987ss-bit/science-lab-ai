@@ -2783,3 +2783,5 @@ home();
 /* deployment trigger: Class 6 Biology photosynthesis checklist */
 
 /* deployment trigger: Class 6 Biology food chain selected-visual refresh */
+
+/* deployment trigger: Class 6 Biology adaptation visuals */
