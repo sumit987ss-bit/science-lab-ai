@@ -715,13 +715,13 @@ window.LAB_DATA = {
       "class": 10
     },
     {
-      "title": "Observe a Chemical Reaction",
-      "title_pa": "ਰਸਾਇਣਕ ਕਿਰਿਆ ਦਾ ਨਿਰੀਖਣ",
-      "aim": "Identify evidence such as gas formation, colour change or precipitate in a reaction model.",
-      "aim_pa": "ਕਿਰਿਆ ਦੇ ਮਾਡਲ ਵਿੱਚ ਗੈਸ ਬਣਨਾ, ਰੰਗ ਬਦਲਣਾ ਜਾਂ ਅਵਖੇਪ ਬਣਨਾ ਪਛਾਣੋ।",
-      "kind": "reaction",
-      "note": "Chemical reactions rearrange particles and may release or absorb energy.",
-      "note_pa": "ਰਸਾਇਣਕ ਕਿਰਿਆਵਾਂ ਕਣਾਂ ਦੀ ਮੁੜ-ਵਿਉਂਤ ਕਰਦੀਆਂ ਹਨ ਅਤੇ ਊਰਜਾ ਛੱਡ ਜਾਂ ਸੋਖ ਸਕਦੀਆਂ ਹਨ।",
+      "title": "Reaction of Acids with Metals and Non-metals",
+      "title_pa": "ਤੇਜ਼ਾਬਾਂ ਦੀ ਧਾਤਾਂ ਅਤੇ ਅਧਾਤਾਂ ਨਾਲ ਕਿਰਿਆ",
+      "aim": "Select a metal or non-metal and a dilute acid to observe whether hydrogen gas is formed, with a student-view virtual apparatus and balanced chemical equation.",
+      "aim_pa": "ਧਾਤ ਜਾਂ ਅਧਾਤ ਅਤੇ ਪਤਲਾ ਤੇਜ਼ਾਬ ਚੁਣ ਕੇ ਵੇਖੋ ਕਿ ਹਾਈਡਰੋਜਨ ਗੈਸ ਬਣਦੀ ਹੈ ਜਾਂ ਨਹੀਂ; ਵਿਦਿਆਰਥੀ ਦੇ ਨਜ਼ਰੀਏ ਵਾਲੇ ਵਰਚੁਅਲ ਉਪਕਰਣ ਅਤੇ ਰਸਾਇਣਕ ਸਮੀਕਰਨ ਨਾਲ ਨਿਰੀਖਣ ਕਰੋ।",
+      "kind": "acid_metal_nonmetal",
+      "note": "Magnesium, zinc and iron release hydrogen from dilute HCl or dilute H₂SO₄; copper and the selected non-metals do not release hydrogen with these dilute acids.",
+      "note_pa": "ਮੈਗਨੀਸ਼ੀਅਮ, ਜ਼ਿੰਕ ਅਤੇ ਲੋਹਾ ਪਤਲੇ HCl ਜਾਂ ਪਤਲੇ H₂SO₄ ਵਿੱਚੋਂ ਹਾਈਡਰੋਜਨ ਛੱਡਦੇ ਹਨ; ਤਾਂਬਾ ਅਤੇ ਚੁਣੀਆਂ ਅਧਾਤਾਂ ਇਨ੍ਹਾਂ ਪਤਲੇ ਤੇਜ਼ਾਬਾਂ ਨਾਲ ਹਾਈਡਰੋਜਨ ਨਹੀਂ ਛੱਡਦੀਆਂ।",
       "class": 10
     },
     {
