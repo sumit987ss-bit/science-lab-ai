@@ -123,13 +123,35 @@ function foodTestLab(){
   return '<svg viewBox="0 0 420 220" role="img" aria-label="Simulated grease spot test"><rect width="420" height="220" rx="16" fill="#eaf6fb"/><rect x="55" y="55" width="310" height="115" rx="7" fill="#fff" stroke="#9bb7c5" stroke-width="3"/><ellipse cx="210" cy="112" rx="'+(paperApplied?'64':'4')+'" ry="'+(paperApplied?'35':'4')+'" fill="#d6bd83" opacity="'+(paperApplied?'.65':'0')+'"/><text x="210" y="35" font-size="13" text-anchor="middle" fill="#24485e">PAPER TEST</text><text x="210" y="202" font-size="12" text-anchor="middle" fill="#24485e">'+(paperApplied?'TRANSLUCENT GREASE SPOT':'ADD FILTER PAPER, THEN SAMPLE')+'</text></svg>';
  }
  function fillChoices(){
-  const sample=$("#foodSample"),reagent=$("#foodReagent");
-  sample.innerHTML=foods[active].map(x=>'<option value="'+x+'">'+(names[x]||x)+'</option>').join("");
-  sample.value=food[active];
-  reagent.innerHTML='<option value="">'+T.select+'</option>'+materials[active].filter(x=>!added[active].includes(x)).map(x=>'<option value="'+x+'">'+(materialNames[x]||x)+'</option>').join("");
+  const sample=document.getElementById("foodSample");
+  const reagent=document.getElementById("foodReagent");
+  if(!sample||!reagent)return;
+  const foodOptions=foods[active]||[];
+  sample.replaceChildren();
+  foodOptions.forEach(value=>{
+   const option=document.createElement("option");
+   option.value=value;
+   option.textContent=names[value]||value;
+   sample.appendChild(option);
+  });
+  if(foodOptions.includes(food[active]))sample.value=food[active];
+  else if(foodOptions.length){food[active]=foodOptions[0];sample.value=foodOptions[0];}
+  reagent.replaceChildren();
+  const placeholder=document.createElement("option");
+  placeholder.value="";
+  placeholder.textContent=T.select;
+  reagent.appendChild(placeholder);
+  (materials[active]||[]).filter(value=>!added[active].includes(value)).forEach(value=>{
+   const option=document.createElement("option");
+   option.value=value;
+   option.textContent=materialNames[value]||value;
+   reagent.appendChild(option);
+  });
   reagent.value="";
-  $("#foodReagentWrap").style.display=materials[active].length?"block":"none";
-  $("#foodPaperAction").style.display=active==="fats"?"block":"none";
+  const reagentWrap=document.getElementById("foodReagentWrap");
+  const paperAction=document.getElementById("foodPaperAction");
+  if(reagentWrap)reagentWrap.style.display=(materials[active]||[]).length?"block":"none";
+  if(paperAction)paperAction.style.display=active==="fats"?"block":"none";
  }
  function updateView(){
   const done=hasResult(),reagent=$("#foodReagent").value;
