@@ -807,8 +807,8 @@ window.LAB_DATA = {
       "class": 6
     },
     {
-      "title": "Photosynthesis in Green Plants",
-      "title_pa": "ਹਰੇ ਪੌਦਿਆਂ ਵਿੱਚ ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ",
+      "title": "What Does a Plant Need?",
+      "title_pa": "ਪੌਦੇ ਨੂੰ ਕੀ ਚਾਹੀਦਾ ਹੈ?",
       "aim": "Model how leaves use light, water and carbon dioxide to make food.",
       "aim_pa": "ਪੱਤੇ ਰੋਸ਼ਨੀ, ਪਾਣੀ ਅਤੇ ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ ਨਾਲ ਭੋਜਨ ਕਿਵੇਂ ਬਣਾਉਂਦੇ ਹਨ, ਸਮਝੋ।",
       "kind": "photosynthesis",
