@@ -625,6 +625,16 @@ window.LAB_DATA = {
       "class": 8
     },
     {
+      "title": "Types of Coal",
+      "title_pa": "ਕੋਲੇ ਦੀਆਂ ਕਿਸਮਾਂ",
+      "aim": "Explore peat, lignite, bituminous coal and anthracite and compare their appearance and properties.",
+      "aim_pa": "ਪੀਟ, ਲਿਗਨਾਈਟ, ਬਿਟੂਮਿਨਸ ਕੋਲੇ ਅਤੇ ਐਂਥਰਾਸਾਈਟ ਦੀ ਦਿੱਖ ਅਤੇ ਗੁਣਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+      "kind": "coal_types",
+      "note": "Coal rank generally increases from lignite to anthracite; peat is an early precursor to coal.",
+      "note_pa": "ਲਿਗਨਾਈਟ ਤੋਂ ਐਂਥਰਾਸਾਈਟ ਤੱਕ ਕੋਲੇ ਦਾ ਦਰਜਾ ਆਮ ਤੌਰ ਤੇ ਵਧਦਾ ਹੈ; ਪੀਟ ਕੋਲੇ ਦਾ ਸ਼ੁਰੂਆਤੀ ਪੂਰਵ-ਰੂਪ ਹੈ।",
+      "class": 8
+    },
+    {
       "title": "Metals and Non-metals",
       "title_pa": "ਧਾਤਾਂ ਅਤੇ ਅਧਾਤਾਂ",
       "aim": "Compare typical physical properties of metals and non-metals.",
