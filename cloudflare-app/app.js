@@ -2812,3 +2812,5 @@ home();
 /* deployment trigger: Class 6 Biology adaptation visuals */
 
 /* deployment trigger: Class 7 Biology plant needs checklist */
+
+// Class 7 digestion animation path ends at the rectum within the labelled anatomy view.
