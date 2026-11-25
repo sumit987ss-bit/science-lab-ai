@@ -1413,6 +1413,30 @@ function class7PhysicalChemicalLab(){
  render();
 }
 
+
+function class7RustingLab(){
+ const pa=lang==="pa",t=(en,pu)=>pa?pu:en;
+ const samples=[
+  {en:"Unprotected iron in air and moisture",pu:"ਹਵਾ ਅਤੇ ਨਮੀ ਵਿੱਚ ਬਿਨਾਂ ਸੁਰੱਖਿਆ ਵਾਲਾ ਲੋਹਾ",rust:true},
+  {en:"Paint-protected iron",pu:"ਪੇਂਟ ਦੀ ਸੁਰੱਖਿਆ ਵਾਲਾ ਲੋਹਾ",rust:false}
+ ];
+ let selected=0;
+ const escx=x=>String(x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+ function ironSvg(protectedIron){
+  const coat=protectedIron;
+  const rustSpots=protectedIron?"":'<g fill="#a94e2b" stroke="#78351e" stroke-width="1.5"><path d="M88 91q8 -13 18 -3l-2 13-13 5Z"/><path d="M143 83q12 -8 18 4l-4 12-13 2Z"/><path d="M119 119q10 -8 17 1l-3 13-12 2Z"/><path d="M166 117q8 -6 13 2l-2 10-10 1Z"/><path d="M75 116q7 -8 13 0l-2 10-10 1Z"/></g>';
+  return '<svg viewBox="0 0 260 205" role="img" aria-label="'+(coat?"paint-protected iron piece":"rusted iron piece")+'"><defs><linearGradient id="ironMetal" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="'+(coat?"#6c9fc1":"#b6bec4")+'"/><stop offset=".45" stop-color="'+(coat?"#347ba8":"#77848d")+'"/><stop offset="1" stop-color="'+(coat?"#225a80":"#4c5961")+'"/></linearGradient><linearGradient id="paintCoat" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#77c5ec"/><stop offset=".5" stop-color="#287da9"/><stop offset="1" stop-color="#165579"/></linearGradient></defs><rect width="260" height="205" rx="16" fill="#f3f8fb"/><ellipse cx="130" cy="166" rx="86" ry="12" fill="#dce6ec"/><path d="M58 83Q58 72 71 72H189Q202 72 202 85V128Q202 141 189 141H71Q58 141 58 128Z" fill="url(#ironMetal)" stroke="'+(coat?"#174d6e":"#39464e")+'" stroke-width="4"/><ellipse cx="71" cy="106" rx="13" ry="34" fill="'+(coat?"#3d8bb7":"#89969e")+'" stroke="'+(coat?"#174d6e":"#39464e")+'" stroke-width="3"/><path d="M85 81Q130 73 184 81" fill="none" stroke="'+(coat?"#bce9ff":"#e0e6e9")+'" stroke-width="4" opacity=".65"/>'+rustSpots+(coat?'<path d="M61 85Q130 67 199 85V128Q130 148 61 128Z" fill="url(#paintCoat)" stroke="#164e70" stroke-width="3"/><path d="M83 84Q130 76 179 84" fill="none" stroke="#b9e7fb" stroke-width="4" opacity=".75"/>':'')+'<text x="130" y="188" text-anchor="middle" font-size="11" font-weight="800" fill="#35556a">'+(coat?t("INTACT PAINT COATING","ਸਹੀ ਪੇਂਟ ਦੀ ਪਰਤ"):t("RUST ON IRON SURFACE","ਲੋਹੇ ਦੀ ਸਤ੍ਹਾ ਉੱਤੇ ਜੰਗ"))+'</text></svg>';
+ }
+ function render(){
+  const s=samples[selected];
+  $("#rustVisual").innerHTML='<div class="rust-object">'+ironSvg(s.rust)+'<b>'+t(s.en,s.pu)+'</b></div>';
+  $("#rustResult").innerHTML=s.rust?'<div class="rust-verdict yes"><strong>'+t("RUSTING OCCURS","ਜੰਗ ਲੱਗਦੀ ਹੈ")+'</strong><p>'+t("Reddish-brown rust forms on the iron when iron reacts with oxygen in the presence of moisture. Rust is hydrated iron(III) oxide.","ਨਮੀ ਦੀ ਮੌਜੂਦਗੀ ਵਿੱਚ ਲੋਹਾ ਆਕਸੀਜਨ ਨਾਲ ਕਿਰਿਆ ਕਰਕੇ ਲਾਲ-ਭੂਰੀ ਜੰਗ ਬਣਾਉਂਦਾ ਹੈ। ਜੰਗ ਹਾਈਡਰੇਟਿਡ ਆਇਰਨ(III) ਆਕਸਾਈਡ ਹੁੰਦੀ ਹੈ।")+'</p></div>':'<div class="rust-verdict no"><strong>'+t("NO RUSTING OBSERVED","ਜੰਗ ਨਹੀਂ ਲੱਗਦੀ")+'</strong><p>'+t("The intact paint layer acts as a barrier and prevents air and moisture from reaching the iron surface, so rusting is prevented while the coating remains unbroken.","ਪੇਂਟ ਦੀ ਸਹੀ ਪਰਤ ਰੁਕਾਵਟ ਬਣਦੀ ਹੈ ਅਤੇ ਹਵਾ ਤੇ ਨਮੀ ਨੂੰ ਲੋਹੇ ਤੱਕ ਨਹੀਂ ਪਹੁੰਚਣ ਦਿੰਦੀ। ਇਸ ਲਈ ਪਰਤ ਸਹੀ ਰਹਿਣ ਤੱਕ ਜੰਗ ਨਹੀਂ ਲੱਗਦੀ।")+'</p></div>';
+ }
+ $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+tr("back")+'</button><div class="lab-top-name"><span>🧪</span><div><strong>'+tr("chemistry")+'</strong><small>'+t("Class 7 · Chemistry Lab","ਜਮਾਤ 7 · ਰਸਾਇਣ ਵਿਗਿਆਨ ਲੈਬ")+'</small></div></div></section><section class="lab-selectors"><label>'+tr("chooseClass")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option value="'+n+'" '+(n===7?"selected":"")+'>'+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+tr("chooseExperiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===3?"selected":"")+'>'+(i+1)+". "+escx(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section><section class="experiment-card"><div class="experiment-meta">'+t("CLASS 7 · CHEMISTRY LAB · EXPERIMENT 4 / 5","ਜਮਾਤ 7 · ਰਸਾਇਣ ਵਿਗਿਆਨ ਲੈਬ · ਪ੍ਰਯੋਗ 4 / 5")+'</div><h2>'+t("Rusting of Iron","ਲੋਹੇ ਨੂੰ ਜੰਗ ਲੱਗਣਾ")+'</h2><p class="aim"><b>'+tr("aim")+':</b> '+t("Compare an unprotected iron piece with an iron piece protected by an intact paint coating.","ਬਿਨਾਂ ਸੁਰੱਖਿਆ ਵਾਲੇ ਲੋਹੇ ਦੇ ਟੁਕੜੇ ਦੀ ਪੇਂਟ ਦੀ ਪਰਤ ਨਾਲ ਸੁਰੱਖਿਅਤ ਲੋਹੇ ਦੇ ਟੁਕੜੇ ਨਾਲ ਤੁਲਨਾ ਕਰੋ।")+'</p><label class="rust-select-label">'+t("Choose an iron sample","ਲੋਹੇ ਦਾ ਨਮੂਨਾ ਚੁਣੋ")+'<select id="rustSelect">'+samples.map((v,i)=>'<option value="'+i+'">'+(pa?v.pu:v.en)+'</option>').join("")+'</select></label><div class="rust-visual" id="rustVisual"></div><div id="rustResult"></div><p class="safety-note">'+t("Illustrative model: real rusting takes time and depends on exposure to oxygen and moisture. The protected sample remains rust-free only while its paint coating is intact.","ਚਿੱਤਰਕ ਮਾਡਲ: ਅਸਲ ਵਿੱਚ ਜੰਗ ਲੱਗਣ ਵਿੱਚ ਸਮਾਂ ਲੱਗਦਾ ਹੈ ਅਤੇ ਇਹ ਆਕਸੀਜਨ ਤੇ ਨਮੀ ਦੇ ਸੰਪਰਕ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦਾ ਹੈ। ਸੁਰੱਖਿਅਤ ਨਮੂਨਾ ਤਦ ਤੱਕ ਜੰਗ-ਰਹਿਤ ਰਹਿੰਦਾ ਹੈ ਜਦ ਤੱਕ ਪੇਂਟ ਦੀ ਪਰਤ ਸਹੀ ਹੈ।")+'</p><div class="navigation"><button class="back-button" id="prev">'+tr("previous")+'</button><button class="primary-button" id="next">'+tr("next")+' →</button></div></section><style>.rust-select-label{display:block;margin:16px 0;font-weight:800}.rust-select-label select{display:block;width:100%;margin-top:7px;padding:12px;border:1px solid #b7cad8;border-radius:10px;background:#fff;font:inherit}.rust-object{max-width:460px;margin:14px auto;padding:12px;background:#f3f8fb;border:1px solid #d6e5ee;border-radius:16px;text-align:center}.rust-object svg{display:block;width:100%;height:auto;max-height:300px}.rust-object b{display:block;color:#29465a;font-size:14px;padding:5px}.rust-verdict{padding:16px;border-radius:14px;text-align:center;border:2px solid #c87945;background:#fff6ef}.rust-verdict.no{border-color:#3983a8;background:#eff8ff}.rust-verdict strong{display:block;font-size:clamp(18px,4vw,24px);font-weight:950;color:#98451e}.rust-verdict.no strong{color:#175477}.rust-verdict p{margin:8px 0 0;line-height:1.55}</style>';
+ $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};$("#rustSelect").onchange=e=>{selected=+e.target.value;render()};$("#prev").onclick=()=>{if(exp>0){exp--;choice="";draw()}};$("#next").onclick=()=>{if(exp<4){exp++;choice="";draw()}};
+ render();
+}
+
 function draw(){
  if(lab==="physics"&&cls===10&&exp===2){class10ConcaveMirrorLab();return}
  if(lab==="physics"&&cls===10&&exp===3){class10MirrorFRLab();return}
@@ -1456,6 +1480,7 @@ function draw(){
  if(lab==="chemistry"&&cls===7&&exp===0){class7IndicatorsLab();return}
  if(lab==="chemistry"&&cls===7&&exp===1){class7ChangesLab();return}
  if(lab==="chemistry"&&cls===7&&exp===2){class7PhysicalChemicalLab();return}
+ if(lab==="chemistry"&&cls===7&&exp===3){class7RustingLab();return}
  const it=item();if(!it){home();return}
  const os=opts(it.kind);if(!os.includes(choice))choice=os[0];const cn=controlNames(it);
  const name=lang==="pa"?it.title_pa:it.title,aim=lang==="pa"?it.aim_pa:it.aim,note=lang==="pa"?it.note_pa:it.note;
