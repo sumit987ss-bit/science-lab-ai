@@ -515,6 +515,16 @@ window.LAB_DATA = {
       "class": 9
     },
     {
+      "title": "Sorting Materials",
+      "title_pa": "ਪਦਾਰਥਾਂ ਦੀ ਛਾਂਟੀ",
+      "aim": "Sort everyday materials into groups according to their type and properties.",
+      "aim_pa": "ਰੋਜ਼ਾਨਾ ਵਰਤੋਂ ਦੇ ਪਦਾਰਥਾਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੀ ਕਿਸਮ ਅਤੇ ਗੁਣਾਂ ਅਨੁਸਾਰ ਸਮੂਹਾਂ ਵਿੱਚ ਛਾਂਟੋ।",
+      "kind": "materials_sorting",
+      "note": "Sorting materials into groups makes it easier to compare and study their properties.",
+      "note_pa": "ਪਦਾਰਥਾਂ ਨੂੰ ਸਮੂਹਾਂ ਵਿੱਚ ਛਾਂਟਣ ਨਾਲ ਉਨ੍ਹਾਂ ਦੇ ਗੁਣਾਂ ਦੀ ਤੁਲਨਾ ਅਤੇ ਅਧਿਐਨ ਆਸਾਨ ਹੁੰਦਾ ਹੈ।",
+      "class": 6
+    },
+    {
       "title": "Soluble and Insoluble Substances",
       "title_pa": "ਘੁਲਣਸ਼ੀਲ ਅਤੇ ਅਘੁਲਣਸ਼ੀਲ ਪਦਾਰਥ",
       "aim": "Observe which sample mixes uniformly with water.",
@@ -525,8 +535,8 @@ window.LAB_DATA = {
       "class": 6
     },
     {
-      "title": "Objects Sink and Float in Water",
-      "title_pa": "ਪਾਣੀ ਵਿੱਚ ਵਸਤੂਆਂ ਦਾ ਤੈਰਨਾ ਅਤੇ ਡੁੱਬਣਾ",
+      "title": "Sink and Float",
+      "title_pa": "ਤੈਰਨਾ ਅਤੇ ਡੁੱਬਣਾ",
       "aim": "Observe which everyday objects sink to the bottom or float on the surface of water.",
       "aim_pa": "ਵੇਖੋ ਕਿ ਰੋਜ਼ਾਨਾ ਵਰਤੋਂ ਦੀਆਂ ਕਿਹੜੀਆਂ ਵਸਤੂਆਂ ਪਾਣੀ ਦੇ ਤਲ ਵਿੱਚ ਡੁੱਬਦੀਆਂ ਹਨ ਅਤੇ ਕਿਹੜੀਆਂ ਸਤ੍ਹਾ ਉੱਤੇ ਤੈਰਦੀਆਂ ਹਨ।",
       "kind": "sink_float",
@@ -545,8 +555,8 @@ window.LAB_DATA = {
       "class": 6
     },
     {
-      "title": "Observe Transparent, Translucent and Opaque Materials",
-      "title_pa": "ਪਾਰਦਰਸ਼ੀ, ਅਰਧ-ਪਾਰਦਰਸ਼ੀ ਅਤੇ ਅਪਾਰਦਰਸ਼ੀ ਪਦਾਰਥ",
+      "title": "Transparent, Translucent and Opaque Objects",
+      "title_pa": "ਪਾਰਦਰਸ਼ੀ, ਅਰਧ-ਪਾਰਦਰਸ਼ੀ ਅਤੇ ਅਪਾਰਦਰਸ਼ੀ ਵਸਤੂਆਂ",
       "aim": "Compare how light passes through different materials.",
       "aim_pa": "ਵੱਖ-ਵੱਖ ਪਦਾਰਥਾਂ ਵਿੱਚੋਂ ਰੋਸ਼ਨੀ ਲੰਘਣ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
       "kind": "transparency",
