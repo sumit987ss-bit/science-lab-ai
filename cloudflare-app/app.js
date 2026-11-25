@@ -1848,7 +1848,58 @@ function class10AcidBaseIndicatorsLab(){
 }
 
 
+function class10MagnesiumCombustionLab(){
+ const pa=lang==="pa";
+ const stages=[
+  {en:"1 · Magnesium ribbon",pu:"1 · ਮੈਗਨੀਸ਼ੀਅਮ ਦੀ ਫੀਤਾ",key:"before"},
+  {en:"2 · Burning in air",pu:"2 · ਹਵਾ ਵਿੱਚ ਜਲਣਾ",key:"burn"},
+  {en:"3 · White magnesium oxide",pu:"3 · ਚਿੱਟਾ ਮੈਗਨੀਸ਼ੀਅਮ ਆਕਸਾਈਡ",key:"ash"},
+  {en:"4 · Test its basic nature",pu:"4 · ਇਸ ਦੇ ਖਾਰੀ ਸੁਭਾਅ ਦੀ ਜਾਂਚ",key:"test"}
+ ];
+ let stage=0;
+ const esc=x=>String(x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+ const title=pa?"ਹਵਾ ਵਿੱਚ ਮੈਗਨੀਸ਼ੀਅਮ ਰਿਬਨ ਦਾ ਦਹਿਨ":"Combustion of Magnesium Ribbon in Air";
+ const descriptions=[
+  pa?"ਚਮਕਦਾਰ ਚਾਂਦੀ ਵਰਗੀ ਮੈਗਨੀਸ਼ੀਅਮ ਦੀ ਪਤਲੀ ਫੀਤਾ।":"A thin, silvery magnesium ribbon before the reaction.",
+  pa?"ਮੈਗਨੀਸ਼ੀਅਮ ਹਵਾ ਦੀ ਆਕਸੀਜਨ ਨਾਲ ਕਿਰਿਆ ਕਰਦਾ ਹੈ ਅਤੇ ਬਹੁਤ ਤੇਜ਼ ਚਿੱਟੀ ਰੌਸ਼ਨੀ ਪੈਦਾ ਕਰਦਾ ਹੈ।":"Magnesium reacts with oxygen in air, producing an intense, dazzling white light.",
+  pa?"ਚਮਕ ਘਟਣ ਤੋਂ ਬਾਅਦ ਚਿੱਟਾ ਪਾਊਡਰ/ਰਾਖ ਵਰਗਾ ਮੈਗਨੀਸ਼ੀਅਮ ਆਕਸਾਈਡ ਬਣਦਾ ਹੈ।":"After the flash, a white powdery ash of magnesium oxide remains.",
+  pa?"ਇਸ ਉਤਪਾਦ ਨੂੰ ਪਾਣੀ ਨਾਲ ਮਿਲਾਉਣ 'ਤੇ ਥੋੜ੍ਹਾ ਮੈਗਨੀਸ਼ੀਅਮ ਹਾਈਡਰਾਕਸਾਈਡ ਬਣਦਾ ਹੈ। ਇਹ ਖਾਰੀ ਹੁੰਦਾ ਹੈ ਅਤੇ ਲਾਲ ਲਿਟਮਸ ਨੀਲਾ ਕਰ ਸਕਦਾ ਹੈ।":"When the product is mixed with water, a small amount of magnesium hydroxide forms. It is alkaline and can turn moist red litmus blue."
+ ];
+ function scene(){
+  const key=stages[stage].key;
+  const ribbon=key==="before"||key==="burn";
+  const flame=key==="burn";
+  const ash=key==="ash"||key==="test";
+  const test=key==="test";
+  return '<div style="border-radius:20px;overflow:hidden;background:radial-gradient(circle at 50% 38%,#243b63,#0b1427 72%);padding:12px;color:white">'+
+   '<div style="display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap"><b style="letter-spacing:.08em;font-size:.78rem;color:#bfdbfe">'+(pa?"ਵਰਚੁਅਲ ਪ੍ਰਯੋਗ · ਨਿਰੀਖਣ ਕਮਰਾ":"VIRTUAL EXPERIMENT · OBSERVATION CHAMBER")+'</b><span style="font-size:.72rem;padding:5px 9px;border-radius:99px;background:#ffffff18">'+(stage+1)+"/4</span></div>'+
+   '<svg viewBox="0 0 620 330" role="img" aria-label="Scientific illustration of magnesium burning and magnesium oxide formation" style="display:block;width:100%;height:auto;max-height:340px;margin:6px auto">'+
+   '<defs><radialGradient id="mgFlash"><stop offset="0" stop-color="#fff"/><stop offset=".22" stop-color="#fffde7"/><stop offset=".48" stop-color="#fff176" stop-opacity=".95"/><stop offset="1" stop-color="#fff176" stop-opacity="0"/></radialGradient><linearGradient id="mgMetal" x2="0" y2="1"><stop stop-color="#fff"/><stop offset=".45" stop-color="#9ca3af"/><stop offset="1" stop-color="#e5e7eb"/></linearGradient><filter id="mgGlow"><feGaussianBlur stdDeviation="10" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>'+
+   '<path d="M30 278H590" stroke="#64748b" stroke-width="3"/><path d="M70 278V291M550 278V291" stroke="#64748b" stroke-width="3"/>'+
+   (flame?'<circle cx="310" cy="145" r="130" fill="url(#mgFlash)"/><g filter="url(#mgGlow)"><path d="M300 232C224 185 260 116 310 45C355 111 399 178 320 232Z" fill="#fff" opacity=".96"/><path d="M307 224C270 178 295 130 313 93C344 145 359 188 307 224Z" fill="#fffde7"/><path d="M310 217L310 42M310 217L215 78M310 217L405 78M310 217L160 160M310 217L460 160" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".9"/></g><text x="310" y="24" fill="#fff9c4" text-anchor="middle" font-size="16" font-weight="bold">'+(pa?"ਤੇਜ਼ ਚਿੱਟੀ ਰੌਸ਼ਨੀ":"INTENSE WHITE LIGHT")+'</text>':'')+
+   (ribbon?'<path d="M300 256L318 236L304 214L322 191L306 169L322 145" fill="none" stroke="url(#mgMetal)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M306 256L324 236" stroke="#64748b" stroke-width="2"/>':'')+
+   (ash?'<ellipse cx="310" cy="253" rx="75" ry="14" fill="#cbd5e1" opacity=".25"/><g fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"><circle cx="260" cy="244" r="8"/><circle cx="278" cy="235" r="11"/><circle cx="299" cy="246" r="9"/><circle cx="319" cy="232" r="12"/><circle cx="341" cy="244" r="9"/><circle cx="360" cy="236" r="7"/><circle cx="290" cy="222" r="6"/><circle cx="332" cy="218" r="6"/></g><path d="M395 236L430 204" stroke="#e2e8f0" stroke-width="2"/><text x="435" y="199" fill="#fff" font-size="14" font-weight="bold">MgO</text><text x="435" y="217" fill="#cbd5e1" font-size="11">'+(pa?"ਚਿੱਟਾ ਠੋਸ ਉਤਪਾਦ":"WHITE SOLID PRODUCT")+'</text>':'')+
+   (test?'<path d="M150 72L205 72L198 191Q177 207 157 191Z" fill="#93c5fd" fill-opacity=".22" stroke="#bfdbfe" stroke-width="3"/><path d="M158 142Q178 135 200 142L197 190Q177 202 159 190Z" fill="#bae6fd" fill-opacity=".45"/><path d="M430 70L430 185" stroke="#f87171" stroke-width="13" stroke-linecap="round"/><path d="M430 185L430 213" stroke="#60a5fa" stroke-width="13" stroke-linecap="round"/><path d="M205 117L400 117" stroke="#f8fafc" stroke-width="2" stroke-dasharray="6 6"/><path d="M390 108L402 117L390 126" fill="none" stroke="#f8fafc" stroke-width="2"/><text x="177" y="55" text-anchor="middle" fill="#dbeafe" font-size="13" font-weight="bold">'+(pa?"ਪਾਣੀ ਵਿੱਚ MgO":"MgO + water")+'</text><text x="430" y="52" text-anchor="middle" fill="#fecaca" font-size="12" font-weight="bold">'+(pa?"ਲਾਲ ਲਿਟਮਸ":"RED LITMUS")+'</text><text x="430" y="235" text-anchor="middle" fill="#bfdbfe" font-size="12" font-weight="bold">'+(pa?"ਨੀਲਾ":"BLUE")+'</text>':'')+
+   '<text x="310" y="315" text-anchor="middle" fill="#cbd5e1" font-size="12">'+(test?(pa?"ਖਾਰੀ ਘੋਲ ਲਾਲ ਲਿਟਮਸ ਨੂੰ ਨੀਲਾ ਕਰਦਾ ਹੈ":"Alkaline mixture turns moist red litmus blue"):(ash?(pa?"ਚਿੱਟੀ ਮੈਗਨੀਸ਼ੀਅਮ ਆਕਸਾਈਡ":"WHITE MAGNESIUM OXIDE"):(flame?(pa?"ਮੈਗਨੀਸ਼ੀਅਮ + ਆਕਸੀਜਨ":"MAGNESIUM + OXYGEN"):(pa?"ਚਾਂਦੀ ਵਰਗੀ ਮੈਗਨੀਸ਼ੀਅਮ ਰਿਬਨ":"SILVERY MAGNESIUM RIBBON")))+'</text></svg></div>';
+ }
+ function render(){
+  const key=stages[stage].key;
+  const result=key==="burn"?(pa?"ਚਮਕਦਾਰ ਚਿੱਟੀ ਰੌਸ਼ਨੀ ਨਿਕਲਦੀ ਹੈ — ਇਹ ਉਸ਼ਮਾਖੇਪੀ ਕਿਰਿਆ ਹੈ।":"BRIGHT WHITE LIGHT — an exothermic reaction."):(key==="ash"?(pa?"ਚਿੱਟਾ ਮੈਗਨੀਸ਼ੀਅਮ ਆਕਸਾਈਡ (MgO) ਬਣਦਾ ਹੈ।":"WHITE MAGNESIUM OXIDE (MgO) IS FORMED."):(key==="test"?(pa?"ਖਾਰੀ ਸੁਭਾਅ: ਲਾਲ ਲਿਟਮਸ ਨੀਲਾ ਹੋ ਜਾਂਦਾ ਹੈ।":"BASIC NATURE: moist red litmus turns blue."):(pa?"ਮੈਗਨੀਸ਼ੀਅਮ ਦੀ ਫੀਤਾ — ਕਿਰਿਆ ਤੋਂ ਪਹਿਲਾਂ":"Magnesium ribbon — before reaction"));
+  $("#mgScene").innerHTML=scene();
+  $("#mgResult").innerHTML='<div style="padding:14px;border-radius:14px;background:'+(key==="burn"?"#fff7ed":key==="test"?"#eff6ff":"#f1f5f9")+';color:#0f172a"><div style="font-size:.75rem;font-weight:900;letter-spacing:.06em;color:#475569">'+(pa?"ਨਿਰੀਖਣ":"OBSERVATION")+'</div><div style="font-size:1.05rem;font-weight:900;margin:5px 0">'+result+'</div><p style="margin:4px 0 0">'+descriptions[stage]+'</p></div>';
+  $("#mgEquation").innerHTML=key==="test"?'MgO + H₂O → Mg(OH)₂':'2Mg + O₂ → 2MgO';
+  $("#mgStage").value=String(stage);
+  $("#mgPrev").disabled=stage===0;$("#mgNext").disabled=stage===3;
+ }
+ $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+(pa?"← ਲੈਬ ਵੱਲ ਵਾਪਸ":"← Back to laboratories")+'</button><div class="lab-top-name"><span>🧪</span><div><strong>POCKET Science Lab</strong><small>'+(pa?"ਜਮਾਤ 10 · ਰਸਾਇਣ ਵਿਗਿਆਨ":"Class 10 · Chemistry Lab")+'</small></div></div></section><section class="lab-selectors"><label>'+(pa?"ਜਮਾਤ ਚੁਣੋ":"Select class")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option '+(cls===n?"selected":"")+' value="'+n+'">'+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+(pa?"ਪ੍ਰਯੋਗ ਚੁਣੋ":"Select experiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+esc(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section><section class="experiment-card"><div class="experiment-meta">'+(pa?"ਜਮਾਤ 10 · ਰਸਾਇਣ ਵਿਗਿਆਨ ਪ੍ਰਯੋਗ 2":"CLASS 10 · CHEMISTRY EXPERIMENT 2")+'</div><h2>✨ '+title+'</h2><p class="helper">'+(pa?"ਮੈਗਨੀਸ਼ੀਅਮ ਦੇ ਦਹਿਨ ਅਤੇ ਬਣੇ ਉਤਪਾਦ ਦੇ ਖਾਰੀ ਸੁਭਾਅ ਨੂੰ ਪੜਾਅਵਾਰ ਵੇਖੋ।":"Explore the combustion, product formation and basic nature of magnesium oxide step by step.")+'</p><div class="visual-panel"><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:space-between"><label style="flex:1;min-width:220px"><b>'+(pa?"ਨਿਰੀਖਣ ਦਾ ਪੜਾਅ ਚੁਣੋ":"Choose an observation stage")+'</b><select id="mgStage">'+stages.map((v,i)=>'<option value="'+i+'">'+(pa?v.pu:v.en)+'</option>').join("")+'</select></label><div style="display:flex;gap:6px"><button class="back-button" id="mgPrev">←</button><button class="primary-button" id="mgNext">'+(pa?"ਅਗਲਾ":"Next")+' →</button></div></div><div id="mgScene" style="margin-top:14px"></div><div id="mgResult" style="margin-top:12px"></div><div style="margin-top:12px;padding:13px;border-radius:13px;background:#0f172a;color:#f8fafc;text-align:center"><div style="font-size:.72rem;letter-spacing:.08em;color:#cbd5e1;font-weight:800">'+(pa?"ਰਸਾਇਣਕ ਸਮੀਕਰਨ":"BALANCED CHEMICAL EQUATION")+'</div><div id="mgEquation" style="font-size:1.25rem;font-weight:900;margin-top:5px;letter-spacing:.03em"></div></div></div><div style="margin-top:14px;padding:14px;border:1px solid #cbd5e1;border-radius:14px"><b>'+(pa?"ਯਾਦ ਰੱਖੋ":"KEY SCIENCE")+'</b><ul style="margin:8px 0 0;padding-left:20px"><li>'+(pa?"ਮੈਗਨੀਸ਼ੀਅਮ ਆਕਸੀਜਨ ਨਾਲ ਮਿਲ ਕੇ ਮੈਗਨੀਸ਼ੀਅਮ ਆਕਸਾਈਡ ਬਣਾਉਂਦਾ ਹੈ।":"Magnesium combines with oxygen to form magnesium oxide.")+'</li><li>'+(pa?"ਇਹ ਚਮਕਦਾਰ ਚਿੱਟੀ ਰੌਸ਼ਨੀ ਨਾਲ ਉਸ਼ਮਾਖੇਪੀ ਕਿਰਿਆ ਹੈ।":"The reaction is exothermic and emits dazzling white light.")+'</li><li>'+(pa?"MgO ਪਾਣੀ ਨਾਲ ਕਿਰਿਆ ਕਰਕੇ ਥੋੜ੍ਹਾ Mg(OH)₂ ਬਣਾਉਂਦਾ ਹੈ, ਜੋ ਖਾਰੀ ਹੈ।":"MgO reacts with water to form a little Mg(OH)₂, which is alkaline.")+'</li></ul></div><p class="safety-note">'+(pa?"ਸੁਰੱਖਿਆ: ਇਹ ਸਿਰਫ਼ ਵਰਚੁਅਲ ਪ੍ਰਦਰਸ਼ਨ ਹੈ। ਮੈਗਨੀਸ਼ੀਅਮ ਨੂੰ ਖੁਦ ਨਾ ਸਾੜੋ ਅਤੇ ਚਮਕ ਵੱਲ ਸਿੱਧਾ ਨਾ ਵੇਖੋ। ਅਸਲ ਪ੍ਰਦਰਸ਼ਨ ਕੇਵਲ ਤਰਬੀਅਤਯਾਫ਼ਤਾ ਅਧਿਆਪਕ ਵੱਲੋਂ ਢੁੱਕਵੇਂ ਸੁਰੱਖਿਆ ਪ੍ਰਬੰਧਾਂ ਨਾਲ ਕੀਤਾ ਜਾਣਾ ਚਾਹੀਦਾ ਹੈ।":"Safety: This is a virtual demonstration. Do not burn magnesium yourself or look directly at the flash. Any real demonstration must be performed only by a trained teacher with appropriate safety controls.")+'</p><div class="navigation"><button class="back-button" id="prev" '+(exp===0?"disabled":"")+'>'+(pa?"ਪਿਛਲਾ ਪ੍ਰਯੋਗ":"Previous experiment")+'</button><button class="primary-button" id="next">'+(pa?"ਅਗਲਾ ਪ੍ਰਯੋਗ":"Next experiment")+' →</button></div></section>';
+ $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;draw()};$("#ex").onchange=e=>{exp=+e.target.value;draw()};$("#prev").onclick=()=>{if(exp>0){exp--;draw()}};$("#next").onclick=()=>{if(exp<list().length-1){exp++;draw()}};
+ $("#mgStage").onchange=e=>{stage=+e.target.value;render()};$("#mgPrev").onclick=()=>{if(stage>0){stage--;render()}};$("#mgNext").onclick=()=>{if(stage<3){stage++;render()}};
+ render();
+}
+
+
 function draw(){
+ if(lab==="chemistry"&&cls===10&&exp===1){class10MagnesiumCombustionLab();return}
  if(lab==="chemistry"&&cls===10&&exp===0){class10AcidBaseIndicatorsLab();return}
  if(lab==="chemistry"&&cls===9&&exp===4){class9TyndallEffectLab();return}
  if(lab==="chemistry"&&cls===9&&exp===3){class9SolutionSuspensionColloidLab();return}
