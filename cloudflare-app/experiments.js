@@ -645,13 +645,13 @@ window.LAB_DATA = {
       "class": 8
     },
     {
-      "title": "Chemical Effects of Air and Water",
-      "title_pa": "ਹਵਾ ਅਤੇ ਪਾਣੀ ਦੇ ਰਸਾਇਣਕ ਪ੍ਰਭਾਵ",
-      "aim": "Model corrosion and protective methods.",
-      "aim_pa": "ਖੋਰ ਅਤੇ ਇਸ ਤੋਂ ਬਚਾਅ ਦੇ ਤਰੀਕਿਆਂ ਦਾ ਮਾਡਲ ਵੇਖੋ।",
-      "kind": "corrosion",
-      "note": "Air and moisture can cause corrosion in susceptible materials.",
-      "note_pa": "ਹਵਾ ਅਤੇ ਨਮੀ ਸੰਵੇਦਨਸ਼ੀਲ ਪਦਾਰਥਾਂ ਵਿੱਚ ਖੋਰ ਪੈਦਾ ਕਰ ਸਕਦੇ ਹਨ।",
+      "title": "Metals and Non-metals",
+      "title_pa": "ਧਾਤਾਂ ਅਤੇ ਅਧਾਤਾਂ",
+      "aim": "Select common materials and identify each as a metal or non-metal.",
+      "aim_pa": "ਆਮ ਪਦਾਰਥ ਚੁਣੋ ਅਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਧਾਤ ਜਾਂ ਅਧਾਤ ਵਜੋਂ ਪਛਾਣੋ।",
+      "kind": "metals_nonmetals",
+      "note": "Metals are generally lustrous and malleable; non-metals have varied properties. Graphite is a notable non-metal that conducts electricity.",
+      "note_pa": "ਧਾਤਾਂ ਆਮ ਤੌਰ ਤੇ ਚਮਕਦਾਰ ਅਤੇ ਕੁੱਟਣਯੋਗ ਹੁੰਦੀਆਂ ਹਨ; ਅਧਾਤਾਂ ਦੇ ਗੁਣ ਵੱਖਰੇ ਹੁੰਦੇ ਹਨ। ਗ੍ਰੈਫਾਈਟ ਬਿਜਲੀ ਚਲਾਉਣ ਵਾਲੀ ਖਾਸ ਅਧਾਤ ਹੈ।",
       "class": 8
     },
     {
