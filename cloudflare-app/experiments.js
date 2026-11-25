@@ -505,14 +505,14 @@ window.LAB_DATA = {
   ],
   "chemistry": [
     {
-      "title": "Sorting Materials by Their Properties",
-      "title_pa": "ਗੁਣਾਂ ਅਨੁਸਾਰ ਪਦਾਰਥਾਂ ਦੀ ਛਾਂਟੀ",
-      "aim": "Compare materials by appearance, flexibility, transparency and texture.",
-      "aim_pa": "ਦਿੱਖ, ਲਚਕ, ਪਾਰਦਰਸ਼ਤਾ ਅਤੇ ਬਣਤਰ ਅਨੁਸਾਰ ਪਦਾਰਥਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
-      "kind": "materials",
-      "note": "Materials have different observable properties; classify them using evidence.",
-      "note_pa": "ਪਦਾਰਥਾਂ ਦੇ ਦਿੱਖਣ ਵਾਲੇ ਗੁਣ ਵੱਖਰੇ ਹੁੰਦੇ ਹਨ; ਸਬੂਤ ਦੇ ਆਧਾਰ ਤੇ ਵਰਗੀਕਰਨ ਕਰੋ।",
-      "class": 6
+      "title": "States of Matter",
+      "title_pa": "ਪਦਾਰਥ ਦੀਆਂ ਅਵਸਥਾਵਾਂ",
+      "aim": "Identify solids, liquids and gases using labelled examples from everyday life.",
+      "aim_pa": "ਰੋਜ਼ਾਨਾ ਜੀਵਨ ਦੀਆਂ ਉਦਾਹਰਨਾਂ ਰਾਹੀਂ ਠੋਸ, ਤਰਲ ਅਤੇ ਗੈਸਾਂ ਦੀ ਪਛਾਣ ਕਰੋ।",
+      "kind": "states_matter",
+      "note": "Solids have a fixed shape and volume; liquids have a fixed volume but take the shape of their container; gases expand to fill available space.",
+      "note_pa": "ਠੋਸ ਦਾ ਆਕਾਰ ਅਤੇ ਆਇਤਨ ਨਿਸ਼ਚਿਤ ਹੁੰਦਾ ਹੈ; ਤਰਲ ਦਾ ਆਇਤਨ ਨਿਸ਼ਚਿਤ ਹੁੰਦਾ ਹੈ ਪਰ ਇਹ ਭਾਂਡੇ ਦਾ ਆਕਾਰ ਲੈਂਦਾ ਹੈ; ਗੈਸਾਂ ਉਪਲਬਧ ਥਾਂ ਭਰ ਦਿੰਦੀਆਂ ਹਨ।",
+      "class": 9
     },
     {
       "title": "Soluble and Insoluble Substances",
