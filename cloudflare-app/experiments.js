@@ -493,13 +493,13 @@ window.LAB_DATA = {
       "class": 10
     },
     {
-      "title": "Wave Frequency and Sound",
-      "title_pa": "ਤਰੰਗ ਆਵ੍ਰਿਤੀ ਅਤੇ ਧੁਨੀ",
-      "aim": "Change frequency and amplitude to compare wave properties.",
-      "aim_pa": "ਤਰੰਗ ਦੀਆਂ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਦੀ ਤੁਲਨਾ ਲਈ ਆਵ੍ਰਿਤੀ ਅਤੇ ਐਂਪਲੀਟਿਊਡ ਬਦਲੋ।",
-      "kind": "wave",
-      "note": "Frequency is measured in hertz; amplitude is a wave displacement measure.",
-      "note_pa": "ਆਵ੍ਰਿਤੀ ਹਰਟਜ਼ ਵਿੱਚ ਮਾਪੀ ਜਾਂਦੀ ਹੈ; ਐਂਪਲੀਟਿਊਡ ਵਿਸਥਾਪਨ ਦਾ ਮਾਪ ਹੈ।",
+      "title": "Relation Between Focal Length and Power of a Lens",
+      "title_pa": "ਲੈਂਸ ਦੀ ਫੋਕਸ ਦੂਰੀ ਅਤੇ ਸ਼ਕਤੀ ਵਿਚਕਾਰ ਸਬੰਧ",
+      "aim": "Select focal length or lens power, choose a value, and calculate the corresponding quantity.",
+      "aim_pa": "ਫੋਕਸ ਦੂਰੀ ਜਾਂ ਲੈਂਸ ਦੀ ਸ਼ਕਤੀ ਚੁਣੋ, ਮੁੱਲ ਚੁਣੋ ਅਤੇ ਦੂਜੀ ਮਾਤਰਾ ਗਣਨਾ ਕਰੋ।",
+      "kind": "lens_power",
+      "note": "The power of a lens in dioptres is the reciprocal of its focal length in metres: P = 1/f.",
+      "note_pa": "ਡਾਇਓਪਟਰ ਵਿੱਚ ਲੈਂਸ ਦੀ ਸ਼ਕਤੀ, ਮੀਟਰ ਵਿੱਚ ਫੋਕਸ ਦੂਰੀ ਦਾ ਉਲਟ ਅਨੁਪਾਤ ਹੈ: P = 1/f।",
       "class": 10
     }
   ],
