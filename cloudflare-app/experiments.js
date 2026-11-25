@@ -735,13 +735,13 @@ window.LAB_DATA = {
       "class": 10
     },
     {
-      "title": "Reactivity of Metals",
-      "title_pa": "ਧਾਤਾਂ ਦੀ ਕਿਰਿਆਸ਼ੀਲਤਾ",
-      "aim": "Compare how selected metals behave in a conceptual reactivity series.",
-      "aim_pa": "ਧਾਰਣਾਤਮਕ ਕਿਰਿਆਸ਼ੀਲਤਾ ਲੜੀ ਵਿੱਚ ਚੁਣੀਆਂ ਧਾਤਾਂ ਦਾ ਵਰਤਾਅ ਸਮਝੋ।",
-      "kind": "reactivity",
-      "note": "More reactive metals can displace less reactive metals from suitable salt solutions.",
-      "note_pa": "ਵੱਧ ਕਿਰਿਆਸ਼ੀਲ ਧਾਤਾਂ ਢੁਕਵੇਂ ਲੂਣ ਦੇ ਘੋਲ ਵਿੱਚੋਂ ਘੱਟ ਕਿਰਿਆਸ਼ੀਲ ਧਾਤ ਨੂੰ ਹਟਾ ਸਕਦੀਆਂ ਹਨ।",
+      "title": "Electrolysis of Water",
+      "title_pa": "ਪਾਣੀ ਦਾ ਬਿਜਲਈ ਵਿਘਟਨ",
+      "aim": "Observe water separating into hydrogen and oxygen in a virtual electrolysis model, with hydrogen collected in twice the volume of oxygen.",
+      "aim_pa": "ਵਰਚੁਅਲ ਮਾਡਲ ਵਿੱਚ ਪਾਣੀ ਤੋਂ ਹਾਈਡਰੋਜਨ ਅਤੇ ਆਕਸੀਜਨ ਬਣਦੇ ਵੇਖੋ; ਹਾਈਡਰੋਜਨ ਦੀ ਮਾਤਰਾ ਆਕਸੀਜਨ ਤੋਂ ਦੁੱਗਣੀ ਹੁੰਦੀ ਹੈ।",
+      "kind": "water_electrolysis",
+      "note": "2H₂O(l) → 2H₂(g) + O₂(g); hydrogen and oxygen are produced in a 2:1 volume ratio under the same conditions.",
+      "note_pa": "2H₂O(l) → 2H₂(g) + O₂(g); ਇੱਕੋ ਹਾਲਤਾਂ ਵਿੱਚ ਹਾਈਡਰੋਜਨ ਅਤੇ ਆਕਸੀਜਨ ਦਾ ਆਇਤਨ ਅਨੁਪਾਤ 2:1 ਹੁੰਦਾ ਹੈ।",
       "class": 10
     },
     {
