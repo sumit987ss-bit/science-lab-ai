@@ -1793,6 +1793,7 @@ function class9TyndallEffectLab(){
 }
 
 function draw(){
+ if(lab==="chemistry"&&cls===10&&exp===0){class10AcidBaseIndicatorsLab();return}
  if(lab==="chemistry"&&cls===9&&exp===4){class9TyndallEffectLab();return}
  if(lab==="chemistry"&&cls===9&&exp===3){class9SolutionSuspensionColloidLab();return}
  if(lab==="chemistry"&&cls===9&&exp===2){class9PureMixturesLab();return}
