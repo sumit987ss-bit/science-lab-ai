@@ -655,16 +655,6 @@ window.LAB_DATA = {
       "class": 8
     },
     {
-      "title": "Crystallisation",
-      "title_pa": "ਕ੍ਰਿਸਟਲੀਕਰਨ",
-      "aim": "Visualise crystals forming as a solution cools or solvent evaporates.",
-      "aim_pa": "ਘੋਲ ਠੰਢਾ ਹੋਣ ਜਾਂ ਘੋਲਕ ਉੱਡਣ ਨਾਲ ਕ੍ਰਿਸਟਲ ਬਣਨ ਦਾ ਚਿੱਤਰ ਵੇਖੋ।",
-      "kind": "crystals",
-      "note": "Crystallisation can obtain purer solid crystals from a suitable solution.",
-      "note_pa": "ਕ੍ਰਿਸਟਲੀਕਰਨ ਨਾਲ ਢੁਕਵੇਂ ਘੋਲ ਵਿੱਚੋਂ ਵਧੇਰੇ ਸ਼ੁੱਧ ਠੋਸ ਕ੍ਰਿਸਟਲ ਮਿਲ ਸਕਦੇ ਹਨ।",
-      "class": 8
-    },
-    {
       "title": "Prepare and Observe a Mixture and a Compound",
       "title_pa": "ਮਿਸ਼ਰਣ ਅਤੇ ਯੋਗਿਕ ਦੀ ਤਿਆਰੀ ਤੇ ਨਿਰੀਖਣ",
       "aim": "Compare a physical mixture with a substance formed by chemical combination.",
