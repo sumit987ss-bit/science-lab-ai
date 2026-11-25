@@ -178,6 +178,45 @@ function foodTestLab(){
 }
 
 
+
+function class6PlantNeedsLab(){
+ const pa=lang==="pa";
+ const t=pa?{
+ back:"ਵਾਪਸ",title:"ਪੌਦੇ ਨੂੰ ਕੀ ਚਾਹੀਦਾ ਹੈ?",aim:"ਚਾਰ ਲੋੜੀਂਦੀਆਂ ਚੀਜ਼ਾਂ ਚੁਣੋ ਅਤੇ ਵੇਖੋ ਕਿ ਹਰਾ ਪੌਦਾ ਆਪਣਾ ਭੋਜਨ ਕਿਵੇਂ ਬਣਾਉਂਦਾ ਹੈ।",
+ checklist:"ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਲਈ ਸਾਰੀਆਂ ਚੀਜ਼ਾਂ ਚੁਣੋ",chlorophyll:"ਕਲੋਰੋਫ਼ਿਲ (ਹਰਾ ਰੰਗਦਾਰ ਪਦਾਰਥ)",co2:"ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ",water:"ਪਾਣੀ",sun:"ਸੂਰਜ ਦੀ ਰੋਸ਼ਨੀ",
+ waiting:"ਸਾਰੀਆਂ ਚਾਰ ਚੀਜ਼ਾਂ ਚੁਣੋ ਤਾਂ ਜੋ ਪੌਦਾ ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਕਰ ਸਕੇ।",success:"ਪੌਦੇ ਨੇ ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਕੀਤਾ!",glucose:"ਗਲੂਕੋਜ਼ (ਪੌਦੇ ਦਾ ਭੋਜਨ)",oxygen:"ਆਕਸੀਜਨ ਹਵਾ ਵਿੱਚ ਛੱਡੀ ਜਾਂਦੀ ਹੈ",waterProduct:"ਪਾਣੀ ਪ੍ਰਕਿਰਿਆ ਵਿੱਚ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ — ਇਹ ਉਤਪਾਦ ਨਹੀਂ ਹੈ।",
+ equation:"ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ + ਪਾਣੀ  →  ਗਲੂਕੋਜ਼ + ਆਕਸੀਜਨ",remember:"ਯਾਦ ਰੱਖੋ",rememberText:"ਕਲੋਰੋਫ਼ਿਲ ਪੱਤਿਆਂ ਵਿੱਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਸੂਰਜ ਦੀ ਰੋਸ਼ਨੀ ਦੀ ਊਰਜਾ ਫੜਦਾ ਹੈ। ਪਾਣੀ ਜੜ੍ਹਾਂ ਰਾਹੀਂ ਅਤੇ ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ ਪੱਤਿਆਂ ਰਾਹੀਂ ਮਿਲਦੀ ਹੈ।",
+ reset:"ਮੁੜ ਸ਼ੁਰੂ ਕਰੋ",ready:"ਸਾਰੀਆਂ ਲੋੜੀਂਦੀਆਂ ਚੀਜ਼ਾਂ ਮੌਜੂਦ ਹਨ"
+ }:{
+ back:"Back",title:"What Does a Plant Need?",aim:"Tick all four requirements and see how a green plant makes its food.",
+ checklist:"Checklist for photosynthesis",chlorophyll:"Chlorophyll (green pigment)",co2:"Carbon dioxide",water:"Water",sun:"Sunlight",
+ waiting:"Tick all four requirements to let the plant carry out photosynthesis.",success:"PHOTOSYNTHESIS COMPLETED!",glucose:"GLUCOSE — food made by the plant",oxygen:"OXYGEN — released into the air",waterProduct:"Water is used in the process — it is a reactant, not a product.",
+ equation:"Carbon dioxide + Water  →  Glucose + Oxygen",remember:"Remember",rememberText:"Chlorophyll in green leaves captures light energy. Roots absorb water, and leaves take in carbon dioxide.",
+ reset:"Reset checklist",ready:"All requirements are available"
+ };
+ let checks={chlorophyll:false,co2:false,water:false,sun:false};
+ const esc=x=>String(x).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+ function plantArt(done){
+  return '<svg viewBox="0 0 520 390" role="img" aria-label="'+(done?esc(t.success):esc(t.title))+'" style="display:block;width:100%;height:auto;max-width:560px;margin:auto"><defs><linearGradient id="leafG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a6f27a"/><stop offset="1" stop-color="#159b55"/></linearGradient><linearGradient id="potG" x2="0" y2="1"><stop stop-color="#e7a36a"/><stop offset="1" stop-color="#a95d39"/></linearGradient></defs><rect width="520" height="390" rx="24" fill="#eaf8ff"/><circle cx="435" cy="68" r="34" fill="#ffd65b"/><g stroke="#ffd65b" stroke-width="5" stroke-linecap="round"><path d="M435 17V7 M435 129v-10 M384 68h-12 M498 68h-12 M399 32l-9-9 M480 113l-9-9 M471 32l9-9 M390 113l9-9"/></g><path d="M0 292 Q120 278 260 294 T520 287V390H0Z" fill="#b8df9a"/><path d="M258 287 C256 235 257 186 258 127" fill="none" stroke="#27854a" stroke-width="15" stroke-linecap="round"/><path d="M258 224 C211 217 185 190 169 159 C213 146 249 171 258 224Z" fill="url(#leafG)" stroke="#217d43" stroke-width="3"/><path d="M258 185 C279 136 321 116 365 124 C356 169 319 198 258 185Z" fill="url(#leafG)" stroke="#217d43" stroke-width="3"/><path d="M258 128 C231 93 238 59 263 37 C294 67 294 100 258 128Z" fill="url(#leafG)" stroke="#217d43" stroke-width="3"/><g stroke="#d5ffc0" stroke-width="3" fill="none"><path d="M258 221L188 164 M258 184L351 132 M258 125L264 48"/></g><path d="M258 285 C239 307 222 319 205 345 M258 285 C275 308 291 324 303 349 M258 288L258 354 M237 310L218 307 M280 315L299 309" stroke="#f2eee0" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M207 282 L309 282 L296 372 Q258 386 220 372Z" fill="url(#potG)" stroke="#82472f" stroke-width="4"/><path d="M205 282 Q258 270 311 282" fill="none" stroke="#6c4a32" stroke-width="12"/>'+(done?'<g fill="#168bcb" font-size="17" font-weight="800"><path d="M85 122 Q70 144 85 154 Q100 144 85 122" fill="#168bcb"/><path d="M420 220 Q405 242 420 252 Q435 242 420 220" fill="#168bcb"/></g><g fill="#087bcb" font-size="19" font-weight="900"><text x="22" y="105">CO₂</text><text x="400" y="183">O₂ ↑</text></g><rect x="145" y="10" width="220" height="35" rx="17" fill="#d9f8df"/><text x="255" y="34" text-anchor="middle" font-size="16" font-weight="900" fill="#146b37">GLUCOSE MADE</text>':'<text x="260" y="24" text-anchor="middle" font-size="17" font-weight="800" fill="#236b48">GREEN PLANT</text>')+'</svg>';
+ }
+ function render(){
+  const done=Object.values(checks).every(Boolean);
+  $("#plantChecklist").innerHTML=[["chlorophyll",t.chlorophyll],["co2",t.co2],["water",t.water],["sun",t.sun]].map(([k,label])=>'<label style="display:flex;align-items:center;gap:12px;padding:13px;background:#102d43;border:1px solid #315b70;border-radius:13px;margin:9px 0;font-weight:700"><input type="checkbox" data-need="'+k+'" '+(checks[k]?"checked":"")+' style="width:22px;height:22px;accent-color:#27c5a8"> '+label+'</label>').join("");
+  document.querySelectorAll("[data-need]").forEach(el=>el.onchange=()=>{checks[el.dataset.need]=el.checked;render()});
+  $("#plantArt").innerHTML=plantArt(done);
+  $("#plantStatus").textContent=done?t.success:t.waiting;
+  $("#plantStatus").style.color=done?"#5ee0a2":"#ffd17a";
+  $("#plantResults").style.display=done?"block":"none";
+  $("#plantEquation").textContent=t.equation;
+ }
+ $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="plantBack">'+t.back+'</button><div class="lab-top-name"><span>🌿</span><div><strong>Biology Lab</strong><small>'+(pa?"ਜਮਾਤ 6 · ਜੀਵ ਵਿਗਿਆਨ":"Class 6 · Biology")+'</small></div></div></section><section class="lab-selectors"><label>'+tr("chooseClass")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option '+(cls===n?"selected":"")+' value="'+n+'">'+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+tr("chooseExperiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+esc(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section><section class="experiment-card" style="border:1px solid #2d6870"><div class="experiment-meta">'+(pa?"ਜਮਾਤ 6 · ਜੀਵ ਵਿਗਿਆਨ · ਪ੍ਰਯੋਗ 3":"CLASS 6 · BIOLOGY · EXPERIMENT 3")+'</div><h2>'+t.title+'</h2><p class="aim">'+t.aim+'</p><div style="display:grid;grid-template-columns:1fr;gap:14px"><div id="plantArt" style="background:#eaf8ff;border-radius:20px;padding:8px"></div><div style="background:#12364a;border:1px solid #34718a;border-radius:16px;padding:15px"><h3 style="margin:0 0 10px">'+t.checklist+'</h3><div id="plantChecklist"></div><p id="plantStatus" style="font-weight:900;font-size:1.12em;margin:14px 0"></p><div id="plantResults" style="display:none;background:#0d382d;border:2px solid #4cc98b;border-radius:15px;padding:15px"><h2 style="color:#76edaa;margin:0 0 12px;font-weight:900">'+t.success+'</h2><p style="font-weight:900;font-size:1.1em">🍬 '+t.glucose+'</p><p style="font-weight:900;font-size:1.1em">💨 '+t.oxygen+'</p><p style="font-weight:700">'+t.waterProduct+'</p><p id="plantEquation" style="background:#164b3d;padding:12px;border-radius:10px;font-weight:900;text-align:center"></p></div><button type="button" class="back-button" id="plantReset" style="margin-top:12px">'+t.reset+'</button></div></div><div style="background:#173b35;border:1px solid #4d9d79;border-radius:14px;padding:14px;margin-top:16px"><b>'+t.remember+'</b><p style="margin:7px 0 0">'+t.rememberText+'</p></div></section>';
+ $("#plantBack").onclick=home;
+ $("#cl").onchange=e=>{cls=Number(e.target.value);exp=0;choice="";draw()};
+ $("#ex").onchange=e=>{exp=Number(e.target.value);choice="";draw()};
+ $("#plantReset").onclick=()=>{checks={chlorophyll:false,co2:false,water:false,sun:false};render()};
+ render();
+}
+
 function class6SeedGerminationLab(){
  const pa=lang==="pa";
  const words=pa?{
@@ -2197,6 +2236,7 @@ function draw(){
  if(lab==="mentor"){mentor();return}
  if(lab==="biology"&&cls===6&&exp===0){foodTestLab();return}
  if(lab==="biology"&&cls===6&&exp===1){class6SeedGerminationLab();return}
+ if(lab==="biology"&&cls===6&&exp===2){class6PlantNeedsLab();return}
   if(lab==="chemistry"&&cls===6&&exp===0){class6MaterialsSortingLab();return}
  if(lab==="chemistry"&&cls===6&&exp===1){solubilityLab();return}
  if(lab==="chemistry"&&cls===6&&exp===2){class6MixtureSeparationLab();return}
