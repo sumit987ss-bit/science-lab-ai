@@ -695,36 +695,6 @@ window.LAB_DATA = {
       "class": 9
     },
     {
-      "title": "Law of Conservation of Mass",
-      "title_pa": "ਪੁੰਜ ਸੰਰੱਖਣ ਦਾ ਨਿਯਮ",
-      "aim": "Compare particle counts before and after a model reaction.",
-      "aim_pa": "ਮਾਡਲ ਕਿਰਿਆ ਤੋਂ ਪਹਿਲਾਂ ਅਤੇ ਬਾਅਦ ਕਣਾਂ ਦੀ ਗਿਣਤੀ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
-      "kind": "conservation",
-      "note": "In a closed system, atoms are rearranged rather than created or destroyed in a chemical reaction.",
-      "note_pa": "ਬੰਦ ਪ੍ਰਣਾਲੀ ਵਿੱਚ ਰਸਾਇਣਕ ਕਿਰਿਆ ਦੌਰਾਨ ਪਰਮਾਣੂ ਮੁੜ-ਵਿਉਂਤ ਹੁੰਦੇ ਹਨ, ਬਣਦੇ ਜਾਂ ਨਸ਼ਟ ਨਹੀਂ ਹੁੰਦੇ।",
-      "class": 9
-    },
-    {
-      "title": "Solutions, Suspensions and Colloids",
-      "title_pa": "ਘੋਲ, ਨਿਲੰਬਨ ਅਤੇ ਕੋਲਾਇਡ",
-      "aim": "Compare how particles behave in different kinds of mixtures.",
-      "aim_pa": "ਵੱਖ-ਵੱਖ ਕਿਸਮਾਂ ਦੇ ਮਿਸ਼ਰਣਾਂ ਵਿੱਚ ਕਣਾਂ ਦੇ ਵਰਤਾਅ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
-      "kind": "mixture_types",
-      "note": "Solutions are uniform; suspensions can settle; colloids have intermediate dispersed particles.",
-      "note_pa": "ਘੋਲ ਇਕਸਾਰ ਹੁੰਦੇ ਹਨ; ਨਿਲੰਬਨ ਦੇ ਕਣ ਬੈਠ ਸਕਦੇ ਹਨ; ਕੋਲਾਇਡ ਵਿੱਚ ਦਰਮਿਆਨੇ ਆਕਾਰ ਦੇ ਫੈਲੇ ਕਣ ਹੁੰਦੇ ਹਨ।",
-      "class": 9
-    },
-    {
-      "title": "Separation by Evaporation and Distillation",
-      "title_pa": "ਵਾਸ਼ਪੀਕਰਨ ਅਤੇ ਆਸਵਨ ਨਾਲ ਵੱਖਰਾ ਕਰਨਾ",
-      "aim": "Compare evaporation with condensation-based distillation.",
-      "aim_pa": "ਵਾਸ਼ਪੀਕਰਨ ਦੀ ਸੰਘਣਨ ਵਾਲੇ ਆਸਵਨ ਨਾਲ ਤੁਲਨਾ ਕਰੋ।",
-      "kind": "distillation",
-      "note": "Evaporation leaves dissolved solids behind; distillation also collects condensed vapour.",
-      "note_pa": "ਵਾਸ਼ਪੀਕਰਨ ਨਾਲ ਘੁਲਿਆ ਠੋਸ ਪਿੱਛੇ ਰਹਿੰਦਾ ਹੈ; ਆਸਵਨ ਵਿੱਚ ਭਾਫ਼ ਨੂੰ ਸੰਘਣਾ ਕਰਕੇ ਇਕੱਠਾ ਵੀ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।",
-      "class": 9
-    },
-    {
       "title": "Acids and Bases with Indicators",
       "title_pa": "ਸੂਚਕਾਂ ਨਾਲ ਤੇਜ਼ਾਬਾਂ ਅਤੇ ਖਾਰਾਂ ਦੀ ਪਛਾਣ",
       "aim": "Identify acidic, basic and neutral samples by observing colour changes with litmus, China rose, turmeric and phenolphthalein indicators.",
@@ -735,7 +705,6 @@ window.LAB_DATA = {
       "class": 10
     },
     {
-      {
       "title": "Combustion of Magnesium Ribbon in Air",
       "title_pa": "ਹਵਾ ਵਿੱਚ ਮੈਗਨੀਸ਼ੀਅਮ ਰਿਬਨ ਦਾ ਦਹਿਨ",
       "aim": "Observe the dazzling white light produced when magnesium burns in oxygen, identify the white magnesium oxide product, and test its basic nature.",
@@ -745,6 +714,7 @@ window.LAB_DATA = {
       "note_pa": "2Mg + O₂ → 2MgO। ਇਹ ਉਸ਼ਮਾਖੇਪੀ ਕਿਰਿਆ ਹੈ। ਮੈਗਨੀਸ਼ੀਅਮ ਆਕਸਾਈਡ ਪਾਣੀ ਨਾਲ ਕਿਰਿਆ ਕਰਕੇ ਥੋੜ੍ਹਾ ਮੈਗਨੀਸ਼ੀਅਮ ਹਾਈਡਰਾਕਸਾਈਡ ਬਣਾਉਂਦਾ ਹੈ, ਜੋ ਖਾਰੀ ਹੈ। ਇਹ ਵਰਚੁਅਲ ਨਿਰੀਖਣ ਹੈ; ਅਸਲ ਪ੍ਰਦਰਸ਼ਨ ਕੇਵਲ ਤਰਬੀਅਤਯਾਫ਼ਤਾ ਅਧਿਆਪਕ ਵੱਲੋਂ ਢੁੱਕਵੇਂ ਸੁਰੱਖਿਆ ਪ੍ਰਬੰਧਾਂ ਨਾਲ ਕੀਤਾ ਜਾਣਾ ਚਾਹੀਦਾ ਹੈ।",
       "class": 10
     },
+    {
       "title": "Observe a Chemical Reaction",
       "title_pa": "ਰਸਾਇਣਕ ਕਿਰਿਆ ਦਾ ਨਿਰੀਖਣ",
       "aim": "Identify evidence such as gas formation, colour change or precipitate in a reaction model.",
