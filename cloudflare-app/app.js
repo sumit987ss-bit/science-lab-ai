@@ -985,32 +985,54 @@ function class10ConcaveMirrorLab(){
  const line=(x1,y1,x2,y2,color,dash="")=>'<path d="M'+x1.toFixed(1)+' '+y1.toFixed(1)+' L'+x2.toFixed(1)+' '+y2.toFixed(1)+'" stroke="'+color+'" stroke-width="3" fill="none" '+(dash?'stroke-dasharray="'+dash+'"':'')+'/>';
  const arrow=(x1,y1,x2,y2,color)=>'<path d="M'+x1+' '+y1+' L'+x2+' '+y2+'" stroke="'+color+'" stroke-width="3" fill="none" marker-end="url(#rayArrow10)"/>';
  let rays="";
+ const yObj=axis-h, m1x=mirrorX(yObj), leftEdge=70;
+ const rayColor1="#14b8a6",rayColor2="#f59e0b";
+ const line=(x1,y1,x2,y2,color,dash="")=>'<path d="M'+x1.toFixed(1)+' '+y1.toFixed(1)+' L'+x2.toFixed(1)+' '+y2.toFixed(1)+'" stroke="'+color+'" stroke-width="3" fill="none" '+(dash?'stroke-dasharray="'+dash+'"':'')+'/>';
+ const arrowLine=(x1,y1,x2,y2,color,dash="")=>'<path d="M'+x1.toFixed(1)+' '+y1.toFixed(1)+' L'+x2.toFixed(1)+' '+y2.toFixed(1)+'" stroke="'+color+'" stroke-width="3" fill="none" '+(dash?'stroke-dasharray="'+dash+'"':'')+' marker-end="url(#rayArrow10)"/>';
  if(p.mode==="infinity"){
-  const y1=172,y2=192,m1=mirrorX(y1),m2=mirrorX(y2);
-  rays+=line(ox,y1,m1,y1,"#14b8a6")+line(m1,y1,F,axis,"#14b8a6");
-  rays+=line(ox,y2,m2,y2,"#f59e0b")+line(m2,y2,F,axis,"#f59e0b");
+  // A distant object sends parallel rays; after reflection they converge at F.
+  [172,190].forEach((yy,i)=>{const mx=mirrorX(yy),col=i?rayColor2:rayColor1;
+   rays+=arrowLine(ox,yy,mx,yy,col);
+   rays+=arrowLine(mx,yy,F,axis,col);
+  });
   rays+='<text x="100" y="151" fill="#a7f3d0" font-size="11" font-weight="800">PARALLEL INCIDENT RAYS</text>';
- }else if(p.mode==="atf"){
-  const y1=172,y2=192,m1=mirrorX(y1),m2=mirrorX(y2),slope=h/f;
-  const leftX=280, yOut1=y1+slope*(m1-leftX), yOut2=y2+slope*(m2-leftX);
-  rays+=line(ox,axis-h,m1,y1,"#14b8a6")+line(m1,y1,leftX,yOut1,"#14b8a6");
-  rays+=line(ox,axis-h,m2,y2,"#f59e0b")+line(m2,y2,leftX,yOut2,"#f59e0b");
-  rays+='<text x="115" y="126" fill="#a7f3d0" font-size="11" font-weight="800">REFLECTED RAYS PARALLEL</text>';
  }else{
-  const yObj=axis-h,m1=mirrorX(yObj);
-  const y2=axis-h*(C-ox)/(P-ox),m2=mirrorX(y2);
-  // Ray 1: parallel to principal axis, then reflected through F.
-  rays+=line(ox,yObj,m1,yObj,"#14b8a6");
-  const endX=p.mode==="inside"?P+80:P-v;
-  const endY=yObj+(axis-yObj)*(m1-endX)/(m1-F);
-  rays+=line(m1,yObj,endX,endY,"#14b8a6");
-  // Ray 2: directed through C; it retraces its path after reflection.
-  rays+=line(ox,yObj,m2,y2,"#f59e0b");
-  rays+=line(m2,y2,Math.max(55,ox-8),yObj+(y2-yObj)*(Math.max(55,ox-8)-ox)/(m2-ox),"#f59e0b");
-  if(p.mode==="inside"){
-   // Backward extensions of the reflected rays meet behind the mirror at the virtual image.
-   rays+=line(m1,yObj,imageX,imageY,"#14b8a6","7 6");
-   rays+=line(m2,y2,imageX,imageY,"#f59e0b","7 6");
+  const mx=m1x, py=axis, oxTip=ox;
+  // Principal ray 1: parallel to the axis, then reflected through F.
+  const slope1=(axis-yObj)/(F-mx);
+  // Principal ray 2: through the pole; reflection obeys equal angles.
+  let slope2=(yObj-axis)/(P-oxTip);
+  if(p.mode==="atf") slope2=slope1; // At the focus, the two reflected rays are parallel.
+  const den=slope1-slope2;
+  let ix,iy;
+  if(Math.abs(den)<0.0001){ix=70;iy=py+slope2*(ix-P);}
+  else {ix=(axis-slope2*P-yObj+slope1*mx)/den;iy=yObj+slope1*(ix-mx);}
+  if(p.mode==="atf"){
+   // Both reflected rays travel left in parallel directions: the image is at infinity.
+   const xEnd=75;
+   rays+=arrowLine(oxTip,yObj,mx,yObj,rayColor1);
+   rays+=arrowLine(mx,yObj,xEnd,yObj+slope1*(xEnd-mx),rayColor1);
+   rays+=arrowLine(oxTip,yObj,P,axis,rayColor2);
+   rays+=arrowLine(P,axis,xEnd,axis+slope2*(xEnd-P),rayColor2);
+   rays+='<text x="110" y="128" fill="#a7f3d0" font-size="11" font-weight="800">REFLECTED RAYS PARALLEL</text>';
+  }else{
+   const virtual=p.mode==="inside";
+   // Incident ray 1 is parallel to the principal axis and strikes the mirror.
+   rays+=arrowLine(oxTip,yObj,mx,yObj,rayColor1);
+   // Incident ray 2 passes through the pole; reflected at equal angles.
+   rays+=arrowLine(oxTip,yObj,P,axis,rayColor2);
+   if(virtual){
+    // Real reflected rays diverge; only their backward extensions meet behind the mirror.
+    const xEnd=650;
+    rays+=arrowLine(mx,yObj,xEnd,yObj+slope1*(xEnd-mx),rayColor1);
+    rays+=arrowLine(P,axis,xEnd,axis+slope2*(xEnd-P),rayColor2);
+    rays+=line(mx,yObj,ix,iy,rayColor1,"7 6");
+    rays+=line(P,axis,ix,iy,rayColor2,"7 6");
+   }else{
+    // Both reflected principal rays converge at the real, inverted image.
+    rays+=arrowLine(mx,yObj,ix,iy,rayColor1);
+    rays+=arrowLine(P,axis,ix,iy,rayColor2);
+   }
   }
  }
  const object='<g><path d="M'+ox+' '+axis+' V'+(axis-h)+'" stroke="#60a5fa" stroke-width="5"/><path d="M'+ox+' '+(axis-h)+' l-10 16 h20Z" fill="#60a5fa"/><text x="'+ox+'" y="'+(axis-h-14)+'" font-size="12" font-weight="900" fill="#60a5fa" text-anchor="middle">CANDLE</text></g>';
