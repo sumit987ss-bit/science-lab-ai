@@ -978,7 +978,7 @@ function class10ConcaveMirrorLab(){
  const u=p.u===10000?10000:p.u*f;
  const v=p.mode==="infinity"?f:(p.mode==="atf"?Infinity:(u*f/(u-f)));
  const ox=p.mode==="infinity"?75:P-u;
- const imageX=p.mode==="infinity"?F:(p.mode==="atf"?620:(p.mode==="inside"?P+Math.abs(v):P-v));
+ const imageX=p.mode==="infinity"?F:(p.mode==="atf"?620:(p.mode==="inside"?Math.min(P+Math.abs(v),650):P-v));
  const imageH=p.mode==="infinity"?3:(p.mode==="atf"?0:Math.min(115,h*Math.abs(v/u)));
  const imageY=p.mode==="inside"?axis-imageH:axis+imageH;
  const mirrorX=y=>P+30*Math.pow((y-axis)/85,2);
@@ -1021,7 +1021,7 @@ function class10ConcaveMirrorLab(){
    rays+=arrowLine(oxTip,yObj,P,axis,rayColor2);
    if(virtual){
     // Real reflected rays diverge; only their backward extensions meet behind the mirror.
-    const xEnd=650;
+    const xEnd=70;
     rays+=arrowLine(mx,yObj,xEnd,yObj+slope1*(xEnd-mx),rayColor1);
     rays+=arrowLine(P,axis,xEnd,axis+slope2*(xEnd-P),rayColor2);
     rays+=line(mx,yObj,ix,iy,rayColor1,"7 6");
