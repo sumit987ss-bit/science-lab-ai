@@ -2743,3 +2743,5 @@ home();
 /* deploy trigger: Biology lab class-navigation repair */
 
 /* deployment trigger: Class 6 Biology seed germination interactive stages */
+
+/* deployment trigger: Class 6 Biology photosynthesis checklist */
