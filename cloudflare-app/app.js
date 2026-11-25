@@ -822,6 +822,30 @@ function chemicalEffectsLab(){
 
 
 
+function class9ParticleArrangementLab(){
+ const pa=lang==="pa";
+ const states=[
+  {key:"solid",en:"SOLID",pu:"ਠੋਸ",enDesc:"Particles are tightly packed in a regular, orderly arrangement. They only vibrate about fixed positions.",paDesc:"ਕਣ ਬਹੁਤ ਨੇੜੇ ਅਤੇ ਨਿਯਮਤ ਕ੍ਰਮ ਵਿੱਚ ਹੁੰਦੇ ਹਨ। ਉਹ ਆਪਣੀ ਨਿਸ਼ਚਿਤ ਥਾਂ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਕੰਬਦੇ ਹਨ।"},
+  {key:"liquid",en:"LIQUID",pu:"ਤਰਲ",enDesc:"Particles are close together but arranged irregularly. They can move and slide past one another.",paDesc:"ਕਣ ਨੇੜੇ-ਨੇੜੇ ਪਰ ਬੇਤਰਤੀਬ ਢੰਗ ਨਾਲ ਹੁੰਦੇ ਹਨ। ਉਹ ਇੱਕ-ਦੂਜੇ ਦੇ ਕੋਲੋਂ ਸਰਕ ਸਕਦੇ ਹਨ।"},
+  {key:"gas",en:"GAS",pu:"ਗੈਸ",enDesc:"Particles are far apart and spread throughout the container. They move freely in all directions.",paDesc:"ਕਣ ਇੱਕ-ਦੂਜੇ ਤੋਂ ਦੂਰ ਹੁੰਦੇ ਹਨ ਅਤੇ ਭਾਂਡੇ ਵਿੱਚ ਫੈਲੇ ਰਹਿੰਦੇ ਹਨ। ਉਹ ਹਰ ਦਿਸ਼ਾ ਵਿੱਚ ਆਜ਼ਾਦੀ ਨਾਲ ਗਤੀ ਕਰਦੇ ਹਨ।"}
+ ];
+ let selected="solid";
+ const points={
+  solid:Array.from({length:6},(_,r)=>Array.from({length:9},(_,col)=>[86+col*48,64+r*48])).flat(),
+  liquid:[[105,190],[151,184],[198,198],[246,185],[292,194],[338,181],[385,196],[432,184],[125,235],[174,226],[220,242],[269,229],[315,239],[364,225],[410,240],[151,278],[198,268],[246,283],[294,270],[342,282],[390,267],[220,315],[269,302],[316,315],[365,303]],
+  gas:[[100,75],[250,112],[420,72],[165,190],[335,175],[465,260],[95,300],[240,275],[390,340],[180,380],[315,75],[450,145],[125,235],[275,225],[400,215]]
+ };
+ const render=()=>{
+  const st=states.find(x=>x.key===selected),pts=points[selected];
+  const circles=pts.map(p=>"<circle cx='"+p[0]+"' cy='"+p[1]+"' r='14' fill='url(#particleBall)' stroke='#1d4ed8' stroke-width='2.5'/><ellipse cx='"+(p[0]-4)+"' cy='"+(p[1]-5)+"' rx='4' ry='3' fill='#fff' opacity='.8'/>").join("");
+  $("#particleArrangementVisual").innerHTML="<svg viewBox='0 0 540 440' role='img' aria-label='"+(pa?st.pu:st.en)+" particle arrangement' style='width:100%;max-width:620px;display:block;margin:auto'><defs><radialGradient id='particleBall' cx='30%' cy='25%'><stop stop-color='#bfdbfe'/><stop offset='.55' stop-color='#3b82f6'/><stop offset='1' stop-color='#1e40af'/></radialGradient><filter id='particleShadow'><feDropShadow dx='1' dy='3' stdDeviation='2' flood-color='#0f172a' flood-opacity='.2'/></filter></defs><rect x='48' y='35' width='444' height='365' rx='18' fill='#f8fbff' stroke='#334155' stroke-width='7'/>"+(selected==="liquid"?"<path d='M52 170Q270 155 488 170V395H52Z' fill='#dbeafe' opacity='.5'/>":"")+"<g filter='url(#particleShadow)'>"+circles+"</g><text x='270' y='428' text-anchor='middle' fill='#334155' font-size='15' font-weight='800'>"+(pa?"ਕਣਾਂ ਦਾ ਮਾਡਲ":"PARTICLE MODEL • SCHEMATIC")+"</text></svg>";
+  $("#particleArrangementInfo").innerHTML="<div style='padding:16px;border-radius:15px;background:#eff6ff;border:2px solid #bfdbfe'><div style='font-size:24px;font-weight:1000;color:#1d4ed8'>"+(pa?st.pu:st.en)+"</div><div style='font-size:15px;font-weight:700;color:#334155;margin-top:6px'>"+(pa?st.paDesc:st.enDesc)+"</div></div>";
+ };
+ const title=pa?"ਠੋਸ, ਤਰਲ ਅਤੇ ਗੈਸਾਂ ਵਿੱਚ ਪਰਮਾਣੂਆਂ ਦੀ ਵਿਵਸਥਾ":"Arrangement of Atoms in Solids, Liquids and Gases";
+ $("#app").innerHTML="<section class='lab-top'><button class='back-button' id='back'>← "+(pa?"ਵਾਪਸ":"Back")+"</button><div class='lab-selectors'><label>"+(pa?"ਜਮਾਤ":"Class")+"<select id='cl'>"+[6,7,8,9,10].map(n=>"<option "+(cls===n?"selected":"")+" value='"+n+"'>"+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+"</option>").join("")+"</select></label><label>"+(pa?"ਪ੍ਰਯੋਗ":"Experiment")+"<select id='ex'>"+list().map((v,i)=>"<option value='"+i+"' "+(i===exp?"selected":"")+">"+(i+1)+". "+String(pa?v.title_pa:v.title).replace(/[&<>"]/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]))+"</option>").join("")+"</select></label></div></section><section class='experiment-card'><h2 style='font-size:25px;font-weight:1000;color:#173b55;margin:8px 0'>"+title+"</h2><p style='color:#475569;font-weight:650'>"+(pa?"ਅਵਸਥਾ ਚੁਣੋ ਅਤੇ ਕਣਾਂ ਦੀ ਵਿਵਸਥਾ ਵੇਖੋ।":"Choose a state to observe how its particles are arranged.")+"</p><label style='display:block;font-weight:900;margin:16px 0 8px'>"+(pa?"ਅਵਸਥਾ ਚੁਣੋ":"SELECT STATE")+"<select id='particleArrangementSelect' style='width:100%;padding:13px;border:2px solid #93c5fd;border-radius:12px;font-size:17px;font-weight:800'><option value='solid'>"+(pa?"ਠੋਸ (Solid)":"Solid")+"</option><option value='liquid'>"+(pa?"ਤਰਲ (Liquid)":"Liquid")+"</option><option value='gas'>"+(pa?"ਗੈਸ (Gas)":"Gas")+"</option></select></label><div id='particleArrangementInfo' style='margin:14px 0'></div><div id='particleArrangementVisual' style='background:#fff;border:1px solid #dbe4ee;border-radius:16px;padding:8px'></div></section>";
+ $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;draw()};$("#ex").onchange=e=>{exp=+e.target.value;draw()};$("#particleArrangementSelect").onchange=e=>{selected=e.target.value;render()};render();
+}
+
 function class9StatesOfMatterLab(){
  const pa=lang==="pa";
  const groups=[
@@ -1638,6 +1662,7 @@ function class7RustingLab(){
 }
 
 function draw(){
+ if(lab==="chemistry"&&cls===9&&exp===1){class9ParticleArrangementLab();return}
  if(lab==="chemistry"&&cls===9&&exp===0){class9StatesOfMatterLab();return}
  if(lab==="chemistry"&&cls===8&&exp===4){class8MetalsNonMetalsLab();return}
  if(lab==="chemistry"&&cls===8&&exp===3){class8RustingIronLab();return}
