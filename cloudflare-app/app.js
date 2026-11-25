@@ -2787,3 +2787,5 @@ home();
 /* deployment trigger: Class 6 Biology food chain selected-visual refresh */
 
 /* deployment trigger: Class 6 Biology adaptation visuals */
+
+/* deployment trigger: Class 7 Biology plant needs checklist */
