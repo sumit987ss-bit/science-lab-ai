@@ -1327,6 +1327,51 @@ function class10LensPowerLab(){
  render();
 }
 
+
+function class7ChangesLab(){
+ const pa=lang==="pa";
+ const t=(en,pu)=>pa?pu:en;
+ const cases=[
+  {en:"Ice melting",pu:"ਬਰਫ਼ ਦਾ ਪਿਘਲਣਾ",type:"reversible",result:"REVERSIBLE CHANGE",rp:"ਉਲਟਣਯੋਗ ਤਬਦੀਲੀ",desc:"Ice changes into liquid water. Cooling the water can form ice again.",dp:"ਬਰਫ਼ ਪਿਘਲ ਕੇ ਪਾਣੀ ਬਣਦੀ ਹੈ। ਪਾਣੀ ਨੂੰ ਠੰਢਾ ਕਰਨ ਨਾਲ ਮੁੜ ਬਰਫ਼ ਬਣ ਸਕਦੀ ਹੈ।",before:"ice",after:"water"},
+  {en:"Water freezing",pu:"ਪਾਣੀ ਦਾ ਜੰਮਣਾ",type:"reversible",result:"REVERSIBLE CHANGE",rp:"ਉਲਟਣਯੋਗ ਤਬਦੀਲੀ",desc:"Liquid water becomes solid ice on cooling. Ice melts back into water.",dp:"ਤਰਲ ਪਾਣੀ ਠੰਢਾ ਹੋ ਕੇ ਬਰਫ਼ ਬਣਦਾ ਹੈ। ਬਰਫ਼ ਪਿਘਲ ਕੇ ਮੁੜ ਪਾਣੀ ਬਣਦੀ ਹੈ।",before:"water",after:"ice"},
+  {en:"Stretching a rubber band",pu:"ਰਬੜ ਬੈਂਡ ਨੂੰ ਖਿੱਚਣਾ",type:"reversible",result:"REVERSIBLE CHANGE",rp:"ਉਲਟਣਯੋਗ ਤਬਦੀਲੀ",desc:"The rubber band becomes longer when stretched and returns close to its original shape when released, if not overstretched.",dp:"ਖਿੱਚਣ ਨਾਲ ਰਬੜ ਬੈਂਡ ਲੰਮਾ ਹੁੰਦਾ ਹੈ ਅਤੇ ਛੱਡਣ ਤੇ ਮੁੜ ਆਪਣੇ ਪੁਰਾਣੇ ਆਕਾਰ ਦੇ ਨੇੜੇ ਆ ਜਾਂਦਾ ਹੈ।",before:"band",after:"stretched"},
+  {en:"Folding paper",pu:"ਕਾਗਜ਼ ਨੂੰ ਮੋੜਨਾ",type:"reversible",result:"REVERSIBLE CHANGE (SHAPE)",rp:"ਉਲਟਣਯੋਗ ਤਬਦੀਲੀ (ਆਕਾਰ)",desc:"A flat sheet becomes folded. It can be unfolded, though the crease may remain.",dp:"ਸਿੱਧਾ ਕਾਗਜ਼ ਮੋੜਿਆ ਜਾਂਦਾ ਹੈ। ਇਸ ਨੂੰ ਖੋਲ੍ਹਿਆ ਜਾ ਸਕਦਾ ਹੈ, ਭਾਵੇਂ ਮੋੜ ਦਾ ਨਿਸ਼ਾਨ ਰਹਿ ਸਕਦਾ ਹੈ।",before:"flatpaper",after:"foldpaper"},
+  {en:"Dissolving salt in water",pu:"ਪਾਣੀ ਵਿੱਚ ਲੂਣ ਘੋਲਣਾ",type:"reversible",result:"REVERSIBLE CHANGE",rp:"ਉਲਟਣਯੋਗ ਤਬਦੀਲੀ",desc:"Salt dissolves and is not visible, but it can be recovered by evaporating the water.",dp:"ਲੂਣ ਪਾਣੀ ਵਿੱਚ ਘੁਲ ਜਾਂਦਾ ਹੈ। ਪਾਣੀ ਦਾ ਵਾਸ਼ਪੀਕਰਨ ਕਰਕੇ ਲੂਣ ਮੁੜ ਪ੍ਰਾਪਤ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।",before:"saltwater",after:"salt"},
+  {en:"Cooking an egg (diagram)",pu:"ਅੰਡਾ ਪਕਾਉਣਾ (ਚਿੱਤਰ)",type:"irreversible",result:"IRREVERSIBLE CHANGE",rp:"ਅਣਉਲਟਣਯੋਗ ਤਬਦੀਲੀ",desc:"Heating changes the egg proteins permanently. A cooked egg cannot be changed back into a raw egg.",dp:"ਗਰਮ ਕਰਨ ਨਾਲ ਅੰਡੇ ਦੇ ਪ੍ਰੋਟੀਨ ਸਥਾਈ ਤੌਰ ਤੇ ਬਦਲ ਜਾਂਦੇ ਹਨ। ਪਕਿਆ ਅੰਡਾ ਮੁੜ ਕੱਚਾ ਨਹੀਂ ਬਣ ਸਕਦਾ।",before:"rawegg",after:"cookegg"},
+  {en:"Burning paper (diagram)",pu:"ਕਾਗਜ਼ ਸਾੜਨਾ (ਚਿੱਤਰ)",type:"irreversible",result:"IRREVERSIBLE CHANGE",rp:"ਅਣਉਲਟਣਯੋਗ ਤਬਦੀਲੀ",desc:"The paper changes into ash and gases. Ash cannot be changed back into the original sheet of paper.",dp:"ਕਾਗਜ਼ ਸੜ ਕੇ ਸੁਆਹ ਅਤੇ ਗੈਸਾਂ ਬਣਾਉਂਦਾ ਹੈ। ਸੁਆਹ ਨੂੰ ਮੁੜ ਅਸਲ ਕਾਗਜ਼ ਦੀ ਸ਼ੀਟ ਨਹੀਂ ਬਣਾਇਆ ਜਾ ਸਕਦਾ।",before:"paper",after:"ash"},
+  {en:"Rusting iron",pu:"ਲੋਹੇ ਨੂੰ ਜੰਗ ਲੱਗਣਾ",type:"irreversible",result:"IRREVERSIBLE CHANGE",rp:"ਅਣਉਲਟਣਯੋਗ ਤਬਦੀਲੀ",desc:"Iron reacts with oxygen and moisture to form reddish-brown rust. The original iron is not restored by simply reversing the conditions.",dp:"ਲੋਹਾ ਆਕਸੀਜਨ ਅਤੇ ਨਮੀ ਨਾਲ ਕਿਰਿਆ ਕਰਕੇ ਲਾਲ-ਭੂਰੀ ਜੰਗ ਬਣਾਉਂਦਾ ਹੈ। ਸਿਰਫ਼ ਹਾਲਾਤ ਬਦਲਣ ਨਾਲ ਅਸਲ ਲੋਹਾ ਵਾਪਸ ਨਹੀਂ ਮਿਲਦਾ।",before:"iron",after:"rust"}
+ ];
+ let selected=0;
+ const escx=x=>String(x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+ function objectSvg(kind){
+  const common='<rect width="520" height="230" rx="18" fill="#f4f9fc"/>';
+  const label=(x,y,s)=>'<text x="'+x+'" y="'+y+'" text-anchor="middle" font-size="13" font-weight="800" fill="#28465a">'+s+'</text>';
+  let art='';
+  if(kind==="ice")art='<path d="M75 80L120 42L169 70L157 137L102 155L65 121Z" fill="#9de4fa" stroke="#2584ad" stroke-width="3"/><path d="M98 77L126 57L145 77" fill="none" stroke="#e9fbff" stroke-width="7"/>';
+  if(kind==="water")art='<path d="M62 94H177L164 177H75Z" fill="#b5e8f8" stroke="#3984a5" stroke-width="4"/><path d="M70 115Q115 105 169 115" fill="none" stroke="#fff" stroke-width="4"/>';
+  if(kind==="band")art='<ellipse cx="120" cy="110" rx="52" ry="30" fill="none" stroke="#d97706" stroke-width="10"/>';
+  if(kind==="stretched")art='<path d="M45 110Q120 62 195 110Q120 158 45 110Z" fill="none" stroke="#d97706" stroke-width="9"/>';
+  if(kind==="flatpaper")art='<path d="M75 48H166L190 72V177H75Z" fill="#fff" stroke="#7893a5" stroke-width="3"/><path d="M166 48V72H190" fill="none" stroke="#7893a5" stroke-width="3"/>';
+  if(kind==="foldpaper")art='<path d="M75 48H166L190 72V177H75Z" fill="#fff" stroke="#7893a5" stroke-width="3"/><path d="M75 48L132 112L75 177" fill="#e8f2f7" stroke="#7893a5" stroke-width="3"/>';
+  if(kind==="saltwater")art='<path d="M70 55H170L160 180H80Z" fill="#d5f1fc" stroke="#578ca6" stroke-width="4"/><path d="M77 115H163L158 174H82Z" fill="#9ddcf0"/>'+[0,1,2,3,4,5,6].map((n)=>'<circle cx="'+(92+n%4*17)+'" cy="'+(132+Math.floor(n/4)*20)+'" r="3" fill="#fff"/>').join('');
+  if(kind==="salt")art='<path d="M78 55H165V75H78Z" fill="#dce7ed" stroke="#7893a5" stroke-width="3"/><path d="M86 75H157V171H86Z" fill="#fff" stroke="#7893a5" stroke-width="3"/>'+[0,1,2,3,4,5,6,7,8].map((n)=>'<path d="M'+(97+n%3*19)+' '+(111+Math.floor(n/3)*17)+' l6 -5 l6 5 l-6 5Z" fill="#fff" stroke="#b7c5ce"/>').join('');
+  if(kind==="rawegg"||kind==="cookegg"){art=kind==="rawegg"?'<ellipse cx="120" cy="112" rx="48" ry="62" fill="#fff" stroke="#b6c3cc" stroke-width="4"/>':'<ellipse cx="120" cy="112" rx="48" ry="62" fill="#fff" stroke="#b6c3cc" stroke-width="4"/><circle cx="120" cy="112" r="27" fill="#f5c542" stroke="#e0a51b" stroke-width="3"/>';}
+  if(kind==="paper")art='<path d="M77 48H164L188 72V176H77Z" fill="#fff" stroke="#7893a5" stroke-width="3"/><path d="M164 48V72H188" fill="none" stroke="#7893a5" stroke-width="3"/>';
+  if(kind==="ash")art='<path d="M65 157Q88 128 111 150Q133 126 154 148Q178 135 194 161L183 178H77Z" fill="#89939b"/><path d="M88 149L105 135L118 151M143 149L158 132L174 151" fill="none" stroke="#c4cbd0" stroke-width="5" stroke-linecap="round"/>';
+  if(kind==="iron"||kind==="rust")art='<rect x="65" y="91" width="112" height="43" rx="8" fill="'+(kind==="iron"?"#aebbc4":"#a94f2c")+'" stroke="'+(kind==="iron"?"#607887":"#71351f")+'" stroke-width="4"/><path d="M82 99V126M101 99V126M120 99V126M139 99V126M158 99V126" stroke="'+(kind==="iron"?"#e4edf2":"#d88b62")+'" stroke-width="4"/>';
+  return '<svg viewBox="0 0 230 210" role="img" aria-label="'+escx(kind)+' object illustration">'+common.replace('width="520" height="230"','width="230" height="210"')+'<g transform="translate(0 0)">'+art+'</g></svg>';
+ }
+ function render(){
+  const c=cases[selected],before=objectSvg(c.before),after=objectSvg(c.after);
+  $("#changeVisual").innerHTML='<div class="change-stage"><div class="change-stage-title">'+t("BEFORE","ਪਹਿਲਾਂ")+'</div>'+before+'<div class="change-object-name">'+escx(t(c.en,c.pu))+'</div></div><div class="change-arrow">➜</div><div class="change-stage"><div class="change-stage-title">'+t("AFTER","ਬਾਅਦ")+'</div>'+after+'<div class="change-object-name">'+(selected===6?t("Ash","ਸੁਆਹ"):selected===7?t("Rust on iron","ਲੋਹੇ ਉੱਤੇ ਜੰਗ"):t(c.en,c.pu))+'</div></div>';
+  $("#changeResult").innerHTML='<div class="change-verdict '+c.type+'"><strong>'+t(c.result,c.rp)+'</strong><p>'+t(c.desc,c.dp)+'</p></div>';
+ }
+ const title=t("Reversible and Irreversible Changes","ਉਲਟਣਯੋਗ ਅਤੇ ਅਣਉਲਟਣਯੋਗ ਤਬਦੀਲੀਆਂ");
+ $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+tr("back")+'</button><div class="lab-top-name"><span>🧪</span><div><strong>'+tr("chemistry")+'</strong><small>'+t("Classes 6–10 · Chemistry Lab","ਜਮਾਤਾਂ 6–10 · ਰਸਾਇਣ ਵਿਗਿਆਨ ਲੈਬ")+'</small></div></div></section><section class="lab-selectors"><label>'+tr("chooseClass")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option value="'+n+'" '+(n===7?"selected":"")+'>'+ (pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+tr("chooseExperiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===1?"selected":"")+'>'+(i+1)+". "+escx(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section><section class="experiment-card"><div class="experiment-meta">'+t("CLASS 7 · CHEMISTRY LAB · EXPERIMENT 2 / 5","ਜਮਾਤ 7 · ਰਸਾਇਣ ਵਿਗਿਆਨ ਲੈਬ · ਪ੍ਰਯੋਗ 2 / 5")+'</div><h2>'+title+'</h2><p class="aim"><b>'+tr("aim")+':</b> '+t("Observe the actual material before and after each change and decide whether it can be reversed.","ਹਰ ਤਬਦੀਲੀ ਤੋਂ ਪਹਿਲਾਂ ਅਤੇ ਬਾਅਦ ਪਦਾਰਥ ਨੂੰ ਵੇਖੋ ਅਤੇ ਪਛਾਣੋ ਕਿ ਕੀ ਇਸ ਨੂੰ ਵਾਪਸ ਪਹਿਲਾਂ ਵਰਗੀ ਹਾਲਤ ਵਿੱਚ ਲਿਆਂਦਾ ਜਾ ਸਕਦਾ ਹੈ।")+'</p><label class="change-select-label">'+t("Choose a change","ਤਬਦੀਲੀ ਚੁਣੋ")+'<select id="changeSelect">'+cases.map((c,i)=>'<option value="'+i+'">'+(pa?c.pu:c.en)+'</option>').join("")+'</select></label><div class="change-visual-grid" id="changeVisual"></div><div id="changeResult"></div><p class="safety-note">'+t("Illustrative classroom animation only. Burning and cooking are shown as diagrams; do not perform these activities as part of this virtual experiment.","ਇਹ ਸਿਰਫ਼ ਕਲਾਸਰੂਮ ਲਈ ਚਿੱਤਰਕ ਮਾਡਲ ਹੈ। ਸਾੜਨ ਅਤੇ ਪਕਾਉਣ ਨੂੰ ਸਿਰਫ਼ ਚਿੱਤਰ ਰਾਹੀਂ ਦਿਖਾਇਆ ਗਿਆ ਹੈ; ਇਹ ਕਿਰਿਆਵਾਂ ਇਸ ਵਰਚੁਅਲ ਪ੍ਰਯੋਗ ਵਿੱਚ ਨਾ ਕਰੋ।")+'</p><div class="navigation"><button class="back-button" id="prev">'+tr("previous")+'</button><button class="primary-button" id="next">'+tr("next")+' →</button></div></section><style>.change-select-label{display:block;margin:16px 0;font-weight:800}.change-select-label select{display:block;width:100%;margin-top:7px;padding:12px;border:1px solid #b7cad8;border-radius:10px;background:#fff;font:inherit}.change-visual-grid{display:grid;grid-template-columns:minmax(0,1fr) 38px minmax(0,1fr);gap:8px;align-items:center;margin:16px 0}.change-stage{min-width:0;text-align:center;background:#f4f9fc;border:1px solid #d6e5ee;border-radius:14px;padding:8px}.change-stage svg{width:100%;height:auto;display:block}.change-stage-title{font-size:13px;font-weight:900;color:#31566d}.change-object-name{font-size:12px;font-weight:800;color:#29465a;min-height:30px}.change-arrow{text-align:center;font-size:25px;color:#267b9f;font-weight:900}.change-verdict{padding:16px;border-radius:14px;text-align:center;border:2px solid #5d9b78;background:#f0fbf4}.change-verdict.irreversible{border-color:#c87945;background:#fff6ef}.change-verdict strong{font-size:clamp(17px,4vw,23px);font-weight:950;color:#23485b}.change-verdict p{margin:8px 0 0;line-height:1.55}.change-verdict.irreversible strong{color:#9a481f}@media(max-width:430px){.change-visual-grid{grid-template-columns:minmax(0,1fr) 24px minmax(0,1fr);gap:3px}.change-stage{padding:4px}.change-object-name{font-size:10px}}</style>';
+ $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};$("#changeSelect").onchange=e=>{selected=+e.target.value;render()};$("#prev").onclick=()=>{if(exp>0){exp--;choice="";draw()}};$("#next").onclick=()=>{if(exp<4){exp++;choice="";draw()}};
+ render();
+}
+
 function draw(){
  if(lab==="physics"&&cls===10&&exp===2){class10ConcaveMirrorLab();return}
  if(lab==="physics"&&cls===10&&exp===3){class10MirrorFRLab();return}
@@ -1368,6 +1413,7 @@ function draw(){
  if(lab==="chemistry"&&cls===6&&exp===3){class6SeparatingMixturesLab();return}
  if(lab==="chemistry"&&cls===6&&exp===4){class6TransparencyLab();return}
  if(lab==="chemistry"&&cls===7&&exp===0){class7IndicatorsLab();return}
+ if(lab==="chemistry"&&cls===7&&exp===1){class7ChangesLab();return}
  const it=item();if(!it){home();return}
  const os=opts(it.kind);if(!os.includes(choice))choice=os[0];const cn=controlNames(it);
  const name=lang==="pa"?it.title_pa:it.title,aim=lang==="pa"?it.aim_pa:it.aim,note=lang==="pa"?it.note_pa:it.note;
