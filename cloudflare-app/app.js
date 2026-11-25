@@ -964,7 +964,53 @@ function class10ElectricMotorLab(){
  render();
 }
 
+function class10ConcaveMirrorLab(){
+ const pa=lang==="pa"; const positions=[
+  {en:"At infinity",pa:"ਅਨੰਤ ਤੇ",u:10000,img:"At F",imgpa:"F ਤੇ",size:"Highly diminished",sizepa:"ਬਹੁਤ ਛੋਟਾ",nature:"Real, inverted",naturepa:"ਅਸਲੀ, ਉਲਟਾ",mode:"infinity"},
+  {en:"Beyond C",pa:"C ਤੋਂ ਪਰੇ",u:3,img:"Between F and C",imgpa:"F ਅਤੇ C ਵਿਚਕਾਰ",size:"Diminished",sizepa:"ਛੋਟਾ",nature:"Real, inverted",naturepa:"ਅਸਲੀ, ਉਲਟਾ",mode:"beyond"},
+  {en:"At C",pa:"C ਤੇ",u:2,img:"At C",imgpa:"C ਤੇ",size:"Same size",sizepa:"ਉਸੇ ਆਕਾਰ ਦਾ",nature:"Real, inverted",naturepa:"ਅਸਲੀ, ਉਲਟਾ",mode:"atc"},
+  {en:"Between C and F",pa:"C ਅਤੇ F ਵਿਚਕਾਰ",u:1.5,img:"Beyond C",imgpa:"C ਤੋਂ ਪਰੇ",size:"Enlarged",sizepa:"ਵੱਡਾ",nature:"Real, inverted",naturepa:"ਅਸਲੀ, ਉਲਟਾ",mode:"between"},
+  {en:"At F",pa:"F ਤੇ",u:1,img:"At infinity",imgpa:"ਅਨੰਤ ਤੇ",size:"Image at infinity",sizepa:"ਪ੍ਰਤਿਬਿੰਬ ਅਨੰਤ ਤੇ",nature:"Reflected rays parallel",naturepa:"ਪਰਾਵਰਤਿਤ ਕਿਰਨਾਂ ਸਮਾਂਤਰ",mode:"atf"},
+  {en:"Between F and P",pa:"F ਅਤੇ P ਵਿਚਕਾਰ",u:.7,img:"Behind the mirror",imgpa:"ਸ਼ੀਸ਼ੇ ਦੇ ਪਿੱਛੇ",size:"Enlarged",sizepa:"ਵੱਡਾ",nature:"Virtual, erect",naturepa:"ਆਭਾਸੀ, ਸਿੱਧਾ",mode:"inside"}
+ ];
+ let index=positions.findIndex(p=>(pa?p.pa:p.en)===choice); if(index<0)index=1;const p=positions[index];
+ const f=100, mirrorX=480, P=mirrorX, F=P-f, C=P-2*f;
+ let u=p.u===10000?10000:p.u*f; let v=p.u===10000?f:(p.mode==="atf"?10000:(p.u<1?-(u*f)/(f-u):(u*f)/(u-f)));
+ let ox=p.u===10000?95:P-u, ix=p.mode==="atf"?620:(p.u===10000?F:(P-v));
+ let scale=p.u===10000?0.1:Math.abs(v/u), ih=p.mode==="atf"?0:Math.min(120,48*scale);
+ let imgY=p.mode==="inside"?220-ih:220+ih;
+ const raySVG=()=>{
+  const rays=[];
+  if(p.mode==="inside"){
+   const yobj=220-48, mirrorTouch=440, mirrorTop=170;
+   rays.push('<path d="M'+ox+' '+yobj+' L480 170 Q490 220 480 270 L480 170" stroke="#f59e0b" stroke-width="3" fill="none"/>');
+   rays.push('<path d="M'+ox+' '+yobj+' L480 220 L'+(ix)+' '+imgY+'" stroke="#14b8a6" stroke-width="3" fill="none" stroke-dasharray="8 6"/>');
+   rays.push('<path d="M480 170 L'+ix+' '+imgY+'" stroke="#14b8a6" stroke-width="3" fill="none"/>');
+   rays.push('<path d="M480 170 L'+ix+' '+imgY+'" stroke="#14b8a6" stroke-width="3" fill="none" stroke-dasharray="8 6"/>');
+  }else if(p.mode==="atf"||p.mode==="infinity"){
+   rays.push('<path d="M'+ox+' 172 L480 220 L620 220" stroke="#f59e0b" stroke-width="3" fill="none"/>');
+   rays.push('<path d="M'+ox+' 172 L480 172 L620 220" stroke="#14b8a6" stroke-width="3" fill="none"/>');
+  }else{
+   const h=48, hit1=220-h*(f/u), hit2=220-h*(C-ox)/(P-ox);
+   const imageH=ih, targetY=p.mode==="atc"?220+imageH:(220+imageH);
+   rays.push('<path d="M'+ox+' '+(220-h)+' L480 '+hit1+' L'+ix+' '+targetY+'" stroke="#f59e0b" stroke-width="3" fill="none"/>');
+   rays.push('<path d="M'+ox+' '+(220-h)+' L480 220 L'+ix+' '+targetY+'" stroke="#14b8a6" stroke-width="3" fill="none"/>');
+  }
+  return rays.join("");
+ };
+ const imageArrow=(x,y,h,virtual)=>'<g><path d="M'+x+' 220 V'+y+'" stroke="'+(virtual?"#a855f7":"#dc2626")+'" stroke-width="4" stroke-dasharray="'+(virtual?"6 5":"none")+'"/><path d="M'+x+' '+y+' l-9 '+(y<220?15:-15)+' l18 0Z" fill="'+(virtual?"#a855f7":"#dc2626")+'"/><text x="'+x+'" y="'+(y<220?y-10:y+22)+'" font-size="12" text-anchor="middle" font-weight="800" fill="'+(virtual?"#7e22ce":"#b91c1c")+'">'+(virtual?"VIRTUAL IMAGE":"IMAGE")+'</text></g>';
+ const objectArrow='<g><path d="M'+ox+' 220 V172" stroke="#2563eb" stroke-width="5"/><path d="M'+ox+' 172 l-10 16 h20Z" fill="#2563eb"/><text x="'+ox+'" y="155" font-size="12" font-weight="900" fill="#1d4ed8" text-anchor="middle">CANDLE</text></g>';
+ let imageMarkup="";
+ if(p.mode==="inside") imageMarkup=imageArrow(ix,imgY,ih,true);
+ else if(p.mode==="atf"||p.mode==="infinity") imageMarkup='<circle cx="'+F+'" cy="220" r="6" fill="#dc2626"/><text x="'+F+'" y="205" font-size="12" fill="#b91c1c" text-anchor="middle" font-weight="900">IMAGE AT F</text>';
+ else imageMarkup=imageArrow(ix,imgY,ih,false);
+ const svg='<svg viewBox="0 0 680 330" style="display:block;width:100%;height:auto;background:#071b2c;border-radius:16px" role="img" aria-label="Concave mirror ray diagram"><defs><linearGradient id="mirrorGlow10" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a5f3fc"/><stop offset="1" stop-color="#0ea5e9"/></linearGradient></defs><rect x="12" y="12" width="656" height="306" rx="16" fill="#0b2438"/><path d="M40 220 H630" stroke="#9fb5c7" stroke-width="2"/><path d="M480 135 Q510 220 480 305" stroke="url(#mirrorGlow10)" stroke-width="13" fill="none"/><path d="M492 135 Q522 220 492 305" stroke="#7dd3fc" stroke-width="2" fill="none"/><text x="535" y="190" fill="#c8f1ff" font-size="13" font-weight="800">CONCAVE MIRROR</text><g fill="#f8fafc" font-size="13" font-weight="800"><text x="'+P+'" y="248" text-anchor="middle">P</text><text x="'+F+'" y="248" text-anchor="middle">F</text><text x="'+C+'" y="248" text-anchor="middle">C (2F)</text></g><g stroke="#94a3b8" stroke-width="1.5"><path d="M'+F+' 212 V228"/><path d="M'+C+' 212 V228"/><path d="M480 212 V228"/></g>'+objectArrow+raysSVG()+imageMarkup+'<text x="340" y="36" fill="#e2e8f0" font-size="16" text-anchor="middle" font-weight="900">PRINCIPAL RAY DIAGRAM · f = 100 units</text></svg>';
+ $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="cmBack">'+tr("back")+'</button><div class="lab-top-name"><span>🔭</span><div><strong>'+tr("physics")+'</strong><small>CLASS 10 · EXPERIMENT 3 / 5</small></div></div></section><section class="lab-selectors"><label>'+tr("chooseClass")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option value="'+n+'" '+ (cls===n?"selected":"")+'>'+ (pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+tr("chooseExperiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+ (i===exp?"selected":"")+'>'+(i+1)+". "+esc(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section><section class="experiment-card"><div class="experiment-meta">CLASS 10 · PHYSICS · EXPERIMENT 3 / 5</div><h2>'+(pa?"ਅਵਤਲ ਦਰਪਣ ਅਤੇ ਪ੍ਰਤਿਬਿੰਬ ਬਣਨਾ":"Concave Mirror and Image Formation")+'</h2><p class="aim"><b>'+tr("aim")+':</b> '+(pa?"ਵਸਤੂ ਦੀ ਸਥਿਤੀ ਬਦਲ ਕੇ ਅਵਤਲ ਦਰਪਣ ਵਿੱਚ ਪ੍ਰਤਿਬਿੰਬ ਦੀ ਸਥਿਤੀ, ਆਕਾਰ ਅਤੇ ਸੁਭਾਅ ਵੇਖੋ।":"Select the candle position and observe the image location, size, orientation and nature formed by a concave mirror.")+'</p><label class="cm-position-label"><b>'+(pa?"ਮੋਮਬੱਤੀ ਦੀ ਸਥਿਤੀ ਚੁਣੋ":"Select candle position")+'</b><select id="cmPosition">'+positions.map((q,i)=>'<option value="'+i+'" '+(i===index?"selected":"")+'>'+(pa?q.pa:q.en)+'</option>').join("")+'</select></label><div class="cm-stage">'+svg+'</div><div class="cm-result-grid"><div><small>'+(pa?"ਪ੍ਰਤਿਬਿੰਬ ਦੀ ਸਥਿਤੀ":"IMAGE POSITION")+'</small><strong>'+(pa?p.imgpa:p.img)+'</strong></div><div><small>'+(pa?"ਆਕਾਰ":"SIZE")+'</small><strong>'+(pa?p.sizepa:p.size)+'</strong></div><div><small>'+(pa?"ਸੁਭਾਅ":"NATURE")+'</small><strong>'+(pa?p.naturepa:p.nature)+'</strong></div></div><div class="conclusion"><b>'+(pa?"ਮੁੱਖ ਨਤੀਜਾ":"SCIENTIFIC RESULT")+'</b><p>'+(pa?"ਅਵਤਲ ਦਰਪਣ ਵਿੱਚ ਪ੍ਰਤਿਬਿੰਬ ਦੀਆਂ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਮੋਮਬੱਤੀ ਦੀ ਸਥਿਤੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀਆਂ ਹਨ।":"The image characteristics depend on the candle position relative to the principal focus (F) and centre of curvature (C).")+'</p></div><div class="navigation"><button class="back-button" id="prev">'+tr("previous")+'</button><button class="primary-button" id="next">'+tr("next")+' →</button></div><style>.cm-position-label{display:grid;gap:9px;margin:16px 0}.cm-position-label select{padding:14px;border-radius:12px;background:#10233b;color:#fff;border:1px solid #5794c9;font-size:16px}.cm-stage{border:1px solid #244d68;border-radius:18px;overflow:hidden;margin:14px 0}.cm-result-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:14px 0}.cm-result-grid>div{border-radius:12px;padding:12px;background:rgba(30,100,160,.12);display:grid;gap:7px}.cm-result-grid small{font-size:10px;opacity:.75;font-weight:800}.cm-result-grid strong{font-size:14px}@media(max-width:460px){.cm-result-grid{grid-template-columns:1fr}.cm-result-grid strong{font-size:16px}}</style></section>';
+ $("#cmBack").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};$("#cmPosition").onchange=e=>{choice=positions[Number(e.target.value)][pa?"pa":"en"];class10ConcaveMirrorLab()};$("#prev").onclick=()=>{if(exp>0){exp--;choice="";draw()}};$("#next").onclick=()=>{if(exp<4){exp++;choice="";draw()}};
+}
+
 function draw(){
+ if(lab==="physics"&&cls===10&&exp===2){class10ConcaveMirrorLab();return}
  if(lab==="electricity"&&cls===10&&exp===0){class10OhmsLawLab();return}
  if(lab==="electricity"&&cls===10&&exp===1){class10SeriesParallelLab();return}
  if(lab==="electricity"&&cls===10&&exp===2){class10ResistanceCombinationLab();return}
