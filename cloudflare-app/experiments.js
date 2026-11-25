@@ -595,13 +595,13 @@ window.LAB_DATA = {
       "class": 7
     },
     {
-      "title": "Separation of Mixtures",
+      "title": "Separating the Mixtures",
       "title_pa": "ਮਿਸ਼ਰਣਾਂ ਨੂੰ ਵੱਖ ਕਰਨਾ",
-      "aim": "Choose a suitable method for a mixture's properties.",
-      "aim_pa": "ਮਿਸ਼ਰਣ ਦੇ ਗੁਣਾਂ ਅਨੁਸਾਰ ਢੁਕਵਾਂ ਵੱਖ ਕਰਨ ਦਾ ਤਰੀਕਾ ਚੁਣੋ।",
+      "aim": "Observe seven mixtures and identify suitable separation techniques: sedimentation and decantation, handpicking, magnetic separation, separating funnel, filtration, evaporation and crystallisation, and winnowing.",
+      "aim_pa": "ਸੱਤ ਮਿਸ਼ਰਣਾਂ ਅਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਵੱਖ ਕਰਨ ਦੀਆਂ ਵਿਧੀਆਂ ਵੇਖੋ: ਤਲਛਟੀਕਰਨ ਤੇ ਨਿਤਾਰਨਾ, ਹੱਥਾਂ ਨਾਲ ਚੁਗਣਾ, ਚੁੰਬਕੀ ਵਿਧੀ, ਵਿਭਾਜਕ ਫਨਲ, ਛਾਣਨਾ, ਵਾਸ਼ਪੀਕਰਨ ਤੇ ਕ੍ਰਿਸਟਲੀਕਰਨ ਅਤੇ ਫਟਕਣਾ।",
       "kind": "separation",
-      "note": "Filtration, evaporation and magnetic separation work for different mixtures.",
-      "note_pa": "ਛਾਣਨ, ਵਾਸ਼ਪੀਕਰਨ ਅਤੇ ਚੁੰਬਕੀ ਵੱਖਰਾ ਕਰਨਾ ਵੱਖ-ਵੱਖ ਮਿਸ਼ਰਣਾਂ ਲਈ ਢੁਕਵੇਂ ਹਨ।",
+      "note": "Select a mixture to see its matching separation technique and an illustrated demonstration.",
+      "note_pa": "ਮਿਸ਼ਰਣ ਚੁਣੋ ਅਤੇ ਉਸ ਲਈ ਢੁੱਕਵੀਂ ਵੱਖ ਕਰਨ ਦੀ ਵਿਧੀ ਦਾ ਚਿੱਤਰਕ ਮਾਡਲ ਵੇਖੋ।",
       "class": 7
     },
     {
