@@ -1,4 +1,3 @@
-// Migrated from the verified class-wise experiment catalog in the original Streamlit app.
 window.LAB_DATA = {
   "electricity": [
     {
@@ -474,8 +473,8 @@ window.LAB_DATA = {
       "class": 10
     },
     {
-      "title": "Convex Lens and Image Formation",
-      "title_pa": "ਉੱਤਲ ਲੈਂਸ ਅਤੇ ਪ੍ਰਤਿਬਿੰਬ",
+      "title": "Concave Mirror and Image Formation",
+      "title_pa": "ਅਵਤਲ ਦਰਪਣ ਅਤੇ ਪ੍ਰਤਿਬਿੰਬ ਬਣਨਾ",
       "aim": "Change object distance to explore image position.",
       "aim_pa": "ਪ੍ਰਤਿਬਿੰਬ ਦੀ ਸਥਿਤੀ ਸਮਝਣ ਲਈ ਵਸਤੂ ਦੀ ਦੂਰੀ ਬਦਲੋ।",
       "kind": "lens",
