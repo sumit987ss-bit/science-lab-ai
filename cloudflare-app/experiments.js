@@ -685,13 +685,13 @@ window.LAB_DATA = {
       "class": 9
     },
     {
-      "title": "Atoms, Molecules and Particle Models",
-      "title_pa": "ਪਰਮਾਣੂ, ਅਣੂ ਅਤੇ ਕਣ ਮਾਡਲ",
-      "aim": "Explore how atoms combine into molecules using particle diagrams.",
-      "aim_pa": "ਕਣ ਚਿੱਤਰਾਂ ਨਾਲ ਸਮਝੋ ਕਿ ਪਰਮਾਣੂ ਮਿਲ ਕੇ ਅਣੂ ਕਿਵੇਂ ਬਣਾਉਂਦੇ ਹਨ।",
-      "kind": "particles",
-      "note": "Particle models help represent atoms and molecules; they are not to scale.",
-      "note_pa": "ਕਣ ਮਾਡਲ ਪਰਮਾਣੂਆਂ ਅਤੇ ਅਣੂਆਂ ਨੂੰ ਦਰਸਾਉਂਦੇ ਹਨ; ਇਹ ਅਸਲ ਮਾਪ ਅਨੁਸਾਰ ਨਹੀਂ ਹਨ।",
+      "title": "Tyndall Effect",
+      "title_pa": "ਟਿੰਡਲ ਪ੍ਰਭਾਵ",
+      "aim": "Use a torch model to compare how true solutions, colloids and suspensions interact with light.",
+      "aim_pa": "ਟਾਰਚ ਮਾਡਲ ਨਾਲ ਵੇਖੋ ਕਿ ਅਸਲੀ ਘੋਲ, ਕੋਲਾਇਡ ਅਤੇ ਨਿਲੰਬਨ ਰੌਸ਼ਨੀ ਨਾਲ ਕਿਵੇਂ ਵਰਤਾਅ ਕਰਦੇ ਹਨ।",
+      "kind": "tyndall_effect",
+      "note": "Colloidal particles scatter light and make its path visible. True solutions do not show a visible Tyndall beam; suspensions can obscure or strongly diffuse light because of larger particles.",
+      "note_pa": "ਕੋਲਾਇਡੀ ਕਣ ਰੌਸ਼ਨੀ ਖਿਲਾਰਦੇ ਹਨ ਅਤੇ ਉਸ ਦਾ ਰਸਤਾ ਦਿਖਾਈ ਦਿੰਦਾ ਹੈ। ਅਸਲੀ ਘੋਲ ਵਿੱਚ ਟਿੰਡਲ ਕਿਰਨ ਨਹੀਂ ਦਿਸਦੀ; ਵੱਡੇ ਕਣਾਂ ਕਾਰਨ ਨਿਲੰਬਨ ਰੌਸ਼ਨੀ ਨੂੰ ਰੋਕ ਜਾਂ ਬਹੁਤ ਖਿਲਾਰ ਸਕਦਾ ਹੈ।",
       "class": 9
     },
     {
