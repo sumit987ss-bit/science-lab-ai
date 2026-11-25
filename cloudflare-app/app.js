@@ -1937,6 +1937,7 @@ function class10AcidMetalNonmetalLab(){
 
 
 function draw(){
+ if(lab==="chemistry"&&cls===10&&exp===2){class10AcidMetalNonmetalLab();return}
  if(lab==="chemistry"&&cls===10&&exp===1){class10MagnesiumCombustionLab();return}
  if(lab==="chemistry"&&cls===10&&exp===0){class10AcidBaseIndicatorsLab();return}
  if(lab==="chemistry"&&cls===9&&exp===4){class9TyndallEffectLab();return}
