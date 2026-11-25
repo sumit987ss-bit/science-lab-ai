@@ -983,11 +983,9 @@ function class10ConcaveMirrorLab(){
  const imageY=p.mode==="inside"?axis-imageH:axis+imageH;
  const mirrorX=y=>P+30*Math.pow((y-axis)/85,2);
  const line=(x1,y1,x2,y2,color,dash="")=>'<path d="M'+x1.toFixed(1)+' '+y1.toFixed(1)+' L'+x2.toFixed(1)+' '+y2.toFixed(1)+'" stroke="'+color+'" stroke-width="3" fill="none" '+(dash?'stroke-dasharray="'+dash+'"':'')+'/>';
- const arrow=(x1,y1,x2,y2,color)=>'<path d="M'+x1+' '+y1+' L'+x2+' '+y2+'" stroke="'+color+'" stroke-width="3" fill="none" marker-end="url(#rayArrow10)"/>';
  let rays="";
  const yObj=axis-h, m1x=mirrorX(yObj), leftEdge=70;
  const rayColor1="#14b8a6",rayColor2="#f59e0b";
- const line=(x1,y1,x2,y2,color,dash="")=>'<path d="M'+x1.toFixed(1)+' '+y1.toFixed(1)+' L'+x2.toFixed(1)+' '+y2.toFixed(1)+'" stroke="'+color+'" stroke-width="3" fill="none" '+(dash?'stroke-dasharray="'+dash+'"':'')+'/>';
  const arrowLine=(x1,y1,x2,y2,color,dash="")=>'<path d="M'+x1.toFixed(1)+' '+y1.toFixed(1)+' L'+x2.toFixed(1)+' '+y2.toFixed(1)+'" stroke="'+color+'" stroke-width="3" fill="none" '+(dash?'stroke-dasharray="'+dash+'"':'')+' marker-end="url(#rayArrow10)"/>';
  if(p.mode==="infinity"){
   // A distant object sends parallel rays; after reflection they converge at F.
