@@ -992,7 +992,7 @@ function class10ConcaveMirrorLab(){
   rays+='<text x="100" y="151" fill="#a7f3d0" font-size="11" font-weight="800">PARALLEL INCIDENT RAYS</text>';
  }else if(p.mode==="atf"){
   const y1=172,y2=192,m1=mirrorX(y1),m2=mirrorX(y2),slope=h/f;
-  const leftX=115, yOut1=y1+slope*(m1-leftX), yOut2=y2+slope*(m2-leftX);
+  const leftX=280, yOut1=y1+slope*(m1-leftX), yOut2=y2+slope*(m2-leftX);
   rays+=line(ox,axis-h,m1,y1,"#14b8a6")+line(m1,y1,leftX,yOut1,"#14b8a6");
   rays+=line(ox,axis-h,m2,y2,"#f59e0b")+line(m2,y2,leftX,yOut2,"#f59e0b");
   rays+='<text x="115" y="126" fill="#a7f3d0" font-size="11" font-weight="800">REFLECTED RAYS PARALLEL</text>';
