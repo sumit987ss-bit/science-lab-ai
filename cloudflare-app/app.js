@@ -2835,3 +2835,5 @@ home();
 /* deployment trigger: Class 7 Biology plant needs checklist */
 
 // Class 7 digestion animation path ends at the rectum within the labelled anatomy view.
+
+// Trigger production deployment for Class 7 human respiration experiment.
