@@ -675,6 +675,16 @@ window.LAB_DATA = {
       "class": 9
     },
     {
+      "title": "Solutions, Suspensions and Colloids",
+      "title_pa": "ਘੋਲ, ਨਿਲੰਬਨ ਅਤੇ ਕੋਲਾਇਡ",
+      "aim": "Classify everyday mixtures as solutions, suspensions or colloids and compare their properties.",
+      "aim_pa": "ਰੋਜ਼ਾਨਾ ਦੇ ਮਿਸ਼ਰਣਾਂ ਨੂੰ ਘੋਲ, ਨਿਲੰਬਨ ਜਾਂ ਕੋਲਾਇਡ ਵਜੋਂ ਪਛਾਣੋ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਗੁਣਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+      "kind": "solutions_suspensions_colloids",
+      "note": "Solutions are homogeneous and do not show the Tyndall effect; suspensions have larger particles that settle and can be filtered; colloids scatter light and their particles do not settle on standing.",
+      "note_pa": "ਘੋਲ ਇਕਸਾਰ ਹੁੰਦੇ ਹਨ ਅਤੇ ਟਿੰਡਲ ਪ੍ਰਭਾਵ ਨਹੀਂ ਦਿਖਾਉਂਦੇ; ਨਿਲੰਬਨ ਦੇ ਵੱਡੇ ਕਣ ਹੇਠਾਂ ਬੈਠ ਜਾਂਦੇ ਹਨ ਅਤੇ ਛਾਣੇ ਜਾ ਸਕਦੇ ਹਨ; ਕੋਲਾਇਡ ਰੌਸ਼ਨੀ ਖਿਲਾਰਦੇ ਹਨ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਕਣ ਰੱਖਣ ਨਾਲ ਹੇਠਾਂ ਨਹੀਂ ਬੈਠਦੇ।",
+      "class": 9
+    },
+    {
       "title": "Atoms, Molecules and Particle Models",
       "title_pa": "ਪਰਮਾਣੂ, ਅਣੂ ਅਤੇ ਕਣ ਮਾਡਲ",
       "aim": "Explore how atoms combine into molecules using particle diagrams.",
