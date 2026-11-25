@@ -725,8 +725,8 @@ window.LAB_DATA = {
       "class": 10
     },
     {
-      "title": "Neutralisation",
-      "title_pa": "ਉਦਾਸੀਨੀਕਰਨ",
+      "title": "Reaction of Acids with Bases — Neutralisation",
+      "title_pa": "ਤੇਜ਼ਾਬਾਂ ਅਤੇ ਖਾਰਾਂ ਦੀ ਕਿਰਿਆ — ਉਦਾਸੀਨੀਕਰਨ",
       "aim": "Model an acid reacting with a base to form salt and water.",
       "aim_pa": "ਤੇਜ਼ਾਬ ਅਤੇ ਖਾਰ ਦੀ ਕਿਰਿਆ ਨਾਲ ਲੂਣ ਅਤੇ ਪਾਣੀ ਬਣਨ ਦਾ ਮਾਡਲ ਵੇਖੋ।",
       "kind": "neutralisation",
