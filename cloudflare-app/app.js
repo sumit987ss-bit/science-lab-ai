@@ -822,6 +822,44 @@ function chemicalEffectsLab(){
 
 
 
+
+function class9PureMixturesLab(){
+ const pa=lang==="pa";
+ const samples=[
+  {id:"salt",en:"Common salt (pure sodium chloride)",pu:"ਆਮ ਨਮਕ (ਸ਼ੁੱਧ ਸੋਡੀਅਮ ਕਲੋਰਾਈਡ)",type:"pure",formula:"NaCl",kind:"compound",desc:"A single chemical compound with a fixed composition.",descPa:"ਇੱਕ ਹੀ ਰਸਾਇਣਕ ਯੋਗਿਕ, ਜਿਸ ਦੀ ਬਣਤਰ ਨਿਸ਼ਚਿਤ ਹੁੰਦੀ ਹੈ।",look:"white crystals",color:"#f8fafc",shape:"crystals"},
+  {id:"sugar",en:"Sugar (sucrose)",pu:"ਖੰਡ (ਸੁਕਰੋਜ਼)",type:"pure",formula:"C₁₂H₂₂O₁₁",kind:"compound",desc:"Sucrose is one compound, even though it contains different elements.",descPa:"ਸੁਕਰੋਜ਼ ਇੱਕ ਯੋਗਿਕ ਹੈ, ਭਾਵੇਂ ਇਸ ਵਿੱਚ ਵੱਖ-ਵੱਖ ਤੱਤ ਹਨ।",look:"white crystals",color:"#fff7ed",shape:"crystals"},
+  {id:"copper",en:"Copper",pu:"ਤਾਂਬਾ",type:"pure",formula:"Cu",kind:"element",desc:"Copper is a pure element made of copper atoms.",descPa:"ਤਾਂਬਾ ਇੱਕ ਸ਼ੁੱਧ ਤੱਤ ਹੈ, ਜੋ ਤਾਂਬੇ ਦੇ ਪਰਮਾਣੂਆਂ ਤੋਂ ਬਣਿਆ ਹੈ।",look:"reddish metal",color:"#c87545",shape:"metal"},
+  {id:"distilled",en:"Distilled water",pu:"ਆਸਵਿਤ ਪਾਣੀ",type:"pure",formula:"H₂O",kind:"compound",desc:"Pure water contains only H₂O molecules (in this school-level example).",descPa:"ਸ਼ੁੱਧ ਪਾਣੀ ਵਿੱਚ ਸਿਰਫ਼ H₂O ਅਣੂ ਹੁੰਦੇ ਹਨ (ਇਸ ਸਕੂਲੀ ਉਦਾਹਰਨ ਵਿੱਚ)।",look:"clear liquid",color:"#60c5ef",shape:"liquid"},
+  {id:"oxygen",en:"Oxygen gas",pu:"ਆਕਸੀਜਨ ਗੈਸ",type:"pure",formula:"O₂",kind:"element",desc:"A pure element; its particles are oxygen molecules.",descPa:"ਇੱਕ ਸ਼ੁੱਧ ਤੱਤ; ਇਸ ਦੇ ਕਣ ਆਕਸੀਜਨ ਦੇ ਅਣੂ ਹਨ।",look:"colourless gas",color:"#a5d8ff",shape:"gas"},
+  {id:"air",en:"Air",pu:"ਹਵਾ",type:"mixture",formula:"N₂ + O₂ + other gases",kind:"mixture",desc:"Air is a uniform mixture of several gases, mainly nitrogen and oxygen.",descPa:"ਹਵਾ ਕਈ ਗੈਸਾਂ ਦਾ ਇਕਸਾਰ ਮਿਸ਼ਰਣ ਹੈ, ਜਿਸ ਵਿੱਚ ਮੁੱਖ ਤੌਰ ਤੇ ਨਾਈਟ੍ਰੋਜਨ ਅਤੇ ਆਕਸੀਜਨ ਹਨ।",look:"gas mixture",color:"#93c5fd",shape:"gas"},
+  {id:"milk",en:"Milk",pu:"ਦੁੱਧ",type:"mixture",formula:"Water + fats + proteins + more",kind:"colloid",desc:"Milk is a colloid: tiny fat droplets and other substances are dispersed in water.",descPa:"ਦੁੱਧ ਇੱਕ ਕੋਲਾਇਡ ਹੈ: ਚਰਬੀ ਦੀਆਂ ਬਹੁਤ ਛੋਟੀਆਂ ਬੂੰਦਾਂ ਅਤੇ ਹੋਰ ਪਦਾਰਥ ਪਾਣੀ ਵਿੱਚ ਫੈਲੇ ਹੁੰਦੇ ਹਨ।",look:"white liquid",color:"#fffdf5",shape:"liquid"},
+  {id:"soil",en:"Soil",pu:"ਮਿੱਟੀ",type:"mixture",formula:"Minerals + humus + air + water",kind:"heterogeneous",desc:"Soil contains different materials and is not uniform throughout.",descPa:"ਮਿੱਟੀ ਵਿੱਚ ਕਈ ਵੱਖਰੇ ਪਦਾਰਥ ਹੁੰਦੇ ਹਨ ਅਤੇ ਇਹ ਹਰ ਥਾਂ ਇਕੋ ਜਿਹੀ ਨਹੀਂ ਹੁੰਦੀ।",look:"brown grains",color:"#9b704d",shape:"soil"},
+  {id:"lemonade",en:"Lemonade (strained)",pu:"ਨਿੰਬੂ ਪਾਣੀ (ਛਾਣਿਆ ਹੋਇਆ)",type:"mixture",formula:"Water + lemon juice + sugar",kind:"solution",desc:"A solution containing more than one substance uniformly mixed.",descPa:"ਇੱਕ ਘੋਲ ਜਿਸ ਵਿੱਚ ਇੱਕ ਤੋਂ ਵੱਧ ਪਦਾਰਥ ਇਕਸਾਰ ਮਿਲੇ ਹੋਏ ਹਨ।",look:"pale yellow drink",color:"#f5d76e",shape:"liquid"},
+  {id:"brass",en:"Brass",pu:"ਪੀਤਲ",type:"mixture",formula:"Copper + zinc",kind:"alloy",desc:"Brass is an alloy: a uniform solid mixture of copper and zinc.",descPa:"ਪੀਤਲ ਤਾਂਬੇ ਅਤੇ ਜ਼ਿੰਕ ਦਾ ਇਕਸਾਰ ਠੋਸ ਮਿਸ਼ਰਣ (ਮਿਸ਼ਰ ਧਾਤ) ਹੈ।",look:"golden metal",color:"#d6ad45",shape:"metal"},
+  {id:"tap",en:"Tap water",pu:"ਨਲਕਾ ਪਾਣੀ",type:"mixture",formula:"Water + dissolved minerals",kind:"solution",desc:"Tap water usually contains dissolved minerals and other substances, so it is a mixture.",descPa:"ਨਲਕੇ ਦੇ ਪਾਣੀ ਵਿੱਚ ਆਮ ਤੌਰ ਤੇ ਘੁਲੇ ਖਣਿਜ ਅਤੇ ਹੋਰ ਪਦਾਰਥ ਹੁੰਦੇ ਹਨ, ਇਸ ਲਈ ਇਹ ਮਿਸ਼ਰਣ ਹੈ।",look:"clear liquid",color:"#8bd3f2",shape:"liquid"}
+ ];
+ let selected="salt";
+ const esc=x=>String(x).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+ const art=s=>{
+  let inside="";
+  if(s.shape==="crystals") inside=Array.from({length:34},(_,i)=>{let x=75+(i*47)%250,y=95+((i*31)%105);return "<path d='M"+x+" "+y+" l7 -5 7 5 -7 7Z' fill='"+(s.id==="salt"?"#ffffff":"#fff4df")+"' stroke='#cbd5e1' stroke-width='1.5'/>"}).join("");
+  if(s.shape==="metal") inside="<path d='M55 105 L78 65 H245 L270 105 L245 190 H78Z' fill='"+s.color+"' stroke='#805b35' stroke-width='5'/><path d='M80 80H240' stroke='#fff' stroke-width='9' opacity='.48'/>";
+  if(s.shape==="liquid") inside="<path d='M70 72H250L235 205Q160 225 85 205Z' fill='#ffffff' fill-opacity='.25' stroke='#64748b' stroke-width='6'/><path d='M79 130H241L232 198Q160 215 88 198Z' fill='"+s.color+"' opacity='.92'/><path d='M82 132Q160 119 238 132' fill='none' stroke='#fff' stroke-width='5' opacity='.8'/>";
+  if(s.shape==="gas") inside="<rect x='55' y='65' width='210' height='145' rx='18' fill='#eff8ff' stroke='#64748b' stroke-width='5'/><g fill='"+s.color+"' stroke='#3976a8' stroke-width='2'>"+Array.from({length:12},(_,i)=>{let x=78+(i*67)%165,y=88+(i*43)%105;return "<circle cx='"+x+"' cy='"+y+"' r='8'/><circle cx='"+(x+11)+"' cy='"+(y-4)+"' r='8'/>"}).join("")+"</g>";
+  if(s.shape==="soil") inside="<path d='M58 118Q160 95 265 118L245 205H78Z' fill='#b58b61' stroke='#76563a' stroke-width='4'/>"+Array.from({length:27},(_,i)=>{let x=75+(i*37)%175,y=130+(i*23)%62;return "<circle cx='"+x+"' cy='"+y+"' r='"+(3+i%4)+"' fill='"+["#5b4636","#d6c3a2","#6b7b4b","#d7d0bd"][i%4]+"'/>"}).join("");
+  return "<svg viewBox='0 0 320 250' role='img' aria-label='"+esc(s.en)+" sample illustration' style='width:100%;max-width:360px;display:block;margin:auto'>"+inside+"<text x='160' y='238' text-anchor='middle' font-size='12' font-weight='800' fill='#475569'>"+esc(s.look.toUpperCase())+"</text></svg>";
+ };
+ const render=()=>{
+  const s=samples.find(x=>x.id===selected),pure=s.type==="pure";
+  $("#pureMixtureVisual").innerHTML=art(s);
+  $("#pureMixtureInfo").innerHTML="<div style='border-radius:17px;padding:16px;background:"+(pure?"#ecfdf5":"#fff7ed")+";border:2px solid "+(pure?"#10b981":"#f59e0b")+"'><div style='font-size:12px;font-weight:900;letter-spacing:1.4px;color:#475569'>"+(pa?"ਨਤੀਜਾ":"LAB RESULT")+"</div><div style='font-size:27px;font-weight:1000;color:"+(pure?"#047857":"#b45309")+";margin:4px 0'>"+(pure?(pa?"ਸ਼ੁੱਧ ਪਦਾਰਥ":"PURE SUBSTANCE"):(pa?"ਮਿਸ਼ਰਣ / ਅਸ਼ੁੱਧ ਨਮੂਨਾ":"MIXTURE / IMPURE SAMPLE"))+"</div><div style='font-size:14px;font-weight:800;color:#334155'>"+(pa?"ਕਿਸਮ: ":"Type: ")+esc(s.kind.toUpperCase())+" · "+esc(s.formula)+"</div><p style='margin:8px 0 0;color:#334155;font-weight:650'>"+(pa?s.descPa:s.desc)+"</p></div>";
+  $("#pureMixtureBadge").innerHTML="<span style='display:inline-block;padding:7px 12px;border-radius:30px;background:#e0f2fe;color:#075985;font-size:12px;font-weight:900'>"+(pa?"ਨਮੂਨਾ ਜਾਂਚ":"SAMPLE ANALYSIS")+" · "+esc(s.id.toUpperCase())+"</span>";
+ };
+ const title=pa?"ਸ਼ੁੱਧ ਪਦਾਰਥ ਅਤੇ ਮਿਸ਼ਰਣ":"Pure Substances and Mixtures";
+ $("#app").innerHTML="<section class='lab-top'><button class='back-button' id='back'>← "+(pa?"ਵਾਪਸ":"Back")+"</button><div class='lab-selectors'><label>"+(pa?"ਜਮਾਤ":"Class")+"<select id='cl'>"+[6,7,8,9,10].map(n=>"<option "+(cls===n?"selected":"")+" value='"+n+"'>"+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+"</option>").join("")+"</select></label><label>"+(pa?"ਪ੍ਰਯੋਗ":"Experiment")+"<select id='ex'>"+list().map((v,i)=>"<option value='"+i+"' "+(i===exp?"selected":"")+">"+(i+1)+". "+esc(pa?v.title_pa:v.title)+"</option>").join("")+"</select></label></div></section><section class='experiment-card'><h2 style='font-size:26px;font-weight:1000;color:#173b55;margin:8px 0'>"+title+"</h2><p style='color:#475569;font-weight:650'>"+(pa?"ਨਮੂਨਾ ਚੁਣੋ, ਉਸ ਦੀ ਦਿੱਖ ਵੇਖੋ ਅਤੇ ਪਛਾਣੋ ਕਿ ਇਹ ਸ਼ੁੱਧ ਪਦਾਰਥ ਹੈ ਜਾਂ ਮਿਸ਼ਰਣ।":"Choose a sample, inspect its material appearance and identify it as a pure substance or a mixture.")+"</p><label style='display:block;font-weight:900;margin:16px 0 8px'>"+(pa?"ਨਮੂਨਾ ਚੁਣੋ":"SELECT A MATERIAL")+"<select id='pureMixtureSelect' style='width:100%;padding:14px;border:2px solid #7dd3fc;border-radius:13px;font-size:16px;font-weight:850;background:#f0f9ff'>"+samples.map(s=>"<option value='"+s.id+"'>"+(pa?s.pu:s.en)+"</option>").join("")+"</select></label><div id='pureMixtureBadge' style='margin:10px 0'></div><div style='display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;align-items:center'><div id='pureMixtureVisual' style='background:linear-gradient(145deg,#f8fafc,#e0f2fe);border:1px solid #cbd5e1;border-radius:18px;padding:12px;min-height:220px;display:grid;place-items:center'></div><div id='pureMixtureInfo'></div></div><div style='margin-top:14px;padding:12px;border-radius:13px;background:#f1f5f9;color:#475569;font-size:13px;font-weight:650'>"+(pa?"ਯਾਦ ਰੱਖੋ: ਸ਼ੁੱਧ ਪਦਾਰਥ ਵਿੱਚ ਇੱਕ ਹੀ ਕਿਸਮ ਦਾ ਤੱਤ ਜਾਂ ਯੋਗਿਕ ਹੁੰਦਾ ਹੈ। ਮਿਸ਼ਰਣ ਵਿੱਚ ਦੋ ਜਾਂ ਵੱਧ ਪਦਾਰਥ ਮਿਲੇ ਹੁੰਦੇ ਹਨ।":"Remember: a pure substance contains one chemical element or compound. A mixture contains two or more substances. “Impure” is commonly used for a sample that contains a mixture.")+"</div></section>";
+ $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;draw()};$("#ex").onchange=e=>{exp=+e.target.value;draw()};$("#pureMixtureSelect").onchange=e=>{selected=e.target.value;render()};render();
+}
+
 function class9ParticleArrangementLab(){
  const pa=lang==="pa";
  const states=[
@@ -1662,6 +1700,7 @@ function class7RustingLab(){
 }
 
 function draw(){
+ if(lab==="chemistry"&&cls===9&&exp===2){class9PureMixturesLab();return}
  if(lab==="chemistry"&&cls===9&&exp===1){class9ParticleArrangementLab();return}
  if(lab==="chemistry"&&cls===9&&exp===0){class9StatesOfMatterLab();return}
  if(lab==="chemistry"&&cls===8&&exp===4){class8MetalsNonMetalsLab();return}
