@@ -2041,11 +2041,12 @@ function class10AcidMetalNonmetalLab(){
 
 
 function draw(){
- if(lab==="chemistry"&&cls===10&&exp===4){class10WaterElectrolysisLab();return}
- if(lab==="chemistry"&&cls===10&&exp===3){class10NeutralisationLab();return}
- if(lab==="chemistry"&&cls===10&&exp===2){class10AcidMetalNonmetalLab();return}
- if(lab==="chemistry"&&cls===10&&exp===1){class10MagnesiumCombustionLab();return}
- if(lab==="chemistry"&&cls===10&&exp===0){class10AcidBaseIndicatorsLab();return}
+ const selectedExperiment=lab==="chemistry"&&cls===10?item():null;
+ if(selectedExperiment?.kind==="water_electrolysis"){class10WaterElectrolysisLab();return}
+ if(selectedExperiment?.kind==="neutralisation"){class10NeutralisationLab();return}
+ if(selectedExperiment?.kind==="acid_metal_nonmetal"){class10AcidMetalNonmetalLab();return}
+ if(selectedExperiment?.kind==="magnesium_combustion"){class10MagnesiumCombustionLab();return}
+ if(selectedExperiment?.kind==="acid_base_indicators"){class10AcidBaseIndicatorsLab();return}
  if(lab==="chemistry"&&cls===9&&exp===4){class9TyndallEffectLab();return}
  if(lab==="chemistry"&&cls===9&&exp===3){class9SolutionSuspensionColloidLab();return}
  if(lab==="chemistry"&&cls===9&&exp===2){class9PureMixturesLab();return}
