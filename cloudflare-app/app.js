@@ -1928,8 +1928,8 @@ function class10WaterElectrolysisLab(){
   '<div style="margin-top:14px;padding:14px;border-radius:12px;background:#eff6ff;color:#1e3a8a"><b>OBSERVATION:</b> The hydrogen tube contains about twice the gas volume, so its remaining water level is lower. The oxygen tube collects about half as much gas.</div>'+
   '<p style="margin-top:14px;color:#64748b;font-size:13px">'+(pa?"ਇਹ ਸਿਰਫ਼ ਧਾਰਣਾਤਮਕ ਵਰਚੁਅਲ ਮਾਡਲ ਹੈ। ਅਸਲ ਇਲੈਕਟ੍ਰੋਲਾਈਸਿਸ ਜਾਂ ਬਣੀਆਂ ਗੈਸਾਂ ਨੂੰ ਇਕੱਠਾ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਨਾ ਕਰੋ।":"Conceptual virtual model only. Do not attempt real electrolysis or collect the gases; gas production and electrical equipment require specialist supervision and controls.")+'</p></section>';
   $("#back").onclick=home;
-  $("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";render()};
-  $("#ex").onchange=e=>{exp=+e.target.value;choice="";render()};
+  $("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};
+  $("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};
   visual();
  }
  render();
@@ -1980,8 +1980,8 @@ function class10NeutralisationLab(){
    '<div id="neutralNames"></div><div id="neutralViz" style="margin-top:14px"></div><div id="neutralResult" style="margin-top:14px"></div><div id="neutralObservation" style="margin-top:12px;padding:13px;background:#eff6ff;border-radius:12px;font-weight:900;text-align:center"></div>'+
    '<p style="margin-top:14px;color:#64748b;font-size:13px">'+(pa?"ਇਹ ਸੁਰੱਖਿਅਤ ਵਰਚੁਅਲ ਮਾਡਲ ਹੈ। ਅਸਲ ਤੇਜ਼ਾਬਾਂ ਜਾਂ ਖਾਰਾਂ ਨਾਲ ਪ੍ਰਯੋਗ ਕੇਵਲ ਅਧਿਆਪਕ ਦੀ ਦੇਖ-ਰੇਖ ਅਤੇ ਲੈਬ ਸੁਰੱਖਿਆ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਹੀ ਕਰੋ।":"Virtual model only. Real acids and bases must only be handled in a supervised, properly equipped laboratory.")+'</p></section>';
   $("#back").onclick=()=>home();
-  $("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";render()};
-  $("#ex").onchange=e=>{exp=+e.target.value;choice="";render()};
+  $("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};
+  $("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};
   $("#neutralAcid").onchange=e=>{ai=+e.target.value;updateVisual()};
   $("#neutralBase").onchange=e=>{bi=+e.target.value;updateVisual()};
   updateVisual();
