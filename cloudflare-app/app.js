@@ -288,6 +288,47 @@ function class6SeparatingMixturesLab(){
  $("#mixtureSeparationSelect").onchange=e=>{selected=+e.target.value;render()};render();
 }
 
+
+function class6TransparencyLab(){
+ const pa=lang==="pa";
+ const samples=[
+  {en:"Clear glass",pu:"ਸਾਫ਼ ਕੱਚ",type:"transparent",result:"TRANSPARENT",resultPu:"ਪਾਰਦਰਸ਼ੀ",desc:"Light passes through clearly and objects can be seen distinctly.",descPu:"ਰੋਸ਼ਨੀ ਸਾਫ਼ ਤਰੀਕੇ ਨਾਲ ਲੰਘਦੀ ਹੈ ਅਤੇ ਵਸਤੂਆਂ ਸਪੱਸ਼ਟ ਦਿਖਾਈ ਦਿੰਦੀਆਂ ਹਨ।",material:"glass"},
+  {en:"Clean water",pu:"ਸਾਫ਼ ਪਾਣੀ",type:"transparent",result:"TRANSPARENT",resultPu:"ਪਾਰਦਰਸ਼ੀ",desc:"Light passes through clean water and objects behind it remain clearly visible.",descPu:"ਸਾਫ਼ ਪਾਣੀ ਵਿੱਚੋਂ ਰੋਸ਼ਨੀ ਲੰਘਦੀ ਹੈ ਅਤੇ ਪਿੱਛੇ ਵਾਲੀਆਂ ਵਸਤੂਆਂ ਸਪੱਸ਼ਟ ਦਿਖਦੀਆਂ ਹਨ।",material:"water"},
+  {en:"Tracing paper",pu:"ਟ੍ਰੇਸਿੰਗ ਪੇਪਰ",type:"translucent",result:"TRANSLUCENT",resultPu:"ਅਰਧ-ਪਾਰਦਰਸ਼ੀ",desc:"Some light passes through, but it is scattered, so objects look blurred.",descPu:"ਕੁਝ ਰੋਸ਼ਨੀ ਲੰਘਦੀ ਹੈ ਪਰ ਖਿਲਰ ਜਾਂਦੀ ਹੈ, ਇਸ ਲਈ ਵਸਤੂਆਂ ਧੁੰਦਲੀਆਂ ਦਿਖਦੀਆਂ ਹਨ।",material:"paper"},
+  {en:"Frosted glass",pu:"ਧੁੰਦਲਾ ਕੱਚ",type:"translucent",result:"TRANSLUCENT",resultPu:"ਅਰਧ-ਪਾਰਦਰਸ਼ੀ",desc:"Light passes through in scattered directions; details cannot be seen clearly.",descPu:"ਰੋਸ਼ਨੀ ਵੱਖ-ਵੱਖ ਦਿਸ਼ਾਵਾਂ ਵਿੱਚ ਖਿਲਰ ਕੇ ਲੰਘਦੀ ਹੈ; ਵੇਰਵੇ ਸਪੱਸ਼ਟ ਨਹੀਂ ਦਿਸਦੇ।",material:"frosted"},
+  {en:"Thin cloth",pu:"ਪਤਲਾ ਕੱਪੜਾ",type:"translucent",result:"TRANSLUCENT",resultPu:"ਅਰਧ-ਪਾਰਦਰਸ਼ੀ",desc:"Some light passes through the thin cloth, but the view is blurred.",descPu:"ਪਤਲੇ ਕੱਪੜੇ ਵਿੱਚੋਂ ਕੁਝ ਰੋਸ਼ਨੀ ਲੰਘਦੀ ਹੈ ਪਰ ਦ੍ਰਿਸ਼ ਧੁੰਦਲਾ ਰਹਿੰਦਾ ਹੈ।",material:"cloth"},
+  {en:"Cardboard",pu:"ਗੱਤਾ",type:"opaque",result:"OPAQUE",resultPu:"ਅਪਾਰਦਰਸ਼ੀ",desc:"Light is blocked; it does not pass through the cardboard.",descPu:"ਰੋਸ਼ਨੀ ਰੁਕ ਜਾਂਦੀ ਹੈ ਅਤੇ ਗੱਤੇ ਵਿੱਚੋਂ ਨਹੀਂ ਲੰਘਦੀ।",material:"cardboard"},
+  {en:"Wooden board",pu:"ਲੱਕੜ ਦਾ ਫੱਟਾ",type:"opaque",result:"OPAQUE",resultPu:"ਅਪਾਰਦਰਸ਼ੀ",desc:"Light is blocked by the wooden board and a shadow forms behind it.",descPu:"ਲੱਕੜ ਦਾ ਫੱਟਾ ਰੋਸ਼ਨੀ ਰੋਕਦਾ ਹੈ ਅਤੇ ਇਸ ਦੇ ਪਿੱਛੇ ਛਾਂ ਬਣਦੀ ਹੈ।",material:"wood"}
+ ];
+ let selected=0;
+ const escx=x=>String(x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+ function visual(v){
+  let object="";
+  if(v.material==="glass")object='<path d="M176 68H244L236 194Q235 207 223 207H197Q185 207 184 194Z" fill="#bcecff" fill-opacity=".24" stroke="#6c9fb5" stroke-width="5"/><path d="M184 92H238M190 82L188 185" stroke="#fff" stroke-width="5" opacity=".8"/><path d="M198 199H222" stroke="#8fc7dc" stroke-width="3"/>';
+  else if(v.material==="water")object='<path d="M178 62H242L235 202H185Z" fill="#dff8ff" fill-opacity=".5" stroke="#6c9fb5" stroke-width="5"/><path d="M183 113Q210 106 238 113L234 197H186Z" fill="#50bde8" fill-opacity=".5"/><path d="M183 113Q210 106 238 113" fill="none" stroke="#168bb8" stroke-width="3"/><path d="M193 128L203 185M218 127L227 184" stroke="#fff" stroke-width="3" opacity=".65"/>';
+  else if(v.material==="paper")object='<rect x="184" y="55" width="52" height="155" rx="3" fill="#f8f1d9" fill-opacity=".82" stroke="#bcae8d" stroke-width="4"/><path d="M191 70H228M191 83H228M191 96H228" stroke="#d5c9a9" stroke-width="2"/>';
+  else if(v.material==="frosted")object='<rect x="181" y="55" width="58" height="155" rx="5" fill="#d8e8ee" fill-opacity=".9" stroke="#8ca7b2" stroke-width="5"/><g fill="#fff" opacity=".7"><circle cx="193" cy="78" r="5"/><circle cx="220" cy="96" r="7"/><circle cx="202" cy="130" r="8"/><circle cx="225" cy="164" r="6"/><circle cx="193" cy="188" r="5"/></g>';
+  else if(v.material==="cloth")object='<rect x="181" y="55" width="58" height="155" fill="#f0d9e8" stroke="#b77b9f" stroke-width="4"/><path d="M188 55V210M198 55V210M208 55V210M218 55V210M228 55V210M181 68H239M181 82H239M181 96H239M181 110H239M181 124H239M181 138H239M181 152H239M181 166H239M181 180H239M181 194H239" stroke="#d09ab9" stroke-width="1.5"/>';
+  else if(v.material==="cardboard")object='<rect x="176" y="55" width="68" height="155" rx="3" fill="#bd8b52" stroke="#80552f" stroke-width="5"/><path d="M185 70L235 90M185 112L235 132M185 154L235 174" stroke="#d7ae7d" stroke-width="5" opacity=".8"/>';
+  else object='<rect x="176" y="55" width="68" height="155" rx="3" fill="#a87342" stroke="#684326" stroke-width="5"/><path d="M185 70Q210 90 235 68M185 112Q210 132 235 110M185 154Q210 174 235 152" fill="none" stroke="#d9a56c" stroke-width="5"/>';
+  let rays="";
+  if(v.type==="transparent")rays='<g stroke="#f2a900" stroke-width="5" fill="none" stroke-linecap="round"><path d="M30 95H365"/><path d="M30 132H365"/><path d="M30 169H365"/></g><g fill="#f2a900"><path d="M365 87L382 95L365 103Z"/><path d="M365 124L382 132L365 140Z"/><path d="M365 161L382 169L365 177Z"/></g>';
+  else if(v.type==="translucent")rays='<g stroke="#f2a900" stroke-width="5" fill="none" stroke-linecap="round"><path d="M30 95H176L290 63"/><path d="M30 132H176L330 132"/><path d="M30 169H176L290 201"/></g><g fill="#f2a900"><path d="M290 55L307 60L293 72Z"/><path d="M330 124L347 132L330 140Z"/><path d="M290 193L307 204L293 211Z"/></g>';
+  else rays='<g stroke="#f2a900" stroke-width="5" fill="none" stroke-linecap="round"><path d="M30 95H170"/><path d="M30 132H170"/><path d="M30 169H170"/></g><g stroke="#e59a00" stroke-width="4" stroke-dasharray="6 7"><path d="M252 95H345"/><path d="M252 132H345"/><path d="M252 169H345"/></g><path d="M345 83L362 95L345 107M345 120L362 132L345 144M345 157L362 169L345 181" fill="none" stroke="#e59a00" stroke-width="3"/>';
+  return '<svg viewBox="0 0 410 260" role="img" aria-label="'+escx(v.en)+' '+v.type+' material demonstration"><defs><radialGradient id="lampGlow"><stop stop-color="#fff7bd"/><stop offset="1" stop-color="#f59e0b"/></radialGradient></defs><rect x="8" y="8" width="394" height="244" rx="16" fill="#f5faff"/><g transform="translate(0 0)"><rect x="18" y="105" width="33" height="55" rx="7" fill="#475569"/><path d="M50 112L67 120V145L50 153Z" fill="#f2a900"/><circle cx="51" cy="132" r="17" fill="url(#lampGlow)"/><text x="35" y="190" text-anchor="middle" font-size="12" font-weight="800" fill="#334155">'+(pa?"ਰੋਸ਼ਨੀ ਸਰੋਤ":"LIGHT SOURCE")+'</text></g>'+rays+object+'<path d="M278 65V210" stroke="#64748b" stroke-dasharray="4 5" opacity=".35"/><text x="210" y="238" text-anchor="middle" font-size="13" font-weight="800" fill="#334155">'+(pa?"ਪਦਾਰਥ ਵਿੱਚੋਂ ਰੋਸ਼ਨੀ ਦਾ ਲੰਘਣਾ":"LIGHT PASSING THROUGH THE MATERIAL")+'</text></svg>';
+ }
+ function render(){
+  const v=samples[selected],color=v.type==="transparent"?"#087443":v.type==="translucent"?"#a16207":"#b42318";
+  $("#transparencyVisual").innerHTML=visual(v);
+  $("#transparencyResult").innerHTML='<div style="padding:1rem;border-radius:14px;border:2px solid '+color+';background:#fff;text-align:center"><strong style="display:block;font-size:1.55rem;line-height:1.3;font-weight:950;letter-spacing:.02em;color:'+color+'">'+(pa?v.resultPu:v.result)+'</strong><p style="margin:.45rem 0 0">'+(pa?v.descPu:v.desc)+'</p></div>';
+ }
+ const title=pa?"ਪਾਰਦਰਸ਼ੀ, ਅਰਧ-ਪਾਰਦਰਸ਼ੀ ਅਤੇ ਅਪਾਰਦਰਸ਼ੀ ਪਦਾਰਥ":"Transparent, Translucent and Opaque Materials";
+ const aim=pa?"ਦੇਖੋ ਕਿ ਵੱਖ-ਵੱਖ ਪਦਾਰਥਾਂ ਵਿੱਚੋਂ ਰੋਸ਼ਨੀ ਕਿਵੇਂ ਲੰਘਦੀ ਹੈ।":"Observe how light passes through different materials.";
+ $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+(pa?"← ਲੈਬ ਵੱਲ ਵਾਪਸ":"← Back to laboratories")+'</button><div class="lab-top-name"><span>🧪</span><div><strong>POCKET Science Lab</strong><small>'+(pa?"ਜਮਾਤ 6 · ਰਸਾਇਣ ਵਿਗਿਆਨ":"Class 6 · Chemistry Lab")+'</small></div></div></section><section class="lab-selectors"><label>'+(pa?"ਜਮਾਤ ਚੁਣੋ":"Select class")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option '+(cls===n?"selected":"")+' value="'+n+'">'+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+(pa?"ਪ੍ਰਯੋਗ ਚੁਣੋ":"Select experiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+escx(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section><section class="experiment-card"><div class="experiment-meta">'+(pa?"ਜਮਾਤ 6 · ਰਸਾਇਣ ਵਿਗਿਆਨ ਪ੍ਰਯੋਗ 5":"CLASS 6 · CHEMISTRY EXPERIMENT 5")+'</div><h2>'+title+'</h2><p class="aim"><b>'+(pa?"ਉਦੇਸ਼":"Aim")+':</b> '+aim+'</p><div class="experiment-grid"><div class="control-panel"><label><b>'+(pa?"ਪਦਾਰਥ ਚੁਣੋ":"Select a material")+'</b><select id="transparencySelect">'+samples.map((v,i)=>'<option value="'+i+'">'+escx(pa?v.pu:v.en)+'</option>').join("")+'</select></label><p class="helper">'+(pa?"ਹਰ ਪਦਾਰਥ ਚੁਣ ਕੇ ਰੋਸ਼ਨੀ ਦੇ ਵਿਹਾਰ ਨੂੰ ਵੇਖੋ।":"Select each material and observe what happens to the light.")+'</p></div><div class="visual-panel"><h3>'+(pa?"ਰੋਸ਼ਨੀ ਦਾ ਨਿਰੀਖਣ":"Light observation")+'</h3><div id="transparencyVisual"></div><div id="transparencyResult"></div></div></div><p class="safety-note">'+(pa?"ਇਹ ਰੋਸ਼ਨੀ ਦੇ ਲੰਘਣ ਦਾ ਵਰਚੁਅਲ ਮਾਡਲ ਹੈ।":"Virtual model showing how light interacts with each material.")+'</p><div class="navigation"><button class="back-button" id="prev">'+(pa?"ਪਿਛਲਾ ਪ੍ਰਯੋਗ":"Previous experiment")+'</button><button class="primary-button" id="next">'+(pa?"ਅਗਲਾ ਪ੍ਰਯੋਗ":"Next experiment")+' →</button></div></section>';
+ $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};$("#prev").onclick=()=>{if(exp>0){exp--;choice="";draw()}};$("#next").onclick=()=>{if(exp<4){exp++;choice="";draw()}};
+ $("#transparencySelect").onchange=e=>{selected=+e.target.value;render()};render();
+}
+
 function solubilityLab(){
  const pa=lang==="pa";
  const materials=[
@@ -1269,6 +1310,7 @@ function draw(){
  if(lab==="chemistry"&&cls===6&&exp===1){solubilityLab();return}
  if(lab==="chemistry"&&cls===6&&exp===2){class6MixtureSeparationLab();return}
  if(lab==="chemistry"&&cls===6&&exp===3){class6SeparatingMixturesLab();return}
+ if(lab==="chemistry"&&cls===6&&exp===4){class6TransparencyLab();return}
  const it=item();if(!it){home();return}
  const os=opts(it.kind);if(!os.includes(choice))choice=os[0];const cn=controlNames(it);
  const name=lang==="pa"?it.title_pa:it.title,aim=lang==="pa"?it.aim_pa:it.aim,note=lang==="pa"?it.note_pa:it.note;
