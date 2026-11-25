@@ -1892,14 +1892,14 @@ function class10MagnesiumCombustionLab(){
 function class10NeutralisationLab(){
  const pa=lang==="pa";
  const acids=[
-  {name:"Hydrochloric acid",formula:"HCl",pu:"ਹਾਈਡ੍ਰੋਕਲੋਰਿਕ ਤੇਜ਼ਾਬ",anion:"Cl⁻"},
-  {name:"Sulfuric acid",formula:"H₂SO₄",pu:"ਸਲਫਿਊਰਿਕ ਤੇਜ਼ਾਬ",anion:"SO₄²⁻"},
-  {name:"Nitric acid",formula:"HNO₃",pu:"ਨਾਈਟ੍ਰਿਕ ਤੇਜ਼ਾਬ",anion:"NO₃⁻"}
+  {name:"Hydrochloric acid",formula:"HCl",pu:"ਹਾਈਡ੍ਰੋਕਲੋਰਿਕ ਤੇਜ਼ਾਬ"},
+  {name:"Sulfuric acid",formula:"H₂SO₄",pu:"ਸਲਫਿਊਰਿਕ ਤੇਜ਼ਾਬ"},
+  {name:"Nitric acid",formula:"HNO₃",pu:"ਨਾਈਟ੍ਰਿਕ ਤੇਜ਼ਾਬ"}
  ];
  const bases=[
-  {name:"Sodium hydroxide",formula:"NaOH",pu:"ਸੋਡੀਅਮ ਹਾਈਡਰਾਕਸਾਈਡ",cation:"Na⁺"},
-  {name:"Potassium hydroxide",formula:"KOH",pu:"ਪੋਟਾਸ਼ੀਅਮ ਹਾਈਡਰਾਕਸਾਈਡ",cation:"K⁺"},
-  {name:"Calcium hydroxide",formula:"Ca(OH)₂",pu:"ਕੈਲਸ਼ੀਅਮ ਹਾਈਡਰਾਕਸਾਈਡ",cation:"Ca²⁺"}
+  {name:"Sodium hydroxide",formula:"NaOH",pu:"ਸੋਡੀਅਮ ਹਾਈਡਰਾਕਸਾਈਡ"},
+  {name:"Potassium hydroxide",formula:"KOH",pu:"ਪੋਟਾਸ਼ੀਅਮ ਹਾਈਡਰਾਕਸਾਈਡ"},
+  {name:"Calcium hydroxide",formula:"Ca(OH)₂",pu:"ਕੈਲਸ਼ੀਅਮ ਹਾਈਡਰਾਕਸਾਈਡ"}
  ];
  const products=[
   [["NaCl","H₂O","HCl + NaOH → NaCl + H₂O"],["KCl","H₂O","HCl + KOH → KCl + H₂O"],["CaCl₂","2H₂O","2HCl + Ca(OH)₂ → CaCl₂ + 2H₂O"]],
@@ -1908,8 +1908,8 @@ function class10NeutralisationLab(){
  ];
  let ai=0,bi=0;
  const esc=n=>String(n).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
- const list=()=>typeof window!=="undefined"&&window.LAB_DATA&&window.LAB_DATA.chemistry?window.LAB_DATA.chemistry.filter(x=>x.class===cls):[];
- function draw(){
+ const list=()=>window.LAB_DATA.chemistry.filter(x=>x.class===cls);
+ function updateVisual(){
   const ac=acids[ai],ba=bases[bi],p=products[ai][bi];
   const acidName=pa?ac.pu:ac.name,baseName=pa?ba.pu:ba.name;
   const svg='<svg viewBox="0 0 760 330" role="img" aria-label="Virtual neutralisation: acid and base combine to form salt and water" style="width:100%;height:auto;display:block;border-radius:16px;background:#10243a">'+
@@ -1923,21 +1923,24 @@ function class10NeutralisationLab(){
   document.getElementById("neutralViz").innerHTML=svg;
   document.getElementById("neutralNames").innerHTML='<div style="display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;text-align:center"><div style="background:#e0f2fe;color:#075985;border-radius:12px;padding:10px"><b>ACID</b><br><strong>'+esc(acidName)+'</strong><br><b>'+ac.formula+'</b></div><div style="font-size:24px;font-weight:900">+</div><div style="background:#dcfce7;color:#166534;border-radius:12px;padding:10px"><b>BASE</b><br><strong>'+esc(baseName)+'</strong><br><b>'+ba.formula+'</b></div></div>';
   document.getElementById("neutralResult").innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div style="background:#fef3c7;color:#92400e;padding:14px;border-radius:12px;text-align:center"><div style="font-size:12px;font-weight:900">SALT / ਲੂਣ</div><div style="font-size:24px;font-weight:900">'+p[0]+'</div></div><div style="background:#dbeafe;color:#1e40af;padding:14px;border-radius:12px;text-align:center"><div style="font-size:12px;font-weight:900">WATER / ਪਾਣੀ</div><div style="font-size:24px;font-weight:900">'+p[1]+'</div></div></div><div style="margin-top:12px;padding:14px;border-radius:12px;background:#ecfdf5;color:#065f46;text-align:center"><div style="font-size:13px;font-weight:900">'+(pa?"ਉਦਾਸੀਨੀਕਰਨ ਦੀ ਕਿਰਿਆ":"NEUTRALISATION REACTION")+'</div><div style="font-size:clamp(17px,3vw,22px);font-weight:900;margin-top:6px">'+p[2]+'</div></div>';
-  document.getElementById("neutralObservation").innerHTML=pa?"**ਨਤੀਜਾ:** ਤੇਜ਼ਾਬ ਅਤੇ ਖਾਰ ਦੀ ਕਿਰਿਆ ਨਾਲ ਲੂਣ ਅਤੇ ਪਾਣੀ ਬਣਦੇ ਹਨ।":"**RESULT:** ACID + BASE REACT TO FORM SALT + WATER.";
+  document.getElementById("neutralObservation").innerHTML=pa?"**ਨਤੀਜਾ:** ਤੇਜ਼ਾਬ ਅਤੇ ਖਾਰ ਦੀ ਕਿਰਿਆ ਨਾਲ ਲੂਣ ਅਤੇ ਪਾਣੀ ਬਣਦੇ ਹਨ।":"<b>RESULT: ACID + BASE REACT TO FORM SALT + WATER.</b>";
  }
- const app=document.getElementById("app");
- app.innerHTML='<section class="lab-topbar"><button id="back" class="back-btn">← '+(pa?"ਲੈਬ ਵੱਲ ਵਾਪਸ":"Back to laboratories")+'</button><div class="lab-top-name"><span>🧪</span><div><strong>POCKET Science Lab</strong><small>'+(pa?"ਜਮਾਤ 10 · ਰਸਾਇਣ ਵਿਗਿਆਨ":"Class 10 · Chemistry Lab")+'</small></div></div></section>'+
- '<section class="lab-selectors"><label>'+(pa?"ਜਮਾਤ ਚੁਣੋ":"Select class")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option '+(cls===n?"selected":"")+' value="'+n+'">'+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+(pa?"ਪ੍ਰਯੋਗ ਚੁਣੋ":"Select experiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+esc(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section>'+
- '<section class="experiment-card" style="overflow:hidden"><div class="experiment-meta">'+(pa?"ਵਰਚੁਅਲ ਵਿਗਿਆਨਕ ਅਨੁਭਵ · ਪ੍ਰਯੋਗ 4":"VIRTUAL CHEMISTRY LAB · EXPERIMENT 4")+'</div><h2 style="font-size:clamp(1.35rem,4vw,2rem);margin:8px 0 5px">⚗️ '+(pa?"ਤੇਜ਼ਾਬ ਅਤੇ ਖਾਰ ਦੀ ਕਿਰਿਆ":"Reaction of Acids with Bases — Neutralisation")+'</h2><p class="aim">'+(pa?"ਤਿੰਨ ਤੇਜ਼ਾਬਾਂ ਅਤੇ ਤਿੰਨ ਖਾਰਾਂ ਵਿੱਚੋਂ ਚੁਣੋ ਅਤੇ ਲੂਣ ਤੇ ਪਾਣੀ ਬਣਨ ਦਾ ਨਿਰੀਖਣ ਕਰੋ।":"Choose from three acids and three bases. Watch the virtual reaction and identify the salt and water formed.")+'</p>'+
- '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:16px 0"><label style="font-weight:800">🧪 '+(pa?"ਤੇਜ਼ਾਬ ਚੁਣੋ":"SELECT ACID")+'<select id="neutralAcid" style="width:100%;margin-top:6px;padding:12px;border:2px solid #38bdf8;border-radius:10px;background:#f0f9ff;color:#0f172a">'+acids.map((x,i)=>'<option value="'+i+'">'+(pa?x.pu:x.name)+' ('+x.formula+')</option>').join("")+'</select></label><label style="font-weight:800">🧴 '+(pa?"ਖਾਰ ਚੁਣੋ":"SELECT BASE")+'<select id="neutralBase" style="width:100%;margin-top:6px;padding:12px;border:2px solid #22c55e;border-radius:10px;background:#f0fdf4;color:#0f172a">'+bases.map((x,i)=>'<option value="'+i+'">'+(pa?x.pu:x.name)+' ('+x.formula+')</option>').join("")+'</select></label></div>'+
- '<div id="neutralNames"></div><div id="neutralViz" style="margin-top:14px"></div><div id="neutralResult" style="margin-top:14px"></div><div id="neutralObservation" style="margin-top:12px;padding:13px;background:#eff6ff;border-radius:12px;font-weight:900;text-align:center"></div>'+
- '<p style="margin-top:14px;color:#64748b;font-size:13px">'+(pa?"ਇਹ ਸੁਰੱਖਿਅਤ ਵਰਚੁਅਲ ਮਾਡਲ ਹੈ। ਅਸਲ ਤੇਜ਼ਾਬਾਂ ਜਾਂ ਖਾਰਾਂ ਨਾਲ ਪ੍ਰਯੋਗ ਕੇਵਲ ਅਧਿਆਪਕ ਦੀ ਦੇਖ-ਰੇਖ ਅਤੇ ਲੈਬ ਸੁਰੱਖਿਆ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਹੀ ਕਰੋ।":"Virtual model only. Real acids and bases must only be handled in a supervised, properly equipped laboratory.")+'</p></section>';
- document.getElementById("back").onclick=()=>{stopMentor&&stopMentor();renderLabs();};
- document.getElementById("cl").onchange=e=>{cls=Number(e.target.value);exp=0;drawLab();};
- document.getElementById("ex").onchange=e=>{exp=Number(e.target.value);drawLab();};
- document.getElementById("neutralAcid").onchange=e=>{ai=Number(e.target.value);draw();};
- document.getElementById("neutralBase").onchange=e=>{bi=Number(e.target.value);draw();};
- draw();
+ function render(){
+  const app=document.getElementById("app");
+  app.innerHTML='<section class="lab-topbar"><button id="back" class="back-btn">← '+(pa?"ਲੈਬ ਵੱਲ ਵਾਪਸ":"Back to laboratories")+'</button><div class="lab-top-name"><span>🧪</span><div><strong>POCKET Science Lab</strong><small>'+(pa?"ਜਮਾਤ 10 · ਰਸਾਇਣ ਵਿਗਿਆਨ":"Class 10 · Chemistry Lab")+'</small></div></div></section>'+
+   '<section class="lab-selectors"><label>'+(pa?"ਜਮਾਤ ਚੁਣੋ":"Select class")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option '+(cls===n?"selected":"")+' value="'+n+'">'+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+(pa?"ਪ੍ਰਯੋਗ ਚੁਣੋ":"Select experiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+esc(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section>'+
+   '<section class="experiment-card" style="overflow:hidden"><div class="experiment-meta">'+(pa?"ਵਰਚੁਅਲ ਵਿਗਿਆਨਕ ਅਨੁਭਵ · ਪ੍ਰਯੋਗ 4":"VIRTUAL CHEMISTRY LAB · EXPERIMENT 4")+'</div><h2 style="font-size:clamp(1.35rem,4vw,2rem);margin:8px 0 5px">⚗️ '+(pa?"ਤੇਜ਼ਾਬ ਅਤੇ ਖਾਰ ਦੀ ਕਿਰਿਆ":"Reaction of Acids with Bases — Neutralisation")+'</h2><p class="aim">'+(pa?"ਤਿੰਨ ਤੇਜ਼ਾਬਾਂ ਅਤੇ ਤਿੰਨ ਖਾਰਾਂ ਵਿੱਚੋਂ ਚੁਣੋ ਅਤੇ ਲੂਣ ਤੇ ਪਾਣੀ ਬਣਨ ਦਾ ਨਿਰੀਖਣ ਕਰੋ।":"Choose from three acids and three bases. Watch the virtual reaction and identify the salt and water formed.")+'</p>'+
+   '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:16px 0"><label style="font-weight:800">🧪 '+(pa?"ਤੇਜ਼ਾਬ ਚੁਣੋ":"SELECT ACID")+'<select id="neutralAcid" style="width:100%;margin-top:6px;padding:12px;border:2px solid #38bdf8;border-radius:10px;background:#f0f9ff;color:#0f172a">'+acids.map((x,i)=>'<option value="'+i+'">'+(pa?x.pu:x.name)+' ('+x.formula+')</option>').join("")+'</select></label><label style="font-weight:800">🧴 '+(pa?"ਖਾਰ ਚੁਣੋ":"SELECT BASE")+'<select id="neutralBase" style="width:100%;margin-top:6px;padding:12px;border:2px solid #22c55e;border-radius:10px;background:#f0fdf4;color:#0f172a">'+bases.map((x,i)=>'<option value="'+i+'">'+(pa?x.pu:x.name)+' ('+x.formula+')</option>').join("")+'</select></label></div>'+
+   '<div id="neutralNames"></div><div id="neutralViz" style="margin-top:14px"></div><div id="neutralResult" style="margin-top:14px"></div><div id="neutralObservation" style="margin-top:12px;padding:13px;background:#eff6ff;border-radius:12px;font-weight:900;text-align:center"></div>'+
+   '<p style="margin-top:14px;color:#64748b;font-size:13px">'+(pa?"ਇਹ ਸੁਰੱਖਿਅਤ ਵਰਚੁਅਲ ਮਾਡਲ ਹੈ। ਅਸਲ ਤੇਜ਼ਾਬਾਂ ਜਾਂ ਖਾਰਾਂ ਨਾਲ ਪ੍ਰਯੋਗ ਕੇਵਲ ਅਧਿਆਪਕ ਦੀ ਦੇਖ-ਰੇਖ ਅਤੇ ਲੈਬ ਸੁਰੱਖਿਆ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਹੀ ਕਰੋ।":"Virtual model only. Real acids and bases must only be handled in a supervised, properly equipped laboratory.")+'</p></section>';
+  $("#back").onclick=()=>home();
+  $("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";render()};
+  $("#ex").onchange=e=>{exp=+e.target.value;choice="";render()};
+  $("#neutralAcid").onchange=e=>{ai=+e.target.value;updateVisual()};
+  $("#neutralBase").onchange=e=>{bi=+e.target.value;updateVisual()};
+  updateVisual();
+ }
+ render();
 }
 
 function class10AcidMetalNonmetalLab(){
