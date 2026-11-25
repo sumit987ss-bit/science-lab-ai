@@ -753,16 +753,6 @@ window.LAB_DATA = {
       "note": "2H₂O(l) → 2H₂(g) + O₂(g); hydrogen and oxygen are produced in a 2:1 volume ratio under the same conditions.",
       "note_pa": "2H₂O(l) → 2H₂(g) + O₂(g); ਇੱਕੋ ਹਾਲਤਾਂ ਵਿੱਚ ਹਾਈਡਰੋਜਨ ਅਤੇ ਆਕਸੀਜਨ ਦਾ ਆਇਤਨ ਅਨੁਪਾਤ 2:1 ਹੁੰਦਾ ਹੈ।",
       "class": 10
-    },
-    {
-      "title": "Electrolysis and Electroplating",
-      "title_pa": "ਇਲੈਕਟ੍ਰੋਲਾਈਸਿਸ ਅਤੇ ਇਲੈਕਟ੍ਰੋਪਲੇਟਿੰਗ",
-      "aim": "Visualise electrodes, ion movement and a thin metal coating.",
-      "aim_pa": "ਇਲੈਕਟ੍ਰੋਡ, ਆਇਨਾਂ ਦੀ ਗਤੀ ਅਤੇ ਧਾਤ ਦੀ ਪਤਲੀ ਪਰਤ ਦਾ ਚਿੱਤਰ ਵੇਖੋ।",
-      "kind": "electrochemistry",
-      "note": "Electric current can drive chemical change and deposit metal on a suitable object.",
-      "note_pa": "ਬਿਜਲੀ ਕਰੰਟ ਰਸਾਇਣਕ ਤਬਦੀਲੀ ਕਰ ਸਕਦਾ ਹੈ ਅਤੇ ਢੁਕਵੀਂ ਵਸਤੂ ਉੱਤੇ ਧਾਤ ਜਮਾ ਸਕਦਾ ਹੈ।",
-      "class": 10
     }
   ],
   "biology": [
