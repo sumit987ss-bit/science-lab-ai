@@ -887,13 +887,13 @@ window.LAB_DATA = {
       "class": 8
     },
     {
-      "title": "Protecting Biodiversity",
-      "title_pa": "ਜੈਵ ਵਿਭਿੰਨਤਾ ਦੀ ਰੱਖਿਆ",
-      "aim": "Explore how habitat protection supports plants and animals.",
-      "aim_pa": "ਆਵਾਸ ਦੀ ਰੱਖਿਆ ਪੌਦਿਆਂ ਅਤੇ ਜਾਨਵਰਾਂ ਦੀ ਮਦਦ ਕਿਵੇਂ ਕਰਦੀ ਹੈ, ਸਮਝੋ।",
-      "kind": "biodiversity",
-      "note": "Biodiversity includes variety within species, between species and among ecosystems; it supports ecosystem stability.",
-      "note_pa": "ਜੈਵ ਵਿਭਿੰਨਤਾ ਵਿੱਚ ਇੱਕ ਪ੍ਰਜਾਤੀ ਅੰਦਰ, ਵੱਖ-ਵੱਖ ਪ੍ਰਜਾਤੀਆਂ ਅਤੇ ਪਰਿਸਥਿਤਕੀ ਤੰਤਰਾਂ ਦੀ ਵਿਭਿੰਨਤਾ ਸ਼ਾਮਲ ਹੈ; ਇਹ ਤੰਤਰਾਂ ਦੀ ਸਥਿਰਤਾ ਨੂੰ ਸਹਾਰਾ ਦਿੰਦੀ ਹੈ।",
+      "title": "Rabi and Kharif Crops",
+      "title_pa": "ਹਾੜ੍ਹੀ ਅਤੇ ਸਾਉਣੀ ਦੀਆਂ ਫ਼ਸਲਾਂ",
+      "aim": "Compare five examples of Rabi and Kharif crops and learn their uses and growing seasons.",
+      "aim_pa": "ਹਾੜ੍ਹੀ ਅਤੇ ਸਾਉਣੀ ਦੀਆਂ ਪੰਜ-ਪੰਜ ਫ਼ਸਲਾਂ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਮੌਸਮ ਤੇ ਵਰਤੋਂ ਬਾਰੇ ਜਾਣੋ।",
+      "kind": "rabi_kharif",
+      "note": "Rabi crops are generally grown in the cool season; Kharif crops are generally grown during the monsoon season.",
+      "note_pa": "ਹਾੜ੍ਹੀ ਦੀਆਂ ਫ਼ਸਲਾਂ ਆਮ ਤੌਰ ਤੇ ਸਰਦੀ ਦੇ ਮੌਸਮ ਵਿੱਚ ਅਤੇ ਸਾਉਣੀ ਦੀਆਂ ਫ਼ਸਲਾਂ ਮਾਨਸੂਨ ਦੇ ਮੌਸਮ ਵਿੱਚ ਉਗਾਈਆਂ ਜਾਂਦੀਆਂ ਹਨ।",
       "class": 8
     },
     {
