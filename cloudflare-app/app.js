@@ -2343,6 +2343,12 @@ function class8AgricultureStagesLab(){
 }
 
 function draw(){
+ // Route Class 8 Biology by catalogue kind as well as position. This keeps the custom
+ // interactive lessons attached to the correct experiment if the catalogue order changes.
+ const selectedBioExperiment=lab==="biology"&&cls===8?item():null;
+ if(selectedBioExperiment?.kind==="crop"){class8AgricultureStagesLab();return}
+ if(selectedBioExperiment?.kind==="pathogens"){class8PathogensLab();return}
+ if(selectedBioExperiment?.kind==="microbes"){class8MicrobesLab();return}
  const selectedExperiment=lab==="chemistry"&&cls===10?item():null;
  // Stable catalogue-position routing protects the two key Class 10 practicals
  // even if an older cached catalogue omits or mislabels the experiment kind.
