@@ -2378,20 +2378,17 @@ function class8AgricultureStagesLab(){
 }
 
 function draw(){
- // Class 8 Biology's first three experiments have dedicated interactive labs.
- // Route these by their fixed catalogue positions first: this also works when an
- // older cached experiments.js has missing or stale "kind" metadata.
- if(lab==="biology"&&cls===8){
-  if(exp===0){class8MicrobesLab();return}
-  if(exp===1){class8AgricultureStagesLab();return}
-  if(exp===2){class8PathogensLab();return}
-  if(exp===3){class8RabiKharifLab();return}
- }
- // Keep kind-based routing as a fallback for any future catalogue reordering.
+ // Class 8 Biology: route each experiment by its catalogue kind, not by
+ // a hard-coded screen index. This keeps the selected experiment and its
+ // interactive model tied to the same catalogue record.
  const selectedBioExperiment=lab==="biology"&&cls===8?item():null;
- if(selectedBioExperiment?.kind==="crop"){class8AgricultureStagesLab();return}
- if(selectedBioExperiment?.kind==="pathogens"){class8PathogensLab();return}
- if(selectedBioExperiment?.kind==="microbes"){class8MicrobesLab();return}
+ if(selectedBioExperiment){
+  const bioKind=selectedBioExperiment.kind;
+  if(bioKind==="microbes"){class8MicrobesLab();return}
+  if(bioKind==="crop"){class8AgricultureStagesLab();return}
+  if(bioKind==="pathogens"){class8PathogensLab();return}
+  if(bioKind==="rabi_kharif"){class8RabiKharifLab();return}
+ }
  const selectedExperiment=lab==="chemistry"&&cls===10?item():null;
  // Stable catalogue-position routing protects the two key Class 10 practicals
  // even if an older cached catalogue omits or mislabels the experiment kind.
