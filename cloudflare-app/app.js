@@ -2285,10 +2285,10 @@ function class8MicrobesLab(){
   $("#microbeDescription").textContent=pa?v.descPa:v.desc;
   $("#microbeResult").innerHTML="<div style='border-radius:15px;background:#ffef8a;border:3px solid #f59e0b;padding:14px;color:#111827;box-shadow:0 4px 12px #0002'><b style='display:block;color:#b45309;margin-bottom:8px;font-size:17px;font-weight:950'>"+(pa?"ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ":"WHAT IS HAPPENING?")+"</b><span style='color:#111827;font-size:16px;font-weight:800;line-height:1.65'>"+(pa?v.descPa:v.desc)+"</span></div>";
  };
- $("#app").innerHTML="<section class='lab-top'><button class='back-button' id='back'>"+tr("back")+"</button><div class='lab-top-name'><span>"+ICON.biology+"</span><div><strong>"+tr("biology")+"</strong><small>"+(pa?"ਜਮਾਤ 8 · ਜੀਵ ਵਿਗਿਆਨ":"Class 8 · Biology Lab")+"</small></div></div></section><section class='lab-selectors'><label>"+tr("chooseClass")+"<select id='cl'>"+[6,7,8,9,10].map(n=>"<option "+(cls===n?"selected":"")+" value='"+n+"'>"+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+"</option>").join("")+"</select></label><label>"+tr("chooseExperiment")+"<select id='ex'>"+list().map((v,i)=>"<option value='"+i+"' "+(i===exp?"selected":"")+">"+(i+1)+". "+esc(pa?v.title_pa:v.title)+"</option>").join("")+"</select></label></section><section class='experiment-card'><div class='experiment-meta'>"+(pa?"ਜਮਾਤ 8 · ਜੀਵ ਵਿਗਿਆਨ · ਪ੍ਰਯੋਗ 1 / 5":"CLASS 8 · BIOLOGY · EXPERIMENT 1 / 5")+"</div><h2>"+(pa?"ਲਾਭਦਾਇਕ ਅਤੇ ਹਾਨੀਕਾਰਕ ਸੂਖਮ ਜੀਵ":"Helpful and Harmful Microorganisms")+"</h2><p class='aim'><b>"+tr("aim")+":</b> "+(pa?"ਭੋਜਨ ਬਣਾਉਣ, ਰੋਗ ਪੈਦਾ ਕਰਨ ਅਤੇ ਵਿਘਟਨ ਵਿੱਚ ਸੂਖਮ ਜੀਵਾਂ ਦੀ ਭੂਮਿਕਾ ਸਮਝੋ।":"Explore how microorganisms help make food, can cause disease, and recycle nutrients.")+"</p><div class='control-panel' style='margin:14px 0'><label style='font-weight:900;display:block'>"+(pa?"ਸੂਖਮ ਜੀਵਾਂ ਦੀ ਭੂਮਿਕਾ ਚੁਣੋ":"SELECT A MICROORGANISM / ITS ROLE")+"<select id='microbeSelect' style='width:100%;margin-top:8px'>"+options.map(o=>"<option value='"+o.key+"'>"+(pa?o.pu:o.en)+"</option>").join("")+"</select></label></div><div class='visual-panel' style='padding:12px'><h3 id='microbeTitle' style='text-align:center;color:#173b55;font-weight:950'></h3><div id='microbeVisual'></div><div id='microbeResult' style='margin-top:12px'></div></div><p id='microbeDescription' style='margin:14px 2px;color:#334155;font-weight:650;line-height:1.6'></p><div class='conclusion'><b>"+(pa?"ਮੁੱਖ ਗੱਲ":"KEY IDEA")+"</b>: "+(pa?"ਸਾਰੇ ਸੂਖਮ ਜੀਵ ਹਾਨੀਕਾਰਕ ਨਹੀਂ ਹੁੰਦੇ—ਕਈ ਭੋਜਨ ਬਣਾਉਣ ਅਤੇ ਕੁਦਰਤ ਵਿੱਚ ਪੋਸ਼ਕ ਤੱਤਾਂ ਦੀ ਮੁੜ ਵਰਤੋਂ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ।":"Microorganisms are not all harmful: many are useful in food production and nutrient recycling.")+"</div></section>";
+ $("#app").innerHTML="<section class='lab-top'><button class='back-button' id='back'>"+tr("back")+"</button><div class='lab-top-name'><span>"+ICON.biology+"</span><div><strong>"+tr("biology")+"</strong><small>"+(pa?"ਜਮਾਤ 8 · ਜੀਵ ਵਿਗਿਆਨ":"Class 8 · Biology Lab")+"</small></div></div></section><section class='lab-selectors'><label>"+tr("chooseClass")+"<select id='cl'>"+[6,7,8,9,10].map(n=>"<option "+(cls===n?"selected":"")+" value='"+n+"'>"+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+"</option>").join("")+"</select></label><label>"+tr("chooseExperiment")+"<select id='ex'>"+list().map((v,i)=>"<option value='"+i+"' "+(i===exp?"selected":"")+">"+(i+1)+". "+esc(pa?v.title_pa:v.title)+"</option>").join("")+"</select></label></section><section class='experiment-card'><div class='experiment-meta'>"+(pa?"ਜਮਾਤ 8 · ਜੀਵ ਵਿਗਿਆਨ · ਪ੍ਰਯੋਗ "+(exp+1)+" / "+list().length:"CLASS 8 · BIOLOGY · EXPERIMENT "+(exp+1)+" / "+list().length)+"</div><h2>"+(pa?"ਲਾਭਦਾਇਕ ਅਤੇ ਹਾਨੀਕਾਰਕ ਸੂਖਮ ਜੀਵ":"Helpful and Harmful Microorganisms")+"</h2><p class='aim'><b>"+tr("aim")+":</b> "+(pa?"ਭੋਜਨ ਬਣਾਉਣ, ਰੋਗ ਪੈਦਾ ਕਰਨ ਅਤੇ ਵਿਘਟਨ ਵਿੱਚ ਸੂਖਮ ਜੀਵਾਂ ਦੀ ਭੂਮਿਕਾ ਸਮਝੋ।":"Explore how microorganisms help make food, can cause disease, and recycle nutrients.")+"</p><div class='control-panel' style='margin:14px 0'><label style='font-weight:900;display:block'>"+(pa?"ਸੂਖਮ ਜੀਵਾਂ ਦੀ ਭੂਮਿਕਾ ਚੁਣੋ":"SELECT A MICROORGANISM / ITS ROLE")+"<select id='microbeSelect' style='width:100%;margin-top:8px'>"+options.map(o=>"<option value='"+o.key+"'>"+(pa?o.pu:o.en)+"</option>").join("")+"</select></label></div><div class='visual-panel' style='padding:12px'><h3 id='microbeTitle' style='text-align:center;color:#173b55;font-weight:950'></h3><div id='microbeVisual'></div><div id='microbeResult' style='margin-top:12px'></div></div><p id='microbeDescription' style='margin:14px 2px;color:#334155;font-weight:650;line-height:1.6'></p><div class='conclusion'><b>"+(pa?"ਮੁੱਖ ਗੱਲ":"KEY IDEA")+"</b>: "+(pa?"ਸਾਰੇ ਸੂਖਮ ਜੀਵ ਹਾਨੀਕਾਰਕ ਨਹੀਂ ਹੁੰਦੇ—ਕਈ ਭੋਜਨ ਬਣਾਉਣ ਅਤੇ ਕੁਦਰਤ ਵਿੱਚ ਪੋਸ਼ਕ ਤੱਤਾਂ ਦੀ ਮੁੜ ਵਰਤੋਂ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ।":"Microorganisms are not all harmful: many are useful in food production and nutrient recycling.")+"</div></section>";
  $("#back").onclick=home;
  $("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};
- $("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};
+ $("#ex").onchange=e=>{choice="";drawClass8BiologyExperiment(e.target.value)};
  $("#microbeSelect").onchange=e=>{selected=e.target.value;render()};
  render();
 }
@@ -2316,7 +2316,7 @@ function class8RabiKharifLab(){
   $("#app").innerHTML=top("Biology Lab")+"<section class='lab-top'><h2>Class 8 · Biology</h2><p>"+(pa?"ਹਾੜ੍ਹੀ ਅਤੇ ਸਾਉਣੀ ਦੀਆਂ ਫ਼ਸਲਾਂ":"Rabi and Kharif Crops")+"</p></section><section class='lab-selectors'><label>Class <select id='cl'>"+[6,7,8,9,10].map(n=>"<option "+(cls===n?"selected":"")+" value='"+n+"'>Class "+n+"</option>").join("")+"</select></label><label>Experiment <select id='ex'>"+list().map((x,i)=>"<option "+(exp===i?"selected":"")+" value='"+i+"'>"+x.title+"</option>").join("")+"</select></label></section><section class='card'><h3>"+(pa?"ਫ਼ਸਲਾਂ ਦੀ ਕਿਸਮ ਚੁਣੋ":"Select crop season")+"</h3><select id='seasonSelect' style='width:100%;padding:12px;border-radius:12px;font-size:17px;font-weight:900'><option value='rabi' "+(selected==="rabi"?"selected":"")+">"+(pa?"ਹਾੜ੍ਹੀ ਦੀਆਂ ਫ਼ਸਲਾਂ":"Rabi crops")+"</option><option value='kharif' "+(selected==="kharif"?"selected":"")+">"+(pa?"ਸਾਉਣੀ ਦੀਆਂ ਫ਼ਸਲਾਂ":"Kharif crops")+"</option></select><div style='margin-top:14px;padding:15px;border-radius:16px;background:linear-gradient(135deg,#ecfccb,#fef3c7);border:2px solid #84cc16;text-align:center'><div style='font-size:42px'>"+(selected==="rabi"?"🌤️🌱":"🌧️🌱")+"</div><h2 style='font-weight:900;color:#365314;margin:5px 0'>"+(pa?g.pu:g.name)+"</h2><p style='font-weight:800;color:#365314;margin:0'>"+(pa?g.seasonPa:g.season)+"</p></div><div style='display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:11px;margin-top:14px'>"+g.crops.map(c=>"<article style='background:#fff;border:2px solid #86b96b;border-radius:15px;padding:13px;text-align:center;box-shadow:0 2px 7px #00000012'><div style='font-size:48px;line-height:1.4'>"+c[2]+"</div><div style='font-size:17px;font-weight:900;color:#166534'>"+(pa?c[1]:c[0])+"</div><p style='font-weight:800;color:#1f2937;font-size:13px;line-height:1.45;margin:7px 0 0'>"+(pa?c[4]:c[3])+"</p></article>").join("")+"</div></section>";
   $("#back").onclick=home;
   $("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};
-  $("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};
+  $("#ex").onchange=e=>{choice="";drawClass8BiologyExperiment(e.target.value)};
   $("#seasonSelect").onchange=e=>{selected=e.target.value;render()};
  }
  render();
@@ -2342,7 +2342,7 @@ function class8PathogensLab(){
   $("#app").innerHTML=top("Biology Lab")+"<section class='lab-top'><h2>Class 8 · Biology</h2><p>"+(pa?"ਰੋਗ ਪੈਦਾ ਕਰਨ ਵਾਲੇ ਸੂਖਮ ਜੀਵ / ਰੋਗਕਾਰਕ":"Disease-causing microbes / Pathogens")+"</p></section><section class='lab-selectors'><label>Class <select id='cl'>"+[6,7,8,9,10].map(n=>"<option "+(cls===n?"selected":"")+" value='"+n+"'>Class "+n+"</option>").join("")+"</select></label><label>Experiment <select id='ex'>"+list().map((x,i)=>"<option "+(exp===i?"selected":"")+" value='"+i+"'>"+x.title+"</option>").join("")+"</select></label></section><section class='card'><h3>"+(pa?"ਰੋਗਕਾਰਕ ਦੀ ਕਿਸਮ ਚੁਣੋ":"Select one of the five pathogen groups")+"</h3><select id='pathSelect' style='width:100%;padding:12px;border-radius:12px;font-size:16px;font-weight:800'>"+groups.map(x=>"<option value='"+x.key+"' "+(x.key===selected?"selected":"")+">"+(pa?x.pu:x.name)+"</option>").join("")+"</select><div style='margin-top:12px;border:3px solid #60a5fa;border-radius:16px;background:#eff6ff;padding:10px'><svg viewBox='0 0 660 300' style='width:100%;height:auto;background:#e0f2fe;border-radius:12px' role='img' aria-label='"+g.name+" illustration'>"+art[g.key]+"</svg></div><h3 style='color:#1d4ed8;font-weight:900'>"+(pa?g.pu:g.name)+"</h3><p style='font-weight:700;color:#1f2937'>"+g.look+"</p><h3 style='color:#b91c1c'>"+(pa?"ਇਸ ਸਮੂਹ ਨਾਲ ਸੰਬੰਧਿਤ ਬਿਮਾਰੀਆਂ / ਹਾਲਤਾਂ":"Diseases / conditions associated with this group")+"</h3><div style='display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:9px'>"+g.diseases.map((d,i)=>"<div style='background:#fff1f2;border:2px solid #fb7185;border-radius:14px;padding:12px;text-align:center;color:#881337'><div style='font-size:34px;line-height:1.4'>"+g.visuals[i]+"</div><div style='font-weight:900'>"+(pa?g.pun[i]:d)+"</div><div style='font-size:12px;font-weight:700;margin-top:5px;color:#713f46'>"+g.notes[i]+"</div></div>").join("")+"</div></section><section class='card' style='background:#ffef8a;border:3px solid #f59e0b;color:#111827'><h3 style='color:#b45309'>"+(pa?"ਜਾਣਕਾਰੀ":"IMPORTANT")+"</h3><p style='font-weight:800;line-height:1.6'>"+g.note+"</p></section>";
   $("#back").onclick=home;
   $("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};
-  $("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};
+  $("#ex").onchange=e=>{choice="";drawClass8BiologyExperiment(e.target.value)};
   $("#pathSelect").onchange=e=>{selected=e.target.value;render()};
  }
  render();
@@ -2372,23 +2372,31 @@ function class8AgricultureStagesLab(){
  function render(){
  const s=stages.find(x=>x.key===selected);
  $("#app").innerHTML=top("Biology Lab")+"<section class='lab-top'><h2>Class 8 · Biology</h2><p>"+(pa?"ਖੇਤੀਬਾੜੀ ਦੇ ਪੜਾਅ":"Stages of Agriculture")+"</p></section><section class='lab-selectors'><label>Class <select id='cl'>"+[6,7,8,9,10].map(n=>"<option "+(cls===n?"selected":"")+" value='"+n+"'>Class "+n+"</option>").join("")+"</select></label><label>Experiment <select id='ex'>"+list().map((x,i)=>"<option "+(exp===i?"selected":"")+" value='"+i+"'>"+esc(x.title)+"</option>").join("")+"</select></label></section><section class='card'><h3>"+(pa?"ਖੇਤੀਬਾੜੀ ਦੇ 7 ਪੜਾਅ":"7 Stages of Agriculture")+"</h3><label for='agStage' style='font-weight:800'>"+(pa?"ਪੜਾਅ ਚੁਣੋ":"Select a stage")+"</label><select id='agStage' style='width:100%;padding:12px;border-radius:12px;font-size:16px;font-weight:700'>"+stages.map(x=>"<option value='"+x.key+"' "+(x.key===selected?"selected":"")+">"+esc(pa?x.pu:x.en)+"</option>").join("")+"</select><div style='margin-top:14px;padding:12px;background:#e0f2fe;border:2px solid #38bdf8;border-radius:16px'><svg viewBox='0 0 680 300' style='width:100%;height:auto;background:#dff3ff;border-radius:12px' role='img' aria-label='"+esc(pa?s.pu:s.en)+"'>"+art[s.key]+"</svg></div><h3 style='color:#15803d;font-weight:900'>"+(pa?s.pu:s.title)+"</h3><p style='font-size:16px;font-weight:700;line-height:1.65;color:#1f2937'>"+(pa?s.descPa:s.desc)+"</p></section><section class='card' style='background:#ffef8a;border:3px solid #f59e0b;color:#111827'><h3 style='color:#b45309'>"+(pa?"ਕੀ ਹੋ ਰਿਹਾ ਹੈ?":"WHAT IS HAPPENING?")+"</h3><p style='font-weight:800'>"+(pa?s.descPa:s.desc)+"</p></section>";
- $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};$("#agStage").onchange=e=>{selected=e.target.value;render()};
+ $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{choice="";drawClass8BiologyExperiment(e.target.value)};$("#agStage").onchange=e=>{selected=e.target.value;render()};
  }
  render();
 }
 
-function draw(){
- // Class 8 Biology: route each experiment by its catalogue kind, not by
- // a hard-coded screen index. This keeps the selected experiment and its
- // interactive model tied to the same catalogue record.
- const selectedBioExperiment=lab==="biology"&&cls===8?item():null;
- if(selectedBioExperiment){
-  const bioKind=selectedBioExperiment.kind;
-  if(bioKind==="microbes"){class8MicrobesLab();return}
-  if(bioKind==="crop"){class8AgricultureStagesLab();return}
-  if(bioKind==="pathogens"){class8PathogensLab();return}
-  if(bioKind==="rabi_kharif"){class8RabiKharifLab();return}
+function drawClass8BiologyExperiment(index){
+ // Read the selected dropdown value and dispatch that exact catalogue record.
+ // Do not depend on a previous render's shared experiment state.
+ const nextIndex=Number(index);
+ const experiments=list();
+ const selected=experiments[nextIndex];
+ if(!Number.isInteger(nextIndex)||!selected){home();return}
+ exp=nextIndex;
+ switch(selected.kind){
+  case "microbes": class8MicrobesLab(); return;
+  case "crop": class8AgricultureStagesLab(); return;
+  case "pathogens": class8PathogensLab(); return;
+  case "rabi_kharif": class8RabiKharifLab(); return;
  }
+ // If a new Class 8 Biology experiment is added later, use the generic renderer.
+ draw();
+}
+function draw(){
+ // Class 8 Biology uses an explicit catalogue-index dispatcher.
+ if(lab==="biology"&&cls===8){drawClass8BiologyExperiment(exp);return}
  const selectedExperiment=lab==="chemistry"&&cls===10?item():null;
  // Stable catalogue-position routing protects the two key Class 10 practicals
  // even if an older cached catalogue omits or mislabels the experiment kind.
