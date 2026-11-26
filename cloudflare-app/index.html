@@ -13,16 +13,27 @@
 </head>
 <body class="welcome-mode">
   <section id="welcomeScreen" class="welcome-screen" aria-label="Welcome to Pocket Science Lab">
-    <div class="welcome-apparatus" aria-hidden="true"><span class="apparatus beaker">⚗️</span><span class="apparatus microscope">🔬</span><span class="apparatus flask">🧪</span><span class="apparatus atom">⚛️</span><span class="apparatus dna">🧬</span><span class="apparatus bolt">⚡</span></div>
-    <div class="welcome-content">
-      <div class="welcome-emblem" aria-hidden="true"><span>SCIENCE • 6–10</span><b>THE WORLD OF DISCOVERY</b></div>
-      <p class="welcome-kicker">DISCOVER · EXPLORE · EXPERIMENT</p>
-      <h1>WELCOME TO<br><span>POCKET</span> SCIENCE LAB</h1>
-      <p class="welcome-subtitle">Where curiosity becomes discovery.</p>
-      <div class="welcome-visuals" aria-hidden="true"><span>🧪</span><span>⚡</span><span>🧬</span><span>🔬</span></div>
-      <div class="welcome-credit"><small>DEVELOPER</small><strong>Sumitpal Singh Sodhi</strong><span>Science Master</span><span>GSSS Bare Ke, Ferozepur</span></div>
-      <button id="enterScienceLab" class="enter-lab-button" type="button">ENTER THE SCIENCE LAB <b>→</b></button>
-      <p class="welcome-footer">CLASSES 6–10&nbsp; · &nbsp;LEARN • DISCOVER • INNOVATE</p>
+    <div class="welcome-card">
+      <div class="welcome-kicker">LEARN · DISCOVER · INNOVATE</div>
+      <div class="welcome-heading">
+        <div class="welcome-logo" aria-hidden="true">🧪<i>✦</i></div>
+        <h1>Pocket Science<br>Lab</h1>
+      </div>
+      <p class="welcome-tagline">Your Virtual Science Laboratory · Classes 6–10</p>
+      <p class="welcome-intro">Explore ideas, observe models, ask questions and learn by doing.</p>
+      <div class="welcome-tiles" aria-label="Science topics">
+        <div><span class="tile-icon">🧪</span><b>Chemistry</b></div>
+        <div><span class="tile-icon">🔬</span><b>Microscope</b></div>
+        <div><span class="tile-icon">⚡</span><b>Electricity</b></div>
+        <div><span class="tile-icon">🧬</span><b>Life Science</b></div>
+        <div><span class="tile-icon">🥼</span><b>Test Tubes</b></div>
+        <div><span class="tile-icon">⚗️</span><b>Flasks</b></div>
+        <div><span class="tile-icon">🧲</span><b>Magnetism</b></div>
+        <div><span class="tile-icon">🌱</span><b>Environment</b></div>
+      </div>
+      <blockquote class="welcome-quote"><strong>“The important thing is to never stop questioning.”</strong><span>— Albert Einstein</span><small>Every question is the beginning of discovery.</small></blockquote>
+      <div class="welcome-developer"><small>DEVELOPER</small><strong>Sumitpal Singh Sodhi</strong><span>Science Master</span><span>GSSS Bare Ke, Ferozepur</span></div>
+      <button id="enterScienceLab" class="enter-lab-button" type="button" onclick="document.body.classList.remove('welcome-mode');document.getElementById('welcomeScreen').remove();window.scrollTo(0,0)">🔬 &nbsp; ENTER SCIENCE LAB <b>→</b></button>
     </div>
   </section>
   <header class="topbar">
@@ -63,10 +74,6 @@
   </main>
   <script src="./experiments.js" defer></script>
   <script src="./app.js" defer></script>
-  <script>
-    function enterLabNow(){var welcome=document.getElementById("welcomeScreen");document.body.classList.remove("welcome-mode");if(welcome)welcome.remove();window.scrollTo(0,0);}
-    document.getElementById("enterScienceLab").addEventListener("click",enterLabNow);
-    document.getElementById("enterScienceLab").addEventListener("touchend",function(e){e.preventDefault();enterLabNow();},{passive:false});
-  </script>
+
 </body>
 </html>
