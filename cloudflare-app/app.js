@@ -2382,76 +2382,70 @@ function class9CellStructureLab(){
  const pa=lang==="pa";
  const t=(en,pu)=>pa?pu:en;
  const plant=choice!=="Animal cell";
- const plantLabels=[
-  ["1","Cell wall","ਕੋਸ਼ਿਕਾ ਭਿੱਤ","#237a45"],
-  ["2","Plasma membrane","ਕੋਸ਼ਿਕਾ ਝਿੱਲੀ","#0f766e"],
-  ["3","Cytoplasm","ਕੋਸ਼ਿਕਾ ਦ੍ਰਵ","#d97706"],
-  ["4","Nucleus","ਕੇਂਦਰਕ","#7c3aed"],
-  ["5","Nucleolus","ਕੇਂਦਰਿਕਾ","#6d28d9"],
-  ["6","Large central vacuole","ਵੱਡੀ ਕੇਂਦਰੀ ਰਸਧਾਨੀ","#0284c7"],
-  ["7","Chloroplasts (plastids)","ਹਰਿਤਲਵਕ (ਪਲਾਸਟਿਡ)","#15803d"],
-  ["8","Mitochondrion","ਮਾਈਟੋਕਾਂਡਰੀਆ","#c2410c"],
-  ["9","Rough ER + ribosomes","ਖੁਰਦਰੀ ਅੰਤਃਪ੍ਰਦ੍ਰਵ ਜਾਲਿਕਾ + ਰਾਈਬੋਸੋਮ","#9333ea"],
-  ["10","Smooth ER","ਮੁਲਾਇਮ ਅੰਤਃਪ੍ਰਦ੍ਰਵ ਜਾਲਿਕਾ","#a16207"],
-  ["11","Golgi apparatus","ਗੋਲਜੀ ਤੰਤਰ","#be185d"],
-  ["12","Free ribosomes","ਮੁਕਤ ਰਾਈਬੋਸੋਮ","#334155"]
- ];
- const animalLabels=[
-  ["1","Plasma membrane","ਕੋਸ਼ਿਕਾ ਝਿੱਲੀ","#0f766e"],
-  ["2","Cytoplasm","ਕੋਸ਼ਿਕਾ ਦ੍ਰਵ","#d97706"],
-  ["3","Nucleus","ਕੇਂਦਰਕ","#7c3aed"],
-  ["4","Nucleolus","ਕੇਂਦਰਿਕਾ","#6d28d9"],
-  ["5","Mitochondria","ਮਾਈਟੋਕਾਂਡਰੀਆ","#c2410c"],
-  ["6","Rough ER + ribosomes","ਖੁਰਦਰੀ ਅੰਤਃਪ੍ਰਦ੍ਰਵ ਜਾਲਿਕਾ + ਰਾਈਬੋਸੋਮ","#9333ea"],
-  ["7","Smooth ER","ਮੁਲਾਇਮ ਅੰਤਃਪ੍ਰਦ੍ਰਵ ਜਾਲਿਕਾ","#a16207"],
-  ["8","Golgi apparatus","ਗੋਲਜੀ ਤੰਤਰ","#be185d"],
-  ["9","Lysosomes","ਲਾਇਸੋਸੋਮ","#0891b2"],
-  ["10","Centrioles","ਸੈਂਟਰੀਓਲ","#475569"],
-  ["11","Free ribosomes","ਮੁਕਤ ਰਾਈਬੋਸੋਮ","#334155"]
- ];
- const labels=plant?plantLabels:animalLabels;
- const legend=labels.map(([n,en,pu,c])=>'<div style="display:flex;align-items:center;gap:9px;padding:5px 7px;border-bottom:1px solid #e2e8f0;font-size:clamp(12px,1.5vw,15px);font-weight:800;color:#18364b"><span style="flex:0 0 25px;height:25px;border-radius:50%;display:grid;place-items:center;background:'+c+';color:#fff;font-size:12px">'+n+'</span><span>'+t(en,pu)+'</span></div>').join("");
- const marker=(n,x,y,c)=>'<g><circle cx="'+x+'" cy="'+y+'" r="14" fill="'+c+'" stroke="#fff" stroke-width="3"/><text x="'+x+'" y="'+(y+5)+'" text-anchor="middle" font-size="14" font-weight="1000" fill="#fff">'+n+'</text></g>';
+ const label=(x,y,w,text,color)=>'<g><rect x="'+x+'" y="'+(y-19)+'" width="'+w+'" height="27" rx="7" fill="#ffffff" fill-opacity=".94" stroke="'+color+'" stroke-width="1.5"/><text x="'+(x+7)+'" y="'+(y+1)+'" font-size="15" font-weight="850" fill="#173b55">'+text+'</text></g>';
  let drawing="";
  if(plant){
-  drawing='<rect x="38" y="48" width="500" height="405" rx="42" fill="#d9f3d1" stroke="#237a45" stroke-width="20"/>'+
-   '<rect x="58" y="68" width="460" height="365" rx="29" fill="#eaf8df" stroke="#0f766e" stroke-width="7"/>'+
-   '<path d="M75 90 Q150 75 220 95 T500 90 M75 410 Q160 425 245 408 T500 410" fill="none" stroke="#b2d7a5" stroke-width="3"/>'+
-   '<rect x="205" y="175" width="270" height="220" rx="48" fill="#9edcf4" fill-opacity=".72" stroke="#2589b7" stroke-width="5"/>'+
-   '<text x="340" y="285" text-anchor="middle" font-size="19" font-weight="900" fill="#075985">LARGE CENTRAL</text><text x="340" y="310" text-anchor="middle" font-size="19" font-weight="900" fill="#075985">VACUOLE</text>'+
-   '<ellipse cx="142" cy="165" rx="55" ry="47" fill="#b99be5" stroke="#7044a6" stroke-width="5"/><circle cx="142" cy="165" r="18" fill="#7044a6"/>'+
-   '<g fill="#2e9b55" stroke="#176b39" stroke-width="4"><ellipse cx="390" cy="112" rx="48" ry="22"/><ellipse cx="115" cy="365" rx="48" ry="22"/><ellipse cx="455" cy="365" rx="38" ry="19"/></g>'+
-   '<g stroke="#b7f0c4" stroke-width="5"><path d="M355 112h70 M360 101h60 M360 123h60 M80 365h70 M85 354h60 M85 376h60 M430 365h50"/></g>'+
-   '<g fill="#f5a16b" stroke="#b45309" stroke-width="4"><ellipse cx="135" cy="280" rx="35" ry="19" transform="rotate(-25 135 280)"/><ellipse cx="455" cy="165" rx="34" ry="18" transform="rotate(25 455 165)"/></g>'+
-   '<g fill="none" stroke="#fff1df" stroke-width="5"><path d="M108 280q15 -25 30 0t30 0"/><path d="M430 165q15 -22 30 0t30 0"/></g>'+
-   '<g fill="none" stroke="#8b5cf6" stroke-width="6" stroke-linecap="round"><path d="M190 130q35 -28 55 0t45 0 M190 145q35 -28 55 0t45 0 M190 160q35 -28 55 0t45 0"/></g>'+
-   '<g fill="#5b21b6"><circle cx="200" cy="126" r="4"/><circle cx="230" cy="136" r="4"/><circle cx="255" cy="126" r="4"/><circle cx="280" cy="141" r="4"/></g>'+
-   '<g fill="none" stroke="#c0841a" stroke-width="6" stroke-linecap="round"><path d="M155 225q25 -25 48 0t45 0 M160 240q25 -25 48 0t45 0"/></g>'+
-   '<g fill="none" stroke="#be185d" stroke-width="7" stroke-linecap="round"><path d="M105 215q25 -15 45 0t40 0 M105 229q25 -15 45 0t40 0 M105 243q25 -15 45 0t40 0"/></g>'+
-   '<g fill="#334155"><circle cx="270" cy="115" r="5"/><circle cx="292" cy="160" r="5"/><circle cx="185" cy="330" r="5"/><circle cx="165" cy="350" r="5"/><circle cx="300" cy="145" r="5"/></g>'+
-   marker("1",38,245,"#237a45")+marker("2",60,270,"#0f766e")+marker("3",300,80,"#d97706")+marker("4",105,135,"#7c3aed")+marker("5",142,165,"#6d28d9")+marker("6",340,285,"#0284c7")+marker("7",390,112,"#15803d")+marker("8",135,280,"#c2410c")+marker("9",225,140,"#9333ea")+marker("10",185,232,"#a16207")+marker("11",150,230,"#be185d")+marker("12",270,115,"#334155");
+  drawing=[
+   '<rect x="24" y="55" width="850" height="475" rx="48" fill="#d9f3d1" stroke="#237a45" stroke-width="25"/>',
+   '<rect x="48" y="79" width="802" height="427" rx="34" fill="#eaf8df" stroke="#0f766e" stroke-width="7"/>',
+   label(300,92,160,t("Cell wall","ਕੋਸ਼ਿਕਾ ਭਿੱਤ"),"#237a45"),
+   label(475,119,205,t("Plasma membrane","ਕੋਸ਼ਿਕਾ ਝਿੱਲੀ"),"#0f766e"),
+   '<text x="78" y="153" font-size="16" font-weight="800" fill="#55845a">'+t("CYTOPLASM","ਕੋਸ਼ਿਕਾ ਦ੍ਰਵ")+'</text>',
+   '<ellipse cx="175" cy="255" rx="76" ry="66" fill="#b99be5" stroke="#7044a6" stroke-width="5"/><circle cx="175" cy="255" r="25" fill="#7044a6"/>',
+   label(95,352,150,t("Nucleus","ਕੇਂਦਰਕ"),"#7c3aed"),
+   '<path d="M175 255 L175 286" stroke="#7c3aed" stroke-width="2"/>',
+   '<circle cx="175" cy="255" r="11" fill="#e9d5ff"/>',
+   label(100,215,145,t("Nucleolus","ਕੇਂਦਰਿਕਾ"),"#6d28d9"),
+   '<rect x="350" y="190" width="455" height="285" rx="48" fill="#9edcf4" fill-opacity=".78" stroke="#2589b7" stroke-width="5"/>',
+   '<text x="575" y="315" text-anchor="middle" font-size="23" font-weight="950" fill="#075985">'+t("LARGE CENTRAL VACUOLE","ਵੱਡੀ ਕੇਂਦਰੀ ਰਸਧਾਨੀ")+'</text>',
+   '<g fill="#2e9b55" stroke="#176b39" stroke-width="4"><ellipse cx="300" cy="175" rx="58" ry="27"/><ellipse cx="300" cy="405" rx="58" ry="27"/><ellipse cx="790" cy="175" rx="48" ry="24"/></g>',
+   '<g stroke="#b7f0c4" stroke-width="5"><path d="M260 175h80 M260 165h80 M260 185h80 M260 405h80 M260 395h80 M260 415h80 M760 175h60"/></g>',
+   label(225,135,205,t("Chloroplasts (plastids)","ਹਰਿਤਲਵਕ (ਪਲਾਸਟਿਡ)"),"#15803d"),
+   '<g fill="#f5a16b" stroke="#b45309" stroke-width="4"><ellipse cx="255" cy="310" rx="43" ry="23" transform="rotate(-25 255 310)"/><ellipse cx="755" cy="435" rx="42" ry="22" transform="rotate(20 755 435)"/></g>',
+   '<g fill="none" stroke="#fff1df" stroke-width="5"><path d="M220 310q18 -27 36 0t36 0 M720 435q18 -24 36 0t36 0"/></g>',
+   label(205,365,170,t("Mitochondrion","ਮਾਈਟੋਕਾਂਡਰੀਆ"),"#c2410c"),
+   '<g fill="none" stroke="#8b5cf6" stroke-width="6" stroke-linecap="round"><path d="M235 235q28 -25 54 0t54 0 M235 250q28 -25 54 0t54 0 M235 265q28 -25 54 0t54 0"/></g>',
+   label(230,215,190,t("Rough ER + ribosomes","ਖੁਰਦਰੀ ER + ਰਾਈਬੋਸੋਮ"),"#9333ea"),
+   '<g fill="none" stroke="#c0841a" stroke-width="6" stroke-linecap="round"><path d="M225 455q25 -23 48 0t48 0 M225 468q25 -23 48 0t48 0"/></g>',
+   label(205,500,155,t("Smooth ER","ਮੁਲਾਇਮ ER"),"#a16207"),
+   '<g fill="none" stroke="#be185d" stroke-width="7" stroke-linecap="round"><path d="M110 410q25 -16 48 0t48 0 M110 424q25 -16 48 0t48 0 M110 438q25 -16 48 0t48 0"/></g>',
+   label(80,475,170,t("Golgi apparatus","ਗੋਲਜੀ ਤੰਤਰ"),"#be185d"),
+   '<g fill="#334155"><circle cx="330" cy="300" r="6"/><circle cx="345" cy="325" r="6"/><circle cx="325" cy="350" r="6"/><circle cx="315" cy="290" r="5"/><circle cx="365" cy="365" r="5"/></g>',
+   label(320,390,145,t("Free ribosomes","ਮੁਕਤ ਰਾਈਬੋਸੋਮ"),"#334155")
+  ].join("");
  }else{
-  drawing='<path d="M290 48 C420 48 525 130 525 250 C525 370 420 453 290 453 C160 453 55 370 55 250 C55 130 160 48 290 48Z" fill="#fce7ed" stroke="#0f766e" stroke-width="9"/>'+
-   '<path d="M290 62 C410 62 510 140 510 250 C510 360 410 438 290 438 C170 438 70 360 70 250 C70 140 170 62 290 62Z" fill="#fff2f4" stroke="#f7b4c4" stroke-width="3"/>'+
-   '<ellipse cx="240" cy="205" rx="65" ry="58" fill="#b99be5" stroke="#7044a6" stroke-width="5"/><circle cx="240" cy="205" r="20" fill="#7044a6"/>'+
-   '<g fill="#f5a16b" stroke="#b45309" stroke-width="4"><ellipse cx="390" cy="145" rx="42" ry="22" transform="rotate(25 390 145)"/><ellipse cx="140" cy="330" rx="42" ry="22" transform="rotate(-25 140 330)"/><ellipse cx="390" cy="345" rx="38" ry="20"/></g>'+
-   '<g fill="none" stroke="#fff1df" stroke-width="5"><path d="M360 145q18 -25 36 0t36 0 M110 330q18 -25 36 0t36 0 M360 345q18 -25 36 0t36 0"/></g>'+
-   '<g fill="none" stroke="#8b5cf6" stroke-width="6" stroke-linecap="round"><path d="M300 190q30 -25 50 0t45 0 M300 205q30 -25 50 0t45 0 M300 220q30 -25 50 0t45 0"/></g>'+
-   '<g fill="none" stroke="#c0841a" stroke-width="6" stroke-linecap="round"><path d="M180 285q25 -25 45 0t45 0 M180 300q25 -25 45 0t45 0"/></g>'+
-   '<g fill="none" stroke="#be185d" stroke-width="7" stroke-linecap="round"><path d="M120 145q20 -15 38 0t38 0 M120 160q20 -15 38 0t38 0 M120 175q20 -15 38 0t38 0"/></g>'+
-   '<g fill="#38bdf8" stroke="#0369a1" stroke-width="3"><circle cx="450" cy="245" r="17"/><circle cx="420" cy="285" r="12"/><circle cx="465" cy="305" r="10"/></g>'+
-   '<g stroke="#475569" stroke-width="9" stroke-linecap="round"><path d="M330 335l35 35 M365 335l-35 35"/></g>'+
-   '<g fill="#334155"><circle cx="290" cy="120" r="5"/><circle cx="310" cy="135" r="5"/><circle cx="280" cy="145" r="5"/><circle cx="180" cy="245" r="5"/><circle cx="165" cy="260" r="5"/><circle cx="270" cy="330" r="5"/></g>'+
-   marker("1",55,250,"#0f766e")+marker("2",300,80,"#d97706")+marker("3",200,170,"#7c3aed")+marker("4",240,205,"#6d28d9")+marker("5",390,145,"#c2410c")+marker("6",350,205,"#9333ea")+marker("7",220,295,"#a16207")+marker("8",155,160,"#be185d")+marker("9",450,245,"#0891b2")+marker("10",348,355,"#475569")+marker("11",290,120,"#334155");
+  drawing=[
+   '<path d="M450 52 C680 52 865 155 865 300 C865 445 680 548 450 548 C220 548 35 445 35 300 C35 155 220 52 450 52Z" fill="#fce7ed" stroke="#0f766e" stroke-width="10"/>',
+   '<path d="M450 67 C670 67 848 163 848 300 C848 437 670 533 450 533 C230 533 52 437 52 300 C52 163 230 67 450 67Z" fill="#fff2f4" stroke="#f7b4c4" stroke-width="3"/>',
+   label(575,105,205,t("Plasma membrane","ਕੋਸ਼ਿਕਾ ਝਿੱਲੀ"),"#0f766e"),
+   '<text x="85" y="145" font-size="16" font-weight="800" fill="#a45c72">'+t("CYTOPLASM","ਕੋਸ਼ਿਕਾ ਦ੍ਰਵ")+'</text>',
+   '<ellipse cx="275" cy="270" rx="86" ry="76" fill="#b99be5" stroke="#7044a6" stroke-width="5"/><circle cx="275" cy="270" r="27" fill="#7044a6"/><circle cx="275" cy="270" r="12" fill="#e9d5ff"/>',
+   label(205,380,145,t("Nucleus","ਕੇਂਦਰਕ"),"#7c3aed"),
+   label(210,205,150,t("Nucleolus","ਕੇਂਦਰਿਕਾ"),"#6d28d9"),
+   '<g fill="#f5a16b" stroke="#b45309" stroke-width="4"><ellipse cx="565" cy="175" rx="52" ry="27" transform="rotate(22 565 175)"/><ellipse cx="165" cy="410" rx="50" ry="26" transform="rotate(-22 165 410)"/><ellipse cx="650" cy="415" rx="48" ry="25"/></g>',
+   '<g fill="none" stroke="#fff1df" stroke-width="5"><path d="M525 175q20 -28 40 0t40 0 M125 410q20 -28 40 0t40 0 M610 415q20 -25 40 0t40 0"/></g>',
+   label(520,125,170,t("Mitochondria","ਮਾਈਟੋਕਾਂਡਰੀਆ"),"#c2410c"),
+   '<g fill="none" stroke="#8b5cf6" stroke-width="6" stroke-linecap="round"><path d="M380 225q30 -26 55 0t55 0 M380 240q30 -26 55 0t55 0 M380 255q30 -26 55 0t55 0"/></g>',
+   label(375,200,200,t("Rough ER + ribosomes","ਖੁਰਦਰੀ ER + ਰਾਈਬੋਸੋਮ"),"#9333ea"),
+   '<g fill="none" stroke="#c0841a" stroke-width="6" stroke-linecap="round"><path d="M390 345q26 -24 50 0t50 0 M390 360q26 -24 50 0t50 0"/></g>',
+   label(380,405,150,t("Smooth ER","ਮੁਲਾਇਮ ER"),"#a16207"),
+   '<g fill="none" stroke="#be185d" stroke-width="7" stroke-linecap="round"><path d="M100 245q24 -16 45 0t45 0 M100 260q24 -16 45 0t45 0 M100 275q24 -16 45 0t45 0"/></g>',
+   label(75,215,170,t("Golgi apparatus","ਗੋਲਜੀ ਤੰਤਰ"),"#be185d"),
+   '<g fill="#38bdf8" stroke="#0369a1" stroke-width="3"><circle cx="730" cy="270" r="22"/><circle cx="690" cy="325" r="17"/><circle cx="755" cy="350" r="14"/></g>',
+   label(675,230,135,t("Lysosomes","ਲਾਇਸੋਸੋਮ"),"#0891b2"),
+   '<g stroke="#475569" stroke-width="11" stroke-linecap="round"><path d="M535 385l48 48 M583 385l-48 48"/></g>',
+   label(510,475,145,t("Centrioles","ਸੈਂਟਰੀਓਲ"),"#475569"),
+   '<g fill="#334155"><circle cx="360" cy="145" r="6"/><circle cx="380" cy="160" r="6"/><circle cx="400" cy="145" r="6"/><circle cx="450" cy="300" r="6"/><circle cx="470" cy="320" r="6"/><circle cx="490" cy="300" r="6"/></g>',
+   label(365,115,150,t("Free ribosomes","ਮੁਕਤ ਰਾਈਬੋਸੋਮ"),"#334155")
+  ].join("");
  }
- const svg='<svg viewBox="0 0 920 510" role="img" aria-label="'+t(plant?"Detailed plant cell with labelled cell wall, plasma membrane and organelles":"Detailed animal cell with labelled plasma membrane and organelles",plant?"ਕੋਸ਼ਿਕਾ ਭਿੱਤ, ਕੋਸ਼ਿਕਾ ਝਿੱਲੀ ਅਤੇ ਅੰਗਕਾਂ ਵਾਲਾ ਪੌਦਾ ਕੋਸ਼":"ਕੋਸ਼ਿਕਾ ਝਿੱਲੀ ਅਤੇ ਅੰਗਕਾਂ ਵਾਲਾ ਜਾਨਵਰ ਕੋਸ਼")+'" style="width:100%;height:auto;display:block;background:#f8fbff;border-radius:14px"><rect x="8" y="8" width="904" height="494" rx="18" fill="#f8fbff"/><text x="285" y="30" text-anchor="middle" font-size="21" font-weight="1000" fill="#173b55">'+(plant?t("PLANT CELL","ਪੌਦਾ ਕੋਸ਼"):t("ANIMAL CELL","ਜਾਨਵਰ ਕੋਸ਼"))+'</text>'+drawing+'<rect x="565" y="48" width="340" height="435" rx="16" fill="#fff" stroke="#d5e2ec" stroke-width="2"/>'+labels.map((x,i)=>'<g transform="translate(0 '+(58+i*34)+' )"><circle cx="590" cy="0" r="12" fill="'+x[3]+'"/><text x="590" y="5" text-anchor="middle" font-size="12" font-weight="1000" fill="#fff">'+x[0]+'</text><text x="612" y="5" font-size="15" font-weight="850" fill="#173b55">'+t(x[1],x[2])+'</text></g>').join("")+'</svg>';
+ const svg='<svg viewBox="0 0 900 590" role="img" aria-label="'+t(plant?"Plant cell showing cell wall, plasma membrane and labelled organelles":"Animal cell showing plasma membrane and labelled organelles",plant?"ਕੋਸ਼ਿਕਾ ਭਿੱਤ, ਕੋਸ਼ਿਕਾ ਝਿੱਲੀ ਅਤੇ ਅੰਗਕਾਂ ਵਾਲਾ ਪੌਦਾ ਕੋਸ਼":"ਕੋਸ਼ਿਕਾ ਝਿੱਲੀ ਅਤੇ ਅੰਗਕਾਂ ਵਾਲਾ ਜਾਨਵਰ ਕੋਸ਼")+'" style="width:100%;height:auto;display:block;background:#f8fbff;border-radius:14px"><rect x="5" y="5" width="890" height="580" rx="18" fill="#f8fbff"/><text x="450" y="32" text-anchor="middle" font-size="22" font-weight="1000" fill="#173b55">'+(plant?t("PLANT CELL","ਪੌਦਾ ਕੋਸ਼"):t("ANIMAL CELL","ਜਾਨਵਰ ਕੋਸ਼"))+'</text>'+drawing+'</svg>';
  const explanation=plant
-  ?t("The plant cell has two distinct outer boundaries: the thick cell wall outside and the thin plasma membrane just inside it. The large central vacuole, chloroplasts and mitochondria are shown along with the nucleus, endoplasmic reticulum, Golgi apparatus and ribosomes.","ਪੌਦਾ ਕੋਸ਼ ਦੋ ਵੱਖਰੀਆਂ ਬਾਹਰੀ ਪਰਤਾਂ ਰੱਖਦਾ ਹੈ: ਬਾਹਰ ਮੋਟੀ ਕੋਸ਼ਿਕਾ ਭਿੱਤ ਅਤੇ ਇਸ ਦੇ ਅੰਦਰ ਪਤਲੀ ਕੋਸ਼ਿਕਾ ਝਿੱਲੀ। ਵੱਡੀ ਕੇਂਦਰੀ ਰਸਧਾਨੀ, ਹਰਿਤਲਵਕ ਅਤੇ ਮਾਈਟੋਕਾਂਡਰੀਆ ਸਮੇਤ ਹੋਰ ਅੰਗਕ ਵੀ ਦਿਖਾਏ ਗਏ ਹਨ।")
-  :t("The animal cell is enclosed by a plasma membrane only. It has no cell wall and no chloroplasts. The diagram shows the nucleus, mitochondria, endoplasmic reticulum, Golgi apparatus, lysosomes, centrioles and ribosomes.","ਜਾਨਵਰ ਕੋਸ਼ ਦੇ ਬਾਹਰ ਕੇਵਲ ਕੋਸ਼ਿਕਾ ਝਿੱਲੀ ਹੁੰਦੀ ਹੈ। ਇਸ ਵਿੱਚ ਕੋਸ਼ਿਕਾ ਭਿੱਤ ਅਤੇ ਹਰਿਤਲਵਕ ਨਹੀਂ ਹੁੰਦੇ। ਚਿੱਤਰ ਵਿੱਚ ਕੇਂਦਰਕ, ਮਾਈਟੋਕਾਂਡਰੀਆ, ਅੰਤਃਪ੍ਰਦ੍ਰਵ ਜਾਲਿਕਾ, ਗੋਲਜੀ ਤੰਤਰ, ਲਾਇਸੋਸੋਮ, ਸੈਂਟਰੀਓਲ ਅਤੇ ਰਾਈਬੋਸੋਮ ਦਿਖਾਏ ਗਏ ਹਨ।");
+  ?t("The thick outer boundary is the cell wall. Just inside it is the thin plasma membrane. The diagram directly labels the large central vacuole, chloroplasts (plastids), mitochondria, nucleus, nucleolus, rough and smooth ER, Golgi apparatus and free ribosomes.","ਬਾਹਰਲੀ ਮੋਟੀ ਪਰਤ ਕੋਸ਼ਿਕਾ ਭਿੱਤ ਹੈ। ਇਸ ਦੇ ਬਿਲਕੁਲ ਅੰਦਰ ਪਤਲੀ ਕੋਸ਼ਿਕਾ ਝਿੱਲੀ ਹੈ। ਚਿੱਤਰ ਵਿੱਚ ਵੱਡੀ ਕੇਂਦਰੀ ਰਸਧਾਨੀ, ਹਰਿਤਲਵਕ (ਪਲਾਸਟਿਡ), ਮਾਈਟੋਕਾਂਡਰੀਆ, ਕੇਂਦਰਕ, ਕੇਂਦਰਿਕਾ, ਖੁਰਦਰੀ ਅਤੇ ਮੁਲਾਇਮ ER, ਗੋਲਜੀ ਤੰਤਰ ਅਤੇ ਮੁਕਤ ਰਾਈਬੋਸੋਮ ਦੇ ਲੇਬਲ ਸਿੱਧੇ ਦਿੱਤੇ ਹਨ।")
+  :t("The animal cell is enclosed by a plasma membrane and has no cell wall or chloroplasts. The diagram directly labels the nucleus, nucleolus, mitochondria, rough and smooth ER, Golgi apparatus, lysosomes, centrioles and free ribosomes.","ਜਾਨਵਰ ਕੋਸ਼ ਦੇ ਬਾਹਰ ਕੋਸ਼ਿਕਾ ਝਿੱਲੀ ਹੁੰਦੀ ਹੈ; ਇਸ ਵਿੱਚ ਕੋਸ਼ਿਕਾ ਭਿੱਤ ਜਾਂ ਹਰਿਤਲਵਕ ਨਹੀਂ ਹੁੰਦੇ। ਚਿੱਤਰ ਵਿੱਚ ਕੇਂਦਰਕ, ਕੇਂਦਰਿਕਾ, ਮਾਈਟੋਕਾਂਡਰੀਆ, ਖੁਰਦਰੀ ਅਤੇ ਮੁਲਾਇਮ ER, ਗੋਲਜੀ ਤੰਤਰ, ਲਾਇਸੋਸੋਮ, ਸੈਂਟਰੀਓਲ ਅਤੇ ਮੁਕਤ ਰਾਈਬੋਸੋਮ ਦੇ ਲੇਬਲ ਸਿੱਧੇ ਦਿੱਤੇ ਹਨ।");
  $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+tr("back")+'</button><div class="lab-top-name"><span>🧬</span><div><strong>'+tr("biology")+'</strong><small>'+t("Class 9 · Biology Lab","ਜਮਾਤ 9 · ਜੀਵ ਵਿਗਿਆਨ ਲੈਬ")+'</small></div></div></section><section class="lab-selectors"><label>'+tr("chooseClass")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option value="'+n+'" '+(cls===n?"selected":"")+'>'+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+tr("chooseExperiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+esc(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section><section class="experiment-card"><div class="experiment-meta">'+t("CLASS 9 · BIOLOGY · EXPERIMENT 1 / 5","ਜਮਾਤ 9 · ਜੀਵ ਵਿਗਿਆਨ · ਪ੍ਰਯੋਗ 1 / 5")+'</div><h2>'+t("Plant and Animal Cells","ਪੌਦਿਆਂ ਅਤੇ ਜਾਨਵਰਾਂ ਦੇ ਕੋਸ਼")+'</h2><p class="aim"><b>'+tr("aim")+':</b> '+t("Compare plant and animal cells, identify their main structures and understand how their parts differ.","ਪੌਦਿਆਂ ਅਤੇ ਜਾਨਵਰਾਂ ਦੇ ਕੋਸ਼ਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ, ਮੁੱਖ ਬਣਤਰਾਂ ਪਛਾਣੋ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਫ਼ਰਕ ਸਮਝੋ।")+'</p><div class="control-panel" style="margin:16px 0"><label><b>'+t("Select cell type","ਕੋਸ਼ ਦੀ ਕਿਸਮ ਚੁਣੋ")+'</b><select id="choice"><option value="Plant cell" '+(plant?"selected":"")+'>'+t("Plant cell","ਪੌਦਾ ਕੋਸ਼")+'</option><option value="Animal cell" '+(!plant?"selected":"")+'>'+t("Animal cell","ਜਾਨਵਰ ਕੋਸ਼")+'</option></select></label></div><div class="visual-panel"><h3>'+t("Detailed labelled cell model","ਲੇਬਲਾਂ ਸਮੇਤ ਕੋਸ਼ ਦਾ ਵਿਸਥਾਰਪੂਰਵਕ ਮਾਡਲ")+'</h3>'+svg+'<div style="margin-top:12px;padding:14px;border-radius:12px;background:'+(plant?"#eaf7e8":"#fceef2")+';border:2px solid '+(plant?"#8bbd8d":"#e9a8ba")+';font-weight:750;line-height:1.65;color:#173b55">'+explanation+'</div></div><div class="navigation"><button id="prev" class="back-button" '+(exp===0?"disabled":"")+'>'+tr("previous")+'</button><button id="next" class="primary-button">'+tr("next")+' →</button></div><p class="safety-note">'+tr("safe")+'</p></section>';
  $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};$("#choice").onchange=e=>{choice=e.target.value;class9CellStructureLab()};$("#prev").onclick=()=>{if(exp>0){exp--;choice="";draw()}};$("#next").onclick=()=>{if(exp<4){exp++;choice="";draw()}};
 }
-
 function drawClass8BiologyExperiment(index){
  // Read the selected dropdown value and dispatch that exact catalogue record.
  // Do not depend on a previous render's shared experiment state.
