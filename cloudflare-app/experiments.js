@@ -977,16 +977,6 @@ window.LAB_DATA = {
       "class": 10
     },
     {
-      "title": "Transport and Excretion",
-      "title_pa": "ਆਵਾਜਾਈ ਅਤੇ ਨਿਕਾਸ",
-      "aim": "Compare blood transport with kidney filtration and urine formation.",
-      "aim_pa": "ਖੂਨ ਰਾਹੀਂ ਆਵਾਜਾਈ ਅਤੇ ਗੁਰਦਿਆਂ ਵਿੱਚ ਛਾਣਨ ਤੇ ਪਿਸ਼ਾਬ ਬਣਨ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
-      "kind": "excretion",
-      "note": "The kidneys filter blood and help regulate water and salt balance while forming urine.",
-      "note_pa": "ਗੁਰਦੇ ਖੂਨ ਨੂੰ ਛਾਣਦੇ ਹਨ ਅਤੇ ਪਿਸ਼ਾਬ ਬਣਾਉਂਦੇ ਹੋਏ ਪਾਣੀ ਤੇ ਲੂਣ ਦਾ ਸੰਤੁਲਨ ਬਣਾਈ ਰੱਖਣ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ।",
-      "class": 10
-    },,
-    {
       "title": "Human Brain",
       "title_pa": "ਮਨੁੱਖੀ ਦਿਮਾਗ",
       "aim": "Identify the major regions of the human brain and explore their roles in thinking, memory, balance, hormone control, breathing and other body functions.",
@@ -995,7 +985,8 @@ window.LAB_DATA = {
       "note": "The cerebrum supports thought, memory and voluntary movement; the cerebellum coordinates balance and movement; the hypothalamus regulates homeostasis; and the brainstem, including the medulla, helps control vital involuntary functions.",
       "note_pa": "ਪ੍ਰਮਸਤਿਸ਼ਕ ਸੋਚ, ਯਾਦਦਾਸ਼ਤ ਅਤੇ ਇੱਛਾਧੀਨ ਹਰਕਤਾਂ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ; ਅਨੁਮਸਤਿਸ਼ਕ ਸੰਤੁਲਨ ਅਤੇ ਹਰਕਤਾਂ ਦਾ ਤਾਲਮੇਲ ਕਰਦਾ ਹੈ; ਹਾਈਪੋਥੈਲਾਮਸ ਅੰਦਰੂਨੀ ਸੰਤੁਲਨ ਬਣਾਈ ਰੱਖਦਾ ਹੈ ਅਤੇ ਮੈਡੂਲਾ ਸਮੇਤ ਦਿਮਾਗੀ ਤਣਾ ਮਹੱਤਵਪੂਰਨ ਅਣਇੱਛਾਧੀਨ ਕਿਰਿਆਵਾਂ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।",
       "class": 10
-    },
+    },,
+
     {
       "title": "Reproduction in Plants",
       "title_pa": "ਪੌਦਿਆਂ ਵਿੱਚ ਪ੍ਰਜਨਨ",
