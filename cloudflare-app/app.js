@@ -2515,7 +2515,41 @@ function class9PlantTransportLab(){
  $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};$("#prev").onclick=()=>{if(exp>0){exp--;choice="";draw()}};$("#next").onclick=()=>{if(exp<4){exp++;choice="";draw()}};$("#tissueChoice").onchange=e=>{tissue=e.target.value;render()};render();
 }
 
+
+function class9NeuronLab(){
+ const pa=lang==="pa",t=(en,pu)=>pa?pu:en;
+ const parts=[
+  ["dendrite",t("Dendrites","ਡੈਂਡਰਾਈਟਸ"),t("Short, branched extensions that receive signals from other neurons or receptors and carry them towards the cell body.","ਛੋਟੀਆਂ ਸ਼ਾਖਾਵਾਂ ਜੋ ਹੋਰ ਨਿਊਰਾਨਾਂ ਜਾਂ ਰਿਸੈਪਟਰਾਂ ਤੋਂ ਸੰਕੇਤ ਲੈਂਦੀਆਂ ਹਨ ਅਤੇ ਕੋਸ਼ਿਕਾ ਦੇਹ ਵੱਲ ਲਿਆਉਂਦੀਆਂ ਹਨ।")],
+  ["cellbody",t("Cell body (soma)","ਕੋਸ਼ਿਕਾ ਦੇਹ (ਸੋਮਾ)"),t("The main part of the neuron. It contains the nucleus and organelles and keeps the cell functioning.","ਨਿਊਰਾਨ ਦਾ ਮੁੱਖ ਹਿੱਸਾ। ਇਸ ਵਿੱਚ ਕੇਂਦਰਕ ਅਤੇ ਕੋਸ਼ਿਕਾਈ ਅੰਗ ਹੁੰਦੇ ਹਨ ਅਤੇ ਇਹ ਕੋਸ਼ਿਕਾ ਦੇ ਕੰਮ ਸੰਭਾਲਦਾ ਹੈ।")],
+  ["nucleus",t("Nucleus","ਕੇਂਦਰਕ"),t("Contains DNA and helps control the activities of the neuron.","ਇਸ ਵਿੱਚ DNA ਹੁੰਦਾ ਹੈ ਅਤੇ ਇਹ ਨਿਊਰਾਨ ਦੀਆਂ ਕਿਰਿਆਵਾਂ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।")],
+  ["axon",t("Axon","ਐਕਸਾਨ"),t("A long fibre that carries electrical impulses away from the cell body towards other cells.","ਲੰਮਾ ਤੰਤੂ ਜੋ ਬਿਜਲਈ ਨਰਵ ਸੰਕੇਤਾਂ ਨੂੰ ਕੋਸ਼ਿਕਾ ਦੇਹ ਤੋਂ ਦੂਰ ਹੋਰ ਕੋਸ਼ਿਕਾਵਾਂ ਵੱਲ ਲੈ ਜਾਂਦਾ ਹੈ।")],
+  ["myelin",t("Myelin sheath","ਮਾਇਲਿਨ ਝਿੱਲੀ"),t("An insulating covering around many axons that helps impulses travel faster.","ਕਈ ਐਕਸਾਨਾਂ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਇਨਸੂਲੇਟ ਕਰਨ ਵਾਲੀ ਪਰਤ, ਜੋ ਸੰਕੇਤਾਂ ਨੂੰ ਤੇਜ਼ੀ ਨਾਲ ਜਾਣ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ।")],
+  ["node",t("Node of Ranvier","ਰੈਨਵੀਅਰ ਦੀ ਗੰਢ"),t("A small gap between myelin segments where the impulse is regenerated, helping rapid conduction.","ਮਾਇਲਿਨ ਦੇ ਖੰਡਾਂ ਵਿਚਕਾਰ ਛੋਟਾ ਖਾਲੀ ਸਥਾਨ ਜਿੱਥੇ ਸੰਕੇਤ ਮੁੜ ਬਣਦਾ ਹੈ ਅਤੇ ਤੇਜ਼ ਸੰਚਾਰ ਵਿੱਚ ਮਦਦ ਮਿਲਦੀ ਹੈ।")],
+  ["terminal",t("Axon terminals","ਐਕਸਾਨ ਦੇ ਅੰਤਲੇ ਸਿਰੇ"),t("Branch endings that pass the message to the next cell across a synapse, usually using neurotransmitters.","ਸ਼ਾਖਾਵਾਂ ਵਾਲੇ ਅੰਤਲੇ ਸਿਰੇ ਜੋ ਸਿਨੈਪਸ ਰਾਹੀਂ ਅਗਲੀ ਕੋਸ਼ਿਕਾ ਤੱਕ ਸੁਨੇਹਾ ਪਹੁੰਚਾਉਂਦੇ ਹਨ, ਆਮ ਤੌਰ ਤੇ ਨਿਊਰੋਟ੍ਰਾਂਸਮੀਟਰਾਂ ਦੀ ਮਦਦ ਨਾਲ।")]
+ ];
+ let selected="cellbody";
+ const shell=()=>'<section class="lab-top"><button class="back-button" id="back">'+tr("back")+'</button><div class="lab-top-name"><span>🧠</span><div><strong>'+tr("biology")+'</strong><small>'+t("Class 9 · Biology Lab","ਜਮਾਤ 9 · ਜੀਵ ਵਿਗਿਆਨ ਲੈਬ")+'</small></div></div></section><section class="lab-selectors"><label>'+tr("chooseClass")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option value="'+n+'" '+(cls===n?"selected":"")+'>'+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+tr("chooseExperiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+esc(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section>';
+ const card=()=>'<section class="experiment-card"><div class="experiment-meta">'+t("CLASS 9 · BIOLOGY · EXPERIMENT 4 / 5","ਜਮਾਤ 9 · ਜੀਵ ਵਿਗਿਆਨ · ਪ੍ਰਯੋਗ 4 / 5")+'</div><h2>'+t("Working of Neuron","ਨਿਊਰਾਨ ਦੀ ਕਾਰਜ-ਪ੍ਰਣਾਲੀ")+'</h2><p class="aim"><b>'+tr("aim")+':</b> '+t("Explore the structure of a neuron and how it receives and transmits nerve impulses.","ਨਿਊਰਾਨ ਦੀ ਬਣਤਰ ਅਤੇ ਇਹ ਨਰਵ ਸੰਕੇਤ ਕਿਵੇਂ ਪ੍ਰਾਪਤ ਤੇ ਅੱਗੇ ਭੇਜਦਾ ਹੈ, ਸਮਝੋ।")+'</p><div id="neuronVisual" style="background:linear-gradient(145deg,#eef8ff,#f8f3ff);border-radius:18px;padding:8px"></div><div id="neuronInfo" class="visual-panel" style="margin-top:14px;min-height:115px"></div><p style="font-weight:800;color:var(--muted)">'+t("Tap any label placed on the neuron to explore its function.","ਨਿਊਰਾਨ ਉੱਤੇ ਦਿੱਤੇ ਕਿਸੇ ਵੀ ਲੇਬਲ ਨੂੰ ਛੂਹੋ ਅਤੇ ਉਸ ਦਾ ਕੰਮ ਜਾਣੋ।")+'</p><div class="navigation"><button id="prev" class="back-button" '+(exp===0?"disabled":"")+'>'+tr("previous")+'</button><button id="next" class="primary-button">'+tr("next")+' →</button></div></section>';
+ $("#app").innerHTML=shell()+card();
+ const art='<svg viewBox="0 0 760 430" role="img" aria-label="'+t("Detailed labelled neuron","ਲੇਬਲਾਂ ਸਮੇਤ ਨਿਊਰਾਨ")+'" style="width:100%;height:auto"><defs><linearGradient id="somaGrad" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8c5a6"/><stop offset="1" stop-color="#d98c77"/></linearGradient><linearGradient id="axonGrad"><stop stop-color="#e7a45d"/><stop offset="1" stop-color="#c77b3e"/></linearGradient></defs><g fill="none" stroke="#b96e59" stroke-width="15" stroke-linecap="round"><path d="M215 205 Q160 175 125 115 M175 188 Q130 185 85 170 M165 215 Q120 250 82 290 M205 165 Q200 115 185 75 M235 160 Q260 115 270 75 M150 205 Q110 210 55 220"/></g><g fill="none" stroke="#d98c77" stroke-width="8" stroke-linecap="round"><path d="M125 115 L95 78 M125 115 L145 78 M85 170 L55 145 M85 170 L50 185 M82 290 L48 315 M82 290 L95 330 M185 75 L165 45 M185 75 L205 45 M270 75 L295 45 M270 75 L285 100 M55 220 L25 205"/></g><path d="M245 195 C300 190 340 190 405 195 L640 195" fill="none" stroke="url(#axonGrad)" stroke-width="17" stroke-linecap="round"/><g fill="#f5d8a6" stroke="#bd8b4e" stroke-width="3"><rect x="320" y="171" width="58" height="48" rx="21"/><rect x="395" y="171" width="58" height="48" rx="21"/><rect x="470" y="171" width="58" height="48" rx="21"/><rect x="545" y="171" width="58" height="48" rx="21"/></g><g fill="none" stroke="#a96d3d" stroke-width="5" stroke-linecap="round"><path d="M640 195 Q670 165 690 135 M640 195 Q680 195 710 190 M640 195 Q675 225 700 255 M690 135 L710 115 M690 135 L685 105 M710 190 L735 175 M710 190 L740 205 M700 255 L720 280 M700 255 L680 285"/></g><g fill="#b96e59" stroke="#8f5143" stroke-width="3"><path d="M245 195 C260 145 235 130 205 145 C175 160 160 195 175 225 C188 255 230 263 260 235 C280 215 270 190 245 195Z"/><ellipse cx="218" cy="202" rx="24" ry="21" fill="#9a668f" stroke="#70436d"/></g><g fill="#fff" stroke="#7c526f" stroke-width="3"><circle cx="210" cy="195" r="6"/><circle cx="227" cy="208" r="5"/></g><g stroke="#365b77" stroke-width="2" fill="none"><path d="M112 55 L145 95"/><path d="M214 285 L218 225"/><path d="M190 350 L215 225"/><path d="M405 285 L425 220"/><path d="M495 105 L495 170"/><path d="M570 285 L570 220"/><path d="M700 320 L700 260"/></g><g font-family="Arial,sans-serif" font-size="16" font-weight="800" fill="#173b55"><text x="20" y="43" data-part="dendrite" class="neuron-label">Dendrites</text><text x="150" y="315" data-part="cellbody" class="neuron-label">Cell body</text><text x="150" y="375" data-part="nucleus" class="neuron-label">Nucleus</text><text x="360" y="315" data-part="axon" class="neuron-label">Axon</text><text x="450" y="85" data-part="myelin" class="neuron-label">Myelin sheath</text><text x="530" y="315" data-part="node" class="neuron-label">Node of Ranvier</text><text x="640" y="350" data-part="terminal" class="neuron-label">Axon terminals</text></g><g fill="#f4bd5b"><path d="M300 183 l12 12 -12 12" /><path d="M605 183 l12 12 -12 12"/></g></svg>';
+ function render(){
+  $("#neuronVisual").innerHTML=art;
+  $("#neuronInfo").innerHTML="";
+  const p=parts.find(v=>v[0]===selected)||parts[1];
+  $("#neuronInfo").innerHTML='<h3 style="margin:0 0 8px;color:#155b82">'+p[1]+'</h3><p style="margin:0;line-height:1.6">'+p[2]+'</p>';
+  document.querySelectorAll(".neuron-label").forEach(el=>{
+   const active=el.dataset.part===selected;
+   el.style.cursor="pointer";el.style.fill=active?"#c2410c":"#173b55";el.style.fontWeight=active?"900":"800";
+   el.onclick=()=>{selected=el.dataset.part;render()};
+  });
+ }
+ $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};
+ $("#prev").onclick=()=>{if(exp>0){exp--;choice="";draw()}};$("#next").onclick=()=>{if(exp<4){exp++;choice="";draw()}};
+ render();
+}
+
 function draw(){
+ if(lab==="biology"&&cls===9&&exp===3){class9NeuronLab();return}
  if(lab==="biology"&&cls===9&&exp===2){class9PlantTransportLab();return}
  if(lab==="biology"&&cls===9&&exp===1){class9DiffusionOsmosisLab();return}
  if(lab==="biology"&&cls===9&&exp===0){class9CellStructureLab();return}
