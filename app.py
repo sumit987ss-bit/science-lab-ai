@@ -3028,8 +3028,6 @@ BIOLOGY_EXPERIMENTS = {
         ("Nutrition in Humans", "ਮਨੁੱਖਾਂ ਵਿੱਚ ਪੋਸ਼ਣ", "Explore ingestion, digestion, absorption and assimilation.", "ਭੋਜਨ ਗ੍ਰਹਿਣ, ਪਚਣ, ਅਵਸ਼ੋਸ਼ਣ ਅਤੇ ਅੰਗੀਕਰਨ ਨੂੰ ਸਮਝੋ।", "digestion"),
         ("Respiration and Gas Exchange", "ਸ਼ਵਾਸ ਕਿਰਿਆ ਅਤੇ ਗੈਸਾਂ ਦਾ ਆਦਾਨ-ਪ੍ਰਦਾਨ", "Trace air into the lungs and oxygen transfer into the blood.", "ਫੇਫੜਿਆਂ ਤੱਕ ਹਵਾ ਅਤੇ ਖੂਨ ਵਿੱਚ ਆਕਸੀਜਨ ਦੇ ਜਾਣ ਦਾ ਰਸਤਾ ਵੇਖੋ।", "respiration"),
         ("Transport and Excretion", "ਆਵਾਜਾਈ ਅਤੇ ਨਿਕਾਸ", "Compare blood transport with kidney filtration and urine formation.", "ਖੂਨ ਰਾਹੀਂ ਆਵਾਜਾਈ ਅਤੇ ਗੁਰਦਿਆਂ ਵਿੱਚ ਛਾਣਨ ਤੇ ਪਿਸ਼ਾਬ ਬਣਨ ਦੀ ਤੁਲਨਾ ਕਰੋ।", "excretion"),
-        ("Reproduction in Plants", "ਪੌਦਿਆਂ ਵਿੱਚ ਪ੍ਰਜਨਨ", "Model pollination, fertilisation and seed formation.", "ਪਰਾਗਣ, ਨਿਸ਼ੇਚਨ ਅਤੇ ਬੀਜ ਬਣਨ ਦਾ ਮਾਡਲ ਵੇਖੋ।", "reproduction"),
-        ("Heredity and Variation", "ਵੰਸ਼ਾਣੁਕਤਾ ਅਤੇ ਵੱਖਰਾਪਣ", "Explore how inherited traits can resemble parents while variation remains.", "ਵਿਰਾਸਤੀ ਲੱਛਣ ਮਾਪਿਆਂ ਵਰਗੇ ਹੋ ਸਕਦੇ ਹਨ ਪਰ ਵੱਖਰਾਪਣ ਵੀ ਰਹਿੰਦਾ ਹੈ, ਸਮਝੋ।", "heredity"),
     ],
 }
 
@@ -3286,7 +3284,7 @@ def biology_lab():
         cc = st.selectbox("ਜਮਾਤ ਚੁਣੋ" if pa else "Select class", classes, format_func=lambda x: f"{x}ਵੀਂ ਜਮਾਤ" if pa else f"Class {x}", key="bio_class")
     exp_list = BIOLOGY_EXPERIMENTS[cc]
     with c2:
-        ei = st.selectbox("ਪ੍ਰਯੋਗ ਚੁਣੋ" if pa else "Select experiment", list(range(5)), format_func=lambda i: f"{i+1}. {exp_list[i][1 if pa else 0]}", key=f"bio_exp_{cc}")
+        ei = st.selectbox("ਪ੍ਰਯੋਗ ਚੁਣੋ" if pa else "Select experiment", list(range(len(exp_list))), format_func=lambda i: f"{i+1}. {exp_list[i][1 if pa else 0]}", key=f"bio_exp_{cc}")
     en_title, pa_title, en_aim, pa_aim, kind = exp_list[ei]
     st.markdown("---")
     st.header(f"{'ਪ੍ਰਯੋਗ' if pa else 'EXPERIMENT'} {ei+1} · {pa_title if pa else en_title}")
