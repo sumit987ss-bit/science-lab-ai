@@ -11,7 +11,20 @@
   <link rel="stylesheet" href="./styles.css">
   <title>POCKET Science Lab</title>
 </head>
-<body>
+<body class="welcome-mode">
+  <section id="welcomeScreen" class="welcome-screen" aria-label="Welcome to Pocket Science Lab">
+    <div class="welcome-stars" aria-hidden="true"></div>
+    <div class="welcome-content">
+      <div class="welcome-emblem" aria-hidden="true"><span>⚛</span><i>✦</i></div>
+      <p class="welcome-kicker">DISCOVER · EXPLORE · EXPERIMENT</p>
+      <h1>WELCOME TO<br><span>POCKET</span> SCIENCE LAB</h1>
+      <p class="welcome-subtitle">Where curiosity becomes discovery.</p>
+      <div class="welcome-visuals" aria-hidden="true"><span>🧪</span><span>⚡</span><span>🧬</span><span>🔬</span></div>
+      <div class="welcome-credit"><small>DEVELOPER</small><strong>Sumitpal Singh Sodhi</strong><span>Science Master</span><span>GSSS Bare Ke, Ferozepur</span></div>
+      <button id="enterScienceLab" class="enter-lab-button" type="button">ENTER THE SCIENCE LAB <b>→</b></button>
+      <p class="welcome-footer">CLASSES 6–10&nbsp; · &nbsp;LEARN • DISCOVER • INNOVATE</p>
+    </div>
+  </section>
   <header class="topbar">
     <a class="brand" href="./" aria-label="POCKET Science Lab home">
       <img src="./icons/pocket-science-lab.svg" alt="" class="brand-icon">
@@ -50,5 +63,13 @@
   </main>
   <script src="./experiments.js" defer></script>
   <script src="./app.js" defer></script>
+  <script>
+    document.getElementById("enterScienceLab").addEventListener("click",function(){
+      document.body.classList.remove("welcome-mode");
+      document.getElementById("welcomeScreen").classList.add("welcome-leaving");
+      window.setTimeout(function(){document.getElementById("welcomeScreen").remove();},260);
+      window.scrollTo(0,0);
+    });
+  </script>
 </body>
 </html>
