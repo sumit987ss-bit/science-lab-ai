@@ -909,11 +909,11 @@ window.LAB_DATA = {
     {
       "title": "Diffusion and Osmosis",
       "title_pa": "ਵਿਸਰਣ ਅਤੇ ਪਰਾਸਰਣ",
-      "aim": "Model movement of particles and water across a selectively permeable membrane.",
-      "aim_pa": "ਕਣਾਂ ਅਤੇ ਪਾਣੀ ਦੀ ਚੋਣਵੀਂ ਪਾਰਗਮਣ ਝਿੱਲੀ ਰਾਹੀਂ ਗਤੀ ਦਾ ਮਾਡਲ ਵੇਖੋ।",
+      "aim": "Observe diffusion of oxygen into and carbon dioxide out of a cell, then model osmosis as water enters and swells a dry raisin.",
+      "aim_pa": "ਕੋਸ਼ਿਕਾ ਵਿੱਚ ਆਕਸੀਜਨ ਦੇ ਦਾਖ਼ਲ ਹੋਣ ਅਤੇ ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ ਦੇ ਬਾਹਰ ਜਾਣ ਦਾ ਵਿਸਰਣ ਵੇਖੋ; ਫਿਰ ਕਿਸ਼ਮਿਸ਼ ਵਿੱਚ ਪਾਣੀ ਦਾਖ਼ਲ ਹੋਣ ਨਾਲ ਫੁੱਲਣ ਰਾਹੀਂ ਪਰਾਸਰਣ ਸਮਝੋ।",
       "kind": "osmosis",
-      "note": "Osmosis is the net movement of water through a selectively permeable membrane from higher water potential to lower water potential.",
-      "note_pa": "ਪਰਾਸਰਣ ਵਿੱਚ ਪਾਣੀ ਚੋਣਵੀਂ ਪਾਰਗਮਣਯੋਗ ਝਿੱਲੀ ਰਾਹੀਂ ਵੱਧ ਜਲ ਸੰਭਾਵਨਾ ਤੋਂ ਘੱਟ ਜਲ ਸੰਭਾਵਨਾ ਵੱਲ ਜਾਂਦਾ ਹੈ।",
+      "note": "Diffusion is the net movement of particles from higher to lower concentration. Osmosis is the net movement of water through a selectively permeable membrane from higher water potential to lower water potential; soaked raisins swell as water enters.",
+      "note_pa": "ਵਿਸਰਣ ਵਿੱਚ ਕਣਾਂ ਦੀ ਕੁੱਲ ਗਤੀ ਵੱਧ ਸੰਘਣਤਾ ਤੋਂ ਘੱਟ ਸੰਘਣਤਾ ਵੱਲ ਹੁੰਦੀ ਹੈ। ਪਰਾਸਰਣ ਵਿੱਚ ਪਾਣੀ ਚੋਣਵੀਂ ਪਾਰਗਮਣਯੋਗ ਝਿੱਲੀ ਰਾਹੀਂ ਵੱਧ ਜਲ ਸੰਭਾਵਨਾ ਤੋਂ ਘੱਟ ਜਲ ਸੰਭਾਵਨਾ ਵੱਲ ਜਾਂਦਾ ਹੈ; ਪਾਣੀ ਅੰਦਰ ਜਾਣ ਨਾਲ ਕਿਸ਼ਮਿਸ਼ ਫੁੱਲਦੀ ਹੈ।",
       "class": 9
     },
     {
