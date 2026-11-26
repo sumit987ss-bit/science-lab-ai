@@ -2293,6 +2293,34 @@ function class8MicrobesLab(){
  render();
 }
 
+function class8RabiKharifLab(){
+ const pa=lang==="pa";let selected="rabi";
+ const seasons=[
+  {key:"rabi",name:"Rabi crops",pu:"ਹਾੜ੍ਹੀ ਦੀਆਂ ਫ਼ਸਲਾਂ",season:"Sown in the cooler months and generally harvested in spring.",seasonPa:"ਠੰਢੇ ਮਹੀਨਿਆਂ ਵਿੱਚ ਬੀਜੀਆਂ ਜਾਂਦੀਆਂ ਹਨ ਅਤੇ ਆਮ ਤੌਰ ਤੇ ਬਸੰਤ ਰੁੱਤ ਵਿੱਚ ਕੱਟੀਆਂ ਜਾਂਦੀਆਂ ਹਨ।",crops:[
+   ["Wheat","ਕਣਕ","🌾","A major winter cereal crop; flour is used to make chapati." ,"ਮੁੱਖ ਹਾੜ੍ਹੀ ਦੀ ਅਨਾਜ ਫ਼ਸਲ; ਇਸ ਦੇ ਆਟੇ ਤੋਂ ਰੋਟੀ ਬਣਦੀ ਹੈ।"],
+   ["Barley","ਜੌਂ","🌿","A hardy cereal grown in the winter season.","ਸਰਦੀ ਦੇ ਮੌਸਮ ਵਿੱਚ ਉਗਾਈ ਜਾਣ ਵਾਲੀ ਮਜ਼ਬੂਤ ਅਨਾਜ ਫ਼ਸਲ।"],
+   ["Mustard","ਸਰ੍ਹੋਂ","🌼","Grown for its seeds, which give us mustard oil.","ਬੀਜਾਂ ਤੋਂ ਸਰ੍ਹੋਂ ਦਾ ਤੇਲ ਪ੍ਰਾਪਤ ਹੁੰਦਾ ਹੈ।"],
+   ["Gram (Chickpea)","ਛੋਲੇ","🫘","A pulse crop rich in plant protein.","ਪੌਦੇ-ਆਧਾਰਿਤ ਪ੍ਰੋਟੀਨ ਵਾਲੀ ਦਾਲੀ ਫ਼ਸਲ।"],
+   ["Peas","ਮਟਰ","🫛","A cool-season vegetable and pulse crop.","ਠੰਢੇ ਮੌਸਮ ਦੀ ਸਬਜ਼ੀ ਅਤੇ ਦਾਲੀ ਫ਼ਸਲ।"]
+  ]},
+  {key:"kharif",name:"Kharif crops",pu:"ਸਾਉਣੀ ਦੀਆਂ ਫ਼ਸਲਾਂ",season:"Sown with the arrival of the monsoon and generally harvested in autumn.",seasonPa:"ਮਾਨਸੂਨ ਦੀ ਆਮਦ ਨਾਲ ਬੀਜੀਆਂ ਜਾਂਦੀਆਂ ਹਨ ਅਤੇ ਆਮ ਤੌਰ ਤੇ ਪਤਝੜ ਵਿੱਚ ਕੱਟੀਆਂ ਜਾਂਦੀਆਂ ਹਨ।",crops:[
+   ["Rice (Paddy)","ਝੋਨਾ","🌾","A major monsoon cereal crop; grains are used as food.","ਮਾਨਸੂਨ ਦੀ ਮੁੱਖ ਅਨਾਜ ਫ਼ਸਲ; ਦਾਣੇ ਭੋਜਨ ਵਜੋਂ ਵਰਤੇ ਜਾਂਦੇ ਹਨ।"],
+   ["Maize","ਮੱਕੀ","🌽","A cereal crop used as food and animal feed.","ਭੋਜਨ ਅਤੇ ਪਸ਼ੂਆਂ ਦੇ ਚਾਰੇ ਲਈ ਵਰਤੀ ਜਾਣ ਵਾਲੀ ਅਨਾਜ ਫ਼ਸਲ।"],
+   ["Cotton","ਨਰਮਾ / ਕਪਾਹ","☁️","A fibre crop used to make cotton textiles.","ਕਪਾਹ ਦੇ ਰੇਸ਼ੇ ਤੋਂ ਕੱਪੜਾ ਤਿਆਰ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।"],
+   ["Bajra (Pearl millet)","ਬਾਜਰਾ","🌾","A hardy millet that can grow in relatively dry conditions.","ਘੱਟ ਪਾਣੀ ਵਾਲੀਆਂ ਹਾਲਤਾਂ ਵਿੱਚ ਵੀ ਉੱਗਣ ਵਾਲੀ ਮੋਟੇ ਅਨਾਜ ਦੀ ਫ਼ਸਲ।"],
+   ["Soybean","ਸੋਇਆਬੀਨ","🫘","An oilseed and pulse crop rich in protein.","ਪ੍ਰੋਟੀਨ ਭਰਪੂਰ ਤੇਲਬੀਜ ਅਤੇ ਦਾਲੀ ਫ਼ਸਲ।"]
+  ]}
+ ];
+ function render(){
+  const g=seasons.find(x=>x.key===selected);
+  $("#app").innerHTML=top("Biology Lab")+"<section class='lab-top'><h2>Class 8 · Biology</h2><p>"+(pa?"ਹਾੜ੍ਹੀ ਅਤੇ ਸਾਉਣੀ ਦੀਆਂ ਫ਼ਸਲਾਂ":"Rabi and Kharif Crops")+"</p></section><section class='lab-selectors'><label>Class <select id='cl'>"+[6,7,8,9,10].map(n=>"<option "+(cls===n?"selected":"")+" value='"+n+"'>Class "+n+"</option>").join("")+"</select></label><label>Experiment <select id='ex'>"+list().map((x,i)=>"<option "+(exp===i?"selected":"")+" value='"+i+"'>"+x.title+"</option>").join("")+"</select></label></section><section class='card'><h3>"+(pa?"ਫ਼ਸਲਾਂ ਦੀ ਕਿਸਮ ਚੁਣੋ":"Select crop season")+"</h3><select id='seasonSelect' style='width:100%;padding:12px;border-radius:12px;font-size:17px;font-weight:900'><option value='rabi' "+(selected==="rabi"?"selected":"")+">"+(pa?"ਹਾੜ੍ਹੀ ਦੀਆਂ ਫ਼ਸਲਾਂ":"Rabi crops")+"</option><option value='kharif' "+(selected==="kharif"?"selected":"")+">"+(pa?"ਸਾਉਣੀ ਦੀਆਂ ਫ਼ਸਲਾਂ":"Kharif crops")+"</option></select><div style='margin-top:14px;padding:15px;border-radius:16px;background:linear-gradient(135deg,#ecfccb,#fef3c7);border:2px solid #84cc16;text-align:center'><div style='font-size:42px'>"+(selected==="rabi"?"🌤️🌱":"🌧️🌱")+"</div><h2 style='font-weight:900;color:#365314;margin:5px 0'>"+(pa?g.pu:g.name)+"</h2><p style='font-weight:800;color:#365314;margin:0'>"+(pa?g.seasonPa:g.season)+"</p></div><div style='display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:11px;margin-top:14px'>"+g.crops.map(c=>"<article style='background:#fff;border:2px solid #86b96b;border-radius:15px;padding:13px;text-align:center;box-shadow:0 2px 7px #00000012'><div style='font-size:48px;line-height:1.4'>"+c[2]+"</div><div style='font-size:17px;font-weight:900;color:#166534'>"+(pa?c[1]:c[0])+"</div><p style='font-weight:800;color:#1f2937;font-size:13px;line-height:1.45;margin:7px 0 0'>"+(pa?c[4]:c[3])+"</p></article>").join("")+"</div></section>";
+  $("#back").onclick=home;
+  $("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};
+  $("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};
+  $("#seasonSelect").onchange=e=>{selected=e.target.value;render()};
+ }
+ render();
+}
 function class8PathogensLab(){
  const pa=lang==="pa"; let selected="virus";
  const groups=[
@@ -2357,6 +2385,7 @@ function draw(){
   if(exp===0){class8MicrobesLab();return}
   if(exp===1){class8AgricultureStagesLab();return}
   if(exp===2){class8PathogensLab();return}
+  if(exp===3){class8RabiKharifLab();return}
  }
  // Keep kind-based routing as a fallback for any future catalogue reordering.
  const selectedBioExperiment=lab==="biology"&&cls===8?item():null;
