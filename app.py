@@ -2899,7 +2899,7 @@ def chemistry_lab():
         cc = st.selectbox("ਜਮਾਤ ਚੁਣੋ" if pa else "Select class", classes, format_func=lambda x: f"{x}ਵੀਂ ਜਮਾਤ" if pa else f"Class {x}", key="chem_class")
     exp_list = CHEMISTRY_EXPERIMENTS[cc]
     with c2:
-        ei = st.selectbox("ਪ੍ਰਯੋਗ ਚੁਣੋ" if pa else "Select experiment", list(range(5)), format_func=lambda i: f"{i+1}. {exp_list[i][1 if pa else 0]}", key=f"chem_exp_{cc}")
+        ei = st.selectbox("ਪ੍ਰਯੋਗ ਚੁਣੋ" if pa else "Select experiment", list(range(len(exp_list))), format_func=lambda i: f"{i+1}. {exp_list[i][1 if pa else 0]}", key=f"chem_exp_{cc}")
     en_title, pa_title, en_aim, pa_aim, kind, en_note, pa_note = exp_list[ei]
     title = pa_title if pa else en_title
     aim = pa_aim if pa else en_aim
@@ -3279,7 +3279,7 @@ def biology_lab():
         st.rerun()
     pa = st.session_state.language == "pa"
     st.title("🧬 " + ("ਜੀਵ ਵਿਗਿਆਨ ਲੈਬ" if pa else "Biology Lab"))
-    st.caption("25 interactive, class-wise visual experiments · PSEB/NCERT-aligned school Science topics" if not pa else "ਜਮਾਤ ਅਨੁਸਾਰ 25 ਇੰਟਰਐਕਟਿਵ ਚਿੱਤਰਕ ਪ੍ਰਯੋਗ · PSEB/NCERT ਨਾਲ ਮੇਲ ਖਾਂਦੇ ਵਿਗਿਆਨ ਵਿਸ਼ੇ")
+    st.caption("23 interactive, class-wise visual experiments · PSEB/NCERT-aligned school Science topics" if not pa else "ਜਮਾਤ ਅਨੁਸਾਰ 23 ਇੰਟਰਐਕਟਿਵ ਚਿੱਤਰਕ ਪ੍ਰਯੋਗ · PSEB/NCERT ਨਾਲ ਮੇਲ ਖਾਂਦੇ ਵਿਗਿਆਨ ਵਿਸ਼ੇ")
     classes = [6, 7, 8, 9, 10]
     c1, c2 = st.columns(2)
     with c1:
