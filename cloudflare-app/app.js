@@ -2377,6 +2377,81 @@ function class8AgricultureStagesLab(){
  render();
 }
 
+
+function class9CellStructureLab(){
+ const pa=lang==="pa";
+ const t=(en,pu)=>pa?pu:en;
+ const plant=choice!=="Animal cell";
+ const plantLabels=[
+  ["1","Cell wall","ਕੋਸ਼ਿਕਾ ਭਿੱਤ","#237a45"],
+  ["2","Plasma membrane","ਕੋਸ਼ਿਕਾ ਝਿੱਲੀ","#0f766e"],
+  ["3","Cytoplasm","ਕੋਸ਼ਿਕਾ ਦ੍ਰਵ","#d97706"],
+  ["4","Nucleus","ਕੇਂਦਰਕ","#7c3aed"],
+  ["5","Nucleolus","ਕੇਂਦਰਿਕਾ","#6d28d9"],
+  ["6","Large central vacuole","ਵੱਡੀ ਕੇਂਦਰੀ ਰਸਧਾਨੀ","#0284c7"],
+  ["7","Chloroplasts","ਹਰਿਤਲਵਕ","#15803d"],
+  ["8","Mitochondrion","ਮਾਈਟੋਕਾਂਡਰੀਆ","#c2410c"],
+  ["9","Rough ER + ribosomes","ਖੁਰਦਰੀ ਅੰਤਃਪ੍ਰਦ੍ਰਵ ਜਾਲਿਕਾ + ਰਾਈਬੋਸੋਮ","#9333ea"],
+  ["10","Smooth ER","ਮੁਲਾਇਮ ਅੰਤਃਪ੍ਰਦ੍ਰਵ ਜਾਲਿਕਾ","#a16207"],
+  ["11","Golgi apparatus","ਗੋਲਜੀ ਤੰਤਰ","#be185d"],
+  ["12","Free ribosomes","ਮੁਕਤ ਰਾਈਬੋਸੋਮ","#334155"]
+ ];
+ const animalLabels=[
+  ["1","Plasma membrane","ਕੋਸ਼ਿਕਾ ਝਿੱਲੀ","#0f766e"],
+  ["2","Cytoplasm","ਕੋਸ਼ਿਕਾ ਦ੍ਰਵ","#d97706"],
+  ["3","Nucleus","ਕੇਂਦਰਕ","#7c3aed"],
+  ["4","Nucleolus","ਕੇਂਦਰਿਕਾ","#6d28d9"],
+  ["5","Mitochondria","ਮਾਈਟੋਕਾਂਡਰੀਆ","#c2410c"],
+  ["6","Rough ER + ribosomes","ਖੁਰਦਰੀ ਅੰਤਃਪ੍ਰਦ੍ਰਵ ਜਾਲਿਕਾ + ਰਾਈਬੋਸੋਮ","#9333ea"],
+  ["7","Smooth ER","ਮੁਲਾਇਮ ਅੰਤਃਪ੍ਰਦ੍ਰਵ ਜਾਲਿਕਾ","#a16207"],
+  ["8","Golgi apparatus","ਗੋਲਜੀ ਤੰਤਰ","#be185d"],
+  ["9","Lysosomes","ਲਾਇਸੋਸੋਮ","#0891b2"],
+  ["10","Centrioles","ਸੈਂਟਰੀਓਲ","#475569"],
+  ["11","Free ribosomes","ਮੁਕਤ ਰਾਈਬੋਸੋਮ","#334155"]
+ ];
+ const labels=plant?plantLabels:animalLabels;
+ const legend=labels.map(([n,en,pu,c])=>'<div style="display:flex;align-items:center;gap:9px;padding:5px 7px;border-bottom:1px solid #e2e8f0;font-size:clamp(12px,1.5vw,15px);font-weight:800;color:#18364b"><span style="flex:0 0 25px;height:25px;border-radius:50%;display:grid;place-items:center;background:'+c+';color:#fff;font-size:12px">'+n+'</span><span>'+t(en,pu)+'</span></div>').join("");
+ const marker=(n,x,y,c)=>'<g><circle cx="'+x+'" cy="'+y+'" r="14" fill="'+c+'" stroke="#fff" stroke-width="3"/><text x="'+x+'" y="'+(y+5)+'" text-anchor="middle" font-size="14" font-weight="1000" fill="#fff">'+n+'</text></g>';
+ let drawing="";
+ if(plant){
+  drawing='<rect x="38" y="48" width="500" height="405" rx="42" fill="#d9f3d1" stroke="#237a45" stroke-width="20"/>'+
+   '<rect x="58" y="68" width="460" height="365" rx="29" fill="#eaf8df" stroke="#0f766e" stroke-width="7"/>'+
+   '<path d="M75 90 Q150 75 220 95 T500 90 M75 410 Q160 425 245 408 T500 410" fill="none" stroke="#b2d7a5" stroke-width="3"/>'+
+   '<rect x="205" y="175" width="270" height="220" rx="48" fill="#9edcf4" fill-opacity=".72" stroke="#2589b7" stroke-width="5"/>'+
+   '<text x="340" y="285" text-anchor="middle" font-size="19" font-weight="900" fill="#075985">LARGE CENTRAL</text><text x="340" y="310" text-anchor="middle" font-size="19" font-weight="900" fill="#075985">VACUOLE</text>'+
+   '<ellipse cx="142" cy="165" rx="55" ry="47" fill="#b99be5" stroke="#7044a6" stroke-width="5"/><circle cx="142" cy="165" r="18" fill="#7044a6"/>'+
+   '<g fill="#2e9b55" stroke="#176b39" stroke-width="4"><ellipse cx="390" cy="112" rx="48" ry="22"/><ellipse cx="115" cy="365" rx="48" ry="22"/><ellipse cx="455" cy="365" rx="38" ry="19"/></g>'+
+   '<g stroke="#b7f0c4" stroke-width="5"><path d="M355 112h70 M360 101h60 M360 123h60 M80 365h70 M85 354h60 M85 376h60 M430 365h50"/></g>'+
+   '<g fill="#f5a16b" stroke="#b45309" stroke-width="4"><ellipse cx="135" cy="280" rx="35" ry="19" transform="rotate(-25 135 280)"/><ellipse cx="455" cy="165" rx="34" ry="18" transform="rotate(25 455 165)"/></g>'+
+   '<g fill="none" stroke="#fff1df" stroke-width="5"><path d="M108 280q15 -25 30 0t30 0"/><path d="M430 165q15 -22 30 0t30 0"/></g>'+
+   '<g fill="none" stroke="#8b5cf6" stroke-width="6" stroke-linecap="round"><path d="M190 130q35 -28 55 0t45 0 M190 145q35 -28 55 0t45 0 M190 160q35 -28 55 0t45 0"/></g>'+
+   '<g fill="#5b21b6"><circle cx="200" cy="126" r="4"/><circle cx="230" cy="136" r="4"/><circle cx="255" cy="126" r="4"/><circle cx="280" cy="141" r="4"/></g>'+
+   '<g fill="none" stroke="#c0841a" stroke-width="6" stroke-linecap="round"><path d="M155 225q25 -25 48 0t45 0 M160 240q25 -25 48 0t45 0"/></g>'+
+   '<g fill="none" stroke="#be185d" stroke-width="7" stroke-linecap="round"><path d="M105 215q25 -15 45 0t40 0 M105 229q25 -15 45 0t40 0 M105 243q25 -15 45 0t40 0"/></g>'+
+   '<g fill="#334155"><circle cx="270" cy="115" r="5"/><circle cx="292" cy="160" r="5"/><circle cx="185" cy="330" r="5"/><circle cx="165" cy="350" r="5"/><circle cx="300" cy="145" r="5"/></g>'+
+   marker("1",38,245,"#237a45")+marker("2",60,270,"#0f766e")+marker("3",300,80,"#d97706")+marker("4",142,165,"#7c3aed")+marker("5",142,165,"#6d28d9")+marker("6",340,285,"#0284c7")+marker("7",390,112,"#15803d")+marker("8",135,280,"#c2410c")+marker("9",225,140,"#9333ea")+marker("10",185,232,"#a16207")+marker("11",150,230,"#be185d")+marker("12",270,115,"#334155");
+ }else{
+  drawing='<path d="M290 48 C420 48 525 130 525 250 C525 370 420 453 290 453 C160 453 55 370 55 250 C55 130 160 48 290 48Z" fill="#fce7ed" stroke="#0f766e" stroke-width="9"/>'+
+   '<path d="M290 62 C410 62 510 140 510 250 C510 360 410 438 290 438 C170 438 70 360 70 250 C70 140 170 62 290 62Z" fill="#fff2f4" stroke="#f7b4c4" stroke-width="3"/>'+
+   '<ellipse cx="240" cy="205" rx="65" ry="58" fill="#b99be5" stroke="#7044a6" stroke-width="5"/><circle cx="240" cy="205" r="20" fill="#7044a6"/>'+
+   '<g fill="#f5a16b" stroke="#b45309" stroke-width="4"><ellipse cx="390" cy="145" rx="42" ry="22" transform="rotate(25 390 145)"/><ellipse cx="140" cy="330" rx="42" ry="22" transform="rotate(-25 140 330)"/><ellipse cx="390" cy="345" rx="38" ry="20"/></g>'+
+   '<g fill="none" stroke="#fff1df" stroke-width="5"><path d="M360 145q18 -25 36 0t36 0 M110 330q18 -25 36 0t36 0 M360 345q18 -25 36 0t36 0"/></g>'+
+   '<g fill="none" stroke="#8b5cf6" stroke-width="6" stroke-linecap="round"><path d="M300 190q30 -25 50 0t45 0 M300 205q30 -25 50 0t45 0 M300 220q30 -25 50 0t45 0"/></g>'+
+   '<g fill="none" stroke="#c0841a" stroke-width="6" stroke-linecap="round"><path d="M180 285q25 -25 45 0t45 0 M180 300q25 -25 45 0t45 0"/></g>'+
+   '<g fill="none" stroke="#be185d" stroke-width="7" stroke-linecap="round"><path d="M120 145q20 -15 38 0t38 0 M120 160q20 -15 38 0t38 0 M120 175q20 -15 38 0t38 0"/></g>'+
+   '<g fill="#38bdf8" stroke="#0369a1" stroke-width="3"><circle cx="450" cy="245" r="17"/><circle cx="420" cy="285" r="12"/><circle cx="465" cy="305" r="10"/></g>'+
+   '<g stroke="#475569" stroke-width="9" stroke-linecap="round"><path d="M330 335l35 35 M365 335l-35 35"/></g>'+
+   '<g fill="#334155"><circle cx="290" cy="120" r="5"/><circle cx="310" cy="135" r="5"/><circle cx="280" cy="145" r="5"/><circle cx="180" cy="245" r="5"/><circle cx="165" cy="260" r="5"/><circle cx="270" cy="330" r="5"/></g>'+
+   marker("1",55,250,"#0f766e")+marker("2",300,80,"#d97706")+marker("3",240,205,"#7c3aed")+marker("4",240,205,"#6d28d9")+marker("5",390,145,"#c2410c")+marker("6",350,205,"#9333ea")+marker("7",220,295,"#a16207")+marker("8",155,160,"#be185d")+marker("9",450,245,"#0891b2")+marker("10",348,355,"#475569")+marker("11",290,120,"#334155");
+ }
+ const svg='<svg viewBox="0 0 920 510" role="img" aria-label="'+t(plant?"Detailed plant cell with labelled cell wall, plasma membrane and organelles":"Detailed animal cell with labelled plasma membrane and organelles",plant?"ਕੋਸ਼ਿਕਾ ਭਿੱਤ, ਕੋਸ਼ਿਕਾ ਝਿੱਲੀ ਅਤੇ ਅੰਗਕਾਂ ਵਾਲਾ ਪੌਦਾ ਕੋਸ਼":"ਕੋਸ਼ਿਕਾ ਝਿੱਲੀ ਅਤੇ ਅੰਗਕਾਂ ਵਾਲਾ ਜਾਨਵਰ ਕੋਸ਼")+'" style="width:100%;height:auto;display:block;background:#f8fbff;border-radius:14px"><rect x="8" y="8" width="904" height="494" rx="18" fill="#f8fbff"/><text x="285" y="30" text-anchor="middle" font-size="21" font-weight="1000" fill="#173b55">'+(plant?t("PLANT CELL","ਪੌਦਾ ਕੋਸ਼"):t("ANIMAL CELL","ਜਾਨਵਰ ਕੋਸ਼"))+'</text>'+drawing+'<rect x="565" y="48" width="340" height="435" rx="16" fill="#fff" stroke="#d5e2ec" stroke-width="2"/>'+labels.map((x,i)=>'<g transform="translate(0 '+(58+i*34)+' )"><circle cx="590" cy="0" r="12" fill="'+x[3]+'"/><text x="590" y="5" text-anchor="middle" font-size="12" font-weight="1000" fill="#fff">'+x[0]+'</text><text x="612" y="5" font-size="15" font-weight="850" fill="#173b55">'+t(x[1],x[2])+'</text></g>').join("")+'</svg>';
+ const explanation=plant
+  ?t("The plant cell has two distinct outer boundaries: the thick cell wall outside and the thin plasma membrane just inside it. The large central vacuole, chloroplasts and mitochondria are shown along with the nucleus, endoplasmic reticulum, Golgi apparatus and ribosomes.","ਪੌਦਾ ਕੋਸ਼ ਦੋ ਵੱਖਰੀਆਂ ਬਾਹਰੀ ਪਰਤਾਂ ਰੱਖਦਾ ਹੈ: ਬਾਹਰ ਮੋਟੀ ਕੋਸ਼ਿਕਾ ਭਿੱਤ ਅਤੇ ਇਸ ਦੇ ਅੰਦਰ ਪਤਲੀ ਕੋਸ਼ਿਕਾ ਝਿੱਲੀ। ਵੱਡੀ ਕੇਂਦਰੀ ਰਸਧਾਨੀ, ਹਰਿਤਲਵਕ ਅਤੇ ਮਾਈਟੋਕਾਂਡਰੀਆ ਸਮੇਤ ਹੋਰ ਅੰਗਕ ਵੀ ਦਿਖਾਏ ਗਏ ਹਨ।")
+  :t("The animal cell is enclosed by a plasma membrane only. It has no cell wall and no chloroplasts. The diagram shows the nucleus, mitochondria, endoplasmic reticulum, Golgi apparatus, lysosomes, centrioles and ribosomes.","ਜਾਨਵਰ ਕੋਸ਼ ਦੇ ਬਾਹਰ ਕੇਵਲ ਕੋਸ਼ਿਕਾ ਝਿੱਲੀ ਹੁੰਦੀ ਹੈ। ਇਸ ਵਿੱਚ ਕੋਸ਼ਿਕਾ ਭਿੱਤ ਅਤੇ ਹਰਿਤਲਵਕ ਨਹੀਂ ਹੁੰਦੇ। ਚਿੱਤਰ ਵਿੱਚ ਕੇਂਦਰਕ, ਮਾਈਟੋਕਾਂਡਰੀਆ, ਅੰਤਃਪ੍ਰਦ੍ਰਵ ਜਾਲਿਕਾ, ਗੋਲਜੀ ਤੰਤਰ, ਲਾਇਸੋਸੋਮ, ਸੈਂਟਰੀਓਲ ਅਤੇ ਰਾਈਬੋਸੋਮ ਦਿਖਾਏ ਗਏ ਹਨ।");
+ $("#app").innerHTML='<section class="lab-top"><button class="back-button" id="back">'+tr("back")+'</button><div class="lab-top-name"><span>🧬</span><div><strong>'+tr("biology")+'</strong><small>'+t("Class 9 · Biology Lab","ਜਮਾਤ 9 · ਜੀਵ ਵਿਗਿਆਨ ਲੈਬ")+'</small></div></div></section><section class="lab-selectors"><label>'+tr("chooseClass")+'<select id="cl">'+[6,7,8,9,10].map(n=>'<option value="'+n+'" '+(cls===n?"selected":"")+'>'+(pa?n+"ਵੀਂ ਜਮਾਤ":"Class "+n)+'</option>').join("")+'</select></label><label>'+tr("chooseExperiment")+'<select id="ex">'+list().map((v,i)=>'<option value="'+i+'" '+(i===exp?"selected":"")+'>'+(i+1)+". "+esc(pa?v.title_pa:v.title)+'</option>').join("")+'</select></label></section><section class="experiment-card"><div class="experiment-meta">'+t("CLASS 9 · BIOLOGY · EXPERIMENT 1 / 5","ਜਮਾਤ 9 · ਜੀਵ ਵਿਗਿਆਨ · ਪ੍ਰਯੋਗ 1 / 5")+'</div><h2>'+t("Plant and Animal Cells","ਪੌਦਿਆਂ ਅਤੇ ਜਾਨਵਰਾਂ ਦੇ ਕੋਸ਼")+'</h2><p class="aim"><b>'+tr("aim")+':</b> '+t("Compare plant and animal cells, identify their main structures and understand how their parts differ.","ਪੌਦਿਆਂ ਅਤੇ ਜਾਨਵਰਾਂ ਦੇ ਕੋਸ਼ਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ, ਮੁੱਖ ਬਣਤਰਾਂ ਪਛਾਣੋ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਫ਼ਰਕ ਸਮਝੋ।")+'</p><div class="control-panel" style="margin:16px 0"><label><b>'+t("Select cell type","ਕੋਸ਼ ਦੀ ਕਿਸਮ ਚੁਣੋ")+'</b><select id="choice"><option value="Plant cell" '+(plant?"selected":"")+'>'+t("Plant cell","ਪੌਦਾ ਕੋਸ਼")+'</option><option value="Animal cell" '+(!plant?"selected":"")+'>'+t("Animal cell","ਜਾਨਵਰ ਕੋਸ਼")+'</option></select></label></div><div class="visual-panel"><h3>'+t("Detailed labelled cell model","ਲੇਬਲਾਂ ਸਮੇਤ ਕੋਸ਼ ਦਾ ਵਿਸਥਾਰਪੂਰਵਕ ਮਾਡਲ")+'</h3>'+svg+'<div style="margin-top:12px;padding:14px;border-radius:12px;background:'+(plant?"#eaf7e8":"#fceef2")+';border:2px solid '+(plant?"#8bbd8d":"#e9a8ba")+';font-weight:750;line-height:1.65;color:#173b55">'+explanation+'</div></div><div class="navigation"><button id="prev" class="back-button" '+(exp===0?"disabled":"")+'>'+tr("previous")+'</button><button id="next" class="primary-button">'+tr("next")+' →</button></div><p class="safety-note">'+tr("safe")+'</p></section>';
+ $("#back").onclick=home;$("#cl").onchange=e=>{cls=+e.target.value;exp=0;choice="";draw()};$("#ex").onchange=e=>{exp=+e.target.value;choice="";draw()};$("#choice").onchange=e=>{choice=e.target.value;class9CellStructureLab()};$("#prev").onclick=()=>{if(exp>0){exp--;choice="";draw()}};$("#next").onclick=()=>{if(exp<4){exp++;choice="";draw()}};
+}
+
 function drawClass8BiologyExperiment(index){
  // Read the selected dropdown value and dispatch that exact catalogue record.
  // Do not depend on a previous render's shared experiment state.
@@ -2395,6 +2470,7 @@ function drawClass8BiologyExperiment(index){
  draw();
 }
 function draw(){
+ if(lab==="biology"&&cls===9&&exp===0){class9CellStructureLab();return}
  // Class 8 Biology uses an explicit catalogue-index dispatcher.
  if(lab==="biology"&&cls===8){drawClass8BiologyExperiment(exp);return}
  const selectedExperiment=lab==="chemistry"&&cls===10?item():null;
