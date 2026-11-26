@@ -52,15 +52,16 @@ jobs:
           const browser = await chromium.launch({ headless: true });
           try {
             const page = await browser.newPage();
-            page.on("pageerror", error => console.error("Browser page error:", error.message));
+            const pageErrors = [];
+            page.on("pageerror", error => pageErrors.push(error.message));
             await page.goto("https://pocket-science-lab-v2.pages.dev/", { waitUntil: "networkidle" });
             await page.locator('[data-lab="biology"]').click();
             await page.locator("#cl").selectOption("8");
             const expected = [
-              "Helpful and Harmful Microorganisms",
-              "Stages of Agriculture",
-              "Disease-causing microbes / Pathogens",
-              "Rabi and Kharif Crops"
+              "YEAST CELLS · BREAD MAKING",
+              "7 Stages of Agriculture",
+              "VIRUS PARTICLE",
+              "Wheat"
             ];
             for (let i = 0; i < expected.length; i++) {
               await page.locator("#ex").selectOption(String(i));
@@ -69,6 +70,7 @@ jobs:
               if (!screen.includes(expected[i])) {
                 throw new Error(`Class 8 Biology experiment ${i + 1} did not render. Expected "${expected[i]}". Screen begins: ${screen.slice(0, 700)}`);
               }
+              if (pageErrors.length) throw new Error("Browser JavaScript errors: " + pageErrors.join(" | "));
               console.log(`PASS: Class 8 Biology Experiment ${i + 1} — ${expected[i]}`);
             }
           } finally {
