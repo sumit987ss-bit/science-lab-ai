@@ -937,13 +937,13 @@ window.LAB_DATA = {
       "class": 9
     },
     {
-      "title": "Respiration in Living Cells",
-      "title_pa": "ਜੀਵਤ ਕੋਸ਼ਾਂ ਵਿੱਚ ਸ਼ਵਾਸ ਕਿਰਿਆ",
-      "aim": "Compare aerobic respiration with energy release when oxygen is limited.",
-      "aim_pa": "ਆਕਸੀਜਨ ਦੀ ਉਪਲਬਧਤਾ ਅਨੁਸਾਰ ਊਰਜਾ ਮੁਕਤ ਹੋਣ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
-      "kind": "respiration",
-      "note": "Cellular respiration releases usable energy from food molecules; it is different from the physical process of breathing.",
-      "note_pa": "ਕੋਸ਼ਿਕਾਈ ਸ਼ਵਾਸ ਕਿਰਿਆ ਭੋਜਨ ਦੇ ਅਣੂਆਂ ਤੋਂ ਵਰਤਣਯੋਗ ਊਰਜਾ ਛੱਡਦੀ ਹੈ; ਇਹ ਸਾਹ ਲੈਣ ਦੀ ਭੌਤਿਕ ਪ੍ਰਕਿਰਿਆ ਤੋਂ ਵੱਖਰੀ ਹੈ।",
+      "title": "Respiration in Humans",
+      "title_pa": "ਮਨੁੱਖਾਂ ਵਿੱਚ ਸਾਹ ਪ੍ਰਣਾਲੀ",
+      "aim": "Explore the human respiratory system, follow the movement of air, and observe gas exchange in the alveoli.",
+      "aim_pa": "ਮਨੁੱਖੀ ਸਾਹ ਪ੍ਰਣਾਲੀ, ਹਵਾ ਦੀ ਗਤੀ ਅਤੇ ਵਾਯੂਕੋਸ਼ਾਂ ਵਿੱਚ ਗੈਸਾਂ ਦੀ ਅਦਲਾ-ਬਦਲੀ ਨੂੰ ਸਮਝੋ।",
+      "kind": "human_respiration",
+      "note": "Breathing moves air in and out. Gas exchange occurs across alveolar walls: oxygen diffuses into blood and carbon dioxide diffuses into the alveoli. Cellular respiration occurs inside body cells.",
+      "note_pa": "ਸਾਹ ਲੈਣ ਨਾਲ ਹਵਾ ਅੰਦਰ-ਬਾਹਰ ਜਾਂਦੀ ਹੈ। ਵਾਯੂਕੋਸ਼ਾਂ ਦੀਆਂ ਕੰਧਾਂ ਰਾਹੀਂ ਗੈਸਾਂ ਦੀ ਅਦਲਾ-ਬਦਲੀ ਹੁੰਦੀ ਹੈ: ਆਕਸੀਜਨ ਖੂਨ ਵਿੱਚ ਅਤੇ ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ ਵਾਯੂਕੋਸ਼ਾਂ ਵਿੱਚ ਜਾਂਦੀ ਹੈ। ਕੋਸ਼ਿਕਾਈ ਸ਼ਵਾਸ ਕਿਰਿਆ ਸਰੀਰ ਦੇ ਕੋਸ਼ਾਂ ਵਿੱਚ ਹੁੰਦੀ ਹੈ।",
       "class": 9
     },
     {
