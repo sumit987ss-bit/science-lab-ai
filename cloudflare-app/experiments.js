@@ -857,13 +857,13 @@ window.LAB_DATA = {
       "class": 7
     },
     {
-      "title": "Disease-causing Microbes (Pathogens)",
-      "title_pa": "ਰੋਗ ਪੈਦਾ ਕਰਨ ਵਾਲੇ ਸੂਖਮ ਜੀਵ (ਰੋਗਕਾਰਕ)",
-      "aim": "Compare useful microbes in food production with microbes that can cause disease.",
-      "aim_pa": "ਭੋਜਨ ਬਣਾਉਣ ਵਾਲੇ ਲਾਭਦਾਇਕ ਸੂਖਮ ਜੀਵਾਂ ਅਤੇ ਰੋਗ ਪੈਦਾ ਕਰ ਸਕਣ ਵਾਲਿਆਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+      "title": "Helpful and Harmful Microorganisms",
+      "title_pa": "ਲਾਭਦਾਇਕ ਅਤੇ ਹਾਨੀਕਾਰਕ ਸੂਖਮ ਜੀਵ",
+      "aim": "Explore useful microorganisms in food production and decomposition, and understand that some microbes can cause disease.",
+      "aim_pa": "ਭੋਜਨ ਬਣਾਉਣ ਅਤੇ ਵਿਘਟਨ ਵਿੱਚ ਲਾਭਦਾਇਕ ਸੂਖਮ ਜੀਵਾਂ ਦੀ ਭੂਮਿਕਾ ਅਤੇ ਕੁਝ ਸੂਖਮ ਜੀਵਾਂ ਦੇ ਰੋਗ ਪੈਦਾ ਕਰਨ ਬਾਰੇ ਜਾਣੋ।",
       "kind": "microbes",
-      "note": "Some microorganisms help make foods and decompose waste, while others can cause disease.",
-      "note_pa": "ਕੁਝ ਸੂਖਮ ਜੀਵ ਭੋਜਨ ਬਣਾਉਣ ਅਤੇ ਕਚਰਾ ਵਿਘਟਿਤ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ, ਜਦਕਿ ਹੋਰ ਰੋਗ ਪੈਦਾ ਕਰ ਸਕਦੇ ਹਨ।",
+      "note": "Microorganisms can be helpful (such as yeast in bread and Lactobacillus in curd) or harmful (some cause diseases).",
+      "note_pa": "ਸੂਖਮ ਜੀਵ ਲਾਭਦਾਇਕ (ਜਿਵੇਂ ਡਬਲ ਰੋਟੀ ਲਈ ਖਮੀਰ ਅਤੇ ਦਹੀਂ ਲਈ ਲੈਕਟੋਬੈਸਿਲਸ) ਜਾਂ ਹਾਨੀਕਾਰਕ (ਕੁਝ ਰੋਗ ਪੈਦਾ ਕਰਦੇ ਹਨ) ਹੋ ਸਕਦੇ ਹਨ।",
       "class": 8
     },
     {
@@ -877,13 +877,13 @@ window.LAB_DATA = {
       "class": 8
     },
     {
-      "title": "Disease-causing Microbes (Pathogens)",
+      "title": "Disease-causing Microorganisms (Pathogens)",
       "title_pa": "ਰੋਗ ਪੈਦਾ ਕਰਨ ਵਾਲੇ ਸੂਖਮ ਜੀਵ (ਰੋਗਕਾਰਕ)",
-      "aim": "Match common cell structures with their functions.",
-      "aim_pa": "ਕੋਸ਼ਿਕਾ ਦੀਆਂ ਬਣਤਰਾਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੇ ਕੰਮਾਂ ਨਾਲ ਜੋੜੋ।",
-      "kind": "organelles",
-      "note": "Cell organelles perform specialised jobs such as controlling activities, producing energy and making or transporting materials.",
-      "note_pa": "ਕੋਸ਼ਿਕਾ ਦੇ ਅੰਗਕ ਨਿਯੰਤਰਣ, ਊਰਜਾ ਉਤਪਾਦਨ ਅਤੇ ਪਦਾਰਥ ਬਣਾਉਣ ਜਾਂ ਲਿਜਾਣ ਵਰਗੇ ਖਾਸ ਕੰਮ ਕਰਦੇ ਹਨ।",
+      "aim": "Explore viruses, bacteria, fungi, protozoa and algae, and learn about diseases or health conditions associated with them.",
+      "aim_pa": "ਵਾਇਰਸ, ਬੈਕਟੀਰੀਆ, ਫੰਗਸ, ਪ੍ਰੋਟੋਜ਼ੋਆ ਅਤੇ ਐਲਗੀ ਬਾਰੇ ਜਾਣੋ ਅਤੇ ਉਨ੍ਹਾਂ ਨਾਲ ਜੁੜੀਆਂ ਬਿਮਾਰੀਆਂ ਜਾਂ ਸਿਹਤ ਸਮੱਸਿਆਵਾਂ ਸਮਝੋ।",
+      "kind": "pathogens",
+      "note": "Selecting each group shows an illustration and examples of associated diseases or conditions. Algae are not typical human pathogens, but harmful blooms can produce toxins.",
+      "note_pa": "ਹਰ ਸਮੂਹ ਚੁਣਨ ਤੇ ਚਿੱਤਰ ਅਤੇ ਸੰਬੰਧਿਤ ਬਿਮਾਰੀਆਂ ਜਾਂ ਸਿਹਤ ਸਮੱਸਿਆਵਾਂ ਦਿਖਾਈਆਂ ਜਾਂਦੀਆਂ ਹਨ। ਐਲਗੀ ਆਮ ਮਨੁੱਖੀ ਰੋਗਕਾਰਕ ਨਹੀਂ, ਪਰ ਹਾਨੀਕਾਰਕ ਫੁੱਲਣ ਨਾਲ ਜ਼ਹਿਰੀਲੇ ਪਦਾਰਥ ਬਣ ਸਕਦੇ ਹਨ।",
       "class": 8
     },
     {
