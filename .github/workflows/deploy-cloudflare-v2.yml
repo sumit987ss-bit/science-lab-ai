@@ -38,3 +38,40 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           npx --yes wrangler@4 pages deploy . --project-name pocket-science-lab-v2 --branch render-migration
+
+      - name: Install browser smoke-test dependency
+        working-directory: cloudflare-app
+        run: npm install --no-save playwright
+
+      - name: Verify all four Class 8 Biology experiments on the live site
+        working-directory: cloudflare-app
+        run: |
+          npx playwright install --with-deps chromium
+          node --input-type=module <<'NODE'
+          import { chromium } from "playwright";
+          const browser = await chromium.launch({ headless: true });
+          try {
+            const page = await browser.newPage();
+            page.on("pageerror", error => console.error("Browser page error:", error.message));
+            await page.goto("https://pocket-science-lab-v2.pages.dev/", { waitUntil: "networkidle" });
+            await page.locator('[data-lab="biology"]').click();
+            await page.locator("#cl").selectOption("8");
+            const expected = [
+              "Helpful and Harmful Microorganisms",
+              "Stages of Agriculture",
+              "Disease-causing microbes / Pathogens",
+              "Rabi and Kharif Crops"
+            ];
+            for (let i = 0; i < expected.length; i++) {
+              await page.locator("#ex").selectOption(String(i));
+              await page.waitForTimeout(250);
+              const screen = await page.locator("#app").innerText();
+              if (!screen.includes(expected[i])) {
+                throw new Error(`Class 8 Biology experiment ${i + 1} did not render. Expected "${expected[i]}". Screen begins: ${screen.slice(0, 700)}`);
+              }
+              console.log(`PASS: Class 8 Biology Experiment ${i + 1} — ${expected[i]}`);
+            }
+          } finally {
+            await browser.close();
+          }
+          NODE
