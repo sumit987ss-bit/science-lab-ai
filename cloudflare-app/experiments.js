@@ -947,12 +947,12 @@ window.LAB_DATA = {
       "class": 9
     },
     {
-      "title": "Nutrition in Humans",
-      "title_pa": "ਮਨੁੱਖਾਂ ਵਿੱਚ ਪੋਸ਼ਣ",
-      "aim": "Explore ingestion, digestion, absorption and assimilation.",
-      "aim_pa": "ਭੋਜਨ ਗ੍ਰਹਿਣ, ਪਚਣ, ਅਵਸ਼ੋਸ਼ਣ ਅਤੇ ਅੰਗੀਕਰਨ ਨੂੰ ਸਮਝੋ।",
-      "kind": "digestion",
-      "note": "Digestion breaks complex food into simpler soluble substances that can be absorbed by the body.",
+      "title": "Digestion in Humans",
+      "title_pa": "ਮਨੁੱਖਾਂ ਵਿੱਚ ਭੋਜਨ ਦਾ ਪਚਣ",
+      "aim": "Explore mechanical and chemical digestion, digestive juices and enzymes, and absorption of nutrients in the human digestive system.",
+      "aim_pa": "ਮਨੁੱਖੀ ਪਚਨ ਤੰਤਰ ਵਿੱਚ ਮਕੈਨੀਕੀ ਅਤੇ ਰਸਾਇਣਕ ਪਚਣ, ਪਚਨ ਰਸਾਂ, ਐਂਜ਼ਾਈਮਾਂ ਅਤੇ ਪੋਸ਼ਕ ਤੱਤਾਂ ਦੇ ਅਵਸ਼ੋਸ਼ਣ ਨੂੰ ਸਮਝੋ।",
+      "kind": "human_digestion",
+      "note": "Salivary amylase begins starch digestion; gastric acid and pepsin act in the stomach; bile emulsifies fats; pancreatic and intestinal enzymes complete digestion. Villi absorb nutrients.",
       "note_pa": "ਪਚਣ ਨਾਲ ਜਟਿਲ ਭੋਜਨ ਸਧਾਰਨ ਘੁਲਣਸ਼ੀਲ ਪਦਾਰਥਾਂ ਵਿੱਚ ਟੁੱਟਦਾ ਹੈ ਜਿਨ੍ਹਾਂ ਨੂੰ ਸਰੀਰ ਜਜ਼ਬ ਕਰ ਸਕਦਾ ਹੈ।",
       "class": 10
     },
