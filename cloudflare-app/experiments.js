@@ -947,16 +947,6 @@ window.LAB_DATA = {
       "class": 9
     },
     {
-      "title": "Circulation in Humans",
-      "title_pa": "ਮਨੁੱਖਾਂ ਵਿੱਚ ਖੂਨ ਦਾ ਸੰਚਾਰ",
-      "aim": "Follow blood between the heart, lungs and body.",
-      "aim_pa": "ਦਿਲ, ਫੇਫੜਿਆਂ ਅਤੇ ਸਰੀਰ ਵਿਚਕਾਰ ਖੂਨ ਦਾ ਰਸਤਾ ਵੇਖੋ।",
-      "kind": "circulation",
-      "note": "The circulatory system transports oxygen, nutrients and wastes; arteries carry blood away from the heart and veins return it.",
-      "note_pa": "ਰਕਤ ਸੰਚਾਰ ਪ੍ਰਣਾਲੀ ਆਕਸੀਜਨ, ਪੋਸ਼ਕ ਤੱਤ ਅਤੇ ਕਚਰਾ ਲਿਜਾਂਦੀ ਹੈ; ਧਮਨੀਆਂ ਖੂਨ ਦਿਲ ਤੋਂ ਦੂਰ ਅਤੇ ਸ਼ਿਰਾਵਾਂ ਦਿਲ ਵੱਲ ਲਿਆਉਂਦੀਆਂ ਹਨ।",
-      "class": 9
-    },
-    {
       "title": "Nutrition in Humans",
       "title_pa": "ਮਨੁੱਖਾਂ ਵਿੱਚ ਪੋਸ਼ਣ",
       "aim": "Explore ingestion, digestion, absorption and assimilation.",
