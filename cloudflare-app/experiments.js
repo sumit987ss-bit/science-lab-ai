@@ -927,13 +927,13 @@ window.LAB_DATA = {
       "class": 9
     },
     {
-      "title": "Nutrition and Digestion",
-      "title_pa": "ਪੋਸ਼ਣ ਅਤੇ ਪਚਣ",
-      "aim": "Trace the pathway of food and the role of digestive organs.",
-      "aim_pa": "ਭੋਜਨ ਦੇ ਰਸਤੇ ਅਤੇ ਪਾਚਕ ਅੰਗਾਂ ਦੀ ਭੂਮਿਕਾ ਵੇਖੋ।",
-      "kind": "digestion",
-      "note": "Digestion breaks complex food into simpler soluble substances that can be absorbed by the body.",
-      "note_pa": "ਪਚਣ ਨਾਲ ਜਟਿਲ ਭੋਜਨ ਸਧਾਰਨ ਘੁਲਣਸ਼ੀਲ ਪਦਾਰਥਾਂ ਵਿੱਚ ਟੁੱਟਦਾ ਹੈ ਜਿਨ੍ਹਾਂ ਨੂੰ ਸਰੀਰ ਜਜ਼ਬ ਕਰ ਸਕਦਾ ਹੈ।",
+      "title": "Working of Neuron",
+      "title_pa": "ਨਿਊਰਾਨ ਦੀ ਕਾਰਜ-ਪ੍ਰਣਾਲੀ",
+      "aim": "Identify the main parts of a neuron and explore how it receives and transmits nerve impulses.",
+      "aim_pa": "ਨਿਊਰਾਨ ਦੇ ਮੁੱਖ ਭਾਗ ਪਛਾਣੋ ਅਤੇ ਜਾਣੋ ਕਿ ਇਹ ਨਰਵ ਸੰਕੇਤ ਕਿਵੇਂ ਪ੍ਰਾਪਤ ਤੇ ਅੱਗੇ ਭੇਜਦਾ ਹੈ।",
+      "kind": "neuron",
+      "note": "Dendrites receive signals, the cell body contains the nucleus, the axon carries impulses away, myelin helps speed conduction, and axon terminals communicate with the next cell.",
+      "note_pa": "ਡੈਂਡਰਾਈਟਸ ਸੰਕੇਤ ਪ੍ਰਾਪਤ ਕਰਦੇ ਹਨ, ਕੋਸ਼ਿਕਾ ਦੇਹ ਵਿੱਚ ਕੇਂਦਰਕ ਹੁੰਦਾ ਹੈ, ਐਕਸਾਨ ਸੰਕੇਤ ਅੱਗੇ ਲੈ ਜਾਂਦਾ ਹੈ, ਮਾਇਲਿਨ ਗਤੀ ਵਧਾਉਂਦੀ ਹੈ ਅਤੇ ਐਕਸਾਨ ਦੇ ਅੰਤਲੇ ਸਿਰੇ ਅਗਲੀ ਕੋਸ਼ਿਕਾ ਨਾਲ ਸੰਚਾਰ ਕਰਦੇ ਹਨ।",
       "class": 9
     },
     {
