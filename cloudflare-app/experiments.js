@@ -897,16 +897,6 @@ window.LAB_DATA = {
       "class": 8
     },
     {
-      "title": "Ecosystem Relationships",
-      "title_pa": "ਪਰਿਸਥਿਤਕੀ ਤੰਤਰ ਦੇ ਸੰਬੰਧ",
-      "aim": "Observe producers, consumers and decomposers in an ecosystem.",
-      "aim_pa": "ਪਰਿਸਥਿਤਕੀ ਤੰਤਰ ਵਿੱਚ ਉਤਪਾਦਕਾਂ, ਖਪਤਕਾਰਾਂ ਅਤੇ ਵਿਘਟਕਾਂ ਨੂੰ ਵੇਖੋ।",
-      "kind": "ecosystem",
-      "note": "An ecosystem includes living organisms and non-living surroundings interacting through energy flow and nutrient cycling.",
-      "note_pa": "ਪਰਿਸਥਿਤਕੀ ਤੰਤਰ ਵਿੱਚ ਜੀਵ ਅਤੇ ਨਿਰਜੀਵ ਵਾਤਾਵਰਣ ਊਰਜਾ ਦੇ ਵਹਾਅ ਅਤੇ ਪੋਸ਼ਕ ਤੱਤਾਂ ਦੇ ਚੱਕਰ ਰਾਹੀਂ ਆਪਸ ਵਿੱਚ ਜੁੜੇ ਹੁੰਦੇ ਹਨ।",
-      "class": 8
-    },
-    {
       "title": "Plant and Animal Cells",
       "title_pa": "ਪੌਦਿਆਂ ਅਤੇ ਜਾਨਵਰਾਂ ਦੇ ਕੋਸ਼",
       "aim": "Compare plant and animal cells, identify their main structures and understand how their parts differ.",
