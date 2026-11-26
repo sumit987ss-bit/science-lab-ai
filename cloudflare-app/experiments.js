@@ -953,7 +953,7 @@ window.LAB_DATA = {
       "aim_pa": "ਮਨੁੱਖੀ ਪਚਨ ਤੰਤਰ ਵਿੱਚ ਮਕੈਨੀਕੀ ਅਤੇ ਰਸਾਇਣਕ ਪਚਣ, ਪਚਨ ਰਸਾਂ, ਐਂਜ਼ਾਈਮਾਂ ਅਤੇ ਪੋਸ਼ਕ ਤੱਤਾਂ ਦੇ ਅਵਸ਼ੋਸ਼ਣ ਨੂੰ ਸਮਝੋ।",
       "kind": "human_digestion",
       "note": "Salivary amylase begins starch digestion; gastric acid and pepsin act in the stomach; bile emulsifies fats; pancreatic and intestinal enzymes complete digestion. Villi absorb nutrients.",
-      "note_pa": "ਪਚਣ ਨਾਲ ਜਟਿਲ ਭੋਜਨ ਸਧਾਰਨ ਘੁਲਣਸ਼ੀਲ ਪਦਾਰਥਾਂ ਵਿੱਚ ਟੁੱਟਦਾ ਹੈ ਜਿਨ੍ਹਾਂ ਨੂੰ ਸਰੀਰ ਜਜ਼ਬ ਕਰ ਸਕਦਾ ਹੈ।",
+      "note_pa": "ਲਾਰ ਦਾ ਐਮਾਈਲੇਜ਼ ਸਟਾਰਚ ਦਾ ਪਚਣ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ; ਅਮਾਸ਼ੇ ਵਿੱਚ ਤੇਜ਼ਾਬ ਅਤੇ ਪੈਪਸਿਨ ਕੰਮ ਕਰਦੇ ਹਨ; ਪਿੱਤ ਚਰਬੀ ਦੀਆਂ ਬੂੰਦਾਂ ਛੋਟੀਆਂ ਕਰਦਾ ਹੈ; ਅਗਨਾਸ਼ੇ ਅਤੇ ਆਂਤ ਦੇ ਐਂਜ਼ਾਈਮ ਪਚਣ ਪੂਰਾ ਕਰਦੇ ਹਨ। ਵਿਲਾਈ ਪੋਸ਼ਕ ਤੱਤ ਜਜ਼ਬ ਕਰਦੀਆਂ ਹਨ।",
       "class": 10
     },
     {
