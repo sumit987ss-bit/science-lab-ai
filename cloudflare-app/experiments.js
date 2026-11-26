@@ -987,25 +987,6 @@ window.LAB_DATA = {
       "class": 10
     },,
 
-    {
-      "title": "Reproduction in Plants",
-      "title_pa": "ਪੌਦਿਆਂ ਵਿੱਚ ਪ੍ਰਜਨਨ",
-      "aim": "Model pollination, fertilisation and seed formation.",
-      "aim_pa": "ਪਰਾਗਣ, ਨਿਸ਼ੇਚਨ ਅਤੇ ਬੀਜ ਬਣਨ ਦਾ ਮਾਡਲ ਵੇਖੋ।",
-      "kind": "reproduction",
-      "note": "Flowering plants reproduce sexually through pollination and fertilisation, leading to seed formation.",
-      "note_pa": "ਫੁੱਲਦਾਰ ਪੌਦੇ ਪਰਾਗਣ ਅਤੇ ਨਿਸ਼ੇਚਨ ਰਾਹੀਂ ਲਿੰਗੀ ਪ੍ਰਜਨਨ ਕਰਦੇ ਹਨ, ਜਿਸ ਨਾਲ ਬੀਜ ਬਣਦੇ ਹਨ।",
-      "class": 10
-    },
-    {
-      "title": "Heredity and Variation",
-      "title_pa": "ਵੰਸ਼ਾਣੁਕਤਾ ਅਤੇ ਵੱਖਰਾਪਣ",
-      "aim": "Explore how inherited traits can resemble parents while variation remains.",
-      "aim_pa": "ਵਿਰਾਸਤੀ ਲੱਛਣ ਮਾਪਿਆਂ ਵਰਗੇ ਹੋ ਸਕਦੇ ਹਨ ਪਰ ਵੱਖਰਾਪਣ ਵੀ ਰਹਿੰਦਾ ਹੈ, ਸਮਝੋ।",
-      "kind": "heredity",
-      "note": "Heredity is the passing of genetic information from parents to offspring; variation makes individuals different.",
-      "note_pa": "ਵਿਰਾਸਤ ਮਾਪਿਆਂ ਤੋਂ ਸੰਤਾਨ ਤੱਕ ਜੈਨੇਟਿਕ ਜਾਣਕਾਰੀ ਦੇ ਸੰਚਾਰ ਨੂੰ ਕਹਿੰਦੇ ਹਨ; ਵੱਖਰਾਪਣ ਵਿਅਕਤੀਆਂ ਨੂੰ ਅਲੱਗ ਬਣਾਉਂਦਾ ਹੈ।",
-      "class": 10
-    }
-  ]
+    
+    ]
 };
