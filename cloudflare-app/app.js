@@ -3264,7 +3264,7 @@ if(installControl){
   window.addEventListener("appinstalled",()=>{installControl.hidden=true;deferredInstallPrompt=null;});
 }
 $("#languageToggle").onclick=()=>{lang=lang==="en"?"pa":"en";document.documentElement.lang=lang==="pa"?"pa":"en";$("#languageToggle").textContent=lang==="en"?"ਪੰਜਾਬੀ":"English";lab?draw():home()};
-if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?release=41",{updateViaCache:"none"}).then(reg=>reg.update()).catch(()=>{}));
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?release=42",{updateViaCache:"none"}).then(reg=>reg.update()).catch(()=>{}));
 // Capture Class 8 Biology experiment changes at the document level.
  // This is the single authoritative selector handler for all four dedicated labs;
  // it runs before per-screen handlers and dispatches the exact selected catalogue row.
