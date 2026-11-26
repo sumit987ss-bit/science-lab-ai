@@ -13,9 +13,9 @@
 </head>
 <body class="welcome-mode">
   <section id="welcomeScreen" class="welcome-screen" aria-label="Welcome to Pocket Science Lab">
-    <div class="welcome-stars" aria-hidden="true"></div>
+    <div class="welcome-apparatus" aria-hidden="true"><span class="apparatus beaker">⚗️</span><span class="apparatus microscope">🔬</span><span class="apparatus flask">🧪</span><span class="apparatus atom">⚛️</span><span class="apparatus dna">🧬</span><span class="apparatus bolt">⚡</span></div>
     <div class="welcome-content">
-      <div class="welcome-emblem" aria-hidden="true"><span>⚛</span><i>✦</i></div>
+      <div class="welcome-emblem" aria-hidden="true"><span>SCIENCE • 6–10</span><b>THE WORLD OF DISCOVERY</b></div>
       <p class="welcome-kicker">DISCOVER · EXPLORE · EXPERIMENT</p>
       <h1>WELCOME TO<br><span>POCKET</span> SCIENCE LAB</h1>
       <p class="welcome-subtitle">Where curiosity becomes discovery.</p>
@@ -27,7 +27,7 @@
   </section>
   <header class="topbar">
     <a class="brand" href="./" aria-label="POCKET Science Lab home">
-      <img src="./icons/pocket-science-lab.svg" alt="" class="brand-icon">
+      <span class="brand-icon-text" aria-hidden="true">⚛</span>
       <span><strong>POCKET</strong><small>SCIENCE LAB</small></span>
     </a>
     <div class="top-actions">
@@ -64,12 +64,9 @@
   <script src="./experiments.js" defer></script>
   <script src="./app.js" defer></script>
   <script>
-    document.getElementById("enterScienceLab").addEventListener("click",function(){
-      document.body.classList.remove("welcome-mode");
-      document.getElementById("welcomeScreen").classList.add("welcome-leaving");
-      window.setTimeout(function(){document.getElementById("welcomeScreen").remove();},260);
-      window.scrollTo(0,0);
-    });
+    function enterLabNow(){var welcome=document.getElementById("welcomeScreen");document.body.classList.remove("welcome-mode");if(welcome)welcome.remove();window.scrollTo(0,0);}
+    document.getElementById("enterScienceLab").addEventListener("click",enterLabNow);
+    document.getElementById("enterScienceLab").addEventListener("touchend",function(e){e.preventDefault();enterLabNow();},{passive:false});
   </script>
 </body>
 </html>
