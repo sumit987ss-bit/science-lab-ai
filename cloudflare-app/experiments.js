@@ -917,6 +917,16 @@ window.LAB_DATA = {
       "class": 9
     },
     {
+      "title": "Transportation in Plants",
+      "title_pa": "ਪੌਦਿਆਂ ਵਿੱਚ ਪਦਾਰਥਾਂ ਦੀ ਆਵਾਜਾਈ",
+      "aim": "Observe how xylem transports water and minerals from roots to leaves and how phloem transports sugars from source leaves to growing and storage tissues.",
+      "aim_pa": "ਵੇਖੋ ਕਿ ਜ਼ਾਈਲਮ ਜੜ੍ਹਾਂ ਤੋਂ ਪੱਤਿਆਂ ਤੱਕ ਪਾਣੀ ਅਤੇ ਖਣਿਜ ਲੈ ਜਾਂਦਾ ਹੈ ਅਤੇ ਫਲੋਐਮ ਪੱਤਿਆਂ ਵਿੱਚ ਬਣੀ ਸ਼ੱਕਰ ਨੂੰ ਵਧਦੇ ਅਤੇ ਭੰਡਾਰ ਕਰਨ ਵਾਲੇ ਹਿੱਸਿਆਂ ਤੱਕ ਪਹੁੰਚਾਉਂਦਾ ਹੈ।",
+      "kind": "plant_transport",
+      "note": "Xylem mainly transports water and mineral ions upward. Phloem transports sugars from source regions to sink regions and flow may be in different directions in different sieve tubes.",
+      "note_pa": "ਜ਼ਾਈਲਮ ਮੁੱਖ ਤੌਰ ਤੇ ਪਾਣੀ ਅਤੇ ਖਣਿਜ ਆਇਨਾਂ ਨੂੰ ਉੱਪਰ ਲੈ ਜਾਂਦਾ ਹੈ। ਫਲੋਐਮ ਸ਼ੱਕਰ ਨੂੰ ਸਰੋਤ ਤੋਂ ਲੋੜ/ਭੰਡਾਰ ਵਾਲੇ ਸਥਾਨਾਂ ਤੱਕ ਪਹੁੰਚਾਉਂਦਾ ਹੈ ਅਤੇ ਵੱਖ-ਵੱਖ ਨਲੀਆਂ ਵਿੱਚ ਗਤੀ ਵੱਖ ਦਿਸ਼ਾਵਾਂ ਵਿੱਚ ਹੋ ਸਕਦੀ ਹੈ।",
+      "class": 9
+    },
+    {
       "title": "Nutrition and Digestion",
       "title_pa": "ਪੋਸ਼ਣ ਅਤੇ ਪਚਣ",
       "aim": "Trace the pathway of food and the role of digestive organs.",
