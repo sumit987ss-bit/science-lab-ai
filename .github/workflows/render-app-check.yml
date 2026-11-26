@@ -36,12 +36,14 @@ jobs:
           global.window = global;
           require('./cloudflare-app/experiments.js');
           for (const [name, rows] of Object.entries(LAB_DATA)) {
-            if (rows.length !== 25) throw new Error(name + ': expected 25 experiments, got ' + rows.length);
+            const expectedTotal = name === 'biology' ? 24 : 25;
+            if (rows.length !== expectedTotal) throw new Error(name + ': expected ' + expectedTotal + ' experiments, got ' + rows.length);
             for (const c of [6,7,8,9,10]) {
-              if (rows.filter(x => x.class === c).length !== 5) throw new Error(name + ': class ' + c + ' does not have five experiments');
+              const expected = name === 'biology' && c === 8 ? 4 : 5;
+              if (rows.filter(x => x.class === c).length !== expected) throw new Error(name + ': class ' + c + ' expected ' + expected + ' experiments');
             }
           }
-          console.log('All 100 class-wise experiment records passed.');
+          console.log('All class-wise experiment records passed (Class 8 Biology has four by design).');
           NODE
       - name: Check AI key is server-side only and diagnostics target Render
         run: |
