@@ -867,8 +867,8 @@ window.LAB_DATA = {
       "class": 8
     },
     {
-      "title": "Crop Growth and Plant Health",
-      "title_pa": "ਫ਼ਸਲ ਦਾ ਵਾਧਾ ਅਤੇ ਪੌਦਿਆਂ ਦੀ ਸਿਹਤ",
+      "title": "Stages of Agriculture",
+      "title_pa": "ਖੇਤੀਬਾੜੀ ਦੇ ਪੜਾਅ",
       "aim": "Explore healthy crop conditions and the roles of soil, water and nutrients.",
       "aim_pa": "ਮਿੱਟੀ, ਪਾਣੀ ਅਤੇ ਪੋਸ਼ਕ ਤੱਤਾਂ ਦੀ ਫ਼ਸਲ ਦੇ ਵਾਧੇ ਵਿੱਚ ਭੂਮਿਕਾ ਜਾਣੋ।",
       "kind": "crop",
