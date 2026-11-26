@@ -955,6 +955,16 @@ window.LAB_DATA = {
       "note": "Salivary amylase begins starch digestion; gastric acid and pepsin act in the stomach; bile emulsifies fats; pancreatic and intestinal enzymes complete digestion. Villi absorb nutrients.",
       "note_pa": "ਲਾਰ ਦਾ ਐਮਾਈਲੇਜ਼ ਸਟਾਰਚ ਦਾ ਪਚਣ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ; ਅਮਾਸ਼ੇ ਵਿੱਚ ਤੇਜ਼ਾਬ ਅਤੇ ਪੈਪਸਿਨ ਕੰਮ ਕਰਦੇ ਹਨ; ਪਿੱਤ ਚਰਬੀ ਦੀਆਂ ਬੂੰਦਾਂ ਛੋਟੀਆਂ ਕਰਦਾ ਹੈ; ਅਗਨਾਸ਼ੇ ਅਤੇ ਆਂਤ ਦੇ ਐਂਜ਼ਾਈਮ ਪਚਣ ਪੂਰਾ ਕਰਦੇ ਹਨ। ਵਿਲਾਈ ਪੋਸ਼ਕ ਤੱਤ ਜਜ਼ਬ ਕਰਦੀਆਂ ਹਨ।",
       "class": 10
+    },,
+    {
+      "title": "Circulatory System in Humans",
+      "title_pa": "ਮਨੁੱਖਾਂ ਵਿੱਚ ਖੂਨ ਸੰਚਾਰ ਪ੍ਰਣਾਲੀ",
+      "aim": "Observe the four chambers of the heart, coordinated pumping, valves, and the flow of oxygen-poor and oxygen-rich blood through pulmonary and systemic circulation.",
+      "aim_pa": "ਦਿਲ ਦੇ ਚਾਰ ਖਾਨਿਆਂ, ਤਾਲਮੇਲ ਵਾਲੀ ਪੰਪ ਕਿਰਿਆ, ਵਾਲਵਾਂ ਅਤੇ ਫੇਫੜੀ ਤੇ ਸਰੀਰਕ ਖੂਨ ਸੰਚਾਰ ਵਿੱਚ ਆਕਸੀਜਨ ਘੱਟ ਅਤੇ ਵੱਧ ਵਾਲੇ ਖੂਨ ਦਾ ਵਹਾਅ ਵੇਖੋ।",
+      "kind": "human_circulation",
+      "note": "The right atrium and ventricle receive and pump oxygen-poor blood to the lungs. Pulmonary veins return oxygen-rich blood to the left atrium; the left ventricle pumps it through the aorta to the body. Valves prevent backflow.",
+      "note_pa": "ਸੱਜਾ ਅਲਿੰਦ ਅਤੇ ਨਿਲਯ ਆਕਸੀਜਨ ਘੱਟ ਖੂਨ ਲੈ ਕੇ ਫੇਫੜਿਆਂ ਵੱਲ ਪੰਪ ਕਰਦੇ ਹਨ। ਫੇਫੜੀ ਸ਼ਿਰਾਵਾਂ ਆਕਸੀਜਨ ਭਰਪੂਰ ਖੂਨ ਖੱਬੇ ਅਲਿੰਦ ਵਿੱਚ ਲਿਆਉਂਦੀਆਂ ਹਨ; ਖੱਬਾ ਨਿਲਯ ਇਸਨੂੰ ਮਹਾਧਮਨੀ ਰਾਹੀਂ ਸਰੀਰ ਵੱਲ ਪੰਪ ਕਰਦਾ ਹੈ। ਵਾਲਵ ਖੂਨ ਨੂੰ ਪਿੱਛੇ ਮੁੜਨ ਤੋਂ ਰੋਕਦੇ ਹਨ।",
+      "class": 10
     },
     {
       "title": "Respiration and Gas Exchange",
