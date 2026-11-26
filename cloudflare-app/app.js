@@ -3264,7 +3264,7 @@ if(installControl){
   window.addEventListener("appinstalled",()=>{installControl.hidden=true;deferredInstallPrompt=null;});
 }
 $("#languageToggle").onclick=()=>{lang=lang==="en"?"pa":"en";document.documentElement.lang=lang==="pa"?"pa":"en";$("#languageToggle").textContent=lang==="en"?"ਪੰਜਾਬੀ":"English";lab?draw():home()};
-if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?release=42",{updateViaCache:"none"}).then(reg=>reg.update()).catch(()=>{}));
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?release=43",{updateViaCache:"none"}).then(reg=>reg.update()).catch(()=>{}));
 // Capture Class 8 Biology experiment changes at the document level.
  // This is the single authoritative selector handler for all four dedicated labs;
  // it runs before per-screen handlers and dispatches the exact selected catalogue row.
@@ -3287,6 +3287,31 @@ if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.ser
   }
  },true);
 home();
+
+/* Reliable welcome-screen exit: run after the main app has initialized. */
+window.enterScienceLabNow=function(){
+  const welcome=document.getElementById("welcomeScreen");
+  document.body.classList.remove("welcome-mode");
+  if(welcome)welcome.remove();
+  const appRoot=document.getElementById("app");
+  if(appRoot){appRoot.hidden=false;appRoot.style.removeProperty("display");}
+  home();
+  window.scrollTo({top:0,left:0,behavior:"instant"});
+};
+document.addEventListener("click",function(event){
+  const button=event.target&&event.target.closest&&event.target.closest("#enterScienceLab");
+  if(!button)return;
+  event.preventDefault();
+  event.stopPropagation();
+  window.enterScienceLabNow();
+},true);
+document.addEventListener("pointerup",function(event){
+  const button=event.target&&event.target.closest&&event.target.closest("#enterScienceLab");
+  if(!button)return;
+  event.preventDefault();
+  window.enterScienceLabNow();
+},true);
+
 
  /* deployment refresh: Class 6 Biology Experiment 1 food nutrient test */
 
