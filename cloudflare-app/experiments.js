@@ -877,8 +877,8 @@ window.LAB_DATA = {
       "class": 8
     },
     {
-      "title": "Cell Organelles and Their Jobs",
-      "title_pa": "ਕੋਸ਼ਿਕਾ ਦੇ ਅੰਗ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ",
+      "title": "Disease-causing Microbes (Pathogens)",
+      "title_pa": "ਰੋਗ ਪੈਦਾ ਕਰਨ ਵਾਲੇ ਸੂਖਮ ਜੀਵ (ਰੋਗਕਾਰਕ)",
       "aim": "Match common cell structures with their functions.",
       "aim_pa": "ਕੋਸ਼ਿਕਾ ਦੀਆਂ ਬਣਤਰਾਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੇ ਕੰਮਾਂ ਨਾਲ ਜੋੜੋ।",
       "kind": "organelles",
