@@ -2389,7 +2389,7 @@ function class9CellStructureLab(){
   ["4","Nucleus","ਕੇਂਦਰਕ","#7c3aed"],
   ["5","Nucleolus","ਕੇਂਦਰਿਕਾ","#6d28d9"],
   ["6","Large central vacuole","ਵੱਡੀ ਕੇਂਦਰੀ ਰਸਧਾਨੀ","#0284c7"],
-  ["7","Chloroplasts","ਹਰਿਤਲਵਕ","#15803d"],
+  ["7","Chloroplasts (plastids)","ਹਰਿਤਲਵਕ (ਪਲਾਸਟਿਡ)","#15803d"],
   ["8","Mitochondrion","ਮਾਈਟੋਕਾਂਡਰੀਆ","#c2410c"],
   ["9","Rough ER + ribosomes","ਖੁਰਦਰੀ ਅੰਤਃਪ੍ਰਦ੍ਰਵ ਜਾਲਿਕਾ + ਰਾਈਬੋਸੋਮ","#9333ea"],
   ["10","Smooth ER","ਮੁਲਾਇਮ ਅੰਤਃਪ੍ਰਦ੍ਰਵ ਜਾਲਿਕਾ","#a16207"],
@@ -2429,7 +2429,7 @@ function class9CellStructureLab(){
    '<g fill="none" stroke="#c0841a" stroke-width="6" stroke-linecap="round"><path d="M155 225q25 -25 48 0t45 0 M160 240q25 -25 48 0t45 0"/></g>'+
    '<g fill="none" stroke="#be185d" stroke-width="7" stroke-linecap="round"><path d="M105 215q25 -15 45 0t40 0 M105 229q25 -15 45 0t40 0 M105 243q25 -15 45 0t40 0"/></g>'+
    '<g fill="#334155"><circle cx="270" cy="115" r="5"/><circle cx="292" cy="160" r="5"/><circle cx="185" cy="330" r="5"/><circle cx="165" cy="350" r="5"/><circle cx="300" cy="145" r="5"/></g>'+
-   marker("1",38,245,"#237a45")+marker("2",60,270,"#0f766e")+marker("3",300,80,"#d97706")+marker("4",142,165,"#7c3aed")+marker("5",142,165,"#6d28d9")+marker("6",340,285,"#0284c7")+marker("7",390,112,"#15803d")+marker("8",135,280,"#c2410c")+marker("9",225,140,"#9333ea")+marker("10",185,232,"#a16207")+marker("11",150,230,"#be185d")+marker("12",270,115,"#334155");
+   marker("1",38,245,"#237a45")+marker("2",60,270,"#0f766e")+marker("3",300,80,"#d97706")+marker("4",105,135,"#7c3aed")+marker("5",142,165,"#6d28d9")+marker("6",340,285,"#0284c7")+marker("7",390,112,"#15803d")+marker("8",135,280,"#c2410c")+marker("9",225,140,"#9333ea")+marker("10",185,232,"#a16207")+marker("11",150,230,"#be185d")+marker("12",270,115,"#334155");
  }else{
   drawing='<path d="M290 48 C420 48 525 130 525 250 C525 370 420 453 290 453 C160 453 55 370 55 250 C55 130 160 48 290 48Z" fill="#fce7ed" stroke="#0f766e" stroke-width="9"/>'+
    '<path d="M290 62 C410 62 510 140 510 250 C510 360 410 438 290 438 C170 438 70 360 70 250 C70 140 170 62 290 62Z" fill="#fff2f4" stroke="#f7b4c4" stroke-width="3"/>'+
@@ -2442,7 +2442,7 @@ function class9CellStructureLab(){
    '<g fill="#38bdf8" stroke="#0369a1" stroke-width="3"><circle cx="450" cy="245" r="17"/><circle cx="420" cy="285" r="12"/><circle cx="465" cy="305" r="10"/></g>'+
    '<g stroke="#475569" stroke-width="9" stroke-linecap="round"><path d="M330 335l35 35 M365 335l-35 35"/></g>'+
    '<g fill="#334155"><circle cx="290" cy="120" r="5"/><circle cx="310" cy="135" r="5"/><circle cx="280" cy="145" r="5"/><circle cx="180" cy="245" r="5"/><circle cx="165" cy="260" r="5"/><circle cx="270" cy="330" r="5"/></g>'+
-   marker("1",55,250,"#0f766e")+marker("2",300,80,"#d97706")+marker("3",240,205,"#7c3aed")+marker("4",240,205,"#6d28d9")+marker("5",390,145,"#c2410c")+marker("6",350,205,"#9333ea")+marker("7",220,295,"#a16207")+marker("8",155,160,"#be185d")+marker("9",450,245,"#0891b2")+marker("10",348,355,"#475569")+marker("11",290,120,"#334155");
+   marker("1",55,250,"#0f766e")+marker("2",300,80,"#d97706")+marker("3",200,170,"#7c3aed")+marker("4",240,205,"#6d28d9")+marker("5",390,145,"#c2410c")+marker("6",350,205,"#9333ea")+marker("7",220,295,"#a16207")+marker("8",155,160,"#be185d")+marker("9",450,245,"#0891b2")+marker("10",348,355,"#475569")+marker("11",290,120,"#334155");
  }
  const svg='<svg viewBox="0 0 920 510" role="img" aria-label="'+t(plant?"Detailed plant cell with labelled cell wall, plasma membrane and organelles":"Detailed animal cell with labelled plasma membrane and organelles",plant?"ਕੋਸ਼ਿਕਾ ਭਿੱਤ, ਕੋਸ਼ਿਕਾ ਝਿੱਲੀ ਅਤੇ ਅੰਗਕਾਂ ਵਾਲਾ ਪੌਦਾ ਕੋਸ਼":"ਕੋਸ਼ਿਕਾ ਝਿੱਲੀ ਅਤੇ ਅੰਗਕਾਂ ਵਾਲਾ ਜਾਨਵਰ ਕੋਸ਼")+'" style="width:100%;height:auto;display:block;background:#f8fbff;border-radius:14px"><rect x="8" y="8" width="904" height="494" rx="18" fill="#f8fbff"/><text x="285" y="30" text-anchor="middle" font-size="21" font-weight="1000" fill="#173b55">'+(plant?t("PLANT CELL","ਪੌਦਾ ਕੋਸ਼"):t("ANIMAL CELL","ਜਾਨਵਰ ਕੋਸ਼"))+'</text>'+drawing+'<rect x="565" y="48" width="340" height="435" rx="16" fill="#fff" stroke="#d5e2ec" stroke-width="2"/>'+labels.map((x,i)=>'<g transform="translate(0 '+(58+i*34)+' )"><circle cx="590" cy="0" r="12" fill="'+x[3]+'"/><text x="590" y="5" text-anchor="middle" font-size="12" font-weight="1000" fill="#fff">'+x[0]+'</text><text x="612" y="5" font-size="15" font-weight="850" fill="#173b55">'+t(x[1],x[2])+'</text></g>').join("")+'</svg>';
  const explanation=plant
