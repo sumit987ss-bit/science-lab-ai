@@ -857,8 +857,8 @@ window.LAB_DATA = {
       "class": 7
     },
     {
-      "title": "Helpful and Harmful Microorganisms",
-      "title_pa": "ਲਾਭਦਾਇਕ ਅਤੇ ਹਾਨੀਕਾਰਕ ਸੂਖਮ ਜੀਵ",
+      "title": "Disease-causing Microbes (Pathogens)",
+      "title_pa": "ਰੋਗ ਪੈਦਾ ਕਰਨ ਵਾਲੇ ਸੂਖਮ ਜੀਵ (ਰੋਗਕਾਰਕ)",
       "aim": "Compare useful microbes in food production with microbes that can cause disease.",
       "aim_pa": "ਭੋਜਨ ਬਣਾਉਣ ਵਾਲੇ ਲਾਭਦਾਇਕ ਸੂਖਮ ਜੀਵਾਂ ਅਤੇ ਰੋਗ ਪੈਦਾ ਕਰ ਸਕਣ ਵਾਲਿਆਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
       "kind": "microbes",
