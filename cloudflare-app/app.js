@@ -2995,9 +2995,30 @@ if(installControl){
 }
 $("#languageToggle").onclick=()=>{lang=lang==="en"?"pa":"en";document.documentElement.lang=lang==="pa"?"pa":"en";$("#languageToggle").textContent=lang==="en"?"ਪੰਜਾਬੀ":"English";lab?draw():home()};
 if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?release=36",{updateViaCache:"none"}).then(reg=>reg.update()).catch(()=>{}));
+// Capture Class 8 Biology experiment changes at the document level.
+ // This is the single authoritative selector handler for all four dedicated labs;
+ // it runs before per-screen handlers and dispatches the exact selected catalogue row.
+ document.addEventListener("change",event=>{
+  const target=event.target;
+  if(!target||target.id!=="ex"||lab!=="biology"||cls!==8)return;
+  const nextIndex=Number(target.value);
+  const experiments=LAB_DATA.biology.filter(record=>record.class===8);
+  const selected=experiments[nextIndex];
+  if(!Number.isInteger(nextIndex)||!selected)return;
+  event.stopImmediatePropagation();
+  exp=nextIndex;
+  choice="";
+  switch(selected.kind){
+   case "microbes": class8MicrobesLab(); break;
+   case "crop": class8AgricultureStagesLab(); break;
+   case "pathogens": class8PathogensLab(); break;
+   case "rabi_kharif": class8RabiKharifLab(); break;
+   default: draw();
+  }
+ },true);
 home();
 
-/* deployment refresh: Class 6 Biology Experiment 1 food nutrient test */
+ /* deployment refresh: Class 6 Biology Experiment 1 food nutrient test */
 
 /* deployment refresh: Class 6 Biology food sample dropdown population */
 
