@@ -967,13 +967,13 @@ window.LAB_DATA = {
       "class": 10
     },
     {
-      "title": "Respiration and Gas Exchange",
-      "title_pa": "ਸ਼ਵਾਸ ਕਿਰਿਆ ਅਤੇ ਗੈਸਾਂ ਦਾ ਆਦਾਨ-ਪ੍ਰਦਾਨ",
-      "aim": "Trace air into the lungs and oxygen transfer into the blood.",
-      "aim_pa": "ਫੇਫੜਿਆਂ ਤੱਕ ਹਵਾ ਅਤੇ ਖੂਨ ਵਿੱਚ ਆਕਸੀਜਨ ਦੇ ਜਾਣ ਦਾ ਰਸਤਾ ਵੇਖੋ।",
-      "kind": "respiration",
-      "note": "Cellular respiration releases usable energy from food molecules; it is different from the physical process of breathing.",
-      "note_pa": "ਕੋਸ਼ਿਕਾਈ ਸ਼ਵਾਸ ਕਿਰਿਆ ਭੋਜਨ ਦੇ ਅਣੂਆਂ ਤੋਂ ਵਰਤਣਯੋਗ ਊਰਜਾ ਛੱਡਦੀ ਹੈ; ਇਹ ਸਾਹ ਲੈਣ ਦੀ ਭੌਤਿਕ ਪ੍ਰਕਿਰਿਆ ਤੋਂ ਵੱਖਰੀ ਹੈ।",
+      "title": "Human Excretory System",
+      "title_pa": "ਮਨੁੱਖੀ ਨਿਕਾਸ ਪ੍ਰਣਾਲੀ",
+      "aim": "Explore the urinary organs, follow blood through the kidneys, observe nephron filtration and selective reabsorption, and trace urine out of the body.",
+      "aim_pa": "ਮੂਤਰ ਪ੍ਰਣਾਲੀ ਦੇ ਅੰਗਾਂ ਨੂੰ ਜਾਣੋ, ਗੁਰਦਿਆਂ ਵਿੱਚੋਂ ਖੂਨ ਦਾ ਰਸਤਾ, ਨੇਫਰੋਨ ਵਿੱਚ ਛਾਣਨ ਅਤੇ ਚੋਣਵੇਂ ਮੁੜ-ਅਵਸ਼ੋਸ਼ਣ ਨੂੰ ਵੇਖੋ ਅਤੇ ਪਿਸ਼ਾਬ ਦੇ ਨਿਕਾਸ ਨੂੰ ਸਮਝੋ।",
+      "kind": "human_excretory",
+      "note": "The kidneys filter blood plasma in nephrons. Useful substances and needed water are selectively reabsorbed; wastes and excess water form urine, which travels through the ureters to the bladder and leaves via the urethra.",
+      "note_pa": "ਗੁਰਦਿਆਂ ਦੇ ਨੇਫਰੋਨ ਖੂਨ ਦੇ ਪਲਾਜ਼ਮਾ ਨੂੰ ਛਾਣਦੇ ਹਨ। ਲਾਭਦਾਇਕ ਪਦਾਰਥ ਅਤੇ ਲੋੜੀਂਦਾ ਪਾਣੀ ਮੁੜ ਜਜ਼ਬ ਹੁੰਦੇ ਹਨ; ਫ਼ਜ਼ਲ ਪਦਾਰਥ ਅਤੇ ਵਾਧੂ ਪਾਣੀ ਪਿਸ਼ਾਬ ਬਣਾਉਂਦੇ ਹਨ, ਜੋ ਮੂਤਰ-ਨਲੀਆਂ ਰਾਹੀਂ ਮੂਤਰਾਸ਼ੇ ਵਿੱਚ ਜਾਂਦਾ ਅਤੇ ਮੂਤਰ-ਮਾਰਗ ਰਾਹੀਂ ਬਾਹਰ ਨਿਕਲਦਾ ਹੈ।",
       "class": 10
     },
     {
