@@ -385,35 +385,32 @@
 @media(max-width:560px){.c10-ohm-graph{padding:3px}.c10-ohm-graph-key{font-size:11px}}
 
 
-/* Rectangular, colourful science welcome screen */
-body.welcome-mode{overflow:hidden;min-height:100svh}
+
+/* Reference-matched Pocket Science Lab welcome page */
+body.welcome-mode{overflow:hidden;min-height:100svh;background:#f7fafc}
 body.welcome-mode>.topbar,body.welcome-mode>#app{display:none!important}
-.welcome-screen{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;overflow:hidden;padding:12px;background:linear-gradient(125deg,#061a3b 0%,#123e69 38%,#075b69 72%,#08223e 100%);isolation:isolate}
-.welcome-screen:before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 0 35%,#4de1d015 35% 36%,transparent 36% 65%,#f9c74f12 65% 66%,transparent 66%);pointer-events:none}
-.welcome-content{width:min(100%,620px);max-height:calc(100svh - 24px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:clamp(6px,1.35svh,13px);padding:clamp(14px,2.7svh,25px) clamp(14px,4vw,30px);position:relative;border:2px solid #8cefe6;background:linear-gradient(145deg,#0a2d50ed,#073b55eF 55%,#102b51f5);box-shadow:0 0 0 5px #ffffff0b,0 18px 65px #0008,inset 0 0 45px #4ee9df18;border-radius:4px}
-.welcome-content:before,.welcome-content:after{content:"";position:absolute;width:12px;height:12px;background:#ffe082;box-shadow:0 0 16px #ffe082;top:10px}
-.welcome-content:before{left:10px}.welcome-content:after{right:10px}
-.welcome-emblem{display:grid;gap:4px;padding:7px 18px;border:1px solid #6de8df;background:#0b5264;color:#baffef;border-radius:2px;box-shadow:0 0 24px #29d6c955}
-.welcome-emblem span{font-size:clamp(9px,1.5svh,12px);font-weight:950;letter-spacing:.2em}
-.welcome-emblem b{font-size:clamp(10px,1.7svh,13px);letter-spacing:.13em;color:#ffe58c}
-.welcome-kicker{margin:0;color:#ffda79;font-size:clamp(9px,1.5svh,12px);font-weight:950;letter-spacing:.22em}
-.welcome-content h1{font-size:clamp(29px,6.4vw,53px);line-height:1.02;letter-spacing:.015em;margin:0;color:#fff;text-shadow:0 4px 22px #0008}
-.welcome-content h1 span{color:#65f2d0;text-shadow:0 0 22px #4cebd488}
-.welcome-subtitle{margin:0;color:#d1f6ff;font-size:clamp(13px,2vw,17px);font-weight:650}
-.welcome-visuals{display:flex;justify-content:center;gap:clamp(8px,2vw,14px);margin:2px 0}
-.welcome-visuals span{width:clamp(37px,6svh,52px);height:clamp(37px,6svh,52px);display:grid;place-items:center;border-radius:3px;background:linear-gradient(145deg,#ffffff20,#26c6da24);border:1px solid #a5f3fc88;font-size:clamp(19px,3.5svh,27px);box-shadow:0 7px 20px #0003}
-.welcome-credit{display:grid;gap:3px;padding:clamp(8px,1.6svh,13px) 20px;border:1px solid #f5d77b88;width:min(100%,390px);background:linear-gradient(90deg,#123d55,#15526a,#123d55);border-radius:2px}
-.welcome-credit small{font-size:10px;letter-spacing:.2em;color:#ffdf82;font-weight:950}
-.welcome-credit strong{font-size:clamp(16px,2.7vw,21px);color:#fff}
-.welcome-credit span{font-size:clamp(11px,1.8vw,13px);color:#d3f2fa}
-.enter-lab-button{width:min(100%,390px);min-height:clamp(49px,7.2svh,62px);border:2px solid #fff0a8;border-radius:3px;padding:10px 20px;background:linear-gradient(100deg,#f7b733,#ffe66d 48%,#67e8c5);color:#082b43;font-size:clamp(13px,2vw,16px);font-weight:1000;letter-spacing:.09em;box-shadow:0 8px 28px #ffc94d55,inset 0 1px #ffffffc9;cursor:pointer;touch-action:manipulation;position:relative;z-index:5}
-.enter-lab-button b{font-size:23px;margin-left:12px}.enter-lab-button:active{transform:scale(.985)}
-.welcome-footer{margin:0;color:#a9d9e8;font-size:clamp(8px,1.35svh,10px);font-weight:850;letter-spacing:.13em}
-.welcome-apparatus{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:-1}
-.apparatus{position:absolute;display:block;font-size:clamp(24px,5vw,48px);filter:drop-shadow(0 5px 10px #0008);opacity:.88;animation:apparatusFloat 5s ease-in-out infinite}
-.beaker{left:5%;top:14%;animation-delay:-1s}.microscope{right:5%;top:17%;animation-delay:-2.2s}.flask{left:7%;bottom:14%;animation-delay:-3.4s}.atom{right:7%;bottom:16%;animation-delay:-.7s}.dna{left:8%;top:48%;animation-delay:-2.8s}.bolt{right:9%;top:48%;animation-delay:-1.6s}
-@keyframes apparatusFloat{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-14px) rotate(6deg)}}
-.brand-icon-text{display:grid;place-items:center;width:36px;height:36px;border:1px solid #60d9d1;border-radius:3px;color:#67e8d4;font-size:27px;background:#0d334c}
-@media(max-height:650px){.welcome-content{gap:5px;padding:8px 13px}.welcome-emblem{padding:4px 12px}.welcome-content h1{font-size:clamp(25px,5vw,38px)}.welcome-visuals span{width:32px;height:32px}.welcome-credit{padding:6px 12px}.welcome-credit strong{font-size:15px}.welcome-subtitle{font-size:12px}.apparatus{font-size:25px}}
-@media(max-width:420px){.apparatus{opacity:.45}.welcome-content{padding-left:12px;padding-right:12px}}
-@media(prefers-reduced-motion:reduce){.apparatus{animation:none}}
+.welcome-screen{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:clamp(10px,2.4vw,24px);background:#f4f7fa}
+.welcome-card{width:min(100%,780px);height:min(100%,calc(100svh - 22px));overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;gap:clamp(6px,1.25svh,14px);padding:clamp(17px,3.5vw,34px);border-radius:clamp(20px,4vw,34px);background:linear-gradient(135deg,#092440 0%,#0d5268 55%,#087f79 100%);color:#f4fbff;box-shadow:0 18px 50px #09244030}
+.welcome-kicker{color:#a1f3df;font-size:clamp(9px,1.55svh,14px);font-weight:950;letter-spacing:.19em}
+.welcome-heading{display:flex;align-items:center;gap:clamp(14px,3.5vw,30px)}
+.welcome-logo{flex:0 0 clamp(68px,12svh,112px);height:clamp(68px,12svh,112px);display:grid;place-items:center;position:relative;border:2px solid #83d7e5aa;border-radius:50%;background:#ffffff12;font-size:clamp(38px,7svh,65px)}
+.welcome-logo i{position:absolute;right:2px;top:1px;font-size:22px;color:#ffdb61;font-style:normal}
+.welcome-heading h1{margin:0;font-size:clamp(34px,7vw,64px);font-weight:950;line-height:1.08;letter-spacing:-.025em;color:#fff}
+.welcome-tagline,.welcome-intro{margin:0;color:#d8f3fc;font-size:clamp(12px,2.1vw,20px);line-height:1.35}
+.welcome-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(6px,1.5vw,12px)}
+.welcome-tiles>div{min-width:0;min-height:clamp(60px,10.8svh,100px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:2px solid #a5d9e66b;border-radius:clamp(12px,2.2vw,20px);background:linear-gradient(145deg,#ffffff22,#ffffff0c);box-shadow:inset 0 1px #ffffff25}
+.tile-icon{font-size:clamp(25px,5svh,44px);line-height:1.15}
+.welcome-tiles b{font-size:clamp(10px,1.8vw,16px);font-weight:850;color:#f5fdff;text-align:center}
+.welcome-quote{margin:0;padding:clamp(10px,2vw,18px);display:grid;gap:4px;border-left:8px solid #75f0d0;border-radius:0 22px 22px 0;background:#003f4f88;color:#e6f9fc}
+.welcome-quote strong{font-size:clamp(12px,2.2vw,19px);line-height:1.3}
+.welcome-quote span{font-size:clamp(11px,2vw,17px);color:#b7f1e7}
+.welcome-quote small{font-size:clamp(11px,1.9vw,16px);color:#d6f1f6}
+.welcome-developer{display:grid;gap:2px;padding:clamp(7px,1.3svh,12px) 14px;border:1.5px solid #a5d9e680;border-radius:15px;background:#ffffff19;text-align:left}
+.welcome-developer small{color:#8df0d6;font-size:10px;font-weight:950;letter-spacing:.17em}
+.welcome-developer strong{font-size:clamp(15px,2.6vw,21px);color:#fff}
+.welcome-developer span{font-size:clamp(11px,1.8vw,14px);color:#d7f0f5}
+.enter-lab-button{flex:0 0 auto;width:100%;min-height:clamp(48px,7.5svh,68px);border:0;border-radius:18px;padding:10px 18px;background:linear-gradient(100deg,#c72f4a,#df4052);color:#fff;font-size:clamp(14px,2.2vw,20px);font-weight:850;letter-spacing:.035em;box-shadow:0 8px 22px #7d1c3555;cursor:pointer;touch-action:manipulation;position:relative;z-index:10000}
+.enter-lab-button b{font-size:24px;margin-left:8px}
+.enter-lab-button:active{filter:brightness(1.12);transform:scale(.99)}
+@media(max-height:690px){.welcome-card{gap:5px;padding:12px 16px}.welcome-logo{flex-basis:55px;height:55px;font-size:32px}.welcome-heading h1{font-size:clamp(28px,5.4vw,42px)}.welcome-tagline,.welcome-intro{font-size:12px}.welcome-tiles>div{min-height:49px}.tile-icon{font-size:24px}.welcome-quote{padding:7px 10px}.welcome-developer{padding:5px 10px}.enter-lab-button{min-height:43px}}
+@media(max-width:390px){.welcome-card{padding:13px;gap:7px}.welcome-heading{gap:12px}.welcome-heading h1{font-size:clamp(30px,8vw,39px)}.welcome-tiles{gap:5px}.welcome-tiles>div{min-height:58px}.welcome-tiles b{font-size:9px}.welcome-quote{border-left-width:5px}}
